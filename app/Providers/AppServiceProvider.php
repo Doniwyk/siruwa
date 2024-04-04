@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\PendudukContract;
+use App\Contracts\UserContract;
+use App\Services\PendudukService;
+use App\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -9,6 +13,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+
+    public array $singletons =[
+        UserContract::class => UserService::class
+    ];
+
+    public function provides():array{
+        return [UserContract::class];
+    }
     public function register(): void
     {
         //

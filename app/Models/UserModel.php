@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
-class Penduduk extends Model
+class UserModel extends Model
 {
     use HasFactory;
 
