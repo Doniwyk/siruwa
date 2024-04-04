@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class IuranSampah extends Model
+class IuranKematian extends Model
 {
     use HasFactory;
     
-    protected $table = 'iuran_sampah';
-    protected $primaryKey = 'id_iuran_sampah';
+    protected $table = 'iuran_kematian';
+    protected $primaryKey = 'id_iuran_kematian';
 
     protected $fillable = ['id_pembayaran', 'bulan', 'status'];
 
     public function pembayaran(): BelongsTo
     {
-        return $this->belongsTo(Pembayaran::class, 'id_pembayaran');
+        return $this->belongsTo(PaymentModel::class, 'id_pembayaran');
     }
+
+    
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Berita extends Model
+class NewsModel extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,7 @@ class Berita extends Model
 
     public function admin(): BelongsTo
     {
-        return $this->belongsTo(Admin::class, 'id_admin');
+        return $this->belongsTo(AdminModel::class, 'id_admin');
     }
 
 }

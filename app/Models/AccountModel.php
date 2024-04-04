@@ -17,10 +17,10 @@ class User extends Model
 
     public function admin(): HasMany
     {
-        return $this->hasMany(Admin::class);
+        return $this->hasMany(AdminModel::class);
     }
     public function penduduk(): HasMany
     {
-        return $this->hasMany(Penduduk::class);
+        return $this->hasMany(UserModel::class);
     }
 }

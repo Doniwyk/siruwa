@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Admin extends Model
+class AdminModel extends Model
 {
     use HasFactory;
 
@@ -22,7 +22,7 @@ class Admin extends Model
     }
     public function berita(): HasMany
     {
-        return $this->hasMany(Berita::class);
+        return $this->hasMany(NewsModel::class);
     }
     public function berita_acara(): HasMany
     {
@@ -30,6 +30,6 @@ class Admin extends Model
     }
     public function pembayaran(): HasMany
     {
-        return $this->hasMany(Pembayaran::class);
+        return $this->hasMany(PaymentModel::class);
     }
 }

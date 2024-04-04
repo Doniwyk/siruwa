@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Pembayaran extends Model
+class PaymentModel extends Model
 {
     use HasFactory;
     
@@ -18,11 +18,11 @@ class Pembayaran extends Model
 
     public function admin(): BelongsTo
     {
-        return $this->belongsTo(Admin::class, 'id_admin');
+        return $this->belongsTo(AdminModel::class, 'id_admin');
     }
     public function penduduk(): BelongsTo
     {
-        return $this->belongsTo(Penduduk::class, 'id_penduduk');
+        return $this->belongsTo(UserModel::class, 'id_penduduk');
     }
     public function iuran_kematian(): HasMany
     {

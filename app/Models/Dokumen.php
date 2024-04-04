@@ -17,6 +17,6 @@ class Dokumen extends Model
 
     public function penduduk(): BelongsTo
     {
-        return $this->belongsTo(Penduduk::class, 'id_penduduk');
+        return $this->belongsTo(UserModel::class, 'id_penduduk');
     }
 }

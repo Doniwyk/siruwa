@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Contracts\NewsContract;
+use App\Http\Requests\NewsRequest;
+use App\Models\NewsModel;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class NewsController extends Controller
+{
+    //
+    protected NewsContract $newsContract;
+
+    public function __construct(NewsContract $newsContract) {
+        $this->newsContract = $newsContract;
+    }
+
+    public function index(){
+        $news = NewsModel::all();
+        return view('news.index',compact('news'));
+        //jangan lupa menyesuaikan nama view
+    }
+
+    public function add(){
+        return view('news.add');
+        //jangan lupa menyesuaikan nama view
+    }
+
+    public function storeNews(NewsRequest $request):RedirectResponse{
+        $validated = $request->validated();
+        $this->newsContract->storeNews($validated);
+
+        return redirect()->route('news.index')->with('success', 'Berita berhasil ditambahkan.');    
+
+    }
+
+    public function editNews(NewsModel $news):View{
+        return view('news.edit', compact('news'));
+
+    }
+
+    public function updateNews(NewsRequest $request, NewsModel $news):RedirectResponse{
+        $validated = $request->validated();
+        $this->newsContract->updateNews($validated, $news);
+        
+        return redirect()->route('news.index')->with('success', 'Berita berhasil diperbarui.');    
+    }
+
+    public function deleteNews(NewsModel $news):RedirectResponse{
+        $this->newsContract->deleteNews($news);
+
+        return redirect()->route('news.index')->with('success', 'Berita berhasil di hapus.');
+
+    }
+
+
+}
