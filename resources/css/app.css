@@ -6,6 +6,9 @@
 
 * {
     font-family: "Anek Tamil", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .bg_beranda {
@@ -20,4 +23,16 @@
 }
 .content {
     @apply px-8 py-14;
+}
+.invert-black {
+    @apply invert-[.6] transition font-bold;
+}
+.nav-menu {
+    @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
+}
+.nav-menu:hover {
+    @apply bg-white text-main font-bold;
+}
+.topbar {
+    @apply px-6 py-4;
 }
