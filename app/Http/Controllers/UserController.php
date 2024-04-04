@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\UserContract;
-use App\Http\Requests\PendudukRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\PendudukModel;
 use App\Models\UserModel;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +31,7 @@ class PendudukController extends Controller
         //nanti sesuaikan nama view nya
     }
 
-    public function storePenduduk(PendudukRequest $request):RedirectResponse{
+    public function storePenduduk(UserRequest $request):RedirectResponse{
         $validated=$request->validated();
         $this->pendudukContract->storeUser($validated);
 
@@ -42,7 +42,7 @@ class PendudukController extends Controller
         return view('penduduk.edit', compact('penduduk'));
     }
 
-    public function editUser(PendudukRequest $request, UserModel $penduduk):RedirectResponse{
+    public function editUser(UserRequest $request, UserModel $penduduk):RedirectResponse{
         $validated = $request->validated();
         $this->pendudukContract->editUser($validated, $penduduk);
 
