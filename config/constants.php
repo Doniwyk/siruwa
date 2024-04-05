@@ -23,7 +23,7 @@ return [
     [
         "imgURL" => 'assets/icons/manajemen-berita.svg',
         "route" => 'manajemen-berita',
-        "label" => "Manajemen berita",
+        "label" => "Manajemen Berita",
     ],
     [
         "imgURL" => 'assets/icons/edit-profil.svg',

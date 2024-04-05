@@ -6,17 +6,9 @@
             @endphp
             <li>
                 {{-- id pada tag a kyk e bakal diganti id user sg log in --}}
-                <a href="{{ route($item['route'], ['id' => 1]) }}" @class([
-                    'flex',
-                    'gap-4',
-                    'px-3',
-                    'py-4',
-                    'w-full',
-                    'rounded-2xl',
-                    'bg-white text-main stroke-main' => $isActive,
-                ])>
-                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}">
-                    <label for="">{{ $item['label'] }}</label>
+                <a href="{{ route($item['route'], ['id' => Hash::make(1)]) }}" @class(['nav-menu', 'bg-white text-main font-bold' => $isActive])>
+                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class(['hover:invert-black', 'invert-black' => $isActive])>
+                    {{ $item['label'] }}
                 </a>
             </li>
         @endforeach
