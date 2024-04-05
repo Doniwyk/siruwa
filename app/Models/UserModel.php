@@ -26,7 +26,7 @@ class UserModel extends Model
     }
     public function pembayaran(): HasMany
     {
-        return $this->hasMany(Pembayaran::class);
+        return $this->hasMany(PaymentModel::class);
     }
     public function dokumen(): HasMany
     {

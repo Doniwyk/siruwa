@@ -15,7 +15,7 @@ class UserService implements UserContract
         UserModel::create($validatedData);
     }
 
-    public function editUser(array $validatedData, UserModel $penduduk):void
+    public function updateUser(array $validatedData, UserModel $penduduk):void
     {
         $penduduk->update($validatedData);
     }
