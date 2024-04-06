@@ -24,7 +24,7 @@ class NewsRequest extends FormRequest
         return [
             //
             'id_admin' => 'required',
-            'judul' => 'requires',
+            'judul' => 'required',
             'isi' => 'required'
         ];
     }
