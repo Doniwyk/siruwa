@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiUwU</title>
     @vite('resources/css/app.css')
 </head>
+
 <body class="">
     <div class="z-10 fixed bg-nav w-full px-20 py-4 items-center gap-6 inline-flex justify-end padding margin-10">
         <span class="text-center text-stone-50 text-3xl font-extrabold font-['Baloo 2']">>///<</span>
@@ -17,13 +19,13 @@
             <span class="text-white text-sm font-medium font-['Anek Tamil']">BERANDA</span>
         </div>
 
-        <!-- MyUwU login -->
-        <div class="bg-white rounded-2xl justify-center items-center gap-8 flex-auto">
-            <div class="justify-center items-center gap-4 inline-flex py-2 px-8">
-                <span class="text-center text-teal-900 text-sm font-medium font-['Anek Tamil']">MyUwU</span>
-                <img class="w-11 h-11 rounded-full" src="https://via.placeholder.com/44x44" />
-            </div>
-        </div>
+                <!-- MyUwU login -->
+                <div class="bg-white rounded-2xl justify-center items-center gap-8 flex-auto">
+                    <div class="justify-center items-center gap-4 inline-flex py-2 px-8">
+                        <span class="text-center text-teal-900 text-sm font-medium font-['Anek Tamil']">MyUwU</span>
+                        <img class="w-11 h-11 rounded-full" src="https://via.placeholder.com/44x44" />
+                    </div>
+                </div>
     </div>
 
     <!-- Beranda -->
@@ -102,4 +104,5 @@
 </div>
     </section>
 </body>
+
 </html>

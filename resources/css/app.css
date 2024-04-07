@@ -2,14 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&display=swap");
 
 * {
-    font-family: 'Anek Tamil', sans-serif;
+    font-family: "Anek Tamil", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 .bg_beranda {
     background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
     background-size: cover;
 }
-
+.left-sidebar {
+    @apply min-h-full w-[330px] flex flex-col justify-between  px-4 py-6 bg-main text-[16px] font-medium text-white;
+}
+.topbar {
+    @apply h-[5.75rem] bg-secondary;
+}
+.content {
+    @apply px-8 py-14;
+}
+.invert-black {
+    @apply invert-[.6] transition font-bold;
+}
+.nav-menu {
+    @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
+}
+.nav-menu:hover {
+    @apply bg-white text-main font-bold;
+}
+.topbar {
+    @apply px-6 py-4;
+}
