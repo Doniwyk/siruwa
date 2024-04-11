@@ -21,8 +21,10 @@ class DocumentController extends Controller
     public function index(): View
     {
         $dokumen = Dokumen::latest()->get();
+        $page = 'manajemen-dokumen';
+        return view('admin._document.index', ['pages' => 'dokumen','page' => $page]);
 
-        return view('dokumen.index', compact('dokumen'));
+        // return view('dokumen.index', compact('dokumen'));
     }
     public function addDocument(): View
     {

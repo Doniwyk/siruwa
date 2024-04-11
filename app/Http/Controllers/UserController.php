@@ -22,7 +22,9 @@ class UserController extends Controller
 
     public function index(){
         $penduduk = UserModel::all();
-        return view('penduduk.index', compact('penduduk'));
+        $page = 'edit-profil';
+        // return view('penduduk.index', compact('penduduk'));
+        return view('admin.pages.statistik', ['pages' => 'statistik', 'page' => $page]);
         //nanti sesuaikan nama view nya
     }
 
