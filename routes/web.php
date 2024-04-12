@@ -6,6 +6,7 @@ use App\Http\Controllers\DataDasawismaController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/manajemen-dana', [DanaController::class,'index'])->name('manajemen-dana');
     Route::get('/manajemen-berita', [BeritaController::class,'index'])->name('manajemen-berita');
     Route::get('/edit-profil', [ProfilController::class,'index'])->name('edit-profil');
+    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::get('/users/add', [UserController::class, 'add'])->name('user.add');
+    Route::post('/users/store', [UserController::class, 'storeUser'])->name('user.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'editUser'])->name('user.edit');
+    Route::put('/users/{user}/update', [UserController::class, 'updateUser'])->name('user.update');
+    Route::delete('/users/{user}/delete', [UserController::class, 'deleteUser'])->name('user.delete');
 });

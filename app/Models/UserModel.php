@@ -20,9 +20,9 @@ class UserModel extends Model
                             'pendidikan', 'pekerjaan', 'akseptor_kb', 'jenis_akseptor', 'aktif_posyandu', 'has_BKB',
                             'has_tabungan', 'ikut_kel_belajar', 'jenis_kel_belajar', 'ikut_paud', 'ikut_koperasi'];
 
-    public function user(): BelongsTo
+    public function account(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(AccountModel::class, 'id_user');
     }
     public function pembayaran(): HasMany
     {
