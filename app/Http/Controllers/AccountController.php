@@ -21,7 +21,9 @@ class AccountController extends Controller
     public function index()
     {
         $akun = AccountModel::all();
-        return view('akun.index', compact('akun'));
+        $page = 'edit-profil';
+        return view('admin._profile.index', ['pages' => 'statistik', 'page' => $page]);
+        // return view('akun.index', compact('akun'));
         //nanti sesuaikan nama view nya
     }
 
