@@ -13,7 +13,7 @@ class AccountModel extends Model
     protected $table = 'user';
     protected $primaryKey = 'id_user';
 
-    protected $fillable = ['nama', 'password', 'isAdmin'];
+    protected $fillable = ['id_user','nama', 'password', 'isAdmin'];
 
     public function admin(): HasMany
     {

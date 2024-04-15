@@ -11,7 +11,7 @@ class AccountRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class AccountRequest extends FormRequest
             'id_user' => 'required',
             'nama' => 'required',
             'password' => 'required',
-            'asAdminn' => 'required'
+            'isAdmin' => 'required'
         ];
     }
     public function messages()

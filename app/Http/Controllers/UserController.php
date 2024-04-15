@@ -35,7 +35,7 @@ class UserController extends Controller
         $validated=$request->validated();
         $this->pendudukContract->storeUser($validated);
 
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');    
+        return redirect()->route('user.index')->with('success', 'Data penduduk berhasil ditambahkan.');    
     }
 
     public function editUser(UserModel $penduduk):View{
