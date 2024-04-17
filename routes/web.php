@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DanaController;
 use App\Http\Controllers\DataDasawismaController;
@@ -24,6 +25,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landingpage');
 });
+
+Route::group(['middleware' => 'isGuest'], function () {
+    Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'doLogin']);
+});
+
+Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth')->name('logout');
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [StatistikController::class, 'index'])->name('statistik');
@@ -51,3 +60,12 @@ Route::prefix('admin/account')->group(function () {
     Route::put('/accounts/{account}', [AccountController::class, 'updateAccount'])->name('account.update');
     Route::delete('/accounts/{account}/delete', [AccountController::class, 'deleteAccount'])->name('account.delete');
 });
+
+
+Route::prefix('admin/statistics')->group(function () {
+    Route::get('/', [AccountController::class, 'index'])->name('statistics.index');
+
+});
+
+
+

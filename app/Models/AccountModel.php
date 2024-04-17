@@ -24,3 +24,4 @@ class AccountModel extends Model
         return $this->hasMany(UserModel::class);
     }
 }
+
