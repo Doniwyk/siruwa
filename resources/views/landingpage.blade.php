@@ -20,8 +20,8 @@
         </div>
 
                 <!-- MyUwU login -->
-                <div class="bg-white rounded-2xl justify-center items-center gap-8 flex-auto">
-                    <div class="justify-center items-center gap-4 inline-flex py-2 px-8">
+                <div class="bg-white rounded-2xl flex-center gap-8 flex-auto">
+                    <div class="flex-center gap-4 inline-flex py-2 px-8">
                         <span class="text-center text-teal-900 text-sm font-medium font-['Anek Tamil']">MyUwU</span>
                         <img class="w-11 h-11 rounded-full" src="https://via.placeholder.com/44x44" />
                     </div>
@@ -54,7 +54,7 @@
     <div class="px-8 py-3 bg-cyan-900 rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
       <div class="self-stretch justify-start items-center gap-8 inline-flex w-72">
         <div class="text-white text-2xl font-medium font-['Anek Tamil'] leading-9">Lebih Banyak</div>
-        <div class="w-6 h-6 justify-center items-center flex">
+        <div class="w-6 h-6 flex-center flex">
           <div class="w-6 h-6 relative">
           </div>
         </div>
@@ -63,10 +63,10 @@
   </div>
   <div class="w-96 h-96 relative">
     <div class="w-96 h-96 left-[650.86px] top-0 absolute">
-      <div class="w-96 h-72 pl-6 pr-5 pt-28 pb-5 left-0 top-0 absolute rounded-2xl justify-center items-center inline-flex">
+      <div class="w-96 h-72 pl-6 pr-5 pt-28 pb-5 left-0 top-0 absolute rounded-2xl flex-center inline-flex">
         <div class="w-96 self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex">
           <div class="justify-start items-center gap-2 inline-flex">
-            <div class="w-4 h-4 justify-center items-center flex">
+            <div class="w-4 h-4 flex-center flex">
               <div class="w-4 h-4 relative">
               </div>
             </div>
@@ -75,10 +75,10 @@
           <div class="self-stretch text-justify text-stone-100 text-xl font-semibold font-['Anek Tamil']">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</div>
         </div>
       </div>
-      <div class="w-96 h-72 pl-6 pr-5 pt-28 pb-5 left-0 top-[300.99px] absolute rounded-2xl justify-center items-center inline-flex">
+      <div class="w-96 h-72 pl-6 pr-5 pt-28 pb-5 left-0 top-[300.99px] absolute rounded-2xl flex-center inline-flex">
         <div class="w-96 self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex">
           <div class="justify-start items-center gap-2 inline-flex">
-            <div class="w-4 h-4 justify-center items-center flex">
+            <div class="w-4 h-4 flex-center flex">
               <div class="w-4 h-4 relative">
               </div>
             </div>
@@ -91,7 +91,7 @@
     <div class="w-96 h-96 p-6 left-0 top-0 absolute rounded-2xl flex-col justify-end items-center gap-2.5 inline-flex">
       <div class="self-stretch h-36 p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
         <div class="justify-start items-center gap-2 inline-flex">
-          <div class="w-4 h-4 justify-center items-center flex">
+          <div class="w-4 h-4 flex-center flex">
             <div class="w-4 h-4 relative">
             </div>
           </div>
