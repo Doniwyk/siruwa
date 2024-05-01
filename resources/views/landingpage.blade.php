@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+@extends('layouts.landing')
+@section('content-landingpage')
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,36 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SiUwU</title>
     @vite('resources/css/app.css')
-</head>
+</head> -->
 
 <body>
-  <div class="bg-green-600 z-10 fixed bg-nav w-full px-20 py-4 items-center gap-6 inline-flex justify-end">
-    <span class="text-center text-stone-50 text-3xl font-extrabold font-['Baloo 2']">>///<</span>
-    <div class="w-screen h-14 text-center gap-8 flex justify-end items-center">
-      <span class="text-white text-sm font-medium font-['Anek Tamil']">KEPENGURUSAN</span>
-      <span class="text-white text-sm font-medium font-['Anek Tamil']">AGENDA</span>
-      <span class="text-white text-sm font-medium font-['Anek Tamil']">BERITA</span>
-      <span class="text-white text-sm font-medium font-['Anek Tamil']">MENU</span>
-      <span class="text-white text-sm font-medium font-['Anek Tamil']">BERANDA</span>
-    </div>
-
-                <!-- MyUwU login -->
-    <div class="bg-white rounded-2xl justify-center items-center gap-8 flex-auto">
-      <div class="justify-center items-center gap-4 inline-flex py-2 px-8">
-        <span class="text-center text-teal-900 text-sm font-medium font-['Anek Tamil']">MyUwU</span>
-        <img class="w-11 h-11 rounded-full" src="https://via.placeholder.com/44x44" />
-      </div>
-    </div>
-  </div>
-
     <!-- Beranda -->
   <section class="bg_beranda flex justify-center content-center p-72 w-full h-screen">
     <div class="flex flex-col justify-start items-center gap-16 w-3/4">
       <div class="flex flex-col gap-10">
-        <span class="text-center text-bg-nav text-8xl font-extrabold font-['Anek Tamil'] leading-10">SIUwU</span>
-        <span class="text-center text-bg-nav text-4xl font-semibold font-['Anek Tamil'] leading-10">Sistem Informasi Kawaiiiii</span>
+        <span class="text-center text-white text-8xl font-extrabold font-['Anek Tamil'] leading-10">SIUwU</span>
+        <span class="text-center text-white text-4xl font-semibold font-['Anek Tamil'] leading-10">Sistem Informasi Kawaiiiii</span>
       </div>
-      <p class="text-center text-bg0nav text-2xl font-medium font-['Anek Tamil'] leading-9">Selamat datang di SIUwU, jelajahi aplikasi web mutakhir untuk mengatur segala hal di dunia.</p>
+      <p class="text-center text-white text-2xl font-medium font-['Anek Tamil'] leading-9">Selamat datang di SIUwU, jelajahi aplikasi web mutakhir untuk mengatur segala hal di dunia.</p>
     </div>
   </section>
 
@@ -63,15 +47,46 @@
   </section>
 
   <!-- Berita -->
-  <section class="bg-bg_color flex justify-center content-center p-72 w-full h-screen">
-    <div class="w-96 h-16 justify-between items-center inline-flex">
-      <span class="text-cyan-900 text-5xl font-semibold font-['Anek Tamil']">Berita</span>
-      <button class="px-8 py-3 bg-cyan-900 rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
-        <div class="self-stretch justify-start items-center gap-8 inline-flex">
-          <div class="text-white text-base font-semibold font-['Anek Tamil'] leading-normal">Lebih Banyak</div>
-          <div class="w-6 h-6 justify-center items-center flex"> </div>
+  <section class="bg-bg_color flex-col justify-center content-center p-16 w-full h-screen">
+    <div class="flex gap-6 flex-col h-full">
+      <div class="justify-between items-center inline-flex w-full">
+        <span class="text-cyan-900 text-5xl font-semibold font-['Anek Tamil']">Berita</span>
+
+        <button class="px-8 py-3 bg-cyan-900 rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
+          <div class="self-stretch justify-start items-center gap-8 inline-flex">
+            <span class="text-white text-base font-semibold font-['Anek Tamil'] leading-normal">Lebih Banyak ></span>
+          </div>
+        </button>
+      </div>
+
+      <div class="flex gap-6 h-full">
+        <div class="p-6 rounded-2xl flex-col justify-end items-center gap-2.5 inline-flex bg_berita1">
+          <div class="self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
+            <span class="text-stone-100 text-base font-medium font-['Anek Tamil']">March, 14 2024</span>
+            <span class="self-stretch text-justify text-stone-100 text-xl font-bold font-['Anek Tamil']">Politeknik Negeri Malang terjerat kasus dugaan korupsi pengadaan tanah senilai 40M, 2 direktur diperiksa.</span>
+          </div>
         </div>
-      </button>
+        
+        <div class="flex flex-col gap-6">
+          <div class="h-full p-6 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex bg_berita2">
+            <div class="self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
+              <div class="justify-start items-center gap-2 inline-flex">
+              <span class="text-stone-100 text-base font-medium font-['Anek Tamil']">March, 15 2024</span>
+              </div>
+            <span class="self-stretch text-justify text-stone-100 text-xl font-bold font-['Anek Tamil']">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</span>
+          </div>
+        </div>
+
+        <div class="h-full p-6 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex bg_berita2">
+          <div class="self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
+            <div class="justify-start items-center gap-2 inline-flex">
+              <span class="text-stone-100 text-base font-medium font-['Anek Tamil']">March, 15 2024</span>
+            </div>
+            <span class="self-stretch text-justify text-stone-100 text-xl font-bold font-['Anek Tamil']">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</span>
+          </div>
+        </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -97,6 +112,39 @@
         </div>
     </div>
   </section>
+
+  <!-- Kalender -->
+  <section class="bg-bg_color flex justify-center content-center p-16 w-full h-screen">
+    <div id="calendarContainer"></div>
+    <div id="organizerContainer"></div>
+  </section>
 </body>
 
-</html>
+<!-- Stick script at the end of the body -->
+<script src="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.js"></script>
+    <script>
+        var calendar = new Calendar("calendarContainer", "medium",
+                            [ "Monday", 3 ],
+                            [ "#ffffff", "#225157", "#225157", "#ffffff" ],
+                            {
+                                indicator: true,
+                                indicator_type: 1,
+                            });
+
+        var data = {
+                    2024: {
+                        5: {
+                            2: [
+                                {
+                                    startTime: "00:00",
+                                    endTime: "24:00",
+                                    text: "Mata Kuliah PSI"
+                                }
+                            ]
+                        }
+                    }
+                };
+
+        var organizer = new Organizer("organizerContainer", calendar, data);
+    </script>
+@endsection

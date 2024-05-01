@@ -15,6 +15,18 @@
     background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
     background-size: cover;
 }
+
+.bg_berita1 {
+    background: url("/public/berita1.jpg") no-repeat fixed;
+    background-size: cover;
+    background-attachment: scroll;
+}
+
+.bg_berita2 {
+    background: url("/public/berita2.jpeg") no-repeat center fixed;
+    background-size: cover;
+    background-attachment: scroll;
+}
 .left-sidebar {
     @apply min-h-full w-[330px] flex flex-col justify-between  px-4 py-6 bg-main text-[16px] font-medium text-white;
 }
@@ -23,6 +35,10 @@
 }
 .content {
     @apply px-8 py-14;
+}
+
+.content-landingpage {
+    @apply p-0;
 }
 .invert-black {
     @apply invert-[.6] transition font-bold;
