@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Contracts;
 
 use App\Http\Requests\AuthenticateRequest;
 use App\Http\Requests\AuthenticationRequest;

@@ -1,26 +1,21 @@
 <?php
 
-namespace App\Services\Impl;
+namespace App\Services;
 
-use App\Http\Requests\AuthenticateRequest;
+use App\Contracts\AuthenticationContract as ContractsAuthenticationContract;
 use App\Http\Requests\AuthenticationRequest;
-use App\Http\Requests\UserPostRequest;
-use App\Services\AuthenticationContract;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
-
-class AuthenticationService implements AuthenticationContract
+class AuthenticationService implements ContractsAuthenticationContract
 {
     function authenticate(AuthenticationRequest $request)
     {
         $credentials = [
-            'email' => $request->email,
+            'name' => $request->nama,
             'password' => $request->password,
         ];
-        if (Auth::attempt($credentials)) {
+
+        if (Auth::attempt($credentials, true)) {
             return;
         }
     }

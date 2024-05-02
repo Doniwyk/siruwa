@@ -5,15 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class AccountModel extends Model
+class AccountModel extends Authenticatable
 {
     use HasFactory;
-    
-    protected $table = 'user';
-    protected $primaryKey = 'id_user';
 
-    protected $fillable = ['id_user','nama', 'password', 'isAdmin'];
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $fillable = ['id', 'nama', 'password', 'role'];
 
     public function admin(): HasMany
     {
@@ -23,5 +28,9 @@ class AccountModel extends Model
     {
         return $this->hasMany(UserModel::class);
     }
-}
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+}

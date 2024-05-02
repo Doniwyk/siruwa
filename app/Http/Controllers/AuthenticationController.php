@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AuthenticateRequest;
+use App\Contracts\AuthenticationContract as ContractsAuthenticationContract;
 use App\Http\Requests\AuthenticationRequest;
-use App\Http\Requests\UserPostRequest;
 use App\Services\AuthenticationContract;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
-
     /**
      * @param AuthenticationContract $authenticationContract
      */
     public function __construct(
-        private AuthenticationContract $authenticationContract
+        private ContractsAuthenticationContract $authenticationContract
     ) {
     }
 
@@ -37,11 +34,14 @@ class AuthenticationController extends Controller
         try {
             $this->authenticationContract->authenticate($request);
             if (Auth::user()->role == 'admin') {
-                return redirect()->route('admin._statistics.index'); //Nanti disesuaikan
+                // return redirect()->route('admin._statistics.index'); //Nanti disesuaikan
+                // return view('welcome');
+                return redirect()->route('statistik');
             } else {
                 return redirect()->route('user.index');
             }
         } catch (\Exception $e) {
+            // dd($e);
             return back()->withErrors([
                 'email' => 'Email or password is wrong',
             ])->onlyInput('email');

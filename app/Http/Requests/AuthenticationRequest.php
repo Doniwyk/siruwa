@@ -22,7 +22,7 @@ class AuthenticationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
+            'nama' => 'required',
             'password' => 'required|min:8',
         ];
     }

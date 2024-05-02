@@ -21,34 +21,29 @@ class UserController extends Controller
     }
 
     public function index(){
-        $penduduk = UserModel::all();
-        $page = 'edit-profil';
-        // return view('penduduk.index', compact('penduduk'));
-        return view('admin.pages.statistik', ['pages' => 'statistik', 'page' => $page]);
-        //nanti sesuaikan nama view nya
+        $resident = UserModel::all();
+        return view('admin._dasawismaData.index', ['pages' => 'Data Penduduk','resident' => $resident]);
     }
 
     public function add(){
-        return view('penduduk.tambah');
-        //nanti sesuaikan nama view nya
+        return view('admin._dasawismaData.add');
     }
 
     public function storeUser(UserRequest $request):RedirectResponse{
         $validated=$request->validated();
         $this->pendudukContract->storeUser($validated);
-
-        return redirect()->route('user.index')->with('success', 'Data penduduk berhasil ditambahkan.');    
+        return redirect()->route('data-dasawisma')->with('success', 'Data penduduk berhasil ditambahkan.');    
     }
 
     public function editUser(UserModel $penduduk):View{
-        return view('penduduk.edit', compact('penduduk'));
+        return view('admin._dasawismaData.edit', compact('penduduk'));
     }
 
     public function updateUser(UserRequest $request, UserModel $penduduk):RedirectResponse{
         $validated = $request->validated();
         $this->pendudukContract->updateUser($validated, $penduduk);
 
-        return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil di ubah');
+        return redirect()->route('data-dasawisma')->with('success', 'Data penduduk berhasil di ubah');
     }
 
     public function deleteUser(UserModel $penduduk): RedirectResponse{
