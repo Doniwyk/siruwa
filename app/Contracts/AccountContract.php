@@ -8,7 +8,7 @@ interface AccountContract
 {
     public function storeAccount(array $validatedData): void;
 
-    public function updateAccount(array $validatedData, AccountModel $akun);
+    public function updateAccount(array $validatedData, AccountModel $akun) :void;
 
     public function deleteAccount(AccountModel $akun);
 }

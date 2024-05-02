@@ -16,9 +16,9 @@ class AdminModel extends Model
 
     protected $fillable = ['id_user', 'nama', 'email', 'noHp', 'role'];
 
-    public function user(): BelongsTo
+    public function account(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(UserModel::class, 'id_user');
     }
     public function berita(): HasMany
     {

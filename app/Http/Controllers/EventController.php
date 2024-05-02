@@ -22,7 +22,7 @@ class EventController extends Controller
     public function index()
     {
         $event = EventModel::all();
-        return view('news.index', compact('news'));
+        return view('news.index', compact('event'));
         //jangan lupa menyesuaikan nama view
     }
 

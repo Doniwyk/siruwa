@@ -18,12 +18,16 @@ class NewsController extends Controller
         $this->newsContract = $newsContract;
     }
 
-    public function index(){
+    public function indexAdmin(){
         $news = NewsModel::all();
         $page = 'manajemen-berita';
         return view('admin._news.index', ['pages' => 'Berita', 'page' => $page]);
         // return view('news.index',compact('news'));
         //jangan lupa menyesuaikan nama view
+    }
+
+    public function indexUser(){
+        return view('landingpage');
     }
 
     public function add(){

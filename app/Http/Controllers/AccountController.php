@@ -33,31 +33,30 @@ class AccountController extends Controller
         //nanti sesuaikan nama view nya
     }
 
-    public function storeACcount(AccountRequest $request): RedirectResponse
+    public function storeAccount(AccountRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         $this->akunContract->storeAccount($validated);
 
-        return redirect()->route('akun.index')->with('success', 'Data akun berhasil ditambahkan.');
+        return redirect()->route('account.index')->with('success', 'Data akun berhasil ditambahkan.');
     }
 
     public function editAccount(AccountModel $akun): View
     {
-        return view('akun.edit', compact('akun'));
+        return view('account.edit', compact('akun'));
     }
 
     public function updateAccount(AccountRequest $request, AccountModel $akun): RedirectResponse
     {
         $validated = $request->validated();
         $this->akunContract->updateAccount($validated, $akun);
-
-        return redirect()->route('akun.index')->with('success', 'Data akun berhasil di ubah');
+        return redirect()->route('account.index')->with('success', 'Data akun berhasil di ubah');
     }
 
     public function deleteAccount(AccountModel $akun): RedirectResponse
     {
         $this->akunContract->deleteAccount($akun);
 
-        return redirect()->route('akun.index')->with('success', 'Data akun berhasil di hapus.');
+        return redirect()->route('account.index')->with('success', 'Data akun berhasil di hapus.');
     }
 }

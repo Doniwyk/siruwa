@@ -27,10 +27,10 @@ return new class extends Migration
             $table->string('status_keluarga', 100);
             $table->string('agama', 100);
             $table->text('alamat');
-            $table->string('pendidikan', 20);
-            $table->string('pekerjaan', 20);
+            $table->string('pendidikan', 100);
+            $table->string('pekerjaan', 100);
             $table->boolean('akseptor_kb');
-            $table->string('jenis_akseptor', 50);
+            $table->string('jenis_akseptor', 100);
             $table->boolean('aktif_posyandu');
             $table->boolean('has_BKB');
             $table->boolean('has_tabungan');
