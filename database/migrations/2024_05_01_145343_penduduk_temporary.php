@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penduduk', function (Blueprint $table) {
+        Schema::create('penduduk_temporary', function (Blueprint $table) {
             $table->string('urlProfile', 250);
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
