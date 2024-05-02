@@ -20,17 +20,14 @@ class AccountController extends Controller
 
     public function index()
     {
-        $akun = AccountModel::all();
+        $account = AccountModel::all();
         $page = 'edit-profil';
-        return view('admin._profile.index', ['pages' => 'statistik', 'page' => $page]);
-        // return view('akun.index', compact('akun'));
-        //nanti sesuaikan nama view nya
+        return view('admin._profile.index', ['pages' => 'profil', 'page' => $page, 'account' =>$account]);
     }
 
     public function add()
     {
-        return view('akun.tambah');
-        //nanti sesuaikan nama view nya
+        return view('admin._profile.add');
     }
 
     public function storeAccount(AccountRequest $request): RedirectResponse
@@ -38,25 +35,25 @@ class AccountController extends Controller
         $validated = $request->validated();
         $this->akunContract->storeAccount($validated);
 
-        return redirect()->route('account.index')->with('success', 'Data akun berhasil ditambahkan.');
+        return redirect()->route('edit-profil')->with('success', 'Data akun berhasil ditambahkan.');
     }
 
     public function editAccount(AccountModel $akun): View
     {
-        return view('account.edit', compact('akun'));
+        return view('admin._profile.edit', compact('akun'));
     }
 
     public function updateAccount(AccountRequest $request, AccountModel $akun): RedirectResponse
     {
         $validated = $request->validated();
         $this->akunContract->updateAccount($validated, $akun);
-        return redirect()->route('account.index')->with('success', 'Data akun berhasil di ubah');
+        return redirect()->route('edit-profil')->with('success', 'Data akun berhasil di ubah');
     }
 
     public function deleteAccount(AccountModel $akun): RedirectResponse
     {
         $this->akunContract->deleteAccount($akun);
 
-        return redirect()->route('account.index')->with('success', 'Data akun berhasil di hapus.');
+        return redirect()->route('edit-profil')->with('success', 'Data akun berhasil di hapus.');
     }
 }
