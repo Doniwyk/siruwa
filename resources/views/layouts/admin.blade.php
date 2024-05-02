@@ -16,7 +16,7 @@
             <x-shared.topbar />
         </header>
         <main class="grow flex">
-            <x-shared.leftsidebar :page="$page" />
+            {{-- <x-shared.leftsidebar :page="$page" /> --}}
             <div class="content ">
                 @yield('content')
             </div>

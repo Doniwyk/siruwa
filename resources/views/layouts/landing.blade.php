@@ -9,6 +9,7 @@
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-[#F1F0E9] flex flex-col min-h-screen">
@@ -16,8 +17,8 @@
         <x-shared.user-topbar/>
     </header>
     <main>
-        <div class="content">
-            @yield('content')
+        <div class="content-landingpage">
+            @yield('content-landingpage')
         </div>
     </main>
     <footer class="mt-auto">

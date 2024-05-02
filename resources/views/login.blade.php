@@ -1,98 +1,30 @@
-<!-- <h1>Hello World</h1> -->
 
 <!DOCTYPE html>
-
 <html lang="en">
-
-
-
-
 <head>
-
     <meta charset="UTF-8">
-
-    <title>o</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    <title>Login</title>
 </head>
-
-
-
-
-<body>
-
-    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-
-        @if ($errors->any())
-
-        <div class="row">
-
-            <div class="alert alert-danger" role="alert">
-
-                <ul>
-
-                    @foreach ($errors->all() as $error)
-
-                    <li>{{ $error }}</li>
-
-                    @endforeach
-
-                </ul>
-
-            </div>
-
-        </div>
-
-        @endif
-
-        <div class="row align-items-center g-lg-5 py-5">
-
-            <div class="col-lg-7 text-center text-lg-start">
-
-                <h1 class="display-4 fw-bold lh-1 mb-3">Buat ngetes login doang</h1>
-
-                <p class="col-lg-10 fs-4">hehe :v</a></p>
-
-            </div>
-
-            <div class="col-md-10 mx-auto col-lg-5">
-
-                <form class="p-4 p-md-5 border rounded-3 bg-light" method="post" action="/login">
-
-                    @csrf
-
-                    <div class="form-floating mb-3">
-
-                        <input name="nama" type="text" class="form-control" id="nama" placeholder="id">
-
-                        <label for="nama">Nama</label>
-
-                    </div>
-
-                    <div class="form-floating mb-3">
-
-                        <input name="password" type="password" class="form-control" id="password" placeholder="password">
-
-                        <label for="password">Password</label>
-
-                    </div>
-
-                    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign In</button>
-
-                </form>
-
-            </div>
-
-        </div>
-
+<body class="bg-[#F1F0E9] flex h-screen">
+    <div class="w-1/2 overflow-hidden">
+        <img src="{{ asset('..\login.png') }}" class="object-cover w-full h-full" style="object-position: top left;">
     </div>
-
+    <div class="w-1/2 px-24 flex items-center justify-center flex-col">
+        <div class="text-center text-secondary text-5xl font-extrabold">{>///<}</div>
+        <div class="text-center text-secondary text-5xl font-extrabold mt-4">Siuwu Login</div>
+        <input type="text" placeholder="Username" class="w-3/4 rounded-2xl py-3 px-6 mt-16 border-0 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
+        <input type="password" placeholder="Password" class="w-3/4 rounded-2xl py-3 px-6 mt-5 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
+        <div class="flex justify-between w-3/4 mt-5">
+            <label class="flex items-center">
+                <input type="checkbox" class="mr-2 appearance-none border-none rounded-md bg-white w-6 h-6 checked:bg-secondary">
+                <span class="text-secondary text-base font-medium">Ingat saya</span>
+            </label>
+            <a href=""><span class="text-slate-400 text-base font-medium">Lupa kata sandi?</span></a>
+        </div>
+        <button type="submit" class="w-3/4 bg-secondary rounded-2xl text-white px-6 py-3 text-base font-semibold mt-9">Masuk</button>
+    </div>
 </body>
-
-
-
-
 </html>
