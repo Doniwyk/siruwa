@@ -27,6 +27,10 @@ Route::get('/landingpage', function () {
     return view('landingpage');
 });
 
+Route::get('/list-berita', function () {
+    return view('/berita/list-berita');
+});
+
 // Route::prefix('admin')->group(function () {
 //     Route::get('/', [StatistikController::class, 'index'])->name('statistik');
 //     Route::get('/data-dasawisma', [DataDasawismaController::class, 'index'])->name('data-dasawisma');
