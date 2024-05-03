@@ -36,12 +36,12 @@ class AuthenticationController extends Controller
             if (Auth::user()->role == 'admin') {
                 // return redirect()->route('admin._statistics.index'); //Nanti disesuaikan
                 // return view('welcome');
-                return redirect()->route('statistik');
+                return redirect()->route('autistic');
             } else {
-                return redirect()->route('user.index');
+                return redirect()->route('landingPage');
             }
         } catch (\Exception $e) {
-            // dd($e);
+            dd($e);
             return back()->withErrors([
                 'email' => 'Email or password is wrong',
             ])->onlyInput('email');

@@ -24,14 +24,14 @@ class PaymentController extends Controller
     {
         $payment = PaymentModel::all();
         $page = 'manajemen-dana';
-        return view('admin._payment.index', ['pages' => 'Manajemen Dana', 'page' => $page]);
+        return view('admin._fund.index', ['pages' => 'Manajemen Dana', 'page' => $page]);
         // return view('payment.index',compact('payment'));
         //jangan lupa menyesuaikan nama view
     }
 
     public function add()
     {
-        return view('payment.add');
+        return view('admin._fund.add');
         //jangan lupa menyesuaikan nama view
     }
 
@@ -40,12 +40,12 @@ class PaymentController extends Controller
         $validated = $request->validated();
         $this->paymentContract->storePayment($validated);
 
-        return redirect()->route('payment.index')->with('success', 'Berita berhasil ditambahkan.');
+        return redirect()->route('manajemen-dana')->with('success', 'Berita berhasil ditambahkan.');
     }
 
     public function editPayment(PaymentModel $payment): View
     {
-        return view('payment.edit', compact('payment'));
+        return view('admin._fund.edit', compact('payment'));
     }
 
     public function updatePayment(NewsRequest $request, PaymentModel $payment): RedirectResponse
@@ -53,13 +53,13 @@ class PaymentController extends Controller
         $validated = $request->validated();
         $this->paymentContract->updatePayment($validated, $payment);
 
-        return redirect()->route('payment.index')->with('success', 'Berita berhasil diperbarui.');
+        return redirect()->route('manajemen-dana')->with('success', 'Berita berhasil diperbarui.');
     }
 
     public function deletePayment(PaymentModel $payment): RedirectResponse
     {
         $this->paymentContract->deletePayment($payment);
 
-        return redirect()->route('payment.index')->with('success', 'Berita berhasil di hapus.');
+        return redirect()->route('manajemen-dana')->with('success', 'Berita berhasil di hapus.');
     }
 }
