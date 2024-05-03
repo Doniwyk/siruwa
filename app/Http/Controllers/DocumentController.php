@@ -63,4 +63,28 @@ class DocumentController extends Controller
     {
         $this->contract->getUser();
     }
+    public function validateDocument(Request $request, Dokumen $dokumen): RedirectResponse
+    {
+        // Validasi apakah dokumen diterima atau ditolak
+        $request->validate([
+            'action' => 'required|in:accept,reject',
+            // 'reason' => 'required_if:action,reject'
+        ]);
+    
+        // Jika dokumen diterima
+        if ($request->action === 'accept') {
+            // Ubah status pengajuan menjadi "Dalam Proses"
+            $dokumen->status = 'Dalam Proses';
+            $dokumen->save();
+    
+            return redirect()->route('dokumen.index')->with('success', 'Dokumen diterima dan sedang diproses.');
+        }else if ($request->action === 'reject') {
+            // Ubah status pengajuan menjadi "Ditolak" dan sertakan alasan penolakan
+            $dokumen->status = 'Ditolak';
+            // $dokumen->alasan_penolakan = $request->reason;
+            $dokumen->save();
+    
+            return redirect()->route('admin._document.index')->with('success', 'Dokumen ditolak');
+        }
+    }
 }
