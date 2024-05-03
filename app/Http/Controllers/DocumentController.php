@@ -22,13 +22,13 @@ class DocumentController extends Controller
     {
         $dokumen = Dokumen::latest()->get();
         $page = 'manajemen-dokumen';
-        return view('admin._document.index', ['pages' => 'dokumen','page' => $page]);
+        return view('admin._document.index', ['pages' => 'Dokumen','dokument' => $dokumen]);
 
         // return view('dokumen.index', compact('dokumen'));
     }
     public function addDocument(): View
     {
-        return view('dokumen.create');
+        return view('admin._document.add');
     }
 
     public function storeDocument(DocumentRequest $request): RedirectResponse
@@ -36,12 +36,12 @@ class DocumentController extends Controller
         $validated = $request->validated();
         $this->contract->storeDocument($validated);
 
-        return redirect()->route('dokumen.index')->with('success', 'Dokumen added successfully.');
+        return redirect()->route('manajemen-dokumen')->with('success', 'Dokumen added successfully.');
     }
 
     public function updateDocument(Dokumen $Dokumen): View
     {
-        return view('dokumen.edit', compact('dokumen'));
+        return view('admin._document.edit', compact('dokumen'));
     }
 
     public function editDocument(DocumentRequest $request, Dokumen $dokumen): RedirectResponse
@@ -49,14 +49,14 @@ class DocumentController extends Controller
         $validated = $request->validated();
         $this->contract->editDocument($validated, $dokumen);
 
-        return redirect()->route('Dokumen.index')->with('success', 'Dokumen updated successfully.');
+        return redirect()->route('manajemen-dokumen')->with('success', 'Dokumen updated successfully.');
     }
 
     public function deleteDocument(Dokumen $dokumen): RedirectResponse
     {
         $this->contract->deleteDocument($dokumen);
 
-        return redirect()->route('dokumen.index')->with('success', 'Dokumen deleted successfully.');
+        return redirect()->route('manajemen-dokumen')->with('success', 'Dokumen deleted successfully.');
     }
 
     public function getUser()

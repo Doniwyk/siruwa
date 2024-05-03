@@ -8,6 +8,6 @@ class StatisticController extends Controller
 {
     //
     public function index(){
-        
+        return view('admin._statistics.index');
     }
 }

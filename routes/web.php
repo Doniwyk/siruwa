@@ -37,7 +37,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 //==================================ROUTE ADMIN========================================
 
 //ROUTE STATISTIK
-Route::prefix('admin')->group([], function () {
+Route::prefix('admin/statistic')->group([], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('statistik');
 })->middleware('isAuth');
 
@@ -73,14 +73,25 @@ Route::prefix('admin/manajemen-dana')->group([], function () {
     Route::delete('/{payment}/delete', [PaymentController::class, 'deleteAccount'])->name('payment.delete');
 })->middleware('isAuth');
 
-//ROUTE MANAJEMEN BERITA
-Route::prefix('admin/manajemen-berita')->group([], function () {
-    Route::get('/', [EventController::class, 'index'])->name('manajemen-berita');
+//ROUTE MANAJEMEN BERITA ACARA
+Route::prefix('admin/manajemen-Acara')->group([], function () {
+    Route::get('/', [EventController::class, 'index'])->name('manajemen-acara');
     Route::get('/add', [EventController::class, 'add'])->name('event.add');
     Route::post('/store', [EventController::class, 'storeEvent'])->name('event.store');
     Route::get('/{event}/edit', [EventController::class, 'editEvent'])->name('event.edit');
     Route::put('/{event}', [EventController::class, 'updateEvent'])->name('event.update');
     Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('event.delete');
+});
+
+
+//ROUTE MANAJEMEN BERITA ADMIN
+Route::prefix('admin/manajemen-berita')->group([], function () {
+    Route::get('/', [NewsController::class, 'index'])->name('manajemen-berita');
+    Route::get('/add', [NewsController::class, 'add'])->name('news.add');
+    Route::post('/store', [NewsController::class, 'storeNews'])->name('news.store');
+    Route::get('/{news}/edit', [NewsController::class, 'editNews'])->name('news.edit');
+    Route::put('/{news}', [NewsController::class, 'updateNews'])->name('news.update');
+    Route::delete('/{news}/delete', [NewsController::class, 'deleteNews'])->name('news.delete');
 });
 
 //ROUTE AKUN PENDUDUK
@@ -114,20 +125,18 @@ Route::get('/', [NewsController::class, 'indexUser']);
 
 
 // INI ROUTE CUMA BUAT NYOBA VIEW USER, BIAR DIKERAIN BACKEND MWEHEHEHEH
-Route::get('/profil', function(){
+Route::get('/profil', function () {
     return view('/user/_profile/index');
 });
-Route::get('/dokumen', function(){
+Route::get('/dokumen', function () {
     return view('/user/_residentData/index');
 });
-Route::get('/request', function(){
+Route::get('/request', function () {
     return view('/user/_requestDocument/index');
 });
-Route::get('/iuran', function(){
+Route::get('/iuran', function () {
     return view('/user/_fund/index');
 });
-Route::get('/topbar', function(){
+Route::get('/topbar', function () {
     return view('/components/shared/user-topbar');
 });
-
-
