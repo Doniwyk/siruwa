@@ -16,7 +16,7 @@ class IsGuest
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) return redirect('/');
+        if (Auth::check()) return redirect()->route('admin.statistic.index');
         return $next($request);
     }
 }

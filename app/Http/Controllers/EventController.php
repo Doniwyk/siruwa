@@ -37,7 +37,7 @@ class EventController extends Controller
         $validated = $request->validated();
         $this->eventContract->storeEvent($validated);
 
-        return redirect()->route('manajemen-acara')->with('success', 'Berita berhasil ditambahkan.');
+        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
     public function editNews(EventModel $news): View
@@ -50,13 +50,13 @@ class EventController extends Controller
         $validated = $request->validated();
         $this->eventContract->updateEvent($validated, $news);
 
-        return redirect()->route('manajemen-acara')->with('success', 'Berita berhasil diperbarui.');
+        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
     public function deleteNews(EventModel $news): RedirectResponse
     {
         $this->eventContract->deleteEvent($news);
 
-        return redirect()->route('manajemen-acara')->with('success', 'Berita berhasil di hapus.');
+        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil di hapus.');
     }
 }

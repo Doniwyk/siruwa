@@ -15,7 +15,7 @@ class AuthenticationService implements ContractsAuthenticationContract
             'password' => $request->password,
         ];
 
-        if (Auth::attempt($credentials, true)) {
+        if (Auth::attempt($credentials)) {
             return;
         }
     }
