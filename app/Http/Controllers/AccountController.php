@@ -35,7 +35,7 @@ class AccountController extends Controller
         $validated = $request->validated();
         $this->akunContract->storeAccount($validated);
 
-        return redirect()->route('edit-profil')->with('success', 'Data akun berhasil ditambahkan.');
+        return redirect()->route('admin.profil.edit')->with('success', 'Data akun berhasil ditambahkan.');
     }
 
     public function editAccount(AccountModel $akun): View
@@ -47,13 +47,13 @@ class AccountController extends Controller
     {
         $validated = $request->validated();
         $this->akunContract->updateAccount($validated, $akun);
-        return redirect()->route('edit-profil')->with('success', 'Data akun berhasil di ubah');
+        return redirect()->route('admin.profil.index')->with('success', 'Data akun berhasil di ubah');
     }
 
     public function deleteAccount(AccountModel $akun): RedirectResponse
     {
         $this->akunContract->deleteAccount($akun);
 
-        return redirect()->route('edit-profil')->with('success', 'Data akun berhasil di hapus.');
+        return redirect()->route('admin.profil.index')->with('success', 'Data akun berhasil di hapus.');
     }
 }

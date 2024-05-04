@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// Route::get('/', function () {
-//     return view('landingpage');
-// });
+Route::get('/', function () {
+    return view('landingpage');
+});
 
 Route::group(['middleware' => 'isGuest'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
@@ -37,78 +37,113 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 //==================================ROUTE ADMIN========================================
 
 //ROUTE STATISTIK
-Route::prefix('admin/statistic')->group([], function () {
-    Route::get('/', [StatisticController::class, 'index'])->name('statistik');
-})->middleware('isAuth');
+Route::group([
+    'prefix' => 'admin/statistic',
+    'as' => 'admin.statistic.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [StatisticController::class, 'index'])->name('index');
+});
 
 
 //ROUTE DATA PENDUDUK
-Route::prefix('admin/data-dasawisma')->group([], function () {
-    Route::get('/', [UserController::class, 'index'])->name('data-dasawisma');
-    Route::get('/add', [UserController::class, 'add'])->name('user.add');
-    Route::post('/store', [UserController::class, 'storeUser'])->name('user.store');
-    Route::get('/{user}/edit', [UserController::class, 'editUser'])->name('user.edit');
-    Route::put('/{user}', [UserController::class, 'updateUser'])->name('user.update');
-    Route::delete('/{user}/delete', [UserController::class, 'deleteUser'])->name('user.delete');
-})->middleware('isAuth');
+Route::group([
+    'prefix' => 'admin/data-dasawisma',
+    'as' => 'admin.data-dasawisma.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/add', [UserController::class, 'add'])->name('add');
+    Route::post('/store', [UserController::class, 'storeUser'])->name('store');
+    Route::get('/{user}/edit', [UserController::class, 'editUser'])->name('edit');
+    Route::put('/{user}', [UserController::class, 'updateUser'])->name('update');
+    Route::delete('/{user}/delete', [UserController::class, 'deleteUser'])->name('delete');
+});
 
 
 //ROUTE MANAJEMEN DOKUMEN
-Route::prefix('admin/manajemen-dokumen')->group([], function () {
-    Route::get('/', [DocumentController::class, 'index'])->name('manajemen-dokumen');
-    Route::get('/add', [DocumentController::class, 'add'])->name('document.add');
-    Route::post('/store', [DocumentController::class, 'storeUser'])->name('document.store');
-    Route::get('/{document}/edit', [DocumentController::class, 'editUser'])->name('document.edit');
-    Route::put('/{document}', [DocumentController::class, 'updateUser'])->name('document.update');
-    Route::delete('/{document}/delete', [DocumentController::class, 'deleteUser'])->name('document.delete');
-})->middleware('isAuth');
+Route::group([
+    'prefix' => 'admin/manajemen-dokumen',
+    'as' => 'admin.manajemen-dokumen.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [DocumentController::class, 'index'])->name('index');
+    Route::get('/add', [DocumentController::class, 'add'])->name('add');
+    Route::post('/store', [DocumentController::class, 'storeUser'])->name('store');
+    Route::get('/{document}/edit', [DocumentController::class, 'editUser'])->name('edit');
+    Route::put('/{document}', [DocumentController::class, 'updateUser'])->name('update');
+    Route::delete('/{document}/delete', [DocumentController::class, 'deleteUser'])->name('delete');
+});
 
 //ROUTE MANAJEMEN DANA
-Route::prefix('admin/manajemen-dana')->group([], function () {
-    Route::get('/', [PaymentController::class, 'index'])->name('manajemen-dana');
-    Route::get('/add', [PaymentController::class, 'add'])->name('payment.add');
-    Route::post('/store', [PaymentController::class, 'storeAccount'])->name('payment.store');
-    Route::get('/{payment}/edit', [PaymentController::class, 'editAccount'])->name('payment.edit');
-    Route::put('/{payment}', [PaymentController::class, 'updateAccount'])->name('payment.update');
-    Route::delete('/{payment}/delete', [PaymentController::class, 'deleteAccount'])->name('payment.delete');
-})->middleware('isAuth');
+Route::group([
+    'prefix' => 'admin/manajemen-dana',
+    'as' => 'admin.manajemen-dana.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [PaymentController::class, 'index'])->name('index');
+    Route::get('/add', [PaymentController::class, 'add'])->name('add');
+    Route::post('/store', [PaymentController::class, 'storeAccount'])->name('store');
+    Route::get('/{payment}/edit', [PaymentController::class, 'editAccount'])->name('edit');
+    Route::put('/{payment}', [PaymentController::class, 'updateAccount'])->name('update');
+    Route::delete('/{payment}/delete', [PaymentController::class, 'deleteAccount'])->name('delete');
+});
 
 //ROUTE MANAJEMEN BERITA ACARA
-Route::prefix('admin/manajemen-Acara')->group([], function () {
-    Route::get('/', [EventController::class, 'index'])->name('manajemen-acara');
-    Route::get('/add', [EventController::class, 'add'])->name('event.add');
-    Route::post('/store', [EventController::class, 'storeEvent'])->name('event.store');
-    Route::get('/{event}/edit', [EventController::class, 'editEvent'])->name('event.edit');
-    Route::put('/{event}', [EventController::class, 'updateEvent'])->name('event.update');
-    Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('event.delete');
-});
 
+Route::group([
+    'prefix' => 'admin/manajemen-acara',
+    'as' => 'admin.manajemen-acara.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [EventController::class, 'index'])->name('index');
+    Route::get('/add', [EventController::class, 'add'])->name('add');
+    Route::post('/store', [EventController::class, 'storeEvent'])->name('store');
+    Route::get('/{event}/edit', [EventController::class, 'editEvent'])->name('edit');
+    Route::put('/{event}', [EventController::class, 'updateEvent'])->name('update');
+    Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('delete');
+});
 
 //ROUTE MANAJEMEN BERITA ADMIN
-Route::prefix('admin/manajemen-berita')->group([], function () {
-    Route::get('/', [NewsController::class, 'index'])->name('manajemen-berita');
-    Route::get('/add', [NewsController::class, 'add'])->name('news.add');
-    Route::post('/store', [NewsController::class, 'storeNews'])->name('news.store');
-    Route::get('/{news}/edit', [NewsController::class, 'editNews'])->name('news.edit');
-    Route::put('/{news}', [NewsController::class, 'updateNews'])->name('news.update');
-    Route::delete('/{news}/delete', [NewsController::class, 'deleteNews'])->name('news.delete');
+
+Route::group([
+    'prefix' => 'admin/manajemen-berita',
+    'as' => 'admin.manajemen-berita.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [NewsController::class, 'indexAdmin'])->name('index');
+    Route::get('/add', [NewsController::class, 'add'])->name('add');
+    Route::post('/store', [NewsController::class, 'storeNews'])->name('store');
+    Route::get('/{news}/edit', [NewsController::class, 'editNews'])->name('edit');
+    Route::put('/{news}', [NewsController::class, 'updateNews'])->name('update');
+    Route::delete('/{news}/delete', [NewsController::class, 'deleteNews'])->name('delete');
 });
 
+
 //ROUTE AKUN PENDUDUK
-Route::prefix('admin/edit-profil')->group([], function () {
-    Route::get('/', [AccountController::class, 'index'])->name('edit-profil');
-    Route::get('/add', [AccountController::class, 'add'])->name('account.add');
-    Route::post('/store', [AccountController::class, 'storeAccount'])->name('account.store');
-    Route::get('/{account}/edit', [AccountController::class, 'editAccount'])->name('account.edit');
-    Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('account.update');
-    Route::delete('/{account}/delete', [AccountController::class, 'deleteAccount'])->name('account.delete');
-})->middleware('isAuth');
+
+Route::group([
+    'prefix' => 'admin/edit-profil',
+    'as' => 'admin.profil.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [AccountController::class, 'index'])->name('index');
+    Route::get('/add', [AccountController::class, 'add'])->name('add');
+    Route::post('/store', [AccountController::class, 'storeAccount'])->name('store');
+    Route::get('/{account}/edit', [AccountController::class, 'editAccount'])->name('edit');
+    Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
+    Route::delete('/{account}/delete', [AccountController::class, 'deleteAccount'])->name('delete');
+});
 
 //==================================ROUTE PENDUDUK========================================
 
-//ROUTE BERITA PENDUDUK
-Route::get('/', [NewsController::class, 'indexUser']);
+//ROUTE PEMBAYARAN
 
+//ROUTE PROFIL
+
+//ROUTE PENGAJUAN DOKUMEN
+
+//ROUTE DATA PRIBADI PENDUDUK
 
 
 

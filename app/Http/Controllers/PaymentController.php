@@ -40,7 +40,7 @@ class PaymentController extends Controller
         $validated = $request->validated();
         $this->paymentContract->storePayment($validated);
 
-        return redirect()->route('manajemen-dana')->with('success', 'Berita berhasil ditambahkan.');
+        return redirect()->route('admin.manajemen-dana.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
     public function editPayment(PaymentModel $payment): View
@@ -53,13 +53,13 @@ class PaymentController extends Controller
         $validated = $request->validated();
         $this->paymentContract->updatePayment($validated, $payment);
 
-        return redirect()->route('manajemen-dana')->with('success', 'Berita berhasil diperbarui.');
+        return redirect()->route('admin.manajemen-dana.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
     public function deletePayment(PaymentModel $payment): RedirectResponse
     {
         $this->paymentContract->deletePayment($payment);
 
-        return redirect()->route('manajemen-dana')->with('success', 'Berita berhasil di hapus.');
+        return redirect()->route('admin.manajemen-dana.index')->with('success', 'Berita berhasil di hapus.');
     }
 }

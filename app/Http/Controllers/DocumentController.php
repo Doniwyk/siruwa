@@ -36,7 +36,7 @@ class DocumentController extends Controller
         $validated = $request->validated();
         $this->contract->storeDocument($validated);
 
-        return redirect()->route('manajemen-dokumen')->with('success', 'Dokumen added successfully.');
+        return redirect()->route('admin.manajemen-dokumen.index')->with('success', 'Dokumen added successfully.');
     }
 
     public function updateDocument(Dokumen $Dokumen): View
@@ -49,14 +49,14 @@ class DocumentController extends Controller
         $validated = $request->validated();
         $this->contract->editDocument($validated, $dokumen);
 
-        return redirect()->route('manajemen-dokumen')->with('success', 'Dokumen updated successfully.');
+        return redirect()->route('admin.manajemen-dokumen.index')->with('success', 'Dokumen updated successfully.');
     }
 
     public function deleteDocument(Dokumen $dokumen): RedirectResponse
     {
         $this->contract->deleteDocument($dokumen);
 
-        return redirect()->route('manajemen-dokumen')->with('success', 'Dokumen deleted successfully.');
+        return redirect()->route('admin.manajemen-dokumen.index')->with('success', 'Dokumen deleted successfully.');
     }
 
     public function getUser()

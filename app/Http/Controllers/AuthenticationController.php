@@ -23,8 +23,7 @@ class AuthenticationController extends Controller
 
     public function login(): Response
     {
-        return response()
-            ->view("login");
+        return response()->view("login");
     }
 
     public function doLogin(AuthenticationRequest $request): Response|RedirectResponse
@@ -36,7 +35,7 @@ class AuthenticationController extends Controller
             if (Auth::user()->role == 'admin') {
                 // return redirect()->route('admin._statistics.index'); //Nanti disesuaikan
                 // return view('welcome');
-                return redirect()->route('autistic');
+                return redirect()->route('admin.statistic.index');
             } else {
                 return redirect()->route('landingPage');
             }

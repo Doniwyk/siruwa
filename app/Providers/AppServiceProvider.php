@@ -10,6 +10,7 @@ use App\Contracts\NewsContract;
 use App\Contracts\PaymentContract;
 use App\Contracts\PendudukContract;
 use App\Contracts\UserContract;
+use App\Http\Controllers\StatisticController;
 use App\Services\AccountService;
 use App\Services\AuthenticationContract;
 use App\Services\AuthenticationService\AuthenticationService as AuthenticationServiceAuthenticationService;
@@ -28,27 +29,29 @@ class AppServiceProvider extends ServiceProvider
      * Register any application services.
      */
 
-    public array $singletons =[
+    public array $singletons = [
         UserContract::class => UserService::class,
-        AccountContract :: class => AccountService::class,
-        DocumentContract :: class => DocumentService :: class,
-        EventContract :: class => EventService :: class,
-        NewsContract :: class => NewsService::class,
-        ContractsAuthenticationContract :: class => AuthenticationService::class,
-        PaymentContract ::class => PaymentService::class,
+        AccountContract::class => AccountService::class,
+        DocumentContract::class => DocumentService::class,
+        EventContract::class => EventService::class,
+        NewsContract::class => NewsService::class,
+        ContractsAuthenticationContract::class => AuthenticationService::class,
+        PaymentContract::class => PaymentService::class,
     ];
 
-    public function provides():array{
-        return [UserContract::class];
-        return [AccountContract::class];
-        return [DocumentContract::class];
-        return [EventContract::class];
-        return [NewsContract::class];
-        return [ContractsAuthenticationContract::class];
-        return [PaymentContract ::class];
-
-
+    public function provides(): array
+    {
+        return [
+            UserContract::class,
+            AccountContract::class,
+            DocumentContract::class,
+            EventContract::class,
+            NewsContract::class,
+            ContractsAuthenticationContract::class,
+            PaymentContract::class
+        ];
     }
+
     public function register(): void
     {
         //
