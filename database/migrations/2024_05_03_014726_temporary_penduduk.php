@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penduduk_temporary', function (Blueprint $table) {
-            $table->string('nik')->unique();
+            $table->unsignedBigInteger('id_penduduk')->index();
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
             $table->string('nama', 250);
@@ -37,6 +37,8 @@ return new class extends Migration
             $table->boolean('ikut_koperasi');
             $table->enum('status', ['Menunggu Verifikasi', 'Diterima', 'Ditolak'])->default('Menunggu Verifikasi');
             $table->timestamps();
+
+            $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
         });
     }
 

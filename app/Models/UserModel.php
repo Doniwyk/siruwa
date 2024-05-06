@@ -20,10 +20,10 @@ class UserModel extends Model
                             'pendidikan', 'pekerjaan', 'akseptor_kb', 'jenis_akseptor', 'aktif_posyandu', 'has_BKB',
                             'has_tabungan', 'ikut_kel_belajar', 'jenis_kel_belajar', 'ikut_paud', 'ikut_koperasi'];
 
-    public function account(): BelongsTo
-    {
-        return $this->belongsTo(AccountModel::class, 'id_user');
-    }
+    // public function account(): BelongsTo
+    // {
+    //     return $this->belongsTo(AccountModel::class, 'id_user');
+    // }
     public function pembayaran(): HasMany
     {
         return $this->hasMany(PaymentModel::class);
@@ -31,5 +31,9 @@ class UserModel extends Model
     public function dokumen(): HasMany
     {
         return $this->hasMany(Dokumen::class);
+    }
+    public function temporary_penduduk(): HasMany
+    {
+        return $this->hasMany(TempPendudukModel::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AccountModel extends Authenticatable
@@ -18,15 +19,15 @@ class AccountModel extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'nama', 'password', 'role'];
+    protected $fillable = ['id', 'nama', 'email', 'password', 'role'];
 
     public function admin(): HasMany
     {
         return $this->hasMany(AdminModel::class);
     }
-    public function penduduk(): HasMany
+    public function penduduk(): BelongsTo
     {
-        return $this->hasMany(UserModel::class);
+        return $this->belongsTo(UserModel::class);
     }
 
     protected $casts = [
