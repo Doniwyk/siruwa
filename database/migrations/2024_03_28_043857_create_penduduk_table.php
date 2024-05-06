@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('penduduk', function (Blueprint $table) {
             $table->id('id_penduduk');
-            $table->unsignedBigInteger('id_user')->index();
+            // $table->unsignedBigInteger('id_user')->index();
             $table->string('urlProfile', 250);
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
@@ -40,7 +40,7 @@ return new class extends Migration
             $table->boolean('ikut_koperasi');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id_user')->on('user');
+            // $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

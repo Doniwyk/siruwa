@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('role', 15);
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id_user')->on('user');
+            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 

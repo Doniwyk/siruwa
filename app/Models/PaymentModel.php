@@ -26,10 +26,10 @@ class PaymentModel extends Model
     }
     public function iuran_kematian(): HasMany
     {
-        return $this->hasMany(IuranKematian::class);
+        return $this->hasMany(DeathFundModel::class);
     }
     public function iuran_sampah(): HasMany
     {
-        return $this->hasMany(IuranSampah::class);
+        return $this->hasMany(GarbageFundModel::class);
     }
 }
