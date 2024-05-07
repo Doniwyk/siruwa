@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
             $table->string('nik')->unique();
+            $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
             $table->char('jenis_kelamin', 2);
@@ -29,6 +30,11 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('pendidikan', 100);
             $table->string('pekerjaan', 100);
+            $table->double('gaji');
+            $table->double('pajak_bumi');
+            $table->double('biaya_listrik');
+            $table->double('biaya_air');
+            $table->integer('jumlah_kendaraan');
             $table->boolean('akseptor_kb');
             $table->string('jenis_akseptor', 100);
             $table->boolean('aktif_posyandu');

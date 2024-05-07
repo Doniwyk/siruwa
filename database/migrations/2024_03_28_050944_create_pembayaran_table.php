@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id('id_pembayaran');
-            $table->unsignedBigInteger('id_penduduk')->index();
+            // $table->unsignedBigInteger('id_penduduk')->index();
             $table->unsignedBigInteger('id_admin')->index();
+            $table->string('nomor_kk')->index();
             $table->enum('jenis', ['Iuran Kematian', 'Iuran Sampah']);
             $table->enum('metode', ['Tunai', 'Transfer']);
             $table->float('jumlah');
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_admin')->references('id_admin')->on('admin');
-            $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
+            $table->foreign('nomor_kk')->references('nomor_kk')->on('penduduk');
         });
     }
 
