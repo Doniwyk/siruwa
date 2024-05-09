@@ -46,20 +46,33 @@ Route::group([
 });
 
 
-//ROUTE DATA PENDUDUK
+//ROUTE DATA PENDUDUK ADMIN
 Route::group([
     'prefix' => 'admin/data-dasawisma',
     'as' => 'admin.data-dasawisma.',
     'middleware' => 'isAuth'
 ], function () {
-    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/', [UserController::class, 'indexAdmin'])->name('index');
     Route::get('/add', [UserController::class, 'add'])->name('add');
     Route::post('/store', [UserController::class, 'storeUser'])->name('store');
-    Route::get('/{user}/edit', [UserController::class, 'editUser'])->name('edit');
-    Route::put('/{user}', [UserController::class, 'updateUser'])->name('update');
     Route::delete('/{user}/delete', [UserController::class, 'deleteUser'])->name('delete');
+
 });
 
+//ROUTE DATA PENDUDUK PRIBADI
+Route::group([
+    'prefix' => 'user/data-dasawisma',
+    'as' => 'user.data-dasawisma.',
+    'middleware' => 'isAuth'
+],
+    function () {
+        Route::get('/', [UserController::class, 'indexUser'])->name('index');
+        Route::post('/store', [UserController::class, 'storeUser'])->name('store');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
+        Route::put('/{user}', [UserController::class, 'requestEditForm'])->name('request');
+        Route::delete('/{user}/delete', [UserController::class, 'deleteUser'])->name('delete');
+    }
+);
 
 //ROUTE MANAJEMEN DOKUMEN
 Route::group([
@@ -69,10 +82,10 @@ Route::group([
 ],function(){
     Route::get('/', [DocumentController::class, 'index'])->name('index');
     Route::get('/add', [DocumentController::class, 'add'])->name('add');
-    Route::post('/store', [DocumentController::class, 'storeUser'])->name('store');
-    Route::get('/{document}/edit', [DocumentController::class, 'editUser'])->name('edit');
-    Route::put('/{document}', [DocumentController::class, 'updateUser'])->name('update');
-    Route::delete('/{document}/delete', [DocumentController::class, 'deleteUser'])->name('delete');
+    Route::post('/store', [DocumentController::class, 'storeDocument'])->name('store');
+    Route::get('/{document}/edit', [DocumentController::class, 'editDocument'])->name('edit');
+    Route::put('/{document}', [DocumentController::class, 'updateDocument'])->name('update');
+    Route::delete('/{document}/delete', [DocumentController::class, 'deleteDocument'])->name('delete');
 });
 
 //ROUTE MANAJEMEN DANA
@@ -111,7 +124,7 @@ Route::group([
     'as' => 'admin.manajemen-berita.',
     'middleware' => 'isAuth'
 ], function () {
-    Route::get('/', [NewsController::class, 'indexAdmin'])->name('index');
+    Route::get('/', [NewsController::class, 'index'])->name('index');
     Route::get('/add', [NewsController::class, 'add'])->name('add');
     Route::post('/store', [NewsController::class, 'storeNews'])->name('store');
     Route::get('/{news}/edit', [NewsController::class, 'editNews'])->name('edit');
@@ -120,7 +133,7 @@ Route::group([
 });
 
 
-//ROUTE AKUN PENDUDUK
+//ROUTE PROFIL ADMIN
 
 Route::group([
     'prefix' => 'admin/edit-profil',
@@ -128,18 +141,40 @@ Route::group([
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
-    Route::get('/add', [AccountController::class, 'add'])->name('add');
-    Route::post('/store', [AccountController::class, 'storeAccount'])->name('store');
     Route::get('/{account}/edit', [AccountController::class, 'editAccount'])->name('edit');
     Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
-    Route::delete('/{account}/delete', [AccountController::class, 'deleteAccount'])->name('delete');
+});
+
+
+
+//ROUTE PROFIL PENDUDUK
+
+Route::group([
+    'prefix' => 'penduduk/edit-profil',
+    'as' => 'penduduk.profil.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [AccountController::class, 'index'])->name('index');
+    Route::get('/{account}/edit', [AccountController::class, 'editAccount'])->name('edit');
+    Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
 });
 
 //==================================ROUTE PENDUDUK========================================
 
 //ROUTE PEMBAYARAN
 
-//ROUTE PROFIL
+
+
+
+
+Route::group([
+    'prefix' => 'penduduk',
+    'as' => 'penduduk.',
+    'middleware' => 'isAuth'
+], function () {
+    Route::get('/', [NewsController::class, 'index'])->name('index');
+
+});
 
 //ROUTE PENGAJUAN DOKUMEN
 
