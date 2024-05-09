@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('iuran_kematian', function (Blueprint $table) {
             $table->id('id_iuran_kematian');
-            $table->unsignedBigInteger('id_pembayaran')->index();
+            $table->unsignedBigInteger('id_pembayaran')->index()->nullable();
             $table->date('bulan');
             $table->enum('status', ['Lunas', 'Belum Lunas'])->default('Belum Lunas');
             $table->timestamps();
