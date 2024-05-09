@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('tanggal');
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id_admin')->on('admin');
+            $table->foreign('id_admin')->references('id')->on('users');
 
         });
     }

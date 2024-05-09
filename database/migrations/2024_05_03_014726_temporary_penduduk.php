@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('urlProfile', 250);
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
-            $table->string('nik');
-            $table->string('nomor_kk');
+            $table->string('nik')->unique();
+            $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
             $table->char('jenis_kelamin', 2);

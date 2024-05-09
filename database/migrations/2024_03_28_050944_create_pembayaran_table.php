@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('status', ['Terverifikasi', 'Belum Terverifikasi'])->default('Belum Terverifikasi');
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id_admin')->on('admin');
+            $table->foreign('id_admin')->references('id')->on('users');
             $table->foreign('nomor_kk')->references('nomor_kk')->on('penduduk');
         });
     }
