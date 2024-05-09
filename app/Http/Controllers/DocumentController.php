@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Contracts\DocumentContract;
 use App\Http\Requests\DocumentRequest;
+use App\Models\DocumentModel;
 use App\Models\Dokumen;
 
 class DocumentController extends Controller
@@ -23,18 +24,18 @@ class DocumentController extends Controller
 
     public function index(): View //Menampilkan daftar pengajuan dokumen diadmin
     {
-        $dokumen = Dokumen::latest()->get();
+        $dokumen = DocumentModel::latest()->get();
         $page = 'manajemen-dokumen';
         return view('admin._document.index', ['pages' => 'Dokumen','dokument' => $dokumen]);
     }
 
 
-    public function editDocument(Dokumen $Dokumen)
+    public function editDocument(DocumentModel $Dokumen)
     {
         return redirect()->route('admin.manajemen-dokumen.index');
     }
 
-    public function updateDocument(DocumentRequest $request, Dokumen $dokumen): RedirectResponse
+    public function updateDocument(DocumentRequest $request, DocumentModel $dokumen): RedirectResponse
     {
         $validated = $request->validated();
         $this->contract->editDocument($validated, $dokumen);
@@ -67,7 +68,7 @@ class DocumentController extends Controller
     }
 
 
-    public function deleteDocument(Dokumen $dokumen): RedirectResponse
+    public function deleteDocument(DocumentModel $dokumen): RedirectResponse
     {
         $this->contract->deleteDocument($dokumen);
 
@@ -78,7 +79,7 @@ class DocumentController extends Controller
     {
         $this->contract->getUser();
     }
-    public function validateDocument(Request $request, Dokumen $dokumen): RedirectResponse
+    public function validateDocument(Request $request, DocumentModel $dokumen): RedirectResponse
     {
         // Validasi apakah dokumen diterima atau ditolak
         $request->validate([

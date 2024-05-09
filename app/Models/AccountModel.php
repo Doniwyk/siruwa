@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class AccountModel extends Authenticatable
 {
-    use HasFactory;
-
+    use HasApiTokens, HasFactory, Notifiable;
     public function hasRole($role)
     {
         return $this->role === $role;
