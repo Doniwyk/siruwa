@@ -19,17 +19,24 @@ class AccountModel extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'nama', 'email', 'password', 'role'];
+    protected $fillable = ['id_penduduk', 'nama', 'email', 'password', 'role'];
 
-    public function admin(): HasMany
-    {
-        return $this->hasMany(AdminModel::class);
-    }
     public function penduduk(): BelongsTo
     {
         return $this->belongsTo(UserModel::class);
     }
-
+    public function pembayaran(): HasMany
+    {
+        return $this->hasMany(PaymentModel::class, 'id_admin');
+    }
+    public function berita(): HasMany
+    {
+        return $this->hasMany(EventModel::class, 'id_admin');
+    }
+    public function agenda(): HasMany
+    {
+        return $this->hasMany(NewsModel::class, 'id_admin');
+    }
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',

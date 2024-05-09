@@ -17,7 +17,7 @@ class NewsModel extends Model
 
     public function admin(): BelongsTo
     {
-        return $this->belongsTo(AdminModel::class, 'id_admin');
+        return $this->belongsTo(AccountModel::class, 'id_admin');
     }
 
 }

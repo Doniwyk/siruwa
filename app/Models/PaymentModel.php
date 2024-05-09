@@ -14,15 +14,15 @@ class PaymentModel extends Model
     protected $table = 'pembayaran';
     protected $primaryKey = 'id_pembayaran';
 
-    protected $fillable = ['id_penduduk', 'jenis', 'metode', 'jumlah', 'status'];
+    protected $fillable = ['id_admin', 'nomor_kk' ,'jenis', 'metode', 'jumlah', 'status'];
 
     public function admin(): BelongsTo
     {
-        return $this->belongsTo(AdminModel::class, 'id_admin');
+        return $this->belongsTo(AccountModel::class, 'id_admin');
     }
     public function penduduk(): BelongsTo
     {
-        return $this->belongsTo(UserModel::class, 'id_penduduk');
+        return $this->belongsTo(UserModel::class, 'nomor_kk');
     }
     public function iuran_kematian(): HasMany
     {
