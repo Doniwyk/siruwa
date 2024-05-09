@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('iuran_sampah', function (Blueprint $table) {
             $table->id('id_iuran_sampah');
             $table->unsignedBigInteger('id_pembayaran')->index();
-            $table->integer('bulan');
+            $table->date('bulan');
             $table->enum('status', ['Lunas', 'Belum Lunas'])->default('Belum Lunas');
             $table->timestamps();
 
