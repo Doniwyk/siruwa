@@ -11,7 +11,7 @@ class AuthenticationService implements ContractsAuthenticationContract
     function authenticate(AuthenticationRequest $request)
     {
         $credentials = [
-            'name' => $request->nama,
+            'nama' => $request->nama,
             'password' => $request->password,
         ];
 

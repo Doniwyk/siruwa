@@ -5,20 +5,21 @@ namespace App\Services;
 use App\Models\Dokumen;
 use App\Models\UserModel;
 use App\Contracts\DocumentContract;
+use App\Models\DocumentModel;
 
 class DocumentService implements DocumentContract
 {
 
     public function storeDocument(array $validatedData): void
     {
-        $Dokumen = Dokumen::create($validatedData);
+        $Dokumen = DocumentModel::create($validatedData);
 
         $user = UserModel::findOrFail($validatedData['id_penduduk']);
         $Dokumen->user()->associate($user);
         $Dokumen->save();
     }
 
-    public function editDocument(array $validatedData, Dokumen $dokumen): void
+    public function editDocument(array $validatedData, DocumentModel $dokumen): void
     {
         $dokumen->update($validatedData);
 
@@ -27,7 +28,7 @@ class DocumentService implements DocumentContract
         $dokumen->save();
     }
 
-    public function deleteDocument(Dokumen $dokumen): void
+    public function deleteDocument(DocumentModel $dokumen): void
     {
         $dokumen->user()->dissociate();
         $dokumen->delete();

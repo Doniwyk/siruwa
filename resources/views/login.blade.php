@@ -15,7 +15,7 @@
     </div>
     <form action="login" method="post" class="w-1/2 px-24 flex items-center justify-center flex-col">
         @csrf
-        <div class="text-center text-secondary text-5xl font-extrabold">{>///<}< /div>
+        <div class="text-center text-secondary text-5xl font-extrabold">{>///<}</div>
                 <div class="text-center text-secondary text-5xl font-extrabold mt-4">Siuwu Login</div>
                 <input type="text" name="nama" placeholder="Username" class="w-3/4 rounded-2xl py-3 px-6 mt-16 border-0 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
                 <input type="password" name="password" placeholder="Password" class="w-3/4 rounded-2xl py-3 px-6 mt-5 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
@@ -26,7 +26,10 @@
                     </label>
                     <a href=""><span class="text-slate-400 text-base font-medium">Lupa kata sandi?</span></a>
                 </div>
-                <button type="submit" class="w-3/4 bg-secondary rounded-2xl text-white px-6 py-3 text-base font-semibold mt-9">Masuk</button>
+            </div>
+        </div>
+    
+        <button type="submit" class="w-3/4 bg-secondary rounded-2xl text-white px-6 py-3 text-base font-semibold mt-9">Masuk</button>
     </form>
 </body>
 

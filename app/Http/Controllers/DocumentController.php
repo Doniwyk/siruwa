@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Contracts\DocumentContract;
 use App\Http\Requests\DocumentRequest;
+use App\Models\DocumentModel;
 use App\Models\Dokumen;
 
 class DocumentController extends Controller
@@ -18,17 +19,44 @@ class DocumentController extends Controller
         $this->contract = $contract;
     }
 
-    public function index(): View
+
+    // CONTROLLER DOKUMEN BUAT ADMIN
+
+    public function index(): View //Menampilkan daftar pengajuan dokumen diadmin
     {
-        $dokumen = Dokumen::latest()->get();
+        $dokumen = DocumentModel::latest()->get();
         $page = 'manajemen-dokumen';
         return view('admin._document.index', ['pages' => 'Dokumen','dokument' => $dokumen]);
-
-        // return view('dokumen.index', compact('dokumen'));
     }
-    public function addDocument(): View
+
+
+    public function editDocument(DocumentModel $Dokumen)
     {
-        return view('admin._document.add');
+        return redirect()->route('admin.manajemen-dokumen.index');
+    }
+
+    public function updateDocument(DocumentRequest $request, DocumentModel $dokumen): RedirectResponse
+    {
+        $validated = $request->validated();
+        $this->contract->editDocument($validated, $dokumen);
+
+        return redirect()->route('admin.manajemen-dokumen.index')->with('success', 'Dokumen updated successfully.');
+    }
+    
+    // CONTROLLER DOKUMEN BUAT USER
+    public function requestDocument(): View // Menampilkan halaman pengajuan dokumen 
+    {
+        return view('user._document.request');
+    }
+
+    public function requestSktm() : View //Halaman pengajuan SKTM
+    { 
+        return view('user._document.sktm');
+    }
+
+    public function requestSpu(): View //Halaman pengajuan SPU
+    { //Halaman pengajuan SKTM
+        return view('user._document.spu');
     }
 
     public function storeDocument(DocumentRequest $request): RedirectResponse
@@ -36,23 +64,11 @@ class DocumentController extends Controller
         $validated = $request->validated();
         $this->contract->storeDocument($validated);
 
-        return redirect()->route('admin.manajemen-dokumen.index')->with('success', 'Dokumen added successfully.');
+        return redirect()->route('user._document.history')->with('success', 'Dokumen request successfully.');
     }
 
-    public function updateDocument(Dokumen $Dokumen): View
-    {
-        return view('admin._document.edit', compact('dokumen'));
-    }
 
-    public function editDocument(DocumentRequest $request, Dokumen $dokumen): RedirectResponse
-    {
-        $validated = $request->validated();
-        $this->contract->editDocument($validated, $dokumen);
-
-        return redirect()->route('admin.manajemen-dokumen.index')->with('success', 'Dokumen updated successfully.');
-    }
-
-    public function deleteDocument(Dokumen $dokumen): RedirectResponse
+    public function deleteDocument(DocumentModel $dokumen): RedirectResponse
     {
         $this->contract->deleteDocument($dokumen);
 
@@ -63,7 +79,7 @@ class DocumentController extends Controller
     {
         $this->contract->getUser();
     }
-    public function validateDocument(Request $request, Dokumen $dokumen): RedirectResponse
+    public function validateDocument(Request $request, DocumentModel $dokumen): RedirectResponse
     {
         // Validasi apakah dokumen diterima atau ditolak
         $request->validate([

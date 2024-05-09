@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccountModel;
+use App\Models\EventModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AccountSeeder extends Seeder
+class EventSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        AccountModel::factory(15)->create();
+        EventModel::factory(10)->create();
+
     }
 }
