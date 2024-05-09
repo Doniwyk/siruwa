@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AccountModel extends Authenticatable
@@ -18,17 +19,24 @@ class AccountModel extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $fillable = ['id', 'nama', 'password', 'role'];
+    protected $fillable = ['id_penduduk', 'nama', 'email', 'password', 'role'];
 
-    public function admin(): HasMany
+    public function penduduk(): BelongsTo
     {
-        return $this->hasMany(AdminModel::class);
+        return $this->belongsTo(UserModel::class);
     }
-    public function penduduk(): HasMany
+    public function pembayaran(): HasMany
     {
-        return $this->hasMany(UserModel::class);
+        return $this->hasMany(PaymentModel::class, 'id_admin');
     }
-
+    public function berita(): HasMany
+    {
+        return $this->hasMany(EventModel::class, 'id_admin');
+    }
+    public function agenda(): HasMany
+    {
+        return $this->hasMany(NewsModel::class, 'id_admin');
+    }
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',

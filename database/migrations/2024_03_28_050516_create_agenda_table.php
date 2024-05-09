@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('berita_acara', function (Blueprint $table) {
-            $table->id('id_berita_acara');
+        Schema::create('agenda', function (Blueprint $table) {
+            $table->id('id_agenda');
             $table->unsignedBigInteger('id_admin')->index();
             $table->string('url_gambar', 255);
             $table->string('judul', 100);
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->dateTime('tanggal');
             $table->timestamps();
 
-            $table->foreign('id_admin')->references('id_admin')->on('admin');
+            $table->foreign('id_admin')->references('id')->on('users');
 
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('berita_acara');
+        Schema::dropIfExists('agenda');
     }
 };

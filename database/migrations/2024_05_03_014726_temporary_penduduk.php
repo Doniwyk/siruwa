@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penduduk_temporary', function (Blueprint $table) {
-            $table->string('nik')->unique();
+            $table->unsignedBigInteger('id_penduduk')->index();
+            $table->string('urlProfile', 250);
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
+            $table->string('nik')->unique();
+            $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
             $table->char('jenis_kelamin', 2);
@@ -24,10 +27,15 @@ return new class extends Migration
             $table->string('status_keluarga', 100);
             $table->string('agama', 100);
             $table->text('alamat');
-            $table->string('pendidikan', 20);
-            $table->string('pekerjaan', 20);
+            $table->string('pendidikan', 100);
+            $table->string('pekerjaan', 100);
+            $table->double('gaji');
+            $table->double('pajak_bumi');
+            $table->double('biaya_listrik');
+            $table->double('biaya_air');
+            $table->integer('jumlah_kendaraan_bermotor');
             $table->boolean('akseptor_kb');
-            $table->string('jenis_akseptor', 50);
+            $table->string('jenis_akseptor', 100);
             $table->boolean('aktif_posyandu');
             $table->boolean('has_BKB');
             $table->boolean('has_tabungan');
@@ -37,6 +45,8 @@ return new class extends Migration
             $table->boolean('ikut_koperasi');
             $table->enum('status', ['Menunggu Verifikasi', 'Diterima', 'Ditolak'])->default('Menunggu Verifikasi');
             $table->timestamps();
+
+            $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
         });
     }
 

@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id('id_dokumen');
             $table->unsignedBigInteger('id_penduduk')->index();
             $table->string('jenis', 100);
-            $table->enum('status', ['Bisa Diambil', 'Proses Verifikasi', 'Ditolak']);
+            $table->string('status');
+            $table->text('keterangan_status');
+            $table->text('keperluan');
+            $table->text('alasan_ditolak')->nullable();
             $table->timestamps();
 
             $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
