@@ -30,10 +30,10 @@ class AccountModelFactory extends Factory
     {
         return [
             'id_penduduk' => UserModel::factory()->create()->id_penduduk,
-            'nama' => $this->faker->name,
+            'nama' => $this->faker->firstName,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => bcrypt('asdfasdf'),
             'role' => $this->faker->randomElement(['admin', 'user']),
             'remember_token' => Str::random(10),
         ];
