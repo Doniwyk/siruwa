@@ -11,46 +11,42 @@
     @vite('resources/css/app.css')
 </head> -->
 
-
-                <!-- MyUwU login -->
-                <div class="bg-white rounded-2xl flex-center gap-8 flex-auto">
-                    <div class="flex-center gap-4 inline-flex py-2 px-8">
-                        <span class="text-center text-teal-900 text-sm font-medium font-['Anek Tamil']">MyUwU</span>
-                        <img class="w-11 h-11 rounded-full" src="https://via.placeholder.com/44x44" />
-                    </div>
-                </div>
-
+<body>
     <!-- Beranda -->
-  <section class="bg_beranda flex justify-center content-center p-72 w-full h-screen">
-    <div class="flex flex-col justify-start items-center gap-16 w-3/4">
-      <div class="flex flex-col gap-10">
-        <span class="text-center text-white text-8xl font-extrabold font-['Anek Tamil'] leading-10">SIUwU</span>
-        <span class="text-center text-white text-4xl font-semibold font-['Anek Tamil'] leading-10">Sistem Informasi Kawaiiiii</span>
+  <section class="bg_beranda flex justify-center content-center pr-72 pl-72 pt-44 w-full flex-col">
+    <div class="flex flex-col justify-center items-center gap-16 pb-28">
+      <div class="flex flex-col gap-10 justify-center items-center">
+        <span class="text-center text-white text-8xl font-extrabold">SIRUWA</span>
+        <span class="text-center text-white text-4xl font-semibold">Sistem Informasi RW Dua</span>
       </div>
-      <p class="text-center text-white text-2xl font-medium font-['Anek Tamil'] leading-9">Selamat datang di SIUwU, jelajahi aplikasi web mutakhir untuk mengatur segala hal di dunia.</p>
+      <p class="text-center text-white text-2xl font-medium w-2/3">Selamat datang di SIRUWA, jelajahi aplikasi web mutakhir untuk mengatur segala hal di dunia.</p>
     </div>
+    <a href="#menu" class="pb-4 flex flex-col text-center">
+      <p class="text-white">Mulai Jelajah !</p>
+      <p class="text-white">↓</p>
+    </a>
   </section>
 
   <!-- Menu -->
-  <section class="bg-main flex flex-col justify-center w-full h-96 px-20 p-16 gap-16">
-    <span class="text-center text-white text-5xl font-semibold font-['Anek Tamil']">Menu</span>
+  <section id="menu" class="bg-main flex flex-col justify-center w-full h-96 px-20 p-16 gap-16">
+    <span class="text-center text-white text-5xl font-semibold">Menu</span>
     <div class="flex flex-row justify-between item-center">
-        <div class="flex flex-col justify-center items-center gap-6">
-          <img class="w-28 h-28" src="{{ asset('assets/icons/user-filled.svg') }}" alt="">
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Edit Profil</span>
-        </div>
-        <div class="flex flex-col justify-center items-center gap-6">
-          <img class="w-28 h-28" src="{{ asset('assets/icons/document-filled.svg') }}" alt="">
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Data Penduduk</span>
-        </div>
-        <div class="flex flex-col justify-center items-center gap-6">
-          <img class="w-28 h-28" src="{{ asset('assets/icons/document-upload-filled.svg') }}" alt="">
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Pengajuan Dokumen</span>
-        </div>
-        <div class="flex flex-col justify-center items-center gap-6">
-          <img class="w-28 h-28" src="{{ asset('assets/icons/money-filled.svg') }}" alt="">
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Iuran Desa</span>
-        </div>
+      <button class="flex flex-col justify-center items-center gap-6">
+        <img class="w-20 h-20" src="{{ asset('assets/icons/user-filled.svg') }}" alt="">
+        <span class="text-white text-2xl text-center font-bold">Edit Profil</span>
+      </button>
+      <button class="flex flex-col justify-center items-center gap-6">
+        <img class="w-20 h-20" src="{{ asset('assets/icons/document-filled.svg') }}" alt="">
+        <span class="text-white text-2xl text-center font-bold">Data Penduduk</span>
+      </button>
+      <button class="flex flex-col justify-center items-center gap-6">
+        <img class="w-20 h-20" src="{{ asset('assets/icons/document-upload-filled.svg') }}" alt="">
+        <span class="text-white text-2xl text-center font-bold">Pengajuan Dokumen</span>
+      </button>
+      <button class="flex flex-col justify-center items-center gap-6">
+        <img class="w-20 h-20" src="{{ asset('assets/icons/money-filled.svg') }}" alt="">
+        <span class="text-white text-2xl text-center font-bold">Iuran Desa</span>
+      </button>
     </div>
   </section>
 
@@ -58,82 +54,39 @@
   <section class="bg-bg_color flex-col justify-center content-center p-16 w-full h-screen">
     <div class="flex gap-6 flex-col h-full">
       <div class="justify-between items-center inline-flex w-full">
-        <span class="text-cyan-900 text-5xl font-semibold font-['Anek Tamil']">Berita</span>
-
-
-    <section class="bg-bg_color flex justify-center content-center p-72 w-full h-screen">
-    <div class="w-96 h-96 flex-col justify-start items-start gap-3 inline-flex">
-  <div class="w-96 justify-between items-center inline-flex">
-    <div class="text-cyan-900 text-5xl font-semibold font-['Anek Tamil'] leading-10">Berita</div>
-    <div class="px-8 py-3 bg-cyan-900 rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
-      <div class="self-stretch justify-start items-center gap-8 inline-flex w-72">
-        <div class="text-white text-2xl font-medium font-['Anek Tamil'] leading-9">Lebih Banyak</div>
-        <div class="w-6 h-6 flex-center flex">
-          <div class="w-6 h-6 relative">
+        <span class="text-cyan-900 text-5xl font-semibold">Berita</span>
 
         <button class="px-8 py-3 bg-cyan-900 rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
           <div class="self-stretch justify-start items-center gap-8 inline-flex">
-            <span class="text-white text-base font-semibold font-['Anek Tamil'] leading-normal">Lebih Banyak ></span>
-
+            <span class="text-white text-base font-semibold leading-normal">Lebih Banyak ></span>
           </div>
         </button>
       </div>
 
-    </div>
-  </div>
-  <div class="w-96 h-96 relative">
-    <div class="w-96 h-96 left-[650.86px] top-0 absolute">
-      <div class="w-96 h-72 pl-6 pr-5 pt-28 pb-5 left-0 top-0 absolute rounded-2xl flex-center inline-flex">
-        <div class="w-96 self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex">
-          <div class="justify-start items-center gap-2 inline-flex">
-            <div class="w-4 h-4 flex-center flex">
-              <div class="w-4 h-4 relative">
-              </div>
-            </div>
-            <div class="text-stone-100 text-xl font-medium font-['Anek Tamil']">March, 15 2024</div>
-
       <div class="flex gap-6 h-full">
         <div class="p-6 rounded-2xl flex-col justify-end items-center gap-2.5 inline-flex bg_berita1">
           <div class="self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
-            <span class="text-stone-100 text-base font-medium font-['Anek Tamil']">March, 14 2024</span>
-            <span class="self-stretch text-justify text-stone-100 text-xl font-bold font-['Anek Tamil']">Politeknik Negeri Malang terjerat kasus dugaan korupsi pengadaan tanah senilai 40M, 2 direktur diperiksa.</span>
-
+            <span class="text-stone-100 text-base font-medium">March, 14 2024</span>
+            <span class="self-stretch text-justify text-stone-100 text-xl font-bold ">Politeknik Negeri Malang terjerat kasus dugaan korupsi pengadaan tanah senilai 40M, 2 direktur diperiksa.</span>
           </div>
         </div>
-
-      </div>
-      <div class="w-96 h-72 pl-6 pr-5 pt-28 pb-5 left-0 top-[300.99px] absolute rounded-2xl flex-center inline-flex">
-        <div class="w-96 self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex">
-          <div class="justify-start items-center gap-2 inline-flex">
-            <div class="w-4 h-4 flex-center flex">
-              <div class="w-4 h-4 relative">
-
+        
         <div class="flex flex-col gap-6">
           <div class="h-full p-6 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex bg_berita2">
             <div class="self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
               <div class="justify-start items-center gap-2 inline-flex">
-              <span class="text-stone-100 text-base font-medium font-['Anek Tamil']">March, 15 2024</span>
-
+              <span class="text-stone-100 text-base font-medium">March, 15 2024</span>
               </div>
-            <span class="self-stretch text-justify text-stone-100 text-xl font-bold font-['Anek Tamil']">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</span>
+            <span class="self-stretch text-justify text-stone-100 text-xl font-bold ">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</span>
           </div>
         </div>
-
-      </div>
-    </div>
-    <div class="w-96 h-96 p-6 left-0 top-0 absolute rounded-2xl flex-col justify-end items-center gap-2.5 inline-flex">
-      <div class="self-stretch h-36 p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
-        <div class="justify-start items-center gap-2 inline-flex">
-          <div class="w-4 h-4 flex-center flex">
-            <div class="w-4 h-4 relative">
 
         <div class="h-full p-6 rounded-2xl flex-col justify-end items-start gap-2.5 inline-flex bg_berita2">
           <div class="self-stretch p-6 bg-black bg-opacity-50 rounded-2xl flex-col justify-end items-start gap-2.5 flex">
             <div class="justify-start items-center gap-2 inline-flex">
-              <span class="text-stone-100 text-base font-medium font-['Anek Tamil']">March, 15 2024</span>
-
+              <span class="text-stone-100 text-base font-medium">March, 15 2024</span>
             </div>
-            <span class="self-stretch text-justify text-stone-100 text-xl font-bold font-['Anek Tamil']">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</span>
+            <span class="self-stretch text-justify text-stone-100 text-xl font-bold">Sejumlah mahasiswa Politeknik Negeri Malang mengunjungi Desa Seumberejo untuk mewujudkan digitalisasi Indonesia.</span>
           </div>
         </div>
         </div>
@@ -143,31 +96,42 @@
 
   <!-- Statistik -->
   <section class="bg-main flex flex-col justify-center w-full h-96 px-20 p-16 gap-16">
-    <span class="text-center text-white text-5xl font-semibold font-['Anek Tamil']">Sumberejo dalam Angka</span>
+    <span class="text-center text-white text-5xl font-semibold">Sumberejo dalam Angka</span>
     <div class="flex flex-row justify-between item-center">
         <div class="flex flex-col justify-center items-center gap-6">
-          <span class="text-white text-4xl text-center font-bold font-['Anek Tamil']">205+</span>
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Populasi Penduduk</span>
+          <span class="text-white text-4xl text-center font-bold">205+</span>
+          <span class="text-white text-2xl text-center font-bold">Populasi Penduduk</span>
         </div>
         <div class="flex flex-col justify-center items-center gap-6">
-        <span class="text-white text-4xl text-center font-bold font-['Anek Tamil']">0</span>
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Fasilitas Pendidikan</span>
+        <span class="text-white text-4xl text-center font-bold ">0</span>
+          <span class="text-white text-2xl text-center font-bold">Fasilitas Pendidikan</span>
         </div>
         <div class="flex flex-col justify-center items-center gap-6">
-          <span class="text-white text-4xl text-center font-bold font-['Anek Tamil']">1</span>
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Fasilitas Kesehatan</span>
+          <span class="text-white text-4xl text-center font-bold">1</span>
+          <span class="text-white text-2xl text-center font-bold">Fasilitas Kesehatan</span>
         </div>
         <div class="flex flex-col justify-center items-center gap-6">
-          <span class="text-white text-4xl text-center font-bold font-['Anek Tamil']">900</span>
-          <span class="text-white text-2xl text-center font-bold font-['Anek Tamil']">Fasilitas Administrasi</span>
+          <span class="text-white text-4xl text-center font-bold">900</span>
+          <span class="text-white text-2xl text-center font-bold">Fasilitas Administrasi</span>
         </div>
     </div>
   </section>
 
   <!-- Kalender -->
-  <section class="bg-bg_color flex justify-center content-center p-16 w-full h-screen">
-    <div id="calendarContainer"></div>
+  <section class="bg-bg_color flex flex-col justify-center content-center p-16 w-full gap-6">
+  <span class="text-cyan-900 text-5xl font-semibold">Agenda</span>
+  <div class="flex justify-between">
+    <div id="calendarContainer" class=""></div>
     <div id="organizerContainer"></div>
+  </div>
+  </section>
+
+  <!-- Struktur Organisasi -->
+  <section class="bg-bg_color flex flex-col justify-center content-center p-16 w-full gap-6">
+  <span class="text-cyan-900 text-5xl font-semibold">Struktur Organisasi</span>
+  <div class="flex justify-between">
+    
+  </div>
   </section>
 </body>
 
