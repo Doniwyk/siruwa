@@ -26,6 +26,13 @@ Route::get('/', function () {
     return view('landingpage');
 });
 
+// COBA LISST BERITA COYYYY
+
+Route::get('/list-berita', function () {
+    return view('/berita/list-berita');
+});
+
+
 Route::group(['middleware' => 'isGuest'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'doLogin']);
@@ -164,9 +171,6 @@ Route::group([
 //ROUTE PEMBAYARAN
 
 
-
-
-
 Route::group([
     'prefix' => 'penduduk',
     'as' => 'penduduk.',
@@ -175,24 +179,6 @@ Route::group([
     Route::get('/', [NewsController::class, 'index'])->name('index');
 
 });
-
-//ROUTE PENGAJUAN DOKUMEN
-
-//ROUTE DATA PRIBADI PENDUDUK
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // INI ROUTE CUMA BUAT NYOBA VIEW USER, BIAR DIKERAIN BACKEND MWEHEHEHEH
 Route::get('/profil', function () {
