@@ -26,8 +26,12 @@ class NewsController extends Controller
         //jangan lupa menyesuaikan nama view
     }
 
+    public function indexUser(){
+        return view('landingpage');
+    }
+
     public function add(){
-        return view('news.add');
+        return view('admin._news.add');
         //jangan lupa menyesuaikan nama view
     }
 
@@ -35,12 +39,12 @@ class NewsController extends Controller
         $validated = $request->validated();
         $this->newsContract->storeNews($validated);
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil ditambahkan.');    
+        return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');    
 
     }
 
     public function editNews(NewsModel $news):View{
-        return view('news.edit', compact('news'));
+        return view('admin._news.edit', compact('news'));
 
     }
 
@@ -48,13 +52,13 @@ class NewsController extends Controller
         $validated = $request->validated();
         $this->newsContract->updateNews($validated, $news);
         
-        return redirect()->route('news.index')->with('success', 'Berita berhasil diperbarui.');    
+        return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil diperbarui.');    
     }
 
     public function deleteNews(NewsModel $news):RedirectResponse{
         $this->newsContract->deleteNews($news);
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil di hapus.');
+        return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil di hapus.');
 
     }
 

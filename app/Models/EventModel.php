@@ -10,13 +10,13 @@ class EventModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'berita_acara';
+    protected $table = 'agenda';
     protected $primaryKey = 'id_berita_acara';
 
     protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'tanggal'];
 
     public function admin(): BelongsTo
     {
-        return $this->belongsTo(AdminModel::class, 'id_admin');
+        return $this->belongsTo(AccountModel::class, 'id_admin');
     }
 }

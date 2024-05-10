@@ -5,22 +5,41 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class AccountModel extends Model
+class AccountModel extends Authenticatable
 {
-    use HasFactory;
-    
-    protected $table = 'user';
-    protected $primaryKey = 'id_user';
-
-    protected $fillable = ['nama', 'password', 'isAdmin'];
-
-    public function admin(): HasMany
+    use HasApiTokens, HasFactory, Notifiable;
+    public function hasRole($role)
     {
-        return $this->hasMany(AdminModel::class);
+        return $this->role === $role;
     }
-    public function penduduk(): HasMany
+
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    protected $fillable = ['id_penduduk', 'nama', 'email', 'password', 'role'];
+
+    public function penduduk(): BelongsTo
     {
-        return $this->hasMany(UserModel::class);
+        return $this->belongsTo(UserModel::class);
     }
+    public function pembayaran(): HasMany
+    {
+        return $this->hasMany(PaymentModel::class, 'id_admin');
+    }
+    public function berita(): HasMany
+    {
+        return $this->hasMany(EventModel::class, 'id_admin');
+    }
+    public function agenda(): HasMany
+    {
+        return $this->hasMany(NewsModel::class, 'id_admin');
+    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 }

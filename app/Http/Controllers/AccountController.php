@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use App\Contracts\AccountContract;
 use App\Http\Requests\AccountRequest;
 use App\Models\AccountModel;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -20,44 +21,26 @@ class AccountController extends Controller
 
     public function index()
     {
-        $akun = AccountModel::all();
+        $userId = Auth::id();
+        $account = AccountModel::findOrFail($userId);
         $page = 'edit-profil';
-        return view('admin._profile.index', ['pages' => 'statistik', 'page' => $page]);
-        // return view('akun.index', compact('akun'));
-        //nanti sesuaikan nama view nya
+        $role= Auth::user()->role;
+        return view($role.'._profile.index', ['pages' => 'profil', 'page' => $page, 'account' =>$account]);
     }
 
-    public function add()
-    {
-        return view('akun.tambah');
-        //nanti sesuaikan nama view nya
-    }
-
-    public function storeACcount(AccountRequest $request): RedirectResponse
-    {
-        $validated = $request->validated();
-        $this->akunContract->storeAccount($validated);
-
-        return redirect()->route('akun.index')->with('success', 'Data akun berhasil ditambahkan.');
-    }
 
     public function editAccount(AccountModel $akun): View
     {
-        return view('akun.edit', compact('akun'));
+        $role = Auth::user()->role;
+        return view($role.'._profile.edit', compact('akun'));
     }
 
     public function updateAccount(AccountRequest $request, AccountModel $akun): RedirectResponse
     {
+        $role = Auth::user()->role;
         $validated = $request->validated();
         $this->akunContract->updateAccount($validated, $akun);
-
-        return redirect()->route('akun.index')->with('success', 'Data akun berhasil di ubah');
+        return redirect()->route($role . '._profile.edit')->with('success', 'Data akun berhasil di ubah');
     }
 
-    public function deleteAccount(AccountModel $akun): RedirectResponse
-    {
-        $this->akunContract->deleteAccount($akun);
-
-        return redirect()->route('akun.index')->with('success', 'Data akun berhasil di hapus.');
-    }
 }

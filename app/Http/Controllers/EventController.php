@@ -22,13 +22,13 @@ class EventController extends Controller
     public function index()
     {
         $event = EventModel::all();
-        return view('news.index', compact('news'));
+        return view('admin._event.index', compact('event'));
         //jangan lupa menyesuaikan nama view
     }
 
     public function add()
     {
-        return view('event.add');
+        return view('admin._event.add');
         //jangan lupa menyesuaikan nama view
     }
 
@@ -37,12 +37,12 @@ class EventController extends Controller
         $validated = $request->validated();
         $this->eventContract->storeEvent($validated);
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil ditambahkan.');
+        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
     public function editNews(EventModel $news): View
     {
-        return view('news.edit', compact('news'));
+        return view('admin._event.edit', compact('news'));
     }
 
     public function updateNews(EventRequest $request, EventModel $news): RedirectResponse
@@ -50,13 +50,13 @@ class EventController extends Controller
         $validated = $request->validated();
         $this->eventContract->updateEvent($validated, $news);
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil diperbarui.');
+        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
     public function deleteNews(EventModel $news): RedirectResponse
     {
         $this->eventContract->deleteEvent($news);
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil di hapus.');
+        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil di hapus.');
     }
 }
