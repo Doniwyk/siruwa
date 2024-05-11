@@ -24,7 +24,6 @@ class UserRequest extends FormRequest
         return [
             //
             'id_user' => 'required',
-            'urlProfile' => 'required',
             'no_reg'  => 'required',
             'tgl_lahir' => 'required',
             'nik'  => 'required|string|size:16',

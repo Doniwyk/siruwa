@@ -22,19 +22,17 @@ class AccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_user' => 'required',
-            'nama' => 'required',
+            'id_penduduk' =>  'required',
+            'username' => 'required',
             'password' => 'required',
-            'isAdmin' => 'required'
         ];
     }
     public function messages()
     {
         return [
-            'id_user.required' => 'ID User wajib diisi.',
-            'nama.required' => 'Nama wajib diisi.',
+            'id_penduduk.required' => 'ID User wajib diisi.',
+            'username.required' => 'Nama wajib diisi.',
             'password.required' => 'Password wajib diisi.',
-            'isAdmin.required' => 'Status Admin wajib diisi'
         ];
     }
 }

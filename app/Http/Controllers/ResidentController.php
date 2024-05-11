@@ -23,11 +23,6 @@ class ResidentController extends Controller
         $this->residentContract = $residentContract;
     }
 
-    // public function __construct(AccountContract $accountContract)
-    // {
-    //     $this->accountContract = $accountContract;
-    // }
-    
     //========================FOR ADMIN========================
     public function indexAdmin(){
         $resident = UserModel::all();
@@ -45,9 +40,12 @@ class ResidentController extends Controller
             $resident  = $this->residentContract->storeUser($validated);
             $account = [
                 'id_penduduk' => $resident->id,
-                'nama' => $resident->nickname,
-                'email' => $resident->email,
-                'password' => bcrypt('$resident->nomor_kk'),
+                'urlProfile' => $request->has('urlProfile') ? $request->urlProfile : null,
+                'noHp' => $request->has('noHp') ? $request->noHp : null,
+                'username' => $resident->nomor_kk,
+                'email' => $request->has('email') ? $request->email : null,
+                'email_verified_at' => now(),
+                'password' => bcrypt($resident->nomor_kk),
                 'role' => 'resident'
             ];
             AccountModel::insert($account);

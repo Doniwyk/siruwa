@@ -19,16 +19,12 @@ class UserModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'urlProfile' => fake()->imageUrl(),
             'no_reg' => fake()->unique()->regexify('[A-Za-z0-9]{10}'),
             'tgl_lahir' => fake()->date(),
             'nik' => fake()->unique()->regexify('[0-9]{16}'),
             'nomor_kk' => fake()->regexify('[0-9]{16}'),
             'nama' => fake()->name,
             'tempat_lahir' => fake()->city,
-            'nickname' => $this->faker->firstName,
-            'noHp' => fake()->phoneNumber(),
-            'email' => fake()->unique()->email(),
             'jenis_kelamin' => fake()->randomElement(['L', 'P']),
             'rt' => fake()->numberBetween(1, 20),
             'umur' => fake()->numberBetween(18, 90),
