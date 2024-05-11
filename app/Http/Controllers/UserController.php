@@ -22,33 +22,39 @@ class UserController extends Controller
         $this->pendudukContract = $pendudukContract;
     }
 
-    public function indexAdmin(){
-        $resident = UserModel::all();
-        return view('admin._dasawismaData.index', ['pages' => 'Data Penduduk','resident' => $resident]);
+    public function indexAdmin()
+    {
+        $residents = UserModel::paginate(15);
+        $page = 'data-dasawisma';
+        $pageHeader = 'Data Dasawisma';
+        return view('admin._dasawismaData.index', compact('residents', 'page', 'pageHeader'));
     }
 
-    public function indexUser(){
+    public function indexUser()
+    {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
         return view('user._dasawismaData.index', ['pages' => 'Data Anda', 'resident' => $resident]);
-
     }
 
-    public function add(){
+    public function add()
+    {
         return view('admin._dasawismaData.add');
     }
 
 
-    public function storeUser(UserRequest $request):RedirectResponse{
-        $validated=$request->validated();
+    public function storeUser(UserRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
         $this->pendudukContract->storeUser($validated);
-        return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil ditambahkan.');    
+        return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil ditambahkan.');
     }
 
 
-    public function deleteUser(UserModel $penduduk): RedirectResponse{
+    public function deleteUser(UserModel $penduduk): RedirectResponse
+    {
         $this->pendudukContract->deleteUser($penduduk);
-        
+
         return redirect()->route('penduduk.index')->with('success', 'Data penduduk berhasil di hapus.');
     }
 
@@ -93,8 +99,8 @@ class UserController extends Controller
     {
         // Periksa apakah ada entri dengan id_penduduk yang sama dan status 'Menunggu Verifikasi'
         $existingRequest = TempPendudukModel::where('id_penduduk', $penduduk->id_penduduk)
-        ->where('status', 'Menunggu Verifikasi')
-        ->exists();
+            ->where('status', 'Menunggu Verifikasi')
+            ->exists();
 
         if ($existingRequest) {
             // Jika ada, beri respons yang sesuai

@@ -26,7 +26,8 @@ class PaymentController extends Controller
     {
         $payment = PaymentModel::all();
         $page = 'manajemen-dana';
-        return view('admin._fund.index', ['pages' => 'Manajemen Dana', 'page' => $page]);
+        $pageHeader = 'Manajemen Dana';
+        return view('admin._fund.index', ['pageHeader' => $pageHeader, 'page' => $page]);
         // return view('payment.index',compact('payment'));
         //jangan lupa menyesuaikan nama view
     }

@@ -23,9 +23,11 @@ class AccountController extends Controller
     {
         $userId = Auth::id();
         $account = AccountModel::findOrFail($userId);
-        $page = 'edit-profil';
+        $page = 'profil';
+        $pageHeader = 'Profil';
         $role= Auth::user()->role;
-        return view($role.'._profile.index', ['pages' => 'profil', 'page' => $page, 'account' =>$account]);
+        // return view($role.'._profile.index', ['pageHeader' => $pageHeader, 'page' => $page, 'account' =>$account]);
+        return view($role.'._profile.index', compact('account', 'page', 'pageHeader', 'userId'));
     }
 
 

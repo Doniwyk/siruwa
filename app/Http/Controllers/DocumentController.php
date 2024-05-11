@@ -26,7 +26,8 @@ class DocumentController extends Controller
     {
         $dokumen = DocumentModel::latest()->get();
         $page = 'manajemen-dokumen';
-        return view('admin._document.index', ['pages' => 'Dokumen','dokument' => $dokumen]);
+        $pageHeader = 'Manajemen Dokumen';
+        return view('admin._document.index', ['pageHeader' => $pageHeader,'dokument' => $dokumen , 'page'=> $page]);
     }
 
 

@@ -19,10 +19,11 @@ class NewsController extends Controller
     }
 
     public function index(){
-        $news = NewsModel::all();
+        $news = NewsModel::paginate(6);
         $page = 'manajemen-berita';
-        return view('admin._news.index', ['pages' => 'Berita', 'page' => $page]);
-        // return view('news.index',compact('news'));
+        $pageHeader = 'Manajemen Berita';
+        // return view('admin._news.index', ['pageHeader' => $pageHeader, 'page' => $page]);
+        return view('admin._news.index',compact('news', 'pageHeader', 'page'));
         //jangan lupa menyesuaikan nama view
     }
 
