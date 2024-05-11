@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('nik')->unique();
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
+            $table->string('nickname', 250);
+            $table->string('noHp', 15);
             $table->string('tempat_lahir', 100);
             $table->char('jenis_kelamin', 2);
             $table->integer('rt');
