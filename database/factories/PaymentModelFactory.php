@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\PaymentModel;
+use App\Models\UserModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +22,7 @@ class PaymentModelFactory extends Factory
 return [
             'id_admin' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'nomor_kk' => function () {
-                return \App\Models\UserModel::factory()->create()->nomor_kk;
+                return UserModel::factory()->create()->nomor_kk;
             },
             'jenis' => $this->faker->randomElement(['Iuran Kematian', 'Iuran Sampah']),
             'metode' => $this->faker->randomElement(['Tunai','Transfer']),
