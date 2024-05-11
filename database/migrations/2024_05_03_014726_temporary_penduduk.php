@@ -13,15 +13,11 @@ return new class extends Migration
     {
         Schema::create('penduduk_temporary', function (Blueprint $table) {
             $table->unsignedBigInteger('id_penduduk')->index();
-            $table->string('urlProfile', 250);
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
             $table->string('nik')->unique();
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
-            $table->string('nickname', 250);
-            $table->string('noHp', 15);
-            $table->string('email', 250)->unique();
             $table->string('tempat_lahir', 100);
             $table->char('jenis_kelamin', 2);
             $table->integer('rt');
