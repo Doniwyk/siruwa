@@ -31,7 +31,7 @@ class UserModel extends Model
     }
     public function dokumen(): HasMany
     {
-        return $this->hasMany(Dokumen::class);
+        return $this->hasMany(DocumentModel::class);
     }
     public function temporary_penduduk(): HasMany
     {
