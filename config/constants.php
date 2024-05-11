@@ -2,7 +2,7 @@
 return [
     [
         "imgURL" => 'assets/icons/statistik.svg',
-        "route" => 'statistik',
+        "route" => 'statistic',
         "label" => "Statistik",
     ],
     [
@@ -27,7 +27,7 @@ return [
     ],
     [
         "imgURL" => 'assets/icons/edit-profil.svg',
-        "route" => 'edit-profil',
+        "route" => 'profil',
         "label" => "Ubah Profil",
     ]
 ];

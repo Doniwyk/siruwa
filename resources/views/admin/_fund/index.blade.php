@@ -1,16 +1,15 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="header-h1">Data Penduduk</h1>
+    <h1 class="h1-semibold">Data Penduduk</h1>
     <div class="summary-card_fund">
         <x-card :label="'Dana Kematian'" :value="9000000"/>
         <x-card :label="'Dana Sampah'" :value="9000000"/>
         <x-card :label="'Tunggakan'" :type="'danger'" :value="9000000"/>
-
     </div>
     <div class="button-option_parrent">
-        <button class="button-option button-option_active">Daftar Penduduk</button>
-        <button class="button-option ">Pengajuan</button>
-        <button class="button-option ">Riwayat</button>
+        <button class="button-option button-option_active" onclick="activeButton(this)">Daftar Penduduk</button>
+        <button class="button-option "onclick="activeButton(this)">Pengajuan</button>
+        <button class="button-option "onclick="activeButton(this)">Riwayat</button>
     </div>
     <x-filter />
     <table class="table-parent">

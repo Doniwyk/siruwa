@@ -3,11 +3,13 @@
         @foreach (config('constants') as $item)
             @php
                 $isActive = $page == $item['route'];
+                $route = 'admin.' . $item['route'] . '.index';
+                // $id = Hash::make(1);
             @endphp
             <li>
                 {{-- id pada tag a kyk e bakal diganti id user sg log in --}}
-                <a href="{{ route($item['route'], ['id' => Hash::make(1)]) }}" @class(['nav-menu', 'bg-white text-main font-bold' => $isActive])>
-                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class(['hover:invert-black', 'invert-black' => $isActive])>
+                <a href="{{ route($route) }}" @class(['nav-menu', 'bg-white text-main font-bold' => $isActive])>
+                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class([ 'invert-black' => $isActive])>
                     {{ $item['label'] }}
                 </a>
             </li>

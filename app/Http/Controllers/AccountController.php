@@ -24,10 +24,11 @@ class AccountController extends Controller
     {
         $userId = Auth::id();
         $account = AccountModel::findOrFail($userId);
-        $residentData = UserModel::findOrFail($userId);
-        $page = 'Profil';
+        $page = 'profil';
+        $pageHeader = 'Profil';
         $role= Auth::user()->role;
-        return view($role.'._profile.index', ['pages' => $page, 'account' =>$account,'resident' => $residentData]);
+        // return view($role.'._profile.index', ['pageHeader' => $pageHeader, 'page' => $page, 'account' =>$account]);
+        return view($role.'._profile.index', compact('account', 'page', 'pageHeader', 'userId'));
     }
 
 

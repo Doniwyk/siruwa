@@ -22,7 +22,8 @@ class EventController extends Controller
     public function index()
     {
         $event = EventModel::all();
-        return view('admin._event.index', compact('event'));
+        $page='manajemen-berita';
+        return view('admin._event.index', [compact('event'),'page'=> $page]);
         //jangan lupa menyesuaikan nama view
     }
 

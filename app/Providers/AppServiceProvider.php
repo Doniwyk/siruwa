@@ -21,6 +21,7 @@ use App\Services\NewsService;
 use App\Services\PaymentService;
 use App\Services\PendudukService;
 use App\Services\UserService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -62,6 +63,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Paginator::defaultView('pagination::default');
     }
 }
