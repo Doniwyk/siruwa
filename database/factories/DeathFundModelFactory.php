@@ -19,8 +19,10 @@ class DeathFundModelFactory extends Factory
     protected $model = DeathFundModel::class;
     public function definition(): array
     {
+        $payment= PaymentModel::factory()->create();
         return [
-            'id_pembayaran' => PaymentModel::factory()->create()->id_pembayaran,
+            'nomor_kk' =>$payment ->nomor_kk,
+            'id_pembayaran' =>$payment->id_pembayaran,
             'bulan' => $this->faker->date(),
             'status' => $this->faker->randomElement(['Lunas', 'Belum Lunas']),
         ];

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('penduduk_temporary', function (Blueprint $table) {
             $table->unsignedBigInteger('id_penduduk')->index();
-            $table->string('urlProfile', 250);
             $table->string('no_reg', 25);
             $table->date('tgl_lahir');
             $table->string('nik')->unique();

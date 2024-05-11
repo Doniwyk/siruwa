@@ -17,7 +17,7 @@
         @csrf
         <div class="text-center text-secondary text-5xl font-extrabold">{>///<}</div>
                 <div class="text-center text-secondary text-5xl font-extrabold mt-4">Siuwu Login</div>
-                <input type="text" name="nama" placeholder="Username" class="w-3/4 rounded-2xl py-3 px-6 mt-16 border-0 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
+                <input type="text" name="username" placeholder="Username" class="w-3/4 rounded-2xl py-3 px-6 mt-16 border-0 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
                 <input type="password" name="password" placeholder="Password" class="w-3/4 rounded-2xl py-3 px-6 mt-5 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
                 <div class="flex justify-between w-3/4 mt-5">
                     <label class="flex items-center">

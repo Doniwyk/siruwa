@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use App\Contracts\AccountContract;
 use App\Http\Requests\AccountRequest;
 use App\Models\AccountModel;
+use App\Models\UserModel;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -31,18 +32,21 @@ class AccountController extends Controller
     }
 
 
-    public function editAccount(AccountModel $akun): View
+    public function editAccount(): View
     {
+        $userId = Auth::id();
+        $account = AccountModel::findOrFail($userId);
+        $page = 'Edit Profil';
         $role = Auth::user()->role;
-        return view($role.'._profile.edit', compact('akun'));
+        return view($role . '._profile.edit', ['page' => $page, 'account' => $account]);
     }
 
-    public function updateAccount(AccountRequest $request, AccountModel $akun): RedirectResponse
+    public function updateAccount(AccountRequest $request, AccountModel $account): RedirectResponse
     {
         $role = Auth::user()->role;
         $validated = $request->validated();
-        $this->akunContract->updateAccount($validated, $akun);
-        return redirect()->route($role . '._profile.edit')->with('success', 'Data akun berhasil di ubah');
+        $this->akunContract->updateAccount($validated, $account);
+        return redirect()->route($role . '._profile.index')->with('success', 'Data akun berhasil di ubah');
     }
 
 }

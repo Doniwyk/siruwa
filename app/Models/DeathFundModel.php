@@ -13,12 +13,15 @@ class DeathFundModel extends Model
     protected $table = 'iuran_kematian';
     protected $primaryKey = 'id_iuran_kematian';
 
-    protected $fillable = ['id_pembayaran', 'bulan', 'status'];
+    protected $fillable = ['id_pembayaran', 'nomor_kk', 'bulan', 'status'];
 
     public function pembayaran(): BelongsTo
     {
         return $this->belongsTo(PaymentModel::class, 'id_pembayaran');
     }
-
+    public function penduduk(): BelongsTo
+    {
+        return $this->belongsTo(UserModel::class, 'nomor_kk');
+    }
     
 }

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nomor_kk')->index();
             $table->enum('jenis', ['Iuran Kematian', 'Iuran Sampah']);
             $table->enum('metode', ['Tunai', 'Transfer']);
+            $table->string('urlBuktiPembayaran', 250);
             $table->float('jumlah');
-            $table->string('urlBuktiBayar');
             $table->enum('status', ['Terverifikasi', 'Belum Terverifikasi'])->default('Belum Terverifikasi');
             $table->timestamps();
 
