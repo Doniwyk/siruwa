@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $pages }}</title>
+    <title>{{ $pageHeader }}</title>
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
 </head>
@@ -16,14 +16,12 @@
             <x-shared.topbar />
         </header>
         <main class="grow flex">
-            {{-- <x-shared.leftsidebar :page="$page" /> --}}
+            <x-shared.leftsidebar :page="$page" />
             <div class="content ">
                 @yield('content')
             </div>
         </main>
-        <footer></footer>
     </div>
-
 </body>
-
+<script src="{{ asset('js/app.js') }}"></script>
 </html>
