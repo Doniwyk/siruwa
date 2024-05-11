@@ -23,9 +23,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-    return view('landingpage');
-});
 
 // COBA LISST BERITA COYYYY
 
@@ -40,6 +37,11 @@ Route::group(['middleware' => 'isGuest'], function () {
 });
 
 Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth')->name('logout');
+
+
+//==================================ROUTE LANDING PAGE========================================
+
+Route::get('/', [NewsController::class, 'indexUser'])->name('index');
 
 
 //==================================ROUTE STATISTIC FOR ADMIN========================================
@@ -83,6 +85,8 @@ Route::group([
     }
 );
 
+
+
 //ROUTE MANAJEMEN DOKUMEN
 Route::group([
     'prefix' => 'admin/manajemen-dokumen',
@@ -111,7 +115,6 @@ Route::group([
     Route::delete('/{payment}/delete', [PaymentController::class, 'deleteAccount'])->name('delete');
 });
 
-//ROUTE MANAJEMEN BERITA ACARA
 
 Route::group([
     'prefix' => 'admin/manajemen-acara',
@@ -126,7 +129,7 @@ Route::group([
     Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('delete');
 });
 
-//ROUTE MANAJEMEN BERITA ADMIN
+//==================================ROUTE MANAJEMEN BERITA FOR ADMIN========================================
 
 Route::group([
     'prefix' => 'admin/manajemen-berita',
@@ -177,8 +180,9 @@ Route::group([
     'prefix' => 'penduduk',
     'as' => 'penduduk.',
     'middleware' => 'isAuth'
+
 ], function () {
-    Route::get('/', [NewsController::class, 'index'])->name('index');
+    Route::get('/', [NewsController::class, 'indexUser'])->name('index');
 
 });
 
