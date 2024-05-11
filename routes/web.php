@@ -60,7 +60,7 @@ Route::group([
 Route::group([
     'prefix' => 'admin/data-dasawisma',
     'as' => 'admin.data-dasawisma.',
-     'middleware' => 'isAuth'
+    'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
     Route::get('/add', [ResidentController::class, 'add'])->name('add');
@@ -145,29 +145,29 @@ Route::group([
 });
 
 
-//ROUTE PROFIL ADMIN
+//==================================ROUTE PROFILE FOR ADMIN========================================
 
 Route::group([
-    'prefix' => 'admin/edit-profil',
+    'prefix' => 'admin/profil',
     'as' => 'admin.profil.',
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
-    Route::get('/{account}/edit', [AccountController::class, 'editAccount'])->name('edit');
+    Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
 });
 
 
 
-//ROUTE PROFIL PENDUDUK
+//==================================ROUTE PROFILE FOR RESIDENT========================================
 
 Route::group([
-    'prefix' => 'penduduk/edit-profil',
+    'prefix' => 'penduduk/profil',
     'as' => 'penduduk.profil.',
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
-    Route::get('/{account}/edit', [AccountController::class, 'editAccount'])->name('edit');
+    Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
 });
 
