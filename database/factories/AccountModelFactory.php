@@ -31,9 +31,10 @@ class AccountModelFactory extends Factory
         $resident =UserModel::factory()->create();
         return [
             'id_penduduk' => $resident->id_penduduk,
-            'nama' => $resident->nickname,
-            'email' => $resident->email,
-            'noHp' => $resident->noHp,
+            'urlProfile' => fake()->imageUrl(),
+            'noHp' => fake()->phoneNumber(),
+            'username' => $resident->nomor_kk,
+            'email' => fake()->unique()->email(),
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),
             'role' => $this->faker->randomElement(['admin', 'resident']),
