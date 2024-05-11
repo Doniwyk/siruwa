@@ -58,7 +58,7 @@ Route::group([
 Route::group([
     'prefix' => 'admin/data-dasawisma',
     'as' => 'admin.data-dasawisma.',
-    // 'middleware' => 'isAuth'
+     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
     Route::get('/add', [ResidentController::class, 'add'])->name('add');
