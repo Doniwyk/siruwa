@@ -6,7 +6,7 @@ use App\Models\UserModel;
 
 interface UserContract
 {
-    public function storeUser(array $validatedData):void;
+    public function storeUser(array $validatedData):UserModel;
 
     public function updateUser(array $validatedData, UserModel $penduduk);
 
