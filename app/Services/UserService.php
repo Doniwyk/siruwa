@@ -10,9 +10,9 @@ use App\Models\UserModel;
 class UserService implements UserContract
 {
 
-    public function storeUser(array $validatedData):void
+    public function storeUser(array $validatedData):UserModel
     {
-        UserModel::create($validatedData);
+        return UserModel::create($validatedData);
     }
 
     public function updateUser(array $validatedData, UserModel $penduduk):void

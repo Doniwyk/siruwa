@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,7 @@ Route::group(['middleware' => 'isGuest'], function () {
 Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth')->name('logout');
 
 
-//==================================ROUTE ADMIN========================================
+//==================================ROUTE STATISTIC FOR ADMIN========================================
 
 //ROUTE STATISTIK
 Route::group([
@@ -46,31 +47,32 @@ Route::group([
 });
 
 
-//ROUTE DATA PENDUDUK ADMIN
+//==================================ROUTE RESIDENT DATA FOR ADMIN========================================
 Route::group([
     'prefix' => 'admin/data-dasawisma',
     'as' => 'admin.data-dasawisma.',
-    'middleware' => 'isAuth'
+    // 'middleware' => 'isAuth'
 ], function () {
-    Route::get('/', [UserController::class, 'indexAdmin'])->name('index');
-    Route::get('/add', [UserController::class, 'add'])->name('add');
-    Route::post('/store', [UserController::class, 'storeUser'])->name('store');
-    Route::delete('/{user}/delete', [UserController::class, 'deleteUser'])->name('delete');
+    Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
+    Route::get('/add', [ResidentController::class, 'add'])->name('add');
+    Route::post('/store', [ResidentController::class, 'storeResident'])->name('store');
+    Route::delete('/{resident}/delete', [ResidentController::class, 'deleteResident'])->name('delete');
+    Route::get('/{resident}/edit', [ResidentController::class, 'editResident'])->name('edit');
+    Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
 
 });
 
-//ROUTE DATA PENDUDUK PRIBADI
+//==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
 Route::group([
     'prefix' => 'user/data-dasawisma',
     'as' => 'user.data-dasawisma.',
     'middleware' => 'isAuth'
 ],
     function () {
-        Route::get('/', [UserController::class, 'indexUser'])->name('index');
-        Route::post('/store', [UserController::class, 'storeUser'])->name('store');
-        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
-        Route::put('/{user}', [UserController::class, 'requestEditForm'])->name('request');
-        Route::delete('/{user}/delete', [UserController::class, 'deleteUser'])->name('delete');
+        Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
+        Route::get('/{resident}/edit', [ResidentController::class, 'editForm'])->name('edit');
+        Route::put('/{resident}', [ResidentController::class, 'requestEditForm'])->name('request');
+        Route::delete('/{resident}/delete', [ResidentController::class, 'deleteUser'])->name('delete');
     }
 );
 
