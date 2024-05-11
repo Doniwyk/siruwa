@@ -1041,23 +1041,6 @@ video {
   background-size: cover;
 }
 
-.left-sidebar {
-  display: flex;
-  min-height: 100%;
-  width: 330px;
-  flex-direction: column;
-  justify-content: space-between;
-  --tw-bg-opacity: 1;
-  background-color: rgb(36 68 71 / var(--tw-bg-opacity));
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  font-size: 16px;
-  font-weight: 500;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
 
 .topbar {
   height: 5.75rem;
@@ -1066,10 +1049,7 @@ video {
 }
 
 .content {
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+
 }
 
 .invert-black {
