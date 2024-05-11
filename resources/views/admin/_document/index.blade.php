@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="header-h1">Manajemen Dokumen</h1>
+    <h1 class="h1-semibold">Manajemen Dokumen</h1>
     <div class="button-option_parrent">
-        <button class="button-option button-option_active">Daftar Penduduk</button>
-        <button class="button-option ">Pengajuan</button>
+        <button class="button-option button-option_active" onclick="activeButton(this)">Pengajuan</button>
+        <button class="button-option " onclick="activeButton(this)">Riwayat</button>
     </div>
     <table class="table-parent">
         <thead>
