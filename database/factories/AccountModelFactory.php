@@ -33,6 +33,7 @@ class AccountModelFactory extends Factory
             'id_penduduk' => $resident->id_penduduk,
             'nama' => $resident->nickname,
             'email' => $resident->email,
+            'noHp' => $resident->noHp,
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),
             'role' => $this->faker->randomElement(['admin', 'user']),
