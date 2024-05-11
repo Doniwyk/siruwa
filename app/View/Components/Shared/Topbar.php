@@ -21,6 +21,6 @@ class Topbar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components..shared.topbar');
+        return view('components.shared.topbar');
     }
 }
