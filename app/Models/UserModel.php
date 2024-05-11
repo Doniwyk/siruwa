@@ -16,7 +16,7 @@ class UserModel extends Model
     protected $primaryKey = 'id_penduduk';
 
     protected $fillable = ['urlProfile', 'no_reg', 'tgl_lahir', 'nik', 'nomor_kk', 'nama', 'tempat_lahir',
-    'nickname', 'noHp', 'jenis_kelamin', 'rt', 'umur', 'status_kawin', 'status_keluarga', 'agama', 'alamat',
+    'nickname', 'noHp', 'email', 'jenis_kelamin', 'rt', 'umur', 'status_kawin', 'status_keluarga', 'agama', 'alamat',
     'pendidikan', 'pekerjaan', 'gaji', 'pajak_bumi', 'biaya_listrik', 'biaya_air', 'jumlah_kendaraan_bermotor', 
     'akseptor_kb', 'jenis_akseptor', 'aktif_posyandu', 'has_BKB',
     'has_tabungan', 'ikut_kel_belajar', 'jenis_kel_belajar', 'ikut_paud', 'ikut_koperasi'];
