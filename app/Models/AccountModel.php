@@ -20,7 +20,7 @@ class AccountModel extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $fillable = ['id_penduduk', 'nama', 'email', 'password', 'role'];
+    protected $fillable = ['id_penduduk', 'nama', 'noHp', 'email', 'password', 'role'];
 
     public function penduduk(): BelongsTo
     {
