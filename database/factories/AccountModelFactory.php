@@ -36,7 +36,7 @@ class AccountModelFactory extends Factory
             'noHp' => $resident->noHp,
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),
-            'role' => $this->faker->randomElement(['admin', 'user']),
+            'role' => $this->faker->randomElement(['admin', 'resident']),
             'remember_token' => Str::random(10),
         ];
     }
