@@ -23,7 +23,7 @@
         </a>
     </div>
     
-    <x-filter :typeDdocument="$typeDocument" :search="$initialSearch" :order="$initialOrder" />
+    <x-filter :typeDdocument="$typeDocument" :search="$search" :order="$order" />
 
     
     @switch($typeDocument)
