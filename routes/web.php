@@ -58,8 +58,8 @@ Route::group([
 
 //==================================ROUTE RESIDENT DATA FOR ADMIN========================================
 Route::group([
-    'prefix' => 'admin/data-dasawisma',
-    'as' => 'admin.data-dasawisma.',
+    'prefix' => 'admin/data-penduduk',
+    'as' => 'admin.data-penduduk.',
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
