@@ -12,6 +12,7 @@ export default {
                 main: "#244447",
                 secondary: "#225157",
                 third: "#A7EDB6",
+                fourth: "#DBE4E5",
                 "danger-bg": "#EDA7A7",
                 danger: "#4C2323",
             },
@@ -21,6 +22,17 @@ export default {
                 bg_berita2: "url('../public/berita2.jpeg')",
             },
         },
+        screens: {
+            'sm': '640px',
+      
+            'md': '768px',
+      
+            'lg': '1024px',
+      
+            'xl': '1280px',
+      
+            '2xl': '1536px',
+          }
     },
     plugins: [],
 };
