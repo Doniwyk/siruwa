@@ -7,8 +7,8 @@ return [
     ],
     [
         "imgURL" => 'assets/icons/data-dasawisma.svg',
-        "route" => 'data-dasawisma',
-        "label" => "Data Dasawisma",
+        "route" => 'data-penduduk',
+        "label" => "Data Penduduk",
     ],
     [
         "imgURL" => 'assets/icons/manajemen-dokumen.svg',
