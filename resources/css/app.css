@@ -19,17 +19,21 @@
         @apply text-3xl text-main font-semibold;
     }
 
-    .button-option_parrent {
+    .link-option_parrent {
         @apply flex max-w-[30.25rem] min-h-[3.5rem] rounded-2xl py-2 px-4 justify-between  font-semibold bg-white text-sm;
     }
-    .button-option {
-        @apply flex-1 rounded-2xl text-main font-medium transition-all ease-linear;
+    .link-option {
+        @apply flex-center flex-1 rounded-2xl text-main font-medium transition-all ease-linear;
     }
-    .button-option_active {
+    .link-option_active {
         @apply bg-main  text-white font-semibold;
     }
     .invert-black {
         @apply invert-[.6] transition font-bold;
+    }
+
+    .button-order_desc {
+        @apply flex-center rotate-180;
     }
 
 }
