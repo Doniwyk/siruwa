@@ -22,17 +22,16 @@ class NewsController extends Controller
     public function index(){
         $news = NewsModel::paginate(6);
         $page = 'manajemen-berita';
-        $pageHeader = 'Manajemen Berita';
-        return view('admin._news.index',compact('news', 'pageHeader', 'page'));
+        $title = 'Manajemen Berita';
+        return view('admin._news.index',compact('news', 'title', 'page'));
     }
 
-    public function indexUser(){
-        return view('landingpage');
-        $news = NewsModel::all();
-        $page = 'Manajemen Berita';
-        return view('admin._news.index', ['page' => $page, 'news' => $news]);
-
-    }
+    // public function indexUser(){
+    //     return view('landingpage');
+    //     $news = NewsModel::all();
+    //     $page = 'Manajemen Berita';
+    //     return view('admin._news.index', ['page' => $page, 'news' => $news]);
+    // }
 
     public function add(){
         return view('admin._news.add');

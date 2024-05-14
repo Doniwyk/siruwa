@@ -42,20 +42,20 @@ class ResidentController extends Controller
         ])->links()->toHtml(); 
 
         $page = 'data-penduduk';
-        $pageHeader = 'Data Penduduk';
+        $title = 'Data Penduduk';
 
         // menangani jika request JSON
         if ($request->wantsJson()) {
             return response()->json([
                 'page' => $page,
-                'pageHeader' => $pageHeader,
+                'title' => $title,
                 'typeDocument' => $typeDocument,
                 'residents' => $residents->items(),
                 'paginationHtml' => $paginationHtml 
             ]);
         }
 
-        return view('admin._dasawismaData.index', compact('page', 'pageHeader', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
+        return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
     }
 
     public function add()
