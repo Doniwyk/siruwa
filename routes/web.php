@@ -234,20 +234,3 @@ Route::group([
     Route::get('/', [NewsController::class, 'indexUser'])->name('index');
 
 });
-
-// INI ROUTE CUMA BUAT NYOBA VIEW USER, BIAR DIKERAIN BACKEND MWEHEHEHEH
-Route::get('/profil', function () {
-    return view('/user/_profile/index');
-});
-Route::get('/dokumen', function () {
-    return view('/user/_residentData/index');
-});
-Route::get('/request', function () {
-    return view('/user/_requestDocument/index');
-});
-Route::get('/iuran', function () {
-    return view('/user/_fund/index');
-});
-Route::get('/topbar', function () {
-    return view('/components/shared/user-topbar');
-});
