@@ -28,6 +28,9 @@ class NewsController extends Controller
     }
 
 
+
+
+
     public function add(){
         return view('admin._news.add');
     }
@@ -60,6 +63,7 @@ class NewsController extends Controller
         $event = EventModel::all();
         $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
         return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews'=>$latestNews]);
+
     }
 
 }

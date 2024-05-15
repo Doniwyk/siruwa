@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminDocumentController;
+use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\ResidentDocumentController;
+use App\Http\Controllers\ResidentPaymentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -88,7 +92,52 @@ Route::group([
     }
 );
 
+//==================================ROUTE DOCUMENT FOR RESIDENT========================================
+Route::group([
+    'prefix' => 'resident/data-dokumen',
+    'as' => 'resident.data-dokumen.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
+    Route::post('/request', [ResidentDocumentController::class, 'requestDocument'])->name('request');
+    Route::get('/history', [ResidentDocumentController::class, 'history'])->name('history');
+});
 
+//==================================ROUTE DOCUMENT FOR ADMIN========================================
+Route::group([
+    'prefix' => 'admin/data-dokumen',
+    'as' => 'admin.data-dokumen.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [AdminDocumentController::class, 'index'])->name('index');
+    Route::post('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument');
+    Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit');
+    Route::put('/{document}', [AdminDocumentController::class, 'changeStatus '])->name('changeStatus');
+    Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history');
+});
+
+//==================================ROUTE PAYMENT FOR RESIDENT========================================
+Route::group([
+    'prefix' => 'resident/data-pembayaran',
+    'as' => 'resident.data-pembayaran.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
+    Route::get('/add-pembayaran', [ResidentPaymentController::class, 'getAddPaymentForm'])->name('formPembayaran');
+    Route::post('/add-pembayaran', [ResidentPaymentController::class, 'storePayment'])->name('store');
+    Route::get('/history', [ResidentPaymentController::class, 'getHistory'])->name('history');
+});
+
+//==================================ROUTE PAYMENT FOR ADMIN========================================
+Route::group([
+    'prefix' => 'admin/data-pembayaran',
+    'as' => 'admin.data-pembayaran.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [AdminPaymentController::class, 'index'])->name('index');
+    Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment  '])->name('validatePembayaran');
+    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history');
+});
 
 //==================================ROUTE DOCUMENT MANAGEMENT FOR ADMIN========================================
 Route::group([
@@ -189,21 +238,4 @@ Route::group([
 ], function () {
     Route::get('/', [NewsController::class, 'indexUser'])->name('index');
 
-});
-
-// INI ROUTE CUMA BUAT NYOBA VIEW USER, BIAR DIKERAIN BACKEND MWEHEHEHEH
-Route::get('/profil', function () {
-    return view('/user/_profile/index');
-});
-Route::get('/dokumen', function () {
-    return view('/user/_residentData/index');
-});
-Route::get('/request', function () {
-    return view('/user/_requestDocument/index');
-});
-Route::get('/iuran', function () {
-    return view('/user/_fund/index');
-});
-Route::get('/topbar', function () {
-    return view('/components/shared/user-topbar');
 });
