@@ -15,6 +15,9 @@ export default {
                 fourth: "#DBE4E5",
                 "danger-bg": "#EDA7A7",
                 danger: "#4C2323",
+                "input-disabled": "#DDE9EA",
+                "green-light": "#3D5658",
+                "input-text": "#3D5658",
             },
             backgroundImage: {
                 bg_beranda: "url('../public/beranda.jpg')",
