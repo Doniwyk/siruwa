@@ -38,6 +38,10 @@ class AdminDocumentController extends Controller
         $documentHistory = $this->documentService->getValidateHistory();
         return view('admin._document.history', compact('documentHistory'));
     }
+    public function getEditPage()
+    {
+        return view('admin._document.edit');
+    }
     public function changeStatus(ValidateDocumentRequest $request, DocumentModel $document){
         try {
             $validatedData = $request->validated();

@@ -21,6 +21,12 @@ class ResidentPaymentController extends Controller
     return view('penduduk._pembayaran.index', compact('fundData'));
   }
 
+  public function getAddPaymentForm()
+  {
+    return view('penduduk._pembayaran.add');
+  }
+
+
   public function storePayment(StorePaymentRequest $request) // Use validated request
   {
     $validatedData = $request->validated(); // Access validated data directly
