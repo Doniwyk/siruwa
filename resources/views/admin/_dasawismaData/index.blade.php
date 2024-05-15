@@ -41,12 +41,13 @@
                 <tbody>
                     @foreach ($residents as $resident)
                         <tr class="hover:bg-fourth transition-all ease-linear cursor-pointer">
-                            <td>{{ $resident['nama'] }}</td>
-                            <td>{{ $resident['nik'] }}</td>
-                            <td>{{ $resident['tgl_lahir'] }}</td>
-                            <td>{{ $resident['no_reg'] }}</td>
-                            <td>
-                                <button class="flex-center">
+                            <td class="hidden">{{ $resident->id_penduduk }}</td>
+                            <td>{{ $resident->nama }}</td>
+                            <td>{{ $resident->nik }}</td>
+                            <td>{{ $resident->tgl_lahir }}</td>
+                            <td>{{ $resident->no_reg }}</td>
+                            <td class="flex-start">
+                                <a class="flex-center" href="{{ route('admin.data-penduduk.edit', ['resident' => $resident['id_penduduk']]) }}">
                                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13 7.75V14.5" stroke="#225157" stroke-width="2" stroke-linecap="round" />
@@ -56,7 +57,7 @@
                                             d="M24.0246 13.0001C24.0246 6.91116 19.0885 1.9751 12.9996 1.9751C6.91067 1.9751 1.97461 6.91116 1.97461 13.0001C1.97461 19.089 6.91067 24.0251 12.9996 24.0251C19.0885 24.0251 24.0246 19.089 24.0246 13.0001Z"
                                             stroke="#225157" stroke-width="2" stroke-miterlimit="10" />
                                     </svg>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -79,12 +80,13 @@
                 <tbody>
                     @foreach ($residents as $resident)
                         <tr>
-                            <td>{{ $resident['nama'] }}</td>
-                            <td>{{ $resident['nik'] }}</td>
-                            <td>{{ $resident['tgl_lahir'] }}</td>
-                            <td>{{ $resident['no_reg'] }}</td>
+                            <td class="hidden">{{ $resident->id_penduduk }}</td>
+                            <td>{{ $resident->nama }}</td>
+                            <td>{{ $resident->nik }}</td>
+                            <td>{{ $resident->tgl_lahir }}</td>
+                            <td>{{ $resident->no_reg }}</td>
                             <td>
-                                <button class="flex-center">
+                                <a class="flex-center" href="{{ route('admin.data-penduduk.edit', ['resident' => $resident['id_penduduk']]) }}">
                                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path d="M13 7.75V14.5" stroke="#225157" stroke-width="2" stroke-linecap="round" />
@@ -94,7 +96,7 @@
                                             d="M24.0246 13.0001C24.0246 6.91116 19.0885 1.9751 12.9996 1.9751C6.91067 1.9751 1.97461 6.91116 1.97461 13.0001C1.97461 19.089 6.91067 24.0251 12.9996 24.0251C19.0885 24.0251 24.0246 19.089 24.0246 13.0001Z"
                                             stroke="#225157" stroke-width="2" stroke-miterlimit="10" />
                                     </svg>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
