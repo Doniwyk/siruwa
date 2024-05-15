@@ -22,22 +22,19 @@ class EventController extends Controller
     public function index()
     {
         $event = EventModel::all();
-        $page='manajemen-berita';
-        return view('admin._event.index', [compact('event'),'page'=> $page]);
-        //jangan lupa menyesuaikan nama view
+        $title='Manajemen Agenda';
+        return view('admin._event.index', [compact('event'),'page'=> $title]);
     }
 
     public function add()
     {
         return view('admin._event.add');
-        //jangan lupa menyesuaikan nama view
     }
 
     public function storeNews(EventRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         $this->eventContract->storeEvent($validated);
-
         return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 

@@ -6,7 +6,9 @@ use App\Contracts\AccountContract;
 use App\Contracts\UserContract;
 use App\Http\Requests\UserRequest;
 use App\Models\AccountModel;
+use App\Models\TempResidentModel;
 use App\Models\UserModel;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,8 +27,13 @@ class ResidentController extends Controller
 
     //========================FOR ADMIN========================
     public function indexAdmin(){
-        $resident = UserModel::all();
-        return view('admin._dasawismaData.index', ['pages' => 'Data Penduduk', 'resident' => $resident]);
+        try{
+            $resident = UserModel::all();
+            return view('admin._dasawismaData.index', ['title' => 'Data Penduduk', 'residents' => $resident]);
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Data penduduk tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+
     }
 
     public function add(){
@@ -58,8 +65,13 @@ class ResidentController extends Controller
 
     public function deleteResident(UserModel $resident): RedirectResponse
     {
-        $this->residentContract->deleteUser($resident);
-        return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil dihapus.');
+        try{
+            $this->residentContract->deleteUser($resident);
+            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil dihapus.');
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+
     }
 
     //EDIT BY ADMIN
@@ -70,25 +82,47 @@ class ResidentController extends Controller
 
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
     {
-        $validated = $request->validated();
-        $this->residentContract->updateUser($validated, $resident);
-        return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil di ubah');
+        try{
+            $validated = $request->validated();
+            $this->residentContract->updateUser($validated, $resident);
+            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil di ubah');
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Gagal memperbarui data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+
     }
 
     //FOR PROCESS EDIT BY RESIDENT
-    public function validateEditRequest(Request $request,UserRequest $residentRequest, UserModel $resident){
+
+    public function indexRequest(){
+        try{
+            $requestEdit = TempResidentModel::all();
+            return view('admin._dasawismaData.index', ['title' => 'Data Penduduk', 'requestEdit' => $requestEdit]);
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Pengajuan perubahan data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+
+        
+    }
+
+    public function validateEditRequest(Request $request, UserModel $resident){
         $request->validate([
             'action' => 'required|in:accept,reject',
         ]);
-        if ($request->action === 'accept') {
-            $validated = $residentRequest->validated();
-            $this->residentContract->updateUser($validated, $resident);
-            return redirect()->route('admin.data-dasawisma.requestData')->with('success', 'Pengajuan edit data diterima.');
-        // will update the data change request status table to accept
-        } else {
-        // will update the data change request status table to reject
+        try{
+            $this->residentContract->validateEditRequest($request,$resident);
+            if ($request->action === 'accept') {
+                return redirect()->route('admin.data-dasawisma.request')->with('success', 'Data berhasil disetujui.');
+            } elseif ($request->action === 'reject') {
+                return redirect()->route('admin.data-dasawisma.request')->with('error', 'Data berhasil ditolak.');
+            }
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
+
+        
     }
+
 
     //========================FOR RESIDENT========================
 
@@ -96,7 +130,7 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident._dasawismaData.index', ['pages' => 'Data Anda', 'resident' => $resident]);
+        return view('resident._dasawismaData.index', ['title' => 'Data Diri', 'resident' => $resident]);
     }
 
     public function editForm(){
@@ -105,9 +139,26 @@ class ResidentController extends Controller
         return view('resident.data-dasawisma.edit', compact('resident'));
     }
 
-    public function requestEditForm(){
+    public function storeEditRequest(Request $request, UserModel $resident){
 
+        try{
+            if($this->residentContract->editRequest($request,$resident)){
+                return redirect()->back()->with('success', 'Formulir pengajuan edit berhasil disimpan.');        
+            } else {
+                return redirect()->back()->with('error', 'Anda sudah mengajukan perubahan data. Harap tunggu proses verifikasi sebelum mengajukan perubahan lagi.');
+            }
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Gagal mengajukan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
+
+        }
     }
+
+    public function historyEditRequest(UserModel $penduduk)
+    {
+        $history = TempResidentModel::where('id_penduduk', $penduduk->id_penduduk);
+        return view('resident._dasawismaData.history', ['title' => 'Data Penduduk', 'history' => $history]);
+    }
+
 
 
 }
