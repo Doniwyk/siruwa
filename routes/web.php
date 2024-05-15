@@ -30,25 +30,24 @@ Route::get('/list-berita', function () {
     return view('/berita/list-berita');
 });
 
+//==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'doLogin']);
 });
-
 Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth')->name('logout');
 
 
 //==================================ROUTE LANDING PAGE========================================
 
-Route::get('/', [NewsController::class, 'indexUser'])->name('index');
+Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 
 
 //==================================ROUTE STATISTIC FOR ADMIN========================================
 
-//ROUTE STATISTIK
 Route::group([
-    'prefix' => 'admin/statistic',
+    'prefix' => 'admin/statistik',
     'as' => 'admin.statistic.',
     'middleware' => 'isAuth'
 ], function () {
@@ -63,31 +62,35 @@ Route::group([
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
-    Route::get('/add', [ResidentController::class, 'add'])->name('add');
+    Route::get('/tambah-penduduk', [ResidentController::class, 'add'])->name('add');
     Route::post('/store', [ResidentController::class, 'storeResident'])->name('store');
     Route::delete('/{resident}/delete', [ResidentController::class, 'deleteResident'])->name('delete');
     Route::get('/{resident}/edit', [ResidentController::class, 'editResident'])->name('edit');
     Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
+    Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
+    Route::get('/validasi-pengajuan', [ResidentController::class, 'validateEditRequest'])->name('validate');
+
+
 
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
 Route::group([
-    'prefix' => 'user/data-dasawisma',
-    'as' => 'user.data-dasawisma.',
+    'prefix' => 'penduduk/data-dasawisma',
+    'as' => 'penduduk.data-dasawisma.',
     'middleware' => 'isAuth'
 ],
     function () {
         Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
         Route::get('/{resident}/edit', [ResidentController::class, 'editForm'])->name('edit');
-        Route::put('/{resident}', [ResidentController::class, 'requestEditForm'])->name('request');
-        Route::delete('/{resident}/delete', [ResidentController::class, 'deleteUser'])->name('delete');
+        Route::post('/store', [ResidentController::class, 'storeEditRequest'])->name('store');// To store the submission data into the resident temp
+        Route::put('/riwayat', [ResidentController::class, 'historyEditRequest'])->name('request');
     }
 );
 
 
 
-//ROUTE MANAJEMEN DOKUMEN
+//==================================ROUTE DOCUMENT MANAGEMENT FOR ADMIN========================================
 Route::group([
     'prefix' => 'admin/manajemen-dokumen',
     'as' => 'admin.manajemen-dokumen.',
@@ -101,7 +104,7 @@ Route::group([
     Route::delete('/{document}/delete', [DocumentController::class, 'deleteDocument'])->name('delete');
 });
 
-//ROUTE MANAJEMEN DANA
+//==================================ROUTE FUND MANAGEMENT FOR ADMIN========================================
 Route::group([
     'prefix' => 'admin/manajemen-dana',
     'as' => 'admin.manajemen-dana.',
@@ -116,6 +119,8 @@ Route::group([
 });
 
 
+//==================================ROUTE EVENT MANAGEMENT FOR ADMIN========================================
+
 Route::group([
     'prefix' => 'admin/manajemen-acara',
     'as' => 'admin.manajemen-acara.',
@@ -129,7 +134,7 @@ Route::group([
     Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('delete');
 });
 
-//==================================ROUTE MANAJEMEN BERITA FOR ADMIN========================================
+//==================================ROUTE NEWS MANAGEMENT FOR ADMIN========================================
 
 Route::group([
     'prefix' => 'admin/manajemen-berita',
@@ -163,7 +168,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'penduduk/profil',
-    'as' => 'penduduk.profil.',
+    'as' => 'resident.profil.',
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
@@ -178,7 +183,7 @@ Route::group([
 
 Route::group([
     'prefix' => 'penduduk',
-    'as' => 'penduduk.',
+    'as' => 'resident.',
     'middleware' => 'isAuth'
 
 ], function () {
