@@ -12,11 +12,25 @@
 }
 @layer utilities {
     .flex-center {
-        @apply flex items-center justify-center;
+        @apply flex justify-center items-center;
+    }
+
+    .flex-between {
+        @apply flex justify-between items-center;
+    }
+
+    .flex-start {
+        @apply flex justify-start items-center;
     }
 
     .h1-semibold {
         @apply text-3xl text-main font-semibold;
+    }
+    .h4-semibold{
+        @apply text-secondary font-semibold mb-5;
+    }
+    .text-label_light{
+        @apply text-base text-green-light;
     }
 
     .link-option_parrent {
@@ -36,6 +50,12 @@
         @apply flex-center rotate-180;
     }
 
+    .form-group{
+        @apply flex flex-col flex-1 gap-2;
+    }
+    .form-control{
+        @apply py-2 px-6 rounded-2xl bg-input-disabled outline-none border-none text-base text-input-text
+    }
 }
 .bg_beranda {
     background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
@@ -79,7 +99,7 @@
 }
 
 .filter_parent {
-    @apply min-h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden ;
+    @apply min-h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden;
 }
 .search-option {
     @apply basis-3/4 bg-white flex items-center  px-6 rounded-2xl;
@@ -98,7 +118,7 @@ thead th {
     @apply text-lg font-bold text-white bg-main;
 }
 tbody tr {
-    @apply border-b-2
+    @apply border-b-2;
 }
 tbody td {
     @apply text-main text-base font-medium;
