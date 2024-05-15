@@ -12,10 +12,7 @@
     <link href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css" rel="stylesheet" />
 </head>
 
-<body class="bg-[#F1F0E9] flex flex-col min-h-screen">
-    <header>
-        <x-shared.user-topbar/>
-    </header>
+<body class="bg-[#F1F0E9]">
     <main>
         <div class="content-landingpage">
             @yield('content-landingpage')
