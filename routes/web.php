@@ -91,8 +91,8 @@ Route::group([
 
 //==================================ROUTE DOCUMENT FOR RESIDENT========================================
 Route::group([
-    'prefix' => 'user/data-dokumen',
-    'as' => 'user.data-dokumen.',
+    'prefix' => 'resident/data-dokumen',
+    'as' => 'resident.data-dokumen.',
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
@@ -115,8 +115,8 @@ Route::group([
 
 //==================================ROUTE PAYMENT FOR RESIDENT========================================
 Route::group([
-    'prefix' => 'user/data-pembayaran',
-    'as' => 'user.data-pembayaran.',
+    'prefix' => 'resident/data-pembayaran',
+    'as' => 'resident.data-pembayaran.',
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');

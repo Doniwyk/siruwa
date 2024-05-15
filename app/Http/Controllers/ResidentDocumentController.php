@@ -15,12 +15,12 @@ class ResidentDocumentController extends Controller
       $this->documentContract = $documentContract;
     }
     public function index(){
-      return view('resident._document.index', compact('documentData'));
+      return view('resident._requestDocument.index', compact('documentData'));
     }
     public function history()
     {
       $documentData = $this->documentContract->getData();
-      return view('penduduk._document.index', compact('documentData'));
+      return view('resident._requestDocument.history', compact('documentData'));
     }
   
     public function requestDocument(StoreDocumentRequest $request) // Use validated request
@@ -29,6 +29,6 @@ class ResidentDocumentController extends Controller
   
       $this->documentContract->requestDocument($validatedData);
   
-      return redirect()->route('penduduk._document.index')->with('success', 'Pengajuan berhasil disimpan!');
+      return redirect()->route('resident.data-dokumen.index')->with('success', 'Pengajuan berhasil disimpan!');
     }
 }

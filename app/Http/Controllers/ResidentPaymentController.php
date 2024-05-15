@@ -18,12 +18,12 @@ class ResidentPaymentController extends Controller
   public function index()
   {
     $fundData = $this->paymentContract->getFundData();
-    return view('penduduk._pembayaran.index', compact('fundData'));
+    return view('resident._fund.index', compact('fundData'));
   }
 
   public function getAddPaymentForm()
   {
-    return view('penduduk._pembayaran.add');
+    return view('resident._fund.add');
   }
 
 
@@ -33,17 +33,17 @@ class ResidentPaymentController extends Controller
 
     $this->paymentContract->storePayment($validatedData);
 
-    return redirect()->route('penduduk._pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
+    return redirect()->route('resident.data-pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
   }
 
   public function getHistory()
   {
     $history = $this->paymentContract->getHistory();
-    return view('penduduk._pembayaran.history', compact('history'));
+    return view('resident._fund.history', compact('history'));
   }
   public function getFundByYear($year)
   {
     $fundData = $this->paymentContract->getFundDataByYear($year);
-    return view('penduduk._pembayaran.index', compact('fundData'));
+    return view('resident._fund.index', compact('fundData'));
   }
 }

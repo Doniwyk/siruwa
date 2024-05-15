@@ -30,9 +30,9 @@ class AdminDocumentController extends Controller
             $this->documentService->validateDocument($validatedData, $action, $document);
         } catch(\Exception $e){
             report($e);
-            return redirect()->route('admin._document.index')->with('error', 'Terjadi kesalahan tak terduga saat memvalidasi dokumen.');;
+            return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat memvalidasi dokumen.');;
         }
-        return redirect()->route('admin._document.index');
+        return redirect()->route('admin.data-dokumen.index');
     }
     public function validatedHistory(){
         $documentHistory = $this->documentService->getValidateHistory();
@@ -48,8 +48,8 @@ class AdminDocumentController extends Controller
             $this->documentService->changeStatus($validatedData, $document);
         } catch (\Exception $e) {
             report($e);
-            return redirect()->route('admin._document.index')->with('error', 'Terjadi kesalahan tak terduga saat mengganti status.');
+            return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat mengganti status.');
         }
-        return redirect()->route('admin._document.index');
+        return redirect()->route('admin.data-dokumen.index');
     }
 }

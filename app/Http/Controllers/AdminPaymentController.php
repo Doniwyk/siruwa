@@ -17,7 +17,7 @@ class AdminPaymentController extends Controller
     }
     public function index(){
         $fundData = $this->paymentService->getFundData();
-        return view('admin._pembayaran.index', compact('fundData'));
+        return view('admin._fund.index', compact('fundData'));
     }
     public function validatePayment(ValidatePaymentRequest $request, string $action, PaymentModel $payment){
         try {
@@ -25,12 +25,12 @@ class AdminPaymentController extends Controller
             $this->paymentService->validatePayment($validatedData, $action, $payment);
         } catch (\Exception $e) {
             report($e);
-            return redirect()->route('admin._pembayaran.index')->with('Terjadi kesalahan tak terduga saat memvalidasi pembayaran.');
+            return redirect()->route('admin.data-pembayaran.index')->with('Terjadi kesalahan tak terduga saat memvalidasi pembayaran.');
         }
-        return redirect()->route('admin._pembayaran.index');
+        return redirect()->route('admin.data-pembayaran.index');
     }
     public function validatedPayment(){
         $validatedPayment = $this->paymentService->getValidatedPayment();
-        return view('admin.payment.history', compact('validatedPayment'));
+        return view('admin._fund.history', compact('validatedPayment'));
     }
 }
