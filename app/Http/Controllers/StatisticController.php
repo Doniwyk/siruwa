@@ -10,7 +10,7 @@ class StatisticController extends Controller
     public function index()
     {
         $page = 'statistic';
-        $pageHeader = 'Statistik';
-        return view('admin._statistics.index', ['pageHeader' => $pageHeader, 'page' => $page]);
+        $title = 'Statistik';
+        return view('admin._statistics.index', ['title' => $title, 'page' => $page]);
     }
 }

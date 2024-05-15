@@ -24,10 +24,12 @@ class AccountController extends Controller
     {
         $userId = Auth::id();
         $account = AccountModel::findOrFail($userId);
-        $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
+        $page = 'profil';
         $title = 'Profil';
         $role= Auth::user()->role;
-        return view($role.'._profile.index', ['title' => $title, 'account' => $account, 'resident' => $resident]);
+        // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
+        return view($role.'._profile.index', compact('account', 'page', 'title', 'userId'));
+
     }
 
 
