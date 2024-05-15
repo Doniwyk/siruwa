@@ -26,14 +26,6 @@ class NewsController extends Controller
         return view('admin._news.index',compact('news', 'pageHeader', 'page'));
     }
 
-    public function indexUser(){
-        return view('landingpage');
-        $news = NewsModel::all();
-        $page = 'Manajemen Berita';
-        return view('admin._news.index', ['page' => $page, 'news' => $news]);
-
-    }
-
     public function add(){
         return view('admin._news.add');
     }
@@ -63,8 +55,9 @@ class NewsController extends Controller
     {
         $news = NewsModel::all();
         $event = EventModel::all();
+        $latestNews = NewsModel::latest('created_at')->limit(3)->get();
         $page = 'Daftar Berita';
-        return view('landingpage', ['page' => $page, 'news' => $news, 'event' => $event]);
+        return view('landingpage', ['page' => $page, 'news' => $news, 'event' => $event, 'latestNews' => $latestNews]);
     }
 
 }
