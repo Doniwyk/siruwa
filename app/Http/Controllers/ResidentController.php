@@ -94,7 +94,10 @@ class ResidentController extends Controller
     //EDIT BY ADMIN
     public function editResident(UserModel $resident): View
     {
-        return view('admin._dasawismaData.edit', compact('resident'));
+        $page = 'edit-data-penduduk';
+        $title = 'Edit Data Penduduk';
+        $resident = UserModel::findOrFail($resident->id_penduduk);
+        return view('admin._dasawismaData.edit', compact('resident', 'page', 'title'));
     }
 
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
