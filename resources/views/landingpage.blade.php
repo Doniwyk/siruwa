@@ -2,22 +2,33 @@
 @section('content-landingpage')
   <!-- Beranda -->
   <section id="beranda" class="h-screen bg_beranda flex flex-col justify-between">
-    <div class="text-white flex justify-between px-16 py-4">
+    <div class="text-white flex justify-between px-16 py-4 ">
       <span class="flex justify-center"><img src="{{ asset('assets/icons/logo-white.svg') }}" alt=""></span>
-      <ul class="flex gap-3 justify-center h-[4rem] items-center">
+      <ul class="flex gap-10 justify-center h-[3.5rem] items-center">
         <li><a href="#struktur">KEPENGURUSAN</a></li>
         <li><a href="#agenda">AGENDA</a></li>
         <li><a href="#berita">BERITA</a></li>
         <li><a href="#menu">MENU</a></li>
         <li><a href="#beranda">BERANDA</a></li>
+        @auth
         <li>
-          <a href="{{ route('login') }}">
-            <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
-              <div class="text-secondary">Siruwa</div>
-              <img class="rounded-full w-11 h-11" src="{{ asset('assets/icons/user.svg') }}">
-            </span>
-          </a>
+            <a href="{{ route('logout') }}">
+                <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
+                    <div class="text-secondary">Logout</div>
+                    <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}">
+                </span>
+            </a>
         </li>
+        @else
+        <li>
+            <a href="{{ route('login') }}">
+                <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
+                    <div class="text-secondary">Login</div>
+                    <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}">
+                </span>
+            </a>
+        </li>
+        @endauth
       </ul>
     </div>
 
@@ -34,28 +45,31 @@
     </a>
   </section>
 
+  @auth
   <!-- Menu -->
-  <section id="menu" class="bg-main flex flex-col justify-center w-full h-96 px-72 p-16 gap-16">
+  <section id="menu" class="bg-secondary flex flex-col justify-center w-full h-96 px-72 p-16 gap-16">
     <span class="text-center text-white text-5xl font-semibold">Menu</span>
+
     <div class="flex flex-row justify-between item-center">
-      <a class="flex flex-col justify-center items-center gap-6">
+      <a href="{{ route('penduduk.profil.index') }}" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/user-filled.svg') }}" alt="">
-        <span class="text-white text-2xl text-center font-bold">Profil</span>
+        <span class="">Profil</span>
       </a>
-      <a class="flex flex-col justify-center items-center gap-6">
+      <a href="" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/document-filled.svg') }}" alt="">
-        <span class="text-white text-2xl text-center font-bold">Data Penduduk</span>
+        <span>Data Penduduk</span>
       </a>
-      <a class="flex flex-col justify-center items-center gap-6">
+      <a href="" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/document-upload-filled.svg') }}" alt="">
-        <span class="text-white text-2xl text-center font-bold">Pengajuan Dokumen</span>
+        <span>Pengajuan Dokumen</span>
       </a>
-      <a class="flex flex-col justify-center items-center gap-6">
+      <a href="" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/money-filled.svg') }}" alt="">
-        <span class="text-white text-2xl text-center font-bold">Iuran Desa</span>
+        <span>Iuran Desa</span>
       </a>
     </div>
   </section>
+  @endauth
 
   <!-- Berita -->
   <section id="berita" class="h-screen p-16 flex flex-col justify-center">
@@ -64,15 +78,15 @@
 
       <button class="px-8 py-3 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
         <div class="justify-start items-center gap-8 inline-flex">
-          <span class="text-white text-base font-semibold leading-normal">Lebih Banyak ></span>
+          <span class="text-white text-base font-semibold">Lebih Banyak ></span>
         </div>
       </button>
     </div>
     <div class="flex gap-6">
       <div class="w-1/2">
         <a href="">
-            <div class="h-[50rem] rounded-2xl flex flex-col justify-end" style="background-image: url('{{ $latestNews[0]->url_gambar }}');">
-                <div class="flex flex-col justify-end gap-2.5 bg-gradient-to-t from-black to-transparent rounded-2xl p-4">
+            <div class="h-[50rem] news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}');">
+                <div class="news-landing">
                   @if(isset($latestNews[0]))
                     <span class="text-stone-100 text-base font-medium">{{ $latestNews[0]->created_at }}</span>
                     <span class="text-stone-100 text-xl font-bold">{{ $latestNews[0]->judul }}</span>
@@ -83,48 +97,40 @@
       </div>
 
       <div class="flex flex-col w-1/2 gap-6">
-        <a href="" 
-        class="h-1/2 rounded-2xl flex flex-col justify-end" style="background-image: url('{{ $latestNews[1]->url_gambar }}');">
-          <div class="flex flex-col justify-end gap-2.5 bg-gradient-to-t from-black to-transparent rounded-2xl p-4">
-            @if(isset($latestNews[1]))
-              <span class="text-stone-100 text-base font-medium">{{ $latestNews[1]->created_at }}</span>
-              <span class="text-stone-100 text-xl font-bold ">{{ $latestNews[1]->judul }}</span>
-            @endif
-          </div>
-        </a>
-
-        <a href="" 
-        class="h-1/2 rounded-2xl flex flex-col justify-end" style="background-image: url('{{ $latestNews[2]->url_gambar }}');">
-          <div class="flex flex-col justify-end gap-2.5 bg-gradient-to-t from-black to-transparent rounded-2xl p-4">
-            @if(isset($latestNews[1]))
-              <span class="text-stone-100 text-base font-medium">{{ $latestNews[2]->created_at }}</span>
-              <span class="text-stone-200 text-xl font-bold ">{{ $latestNews[2]->judul }}</span>
-            @endif
-          </div>
-        </a>
+        @for ($i = 1; $i <= 2; $i++)
+          @if(isset($latestNews[$i]))
+            <a href="" class="h-1/2 news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}');">
+              <div class="news-landing">
+                <span class="text-stone-100 text-base font-medium">{{ $latestNews[$i]->created_at }}</span>
+                <span class="text-stone-100 text-xl font-bold">{{ $latestNews[$i]->judul }}</span>
+              </div>
+            </a>
+          @endif
+        @endfor
       </div>
+      
     </div>
   </section>
 
   <!-- Statistik -->
-  <section id="statistik" class="bg-main flex flex-col justify-center w-full h-96 px-44 p-16 gap-16">
-    <span class="text-center text-white text-5xl font-semibold">Sumberejo dalam Angka</span>
+  <section id="statistik" class="bg-secondary flex flex-col justify-center w-full h-96 px-44 p-16 gap-16">
+    <span class="text-center text-white text-5xl font-semibold">RW 2 dalam Angka</span>
     <div class="flex flex-row justify-between item-center">
-      <div class="flex flex-col justify-center items-center gap-6">
-        <span class="text-white text-4xl text-center font-bold">205+</span>
-        <span class="text-white text-2xl text-center font-bold">Populasi Penduduk</span>
+      <div class="menu">
+        <span class="text-4xl">205+</span>
+        <span>Populasi Penduduk</span>
       </div>
-      <div class="flex flex-col justify-center items-center gap-6">
-        <span class="text-white text-4xl text-center font-bold ">0</span>
-        <span class="text-white text-2xl text-center font-bold">Fasilitas Pendidikan</span>
+      <div class="menu">
+        <span class="text-4xl">0</span>
+        <span>Fasilitas Pendidikan</span>
       </div>
-      <div class="flex flex-col justify-center items-center gap-6">
-        <span class="text-white text-4xl text-center font-bold">1</span>
-        <span class="text-white text-2xl text-center font-bold">Fasilitas Kesehatan</span>
+      <div class="menu">
+        <span class="text-4xl">1</span>
+        <span>Fasilitas Kesehatan</span>
       </div>
-      <div class="flex flex-col justify-center items-center gap-6">
-        <span class="text-white text-4xl text-center font-bold">900</span>
-        <span class="text-white text-2xl text-center font-bold">Fasilitas Administrasi</span>
+      <div class="menu">
+        <span class="text-4xl">900</span>
+        <span>Fasilitas Administrasi</span>
       </div>
     </div>
   </section>
