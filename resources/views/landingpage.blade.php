@@ -51,19 +51,19 @@
     <span class="text-center text-white text-5xl font-semibold">Menu</span>
 
     <div class="flex flex-row justify-between item-center">
-      <a href="{{ route('penduduk.profil.index') }}" class="menu">
+      <a href="{{ route('resident.profil.index') }}" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/user-filled.svg') }}" alt="">
         <span class="">Profil</span>
       </a>
-      <a href="" class="menu">
+      <a href="{{ route('resident.data-dasawisma.index') }}" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/document-filled.svg') }}" alt="">
         <span>Data Penduduk</span>
       </a>
-      <a href="" class="menu">
+      <a href="{{ route('resident.data-dokumen.index') }}" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/document-upload-filled.svg') }}" alt="">
         <span>Pengajuan Dokumen</span>
       </a>
-      <a href="" class="menu">
+      <a href="{{ route('resident.data-pembayaran.index') }}" class="menu">
         <img class="w-20 h-20" src="{{ asset('assets/icons/money-filled.svg') }}" alt="">
         <span>Iuran Desa</span>
       </a>
