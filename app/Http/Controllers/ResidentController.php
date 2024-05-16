@@ -57,13 +57,13 @@ class ResidentController extends Controller
             ]);
         }
 
-        return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
+        return view('admin._residentData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
 
     }
 
     public function add()
     {
-        return view('admin._dasawismaData.add');
+        return view('admin._residentData.add');
     }
 
     public function storeResident(UserRequest $request): RedirectResponse
@@ -105,7 +105,7 @@ class ResidentController extends Controller
         $page = 'edit-data-penduduk';
         $title = 'Edit Data Penduduk';
         $resident = UserModel::findOrFail($resident->id_penduduk);
-        return view('admin._dasawismaData.edit', compact('resident', 'page', 'title'));
+        return view('admin._residentData.edit', compact('resident', 'page', 'title'));
     }
 
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
@@ -125,7 +125,7 @@ class ResidentController extends Controller
     public function indexRequest(){
         try{
             $requestEdit = TempResidentModel::all();
-            return view('admin._dasawismaData.index', ['title' => 'Data Penduduk', 'requestEdit' => $requestEdit]);
+            return view('admin._residentData.index', ['title' => 'Data Penduduk', 'requestEdit' => $requestEdit]);
         } catch(\Exception $e){
             return redirect()->back()->with('error', 'Pengajuan perubahan data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -185,7 +185,7 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident._dasawismaData.index', ['title' => 'Data Diri', 'resident' => $resident]);
+        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident]);
     }
 
     public function editForm()
@@ -217,7 +217,7 @@ class ResidentController extends Controller
     public function historyEditRequest(UserModel $penduduk)
     {
         $history = TempResidentModel::where('id_penduduk', $penduduk->id_penduduk);
-        return view('resident._dasawismaData.history', ['title' => 'Data Penduduk', 'history' => $history]);
+        return view('resident._residentData.history', ['title' => 'Data Penduduk', 'history' => $history]);
     }
 
 }
