@@ -87,8 +87,8 @@ class AdminPaymentService implements AdminPaymentContract
 
     public function getFundData()
     {
-        $deathFundData = DeathFundModel::all();
-        $garbageFundData = GarbageFundModel::all();
+        $deathFundData = DeathFundModel::all()->with('penduduk');
+        $garbageFundData = GarbageFundModel::all()->with('penduduk');
 
         return [
             'deathFundData' => $deathFundData,
@@ -98,7 +98,7 @@ class AdminPaymentService implements AdminPaymentContract
 
     public function getValidatedPayment()
     {
-        $validatedPayments = PaymentModel::where('status', 'Terverifikasi')->get();
+        $validatedPayments = PaymentModel::where('status', 'Terverifikasi')->with('penduduk', 'admin')->get();
 
         return $validatedPayments;
     }
