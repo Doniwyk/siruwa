@@ -25,10 +25,11 @@ class AccountController extends Controller
         $userId = Auth::id();
         $account = AccountModel::findOrFail($userId);
         $page = 'profil';
-        $pageHeader = 'Profil';
+        $title = 'Profil';
         $role= Auth::user()->role;
-        // return view($role.'._profile.index', ['pageHeader' => $pageHeader, 'page' => $page, 'account' =>$account]);
-        return view($role.'._profile.index', compact('account', 'page', 'pageHeader', 'userId'));
+        // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
+        return view($role.'._profile.index', compact('account', 'page', 'title', 'userId'));
+
     }
 
 
@@ -36,9 +37,10 @@ class AccountController extends Controller
     {
         $userId = Auth::id();
         $account = AccountModel::findOrFail($userId);
-        $page = 'Edit Profil';
+        $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
+        $title = 'Edit Profil';
         $role = Auth::user()->role;
-        return view($role . '._profile.edit', ['page' => $page, 'account' => $account]);
+        return view($role . '._profile.edit', ['title' => $title, 'account' => $account,'resident' =>$resident]);
     }
 
     public function updateAccount(AccountRequest $request, AccountModel $account): RedirectResponse

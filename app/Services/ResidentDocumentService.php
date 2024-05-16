@@ -19,7 +19,7 @@ class ResidentDocumentService implements ResidentDocumentContract
       if ($user) {
         $penduduk = UserModel::find($user->id_penduduk); // Find resident based on user's foreign key
         if ($penduduk) {
-          $documentData = DocumentModel::find($penduduk->id_penduduk);
+          $documentData = DocumentModel::find($penduduk->id_penduduk)->with('penduduk');
           return [
             'document' => $documentData,
           ];

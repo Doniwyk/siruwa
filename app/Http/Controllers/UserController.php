@@ -26,8 +26,8 @@ class UserController extends Controller
     {
         $residents = UserModel::paginate(15);
         $page = 'data-dasawisma';
-        $pageHeader = 'Data Dasawisma';
-        return view('admin._dasawismaData.index', compact('residents', 'page', 'pageHeader'));
+        $title = 'Data Dasawisma';
+        return view('admin._dasawismaData.index', compact('residents', 'page', 'title'));
     }
 
     public function indexUser()

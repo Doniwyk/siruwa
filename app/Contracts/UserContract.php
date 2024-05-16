@@ -3,6 +3,7 @@
 namespace App\Contracts;
 
 use App\Models\UserModel;
+use Illuminate\Http\Request;
 
 interface UserContract
 {
@@ -11,4 +12,8 @@ interface UserContract
     public function updateUser(array $validatedData, UserModel $penduduk);
 
     public function deleteUser(UserModel $penduduk);
+
+    public function validateEditRequest(Request $request, UserModel $resident);
+
+    public function editRequest(Request $request, UserModel $resident);
 }

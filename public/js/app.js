@@ -9,6 +9,6 @@ function activeButton(button) {
 function togglePassword(idInputField) {
     const input = document.querySelector(idInputField);
     const typeInput = input.type;
-    console.log(typeInput);
     input.type = typeInput == "text" ? "password" : "text";
 }
+
