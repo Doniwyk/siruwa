@@ -81,7 +81,7 @@ Route::group([
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
 Route::group([
     'prefix' => 'penduduk/data-dasawisma',
-    'as' => 'penduduk.data-dasawisma.',
+    'as' => 'resident.data-dasawisma.',
     'middleware' => 'isAuth'
 ],
     function () {
@@ -95,7 +95,7 @@ Route::group([
 //==================================ROUTE DOCUMENT FOR RESIDENT========================================
 Route::group([
     'prefix' => 'penduduk/data-dokumen',
-    'as' => 'penduduk.data-dokumen.',
+    'as' => 'resident.data-dokumen.',
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
@@ -119,7 +119,7 @@ Route::group([
 //==================================ROUTE PAYMENT FOR RESIDENT========================================
 Route::group([
     'prefix' => 'penduduk/data-pembayaran',
-    'as' => 'penduduk.data-pembayaran.',
+    'as' => 'resident.data-pembayaran.',
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
@@ -208,6 +208,6 @@ Route::group([
     'middleware' => 'isAuth'
 
 ], function () {
-    Route::get('/', [NewsController::class, 'indexUser'])->name('index');
+    Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 
 });
