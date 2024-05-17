@@ -36,7 +36,7 @@ class UserModel extends Authenticatable
     }
     public function temporary_penduduk(): HasMany
     {
-        return $this->hasMany(TempResidentModel::class);
+        return $this->hasMany(TempResidentModel::class, 'id_penduduk');
     }
     public function akun(): HasMany
     {
