@@ -22,6 +22,9 @@
     .flex-start {
         @apply flex justify-start items-center;
     }
+    .flex-end {
+        @apply flex justify-end items-center;
+    }
 
     .h1-semibold {
         @apply text-3xl text-main font-semibold;
@@ -30,7 +33,7 @@
         @apply text-secondary font-semibold mb-5;
     }
     .text-label_light{
-        @apply text-base text-green-light;
+        @apply text-base text-green-light font-medium;
     }
 
     .link-option_parrent {
@@ -54,7 +57,7 @@
         @apply flex flex-col flex-1 gap-2;
     }
     .form-control{
-        @apply py-2 px-6 rounded-2xl bg-input-disabled outline-none border-none text-base text-input-text
+        @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text 
     }
 }
 .bg_beranda {

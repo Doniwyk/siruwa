@@ -68,14 +68,12 @@ Route::group([
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
     Route::get('/tambah-penduduk', [ResidentController::class, 'add'])->name('add');
     Route::post('/store', [ResidentController::class, 'storeResident'])->name('store');
+    Route::get('/{resident}/show', [ResidentController::class, 'show'])->name('show');
     Route::delete('/{resident}/delete', [ResidentController::class, 'deleteResident'])->name('delete');
     Route::get('/{resident}/edit', [ResidentController::class, 'editResident'])->name('edit');
     Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
-    Route::get('/validasi-pengajuan', [ResidentController::class, 'validateEditRequest'])->name('validate');
-
-
-
+    Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
@@ -110,8 +108,8 @@ Route::group([
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [AdminDocumentController::class, 'index'])->name('index');
-    Route::post('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument');
-    Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit');
+    Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument');
+    Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
     Route::put('/{document}', [AdminDocumentController::class, 'changeStatus '])->name('changeStatus');
     Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history');
 });
@@ -136,7 +134,7 @@ Route::group([
 ],function(){
     Route::get('/', [AdminPaymentController::class, 'index'])->name('index');
     Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment  '])->name('validatePembayaran');
-    Route::get('/riwayat', [AdminPaymentController::class, 'validatedPayment'])->name('history');
+    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history');
 });
 
 
