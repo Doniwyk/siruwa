@@ -21,8 +21,8 @@
         }
         public function getDocumentRequest()
         {
-            return DocumentModel::whereNotIn('status', ['Selesai', 'Ditolak'])->get();
-        }    
+            return DocumentModel::whereNotIn('status', ['Selesai', 'Ditolak'])->with('penduduk')->get();
+        }
         public function getValidateHistory()
         {
             return DocumentModel::whereIn('status', ['Selesai', 'Ditolak'])->get();
