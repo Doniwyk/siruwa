@@ -17,7 +17,7 @@
         </div>
         <div class="profile-desc">
             <h4 class="text-2xl font-bold">nadilaamaliaa</>
-                <h3 class="text-3xl font-bold tracking-wider pb-1">{{ $account['nama'] }}</h3>
+                <h3 class="text-3xl font-bold tracking-wider pb-1">{{ $account['username'] }}</h3>
                 <label for="">123456789</label>
                 <label for="">{{ $account['email'] }}</label>
                 <label for="">123456789</label>

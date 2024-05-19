@@ -23,9 +23,23 @@ class NewsController extends Controller
 
     public function index(){
         $news = NewsModel::paginate(6);
+
+        $page = 'manajemen-berita';
         $title = 'Manajemen Berita';
-        return view('landingpage',compact('news', 'title'));
+        return view('admin._news.index',compact('news', 'title', 'page'));
     }
+
+    // // public function indexUser(){
+    // //     return view('landingpage');
+    // //     $news = NewsModel::all();
+    // //     $page = 'Manajemen Berita';
+    // //     return view('admin._news.index', ['page' => $page, 'news' => $news]);
+    // // }
+    //     $title = 'Manajemen Berita';
+    //     return view('landingpage',compact('news', 'title'));
+    // }
+
+
 
 
     public function add(){
@@ -60,6 +74,7 @@ class NewsController extends Controller
         $event = EventModel::all();
         $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
         return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews'=>$latestNews]);
+
     }
 
 }

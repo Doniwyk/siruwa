@@ -32,7 +32,7 @@ class UserService implements UserContract
         $tempResident = TempResidentModel::where('nik', $resident->nik)->first();
         if ($request->action === 'accept') {
             $resident->update((array) $tempResident);
-            $tempResident->status = 'Disetujui';
+            $tempResident->status = 'Diterima';
             $tempResident->save();
         }
 
@@ -55,7 +55,5 @@ class UserService implements UserContract
             TempResidentModel::create($mergeResident);
             return true;
         }
-
-
     }
 }

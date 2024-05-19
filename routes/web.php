@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminDocumentController;
+use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\ResidentDocumentController;
+use App\Http\Controllers\ResidentPaymentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -57,27 +61,25 @@ Route::group([
 
 //==================================ROUTE RESIDENT DATA FOR ADMIN========================================
 Route::group([
-    'prefix' => 'admin/data-dasawisma',
-    'as' => 'admin.data-dasawisma.',
+    'prefix' => 'admin/data-penduduk',
+    'as' => 'admin.data-penduduk.',
     'middleware' => 'isAuth'
 ], function () {
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
     Route::get('/tambah-penduduk', [ResidentController::class, 'add'])->name('add');
     Route::post('/store', [ResidentController::class, 'storeResident'])->name('store');
+    Route::get('/{resident}/show', [ResidentController::class, 'show'])->name('show');
     Route::delete('/{resident}/delete', [ResidentController::class, 'deleteResident'])->name('delete');
     Route::get('/{resident}/edit', [ResidentController::class, 'editResident'])->name('edit');
     Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
-    Route::get('/validasi-pengajuan', [ResidentController::class, 'validateEditRequest'])->name('validate');
-
-
-
+    Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
 Route::group([
     'prefix' => 'penduduk/data-dasawisma',
-    'as' => 'penduduk.data-dasawisma.',
+    'as' => 'resident.data-dasawisma.',
     'middleware' => 'isAuth'
 ],
     function () {
@@ -88,34 +90,51 @@ Route::group([
     }
 );
 
-
-
-//==================================ROUTE DOCUMENT MANAGEMENT FOR ADMIN========================================
+//==================================ROUTE DOCUMENT FOR RESIDENT========================================
 Route::group([
-    'prefix' => 'admin/manajemen-dokumen',
-    'as' => 'admin.manajemen-dokumen.',
+    'prefix' => 'penduduk/data-dokumen',
+    'as' => 'resident.data-dokumen.',
     'middleware' => 'isAuth'
 ],function(){
-    Route::get('/', [DocumentController::class, 'index'])->name('index');
-    Route::get('/add', [DocumentController::class, 'add'])->name('add');
-    Route::post('/store', [DocumentController::class, 'storeDocument'])->name('store');
-    Route::get('/{document}/edit', [DocumentController::class, 'editDocument'])->name('edit');
-    Route::put('/{document}', [DocumentController::class, 'updateDocument'])->name('update');
-    Route::delete('/{document}/delete', [DocumentController::class, 'deleteDocument'])->name('delete');
+    Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
+    Route::post('/request', [ResidentDocumentController::class, 'requestDocument'])->name('request');
+    Route::get('/riwayat', [ResidentDocumentController::class, 'history'])->name('history');
 });
 
-//==================================ROUTE FUND MANAGEMENT FOR ADMIN========================================
+//==================================ROUTE DOCUMENT FOR ADMIN========================================
 Route::group([
-    'prefix' => 'admin/manajemen-dana',
-    'as' => 'admin.manajemen-dana.',
+    'prefix' => 'admin/data-dokumen',
+    'as' => 'admin.data-dokumen.',
     'middleware' => 'isAuth'
-], function () {
-    Route::get('/', [PaymentController::class, 'index'])->name('index');
-    Route::get('/add', [PaymentController::class, 'add'])->name('add');
-    Route::post('/store', [PaymentController::class, 'storeAccount'])->name('store');
-    Route::get('/{payment}/edit', [PaymentController::class, 'editAccount'])->name('edit');
-    Route::put('/{payment}', [PaymentController::class, 'updateAccount'])->name('update');
-    Route::delete('/{payment}/delete', [PaymentController::class, 'deleteAccount'])->name('delete');
+],function(){
+    Route::get('/', [AdminDocumentController::class, 'index'])->name('index');
+    Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument');
+    Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
+    Route::put('/{document}', [AdminDocumentController::class, 'changeStatus '])->name('changeStatus');
+    Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history');
+});
+
+//==================================ROUTE PAYMENT FOR RESIDENT========================================
+Route::group([
+    'prefix' => 'penduduk/data-pembayaran',
+    'as' => 'resident.data-pembayaran.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
+    Route::get('/add-pembayaran', [ResidentPaymentController::class, 'getAddPaymentForm'])->name('formPembayaran');
+    Route::post('/add-pembayaran', [ResidentPaymentController::class, 'storePayment'])->name('store');
+    Route::get('/riwayat', [ResidentPaymentController::class, 'getHistory'])->name('history');
+});
+
+//==================================ROUTE PAYMENT FOR ADMIN========================================
+Route::group([
+    'prefix' => 'admin/data-pembayaran',
+    'as' => 'admin.data-pembayaran.',
+    'middleware' => 'isAuth'
+],function(){
+    Route::get('/', [AdminPaymentController::class, 'index'])->name('index');
+    Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment  '])->name('validatePembayaran');
+    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history');
 });
 
 
@@ -187,23 +206,6 @@ Route::group([
     'middleware' => 'isAuth'
 
 ], function () {
-    Route::get('/', [NewsController::class, 'indexUser'])->name('index');
+    Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 
-});
-
-// INI ROUTE CUMA BUAT NYOBA VIEW USER, BIAR DIKERAIN BACKEND MWEHEHEHEH
-Route::get('/profil', function () {
-    return view('/user/_profile/index');
-});
-Route::get('/dokumen', function () {
-    return view('/user/_residentData/index');
-});
-Route::get('/request', function () {
-    return view('/user/_requestDocument/index');
-});
-Route::get('/iuran', function () {
-    return view('/user/_fund/index');
-});
-Route::get('/topbar', function () {
-    return view('/components/shared/user-topbar');
 });

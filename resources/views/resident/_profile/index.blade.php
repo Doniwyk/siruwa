@@ -1,5 +1,5 @@
 @extends('layouts.user')
-@section('content')
+@section('content-user')
 {{-- 
     TO-DO
     GANTI VALUE DARI TIAP TIAP DATA DARI DATABASE, JADI TIAP FIELD LANGSUNG KEISI DATA PENDUDUK
