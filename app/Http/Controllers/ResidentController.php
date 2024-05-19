@@ -26,6 +26,7 @@ class ResidentController extends Controller
     }
 
     //========================FOR ADMIN========================
+
     public function indexAdmin(Request $request)
     {
         // menangkap req yang dikirim dan juga menset nilai default agar berjaga-jaga user tidak mengisinya
@@ -64,13 +65,17 @@ class ResidentController extends Controller
     public function add()
     {
         return view('admin._residentData.add');
+
     }
 
+    //To store resident data in database
     public function storeResident(UserRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         try {
-            $resident = $this->residentContract->storeUser($validated);
+
+            $resident  = $this->residentContract->storeUser($validated);
+
             $account = [
                 'id_penduduk' => $resident->id,
                 'urlProfile' => $request->has('urlProfile') ? $request->urlProfile : null,
@@ -88,6 +93,8 @@ class ResidentController extends Controller
         }
     }
 
+
+    //To delete resident data
     public function deleteResident(UserModel $resident): RedirectResponse
     {
         try {
@@ -96,10 +103,10 @@ class ResidentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
     }
 
     //EDIT BY ADMIN
+    //For display  resident data selected for editing
     public function editResident(UserModel $resident): View
     {
         $page = 'edit-data-penduduk';
@@ -108,32 +115,35 @@ class ResidentController extends Controller
         return view('admin._residentData.edit', compact('resident', 'page', 'title'));
     }
 
+    //To update resident data which has been edited by admin
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
     {
-        try{
+        try {
             $validated = $request->validated();
             $this->residentContract->updateUser($validated, $resident);
             return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil di ubah');
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal memperbarui data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
     }
 
     //FOR PROCESS EDIT BY RESIDENT
 
 
+    //For display resident data on the page "Admin->Data Penduduk-> Pengajuan"
     public function indexRequest()
     {
         try {
-            $reqResident = TempResidentModel::all();
-            return view('admin._dasawismaData.index', ['title' => 'Data Penduduk', 'requestEdit' => $reqResident]);
+            $requestEdit = TempResidentModel::where('status', 'Menunggu Verifikasi')
+                ->with('penduduk')
+                ->get();
+            return view('admin._dasawismaData.index', ['title' => 'Data Penduduk', 'requestEdit' => $requestEdit]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Pengajuan perubahan data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
-
     }
+
+    //To validate edit request data from resident 
 
     public function validateEditRequest(Request $request, UserModel $resident)
     {
@@ -150,6 +160,7 @@ class ResidentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
+
     }
 
     public function getFilterDataPenduduk($search, $order)
@@ -204,17 +215,23 @@ class ResidentController extends Controller
         $title = 'Edit Data Penduduk';
         $resident = UserModel::find($resident->id_penduduk);
         return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
+
     }
 
 
     //========================FOR RESIDENT========================
 
+
+    //For display resident data on the page "Resident->Data Penduduk"
     public function indexResident()
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
         return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident]);
     }
+
+
+    //For display edit form data that will be submitted
 
     public function editForm()
     {
@@ -224,10 +241,7 @@ class ResidentController extends Controller
     }
 
 
-    public function requestEditForm()
-    {
-    }
-
+    //To store change data in database(temp penduduk)
     public function storeEditRequest(Request $request, UserModel $resident)
     {
 
@@ -239,14 +253,15 @@ class ResidentController extends Controller
             }
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal mengajukan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
-
         }
     }
 
+    //For display resident data on the page "Resident->Pengajuan Perubahan Data Penduduk"
     public function historyEditRequest(UserModel $penduduk)
     {
         $history = TempResidentModel::where('id_penduduk', $penduduk->id_penduduk);
-        return view('resident._residentData.history', ['title' => 'Data Penduduk', 'history' => $history]);
+
+        return view('resident._dasawismaData.history', ['title' => 'Riwayat Pengajuan', 'history' => $history]);
     }
 
 }

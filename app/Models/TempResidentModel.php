@@ -13,7 +13,7 @@ class TempResidentModel extends Model
 
 
     protected $fillable = [
-        'no_reg', 'tgl_lahir', 'nik', 'nomor_kk', 'nama', 'tempat_lahir',
+        'id_penduduk','no_reg', 'tgl_lahir', 'nik', 'nomor_kk', 'nama', 'tempat_lahir',
         'jenis_kelamin', 'rt', 'umur', 'status_kawin', 'status_keluarga', 'agama', 'alamat',
         'pendidikan', 'pekerjaan', 'gaji', 'pajak_bumi', 'biaya_listrik', 'biaya_air',
         'jumlah_kendaraan_bermotor', 'akseptor_kb', 'jenis_akseptor', 'aktif_posyandu', 'has_BKB',
