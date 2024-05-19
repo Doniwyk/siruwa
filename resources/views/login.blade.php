@@ -11,12 +11,12 @@
 
 <body class="bg-[#F1F0E9] flex h-screen">
     <div class="w-1/2 overflow-hidden">
-        <img src="{{ asset('..\login.png') }}" class="object-cover w-full h-full" style="object-position: top left;">
+        <img src="{{ asset('login.png') }}" class="object-cover w-full h-full" style="object-position: top left;">
     </div>
     <form action="login" method="post" class="w-1/2 px-24 flex items-center justify-center flex-col">
         @csrf
-        <div class="text-center text-secondary text-5xl font-extrabold">{>///<}</div>
-                <div class="text-center text-secondary text-5xl font-extrabold mt-4">Siuwu Login</div>
+                <span><img src="{{ asset('assets/icons/logo-green.svg') }}" alt=""></span>
+                <div class="text-center text-secondary text-5xl font-semibold mt-4">SIRUWA</div>
                 <input type="text" name="username" placeholder="Username" class="w-3/4 rounded-2xl py-3 px-6 mt-16 border-0 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
                 <input type="password" name="password" placeholder="Password" class="w-3/4 rounded-2xl py-3 px-6 mt-5 text-gray-900 ring-inset focus:ring-1 focus:ring-inset focus:ring-secondary focus:outline-none">
                 <div class="flex justify-between w-3/4 mt-5">

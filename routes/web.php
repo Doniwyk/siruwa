@@ -79,7 +79,7 @@ Route::group([
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
 Route::group([
     'prefix' => 'penduduk/data-dasawisma',
-    'as' => 'penduduk.data-dasawisma.',
+    'as' => 'resident.data-dasawisma.',
     'middleware' => 'isAuth'
 ],
     function () {
@@ -92,13 +92,13 @@ Route::group([
 
 //==================================ROUTE DOCUMENT FOR RESIDENT========================================
 Route::group([
-    'prefix' => 'resident/data-dokumen',
+    'prefix' => 'penduduk/data-dokumen',
     'as' => 'resident.data-dokumen.',
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
     Route::post('/request', [ResidentDocumentController::class, 'requestDocument'])->name('request');
-    Route::get('/history', [ResidentDocumentController::class, 'history'])->name('history');
+    Route::get('/riwayat', [ResidentDocumentController::class, 'history'])->name('history');
 });
 
 //==================================ROUTE DOCUMENT FOR ADMIN========================================
@@ -116,14 +116,14 @@ Route::group([
 
 //==================================ROUTE PAYMENT FOR RESIDENT========================================
 Route::group([
-    'prefix' => 'resident/data-pembayaran',
+    'prefix' => 'penduduk/data-pembayaran',
     'as' => 'resident.data-pembayaran.',
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
     Route::get('/add-pembayaran', [ResidentPaymentController::class, 'getAddPaymentForm'])->name('formPembayaran');
     Route::post('/add-pembayaran', [ResidentPaymentController::class, 'storePayment'])->name('store');
-    Route::get('/history', [ResidentPaymentController::class, 'getHistory'])->name('history');
+    Route::get('/riwayat', [ResidentPaymentController::class, 'getHistory'])->name('history');
 });
 
 //==================================ROUTE PAYMENT FOR ADMIN========================================
@@ -136,34 +136,6 @@ Route::group([
     Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment  '])->name('validatePembayaran');
     Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history');
 });
-
-// //==================================ROUTE DOCUMENT MANAGEMENT FOR ADMIN========================================
-// Route::group([
-//     'prefix' => 'admin/manajemen-dokumen',
-//     'as' => 'admin.manajemen-dokumen.',
-//     'middleware' => 'isAuth'
-// ],function(){
-//     Route::get('/', [DocumentController::class, 'index'])->name('index');
-//     Route::get('/add', [DocumentController::class, 'add'])->name('add');
-//     Route::post('/store', [DocumentController::class, 'storeDocument'])->name('store');
-//     Route::get('/{document}/edit', [DocumentController::class, 'editDocument'])->name('edit');
-//     Route::put('/{document}', [DocumentController::class, 'updateDocument'])->name('update');
-//     Route::delete('/{document}/delete', [DocumentController::class, 'deleteDocument'])->name('delete');
-// });
-
-// //==================================ROUTE FUND MANAGEMENT FOR ADMIN========================================
-// Route::group([
-//     'prefix' => 'admin/manajemen-dana',
-//     'as' => 'admin.manajemen-dana.',
-//     'middleware' => 'isAuth'
-// ], function () {
-//     Route::get('/', [PaymentController::class, 'index'])->name('index');
-//     Route::get('/add', [PaymentController::class, 'add'])->name('add');
-//     Route::post('/store', [PaymentController::class, 'storeAccount'])->name('store');
-//     Route::get('/{payment}/edit', [PaymentController::class, 'editAccount'])->name('edit');
-//     Route::put('/{payment}', [PaymentController::class, 'updateAccount'])->name('update');
-//     Route::delete('/{payment}/delete', [PaymentController::class, 'deleteAccount'])->name('delete');
-// });
 
 
 //==================================ROUTE EVENT MANAGEMENT FOR ADMIN========================================
@@ -234,6 +206,6 @@ Route::group([
     'middleware' => 'isAuth'
 
 ], function () {
-    Route::get('/', [NewsController::class, 'indexUser'])->name('index');
+    Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 
 });

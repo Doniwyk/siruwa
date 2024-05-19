@@ -24,10 +24,12 @@ class ResidentPaymentService implements ResidentPaymentContract
 
           $deathFundData = DeathFundModel::where('nomor_kk', $penduduk->nomor_kk)
                                           ->whereYear('bulan', $currentYear)
+                                          ->with('penduduk')
                                           ->get();
 
           $garbageFundData = GarbageFundModel::where('nomor_kk', $penduduk->nomor_kk)
                                               ->whereYear('bulan', $currentYear)
+                                              ->with('penduduk')
                                               ->get();
     
           return [
@@ -50,7 +52,7 @@ class ResidentPaymentService implements ResidentPaymentContract
       if ($user) {
         $penduduk = UserModel::find($user->id_penduduk);
         if ($penduduk) {
-          $history = PaymentModel::where('nomor_kk', $penduduk->nomor_kk)->get();
+          $history = PaymentModel::where('nomor_kk', $penduduk->nomor_kk)->with('penduduk', 'admin')->get();
           return $history;
         } else {
           // Handle case where resident not found
@@ -71,10 +73,12 @@ class ResidentPaymentService implements ResidentPaymentContract
         if ($penduduk) {
           $deathFundData = DeathFundModel::where('nomor_kk', $penduduk->nomor_kk)
                                           ->whereYear('bulan', $year)
+                                          ->with('penduduk')
                                           ->get();
 
           $garbageFundData = GarbageFundModel::where('nomor_kk', $penduduk->nomor_kk)
                                               ->whereYear('bulan', $year)
+                                              ->with('penduduk')
                                               ->get();
     
           return [

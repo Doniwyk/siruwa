@@ -15,7 +15,8 @@ class ResidentDocumentController extends Controller
       $this->documentContract = $documentContract;
     }
     public function index(){
-      return view('resident._requestDocument.index', compact('documentData'));
+      $title = 'Pengajuan Dokumen';
+      return view('resident._requestDocument.index', compact('title'));
     }
     public function history()
     {
