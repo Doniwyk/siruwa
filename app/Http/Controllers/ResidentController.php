@@ -58,13 +58,13 @@ class ResidentController extends Controller
             ]);
         }
 
-        return view('admin._residentData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
+        return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
 
     }
 
     public function add()
     {
-        return view('admin._residentData.add');
+        return view('admin._dasawismaData.add');
 
     }
 
@@ -74,7 +74,7 @@ class ResidentController extends Controller
         $validated = $request->validated();
         try {
 
-            $resident  = $this->residentContract->storeUser($validated);
+            $resident = $this->residentContract->storeUser($validated);
 
             $account = [
                 'id_penduduk' => $resident->id,
@@ -112,7 +112,8 @@ class ResidentController extends Controller
         $page = 'edit-data-penduduk';
         $title = 'Edit Data Penduduk';
         $resident = UserModel::findOrFail($resident->id_penduduk);
-        return view('admin._residentData.edit', compact('resident', 'page', 'title'));
+        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first();
+        return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
     }
 
     //To update resident data which has been edited by admin
@@ -227,7 +228,7 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident]);
+        return view('resident._dasawismaData.index', ['title' => 'Data Diri', 'resident' => $resident]);
     }
 
 
