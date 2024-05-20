@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class TempResidentModel extends Model
 {
     use HasFactory;
-    protected $table = 'temporary_penduduk';
+    protected $table = 'penduduk_temporary';
 
 
     protected $fillable = [
