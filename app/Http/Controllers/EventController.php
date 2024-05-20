@@ -31,19 +31,19 @@ class EventController extends Controller
         return view('admin._event.add');
     }
 
-    public function storeNews(EventRequest $request): RedirectResponse
+    public function storeEvent(EventRequest $request): RedirectResponse
     {
         $validated = $request->validated();
         $this->eventContract->storeEvent($validated);
         return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
     }
 
-    public function editNews(EventModel $news): View
+    public function editEvent(EventModel $news): View
     {
         return view('admin._event.edit', compact('news'));
     }
 
-    public function updateNews(EventRequest $request, EventModel $news): RedirectResponse
+    public function updateEvent(EventRequest $request, EventModel $news): RedirectResponse
     {
         $validated = $request->validated();
         $this->eventContract->updateEvent($validated, $news);
@@ -51,7 +51,7 @@ class EventController extends Controller
         return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil diperbarui.');
     }
 
-    public function deleteNews(EventModel $news): RedirectResponse
+    public function deleteEvent(EventModel $news): RedirectResponse
     {
         $this->eventContract->deleteEvent($news);
 
