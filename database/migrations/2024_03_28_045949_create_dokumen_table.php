@@ -16,9 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penduduk')->index();
             $table->string('jenis', 100);
             $table->string('status');
-            $table->text('keterangan_status');
+            $table->text('keterangan_status')->nullable();
             $table->text('keperluan');
-            $table->text('alasan_ditolak')->nullable();
             $table->timestamps();
 
             $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ResidentDocumentService implements ResidentDocumentContract
 {
     public function requestDocument(array $validatedData){
+        $validatedData['status'] = 'Menunggu Verifikasi';
         PaymentModel::create($validatedData);
     }
     public function getData()

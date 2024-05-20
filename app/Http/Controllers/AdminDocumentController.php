@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Contracts\AdminDocumentContract;
+use App\Http\Requests\ChangeDocumentStatusRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateDocumentRequest;
 use App\Models\DocumentModel;
@@ -51,7 +52,7 @@ class AdminDocumentController extends Controller
         $document = $document->findOrFail($document->id_dokumen);
         return view('admin._document.edit', compact('page', 'title', 'document'));
     }
-    public function changeStatus(ValidateDocumentRequest $request, DocumentModel $document){
+    public function changeStatus(ChangeDocumentStatusRequest $request, DocumentModel $document){
         try {
             $validatedData = $request->validated();
             $this->documentService->changeStatus($validatedData, $document);
