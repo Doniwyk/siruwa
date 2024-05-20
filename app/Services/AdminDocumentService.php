@@ -3,8 +3,10 @@
     namespace App\Services;
 
     use App\Contracts\AdminDocumentContract;
-    use App\Models\DocumentModel;
+use App\Models\AccountModel;
+use App\Models\DocumentModel;
     use Exception;
+use Illuminate\Support\Facades\Auth;
 
     class AdminDocumentService implements AdminDocumentContract
     {
@@ -21,7 +23,13 @@
         }
         public function getDocumentRequest()
         {
-            return DocumentModel::whereNotIn('status', ['Selesai', 'Ditolak'])->with('penduduk')->get();
+            $userId = Auth::id();
+            $accountData = AccountModel::findOrFail($userId);
+            $documentData = DocumentModel::whereNotIn('status', ['Selesai', 'Ditolak'])->with('penduduk')->get();
+            return [
+                'accountData' => $accountData,
+                'documentData' => $documentData
+            ];
         }
         public function getValidateHistory()
         {

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('urlBuktiPembayaran', 250);
             $table->float('jumlah');
             $table->enum('status', ['Terverifikasi', 'Belum Terverifikasi'])->default('Belum Terverifikasi');
+            $table->string('keterangan_status', 250);
+
             $table->timestamps();
 
             $table->foreign('id_admin')->references('id')->on('users');

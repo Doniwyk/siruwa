@@ -23,7 +23,8 @@ class ValidatePaymentRequest extends FormRequest
     {
         return [
             'id_admin' => 'required',
-            'jumlah' => 'requered|numeric'
+            'jumlah' => 'required|numeric',
+            'keterangan_status' => 'nullable'
         ];
     }
 }

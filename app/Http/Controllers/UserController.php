@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\UserContract;
 use App\Http\Requests\UserRequest;
 use App\Models\PendudukModel;
-use App\Models\TempPendudukModel;
+use App\Models\TempResidentModel;
 use App\Models\UserModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -73,14 +73,14 @@ class UserController extends Controller
             'action' => 'required|in:accept,reject',
         ]);
 
-        $tempPenduduk = TempPendudukModel::where('nik', $penduduk->nik)->first();
+        $tempPenduduk = TempResidentModel::where('nik', $penduduk->nik)->first();
         // Jika pengajuan diterima
         if ($request->action === 'accept') {
             // Ubah data penduduk di tabel utama sesuai dengan data di tabel temporary
             $penduduk->update((array) $tempPenduduk);
 
             // Hapus data penduduk dari tabel temporary
-            TempPendudukModel::where('nik', $penduduk->nik)->delete();
+            TempResidentModel::where('nik', $penduduk->nik)->delete();
 
             return redirect()->route('penduduk.index')->with('success', 'Pengajuan edit data diterima.');
         }
@@ -98,7 +98,7 @@ class UserController extends Controller
     public function requestEditForm(Request $request, UserModel $penduduk): RedirectResponse
     {
         // Periksa apakah ada entri dengan id_penduduk yang sama dan status 'Menunggu Verifikasi'
-        $existingRequest = TempPendudukModel::where('id_penduduk', $penduduk->id_penduduk)
+        $existingRequest = TempResidentModel::where('id_penduduk', $penduduk->id_penduduk)
             ->where('status', 'Menunggu Verifikasi')
             ->exists();
 
@@ -108,8 +108,8 @@ class UserController extends Controller
         }
 
         $penduduk = UserModel::find($penduduk->id_penduduk);
-        // Buat entri baru di tabel TempPendudukModel
-        TempPendudukModel::create([
+        // Buat entri baru di tabel TempResidentModel
+        TempResidentModel::create([
             'id_penduduk' => $penduduk->id_penduduk, // Atur field kunci asing yang sesuai
             'urlProfile' => $penduduk->urlProfile,
             'nik' => $penduduk->nik,
@@ -141,7 +141,7 @@ class UserController extends Controller
     }
     public function historyEditData(UserModel $penduduk)
     { //history dan status untuk penduduk
-        $history = TempPendudukModel::where('id_penduduk', $penduduk->id_penduduk);
+        $history = TempResidentModel::where('id_penduduk', $penduduk->id_penduduk);
         return view('user._dasawismaData.history', ['pages' => 'Data Penduduk', 'history' => $history]);
     }
 }
