@@ -18,6 +18,7 @@ export default {
                 "input-disabled": "#DDE9EA",
                 "green-light": "#3D5658",
                 "input-text": "#3D5658",
+                "input-border" :"#EBE43E"
             },
             backgroundImage: {
                 bg_beranda: "url('../public/beranda.jpg')",

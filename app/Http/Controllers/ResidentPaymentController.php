@@ -18,7 +18,8 @@ class ResidentPaymentController extends Controller
   public function index()
   {
     $fundData = $this->paymentContract->getFundData();
-    return view('resident._fund.index', compact('fundData'));
+    $title = 'Iuran RW 2';
+    return view('resident._fund.index', compact('fundData', 'title'));
   }
 
   public function getAddPaymentForm()

@@ -1,5 +1,5 @@
 @extends('layouts.user')
-@section('content')
+@section('content-user')
 {{-- 
     TO-DO
     GANTI VALUE DARI TIAP TIAP DATA DARI DATABASE, JADI TIAP FIELD LANGSUNG KEISI DATA PENDUDUK
@@ -40,66 +40,31 @@
 
                 <hr class="h-1 mx-auto bg-secondary border-0 rounded my-9">
                 
-                <form action="">
-                    <div>                     
-                        <span class="text-secondary text-lg font-bold">Silahkan isi formulir di bawah ini!</span>
-                        <div class="mt-5 grid gap-x-9 gap-y-5 grid-cols-2">
-                            <div class="col-span-1">
-                                <label for="nama_pengaju" class="block text-base font-medium leading-6 text-cyan-900">Nama Lengkap</label>
-                                <div class="mt-2">
-                                    <input type="text" name="nama_pengaju" id="nama_pengaju" placeholder="Nama Lengkap" class="px-6 py-2 block w-full rounded-2xl border-0 text-gray-900 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none">
-                                </div>
-                            </div>
-                    
-                            <div class="sm:col-span-1">
-                                <label for="nik" class="block text-base font-medium leading-6 text-cyan-900">Nama Usaha</label>
-                                <div class="mt-2">
-                                    <input type="text" name="nik" id="nik" placeholder="Nama Usaha" class="px-6 py-2 block w-full rounded-2xl border-0 text-gray-900 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none">
-                                </div>
-                            </div>
-                    
-                            <div class="sm:col-span-1">
-                                <label for="jenis_usaha" class="block text-base font-medium leading-6 text-cyan-900">Jenis Perusahaan</label>
-                                <div class="mt-2">
-                                    <select name="jenis_usaha" id="jenis_usaha" class="p-4 pr-10 block w-full rounded-2xl border-0 py-2 h-10 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none appearance-none">
-                                        <option value="">Pilih Kriteria Perusahaan</option>
-                                        <option value="mikro">Usaha Mikro</option>
-                                        <option value="kecil">Usaha Kecil</option>
-                                        <option value="menengah">Usaha Menengah</option>
-                                    </select>
-                                </div>
-                            </div>
-            
-                            <div class="sm:col-span-1">
-                                <label for="alamat" class="block text-base font-medium leading-6 text-cyan-900">Tanggal Pendirian Usaha</label>
-                                <div class="mt-2">
-                                    <input type="date" id="alamat" name="alamat" class="px-6 py-2 block w-full rounded-2xl border-0 text-gray-900 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none">
-                                </div>
-                            </div>
+                <p class="text-secondary text-base font-medium">Silahkan isi formulir dibawah ini!</p>
 
-                            <div class="sm:col-span-1">
-                                <label for="alamat" class="block text-base font-medium leading-6 text-cyan-900">Nomor Telp. Pemilik Usaha</label>
-                                <div class="mt-2">
-                                    <input type="text" id="alamat" name="alamat" class="px-6 py-2 block w-full rounded-2xl border-0 text-gray-900 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-base placeholder:text-gray-400 placeholder:font-medium focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none" placeholder="08xxxxxxxxxx">
-                                </div>
-                            </div>
-
-                            <div class="sm:col-span-1">
-                                <label for="alamat" class="block text-base font-medium leading-6 text-cyan-900">Alamat Usaha</label>
-                                <div class="mt-2">
-                                    <input type="text" id="alamat" name="alamat" placeholder="Alamat Usaha" class="px-6 py-2 block w-full rounded-2xl border-0 text-gray-900 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none">
-                                </div>
-                            </div>
-
-                            <div class="sm:col-span-2">
-                                <label for="alamat" class="block text-base font-medium leading-6 text-cyan-900">Deskripsi Perusahaan</label>
-                                <div class="mt-2">
-                                    <textarea name="deskripsi" id="deskripsi" cols="30" rows="10" class="p-5 block w-full rounded-2xl border-0 text-gray-900 shadow-sm ring-2 ring-inset ring-gray-400 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none"></textarea>
-                                </div>
-                            </div>
+                <div class="mt-5 grid gap-x-9 gap-y-5 grid-cols-2">
+                    <div>
+                        <label for="nama_pengaju" class="block text-base font-medium leading-6 text-secondary">Nama Lengkap</label>
+                        <div class="mt-3">
+                            <input type="text" name="nama_pengaju" id="nama_pengaju" value="Nama Lengkap" class="px-6 py-2 block w-full rounded-2xl border-0 bg-[#DDE9EA] text-slate-500 text-base font-medium">
                         </div>
                     </div>
-                </form>
+            
+                    <div>
+                        <label for="tanggal_pengajuan" class="block text-base font-medium leading-6 text-secondary">Tanggal Pengajuan</label>
+                        <div class="mt-3">
+                            <input type="date" name="tanggal_pengajuan" id="tanggal_pengajuan" class="px-6 py-2 block w-full rounded-2xl border-0 text-gray-900 bg-[#DDE9EA]">
+                        </div>
+                    </div>
+            
+                    <div class="col-span-2">
+                        <label for="nomor_hp" class="block text-base font-medium leading-6 text-secondary">Alasan Pengajuan</label>
+                        <div class="mt-3">
+                            <textarea name="" id="" cols="30" rows="10" class="px-6 py-6 block w-full rounded-2xl border-0 text-gray-900 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none"></textarea>
+                            <input id="nomor_hp" name="nomor_hp" type="textarea" class="">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <button type="submit" class="rounded-2xl bg-secondary px-12 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#0F4C52] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">Ajukan</button>

@@ -1,10 +1,10 @@
 <div class="bg-secondary px-16 py-8 text-white">
     <div class="flex justify-between">
         <div class="flex flex-col gap-4">
-            <div class="text-5xl font-extrabold">>///<</div>
+            <span><img src="{{ asset('assets/icons/logo-white.svg') }}" alt=""></span>
             <div>Desa Sumberejo, Kota Batu, Jawa Timur</div>
             <div class="flex gap-4">
-                <img src="{{ asset('..\assets\icons\phone.svg') }}" class="w-6">
+                <img src="{{ asset('assets/icons/phone.svg') }}" class="w-6">
                 <div class="text-2xl font-semibold">+6283845734645</div>
             </div>
         </div>
