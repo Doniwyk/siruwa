@@ -68,7 +68,7 @@ Route::group([
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
     Route::get('/tambah-penduduk', [ResidentController::class, 'add'])->name('add');
     Route::post('/store', [ResidentController::class, 'storeResident'])->name('store');
-    Route::get('/{resident}/show', [ResidentController::class, 'show'])->name('show');
+    Route::get('/{resident}/show', [ResidentController::class, 'showDetailResident'])->name('show');
     Route::delete('/{resident}/delete', [ResidentController::class, 'deleteResident'])->name('delete');
     Route::get('/{resident}/edit', [ResidentController::class, 'editResident'])->name('edit');
     Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
@@ -108,9 +108,10 @@ Route::group([
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [AdminDocumentController::class, 'index'])->name('index');
-    Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument');
+    Route::put('/{document}/validate', [AdminDocumentController::class,'validateDocument'])->name('validateDocument');
     Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
-    Route::put('/{document}', [AdminDocumentController::class, 'changeStatus '])->name('changeStatus');
+    Route::get('/{document}/show', [AdminDocumentController::class, 'getShowPage'])->name('show-data-dokumen');
+    Route::put('/{document}', [AdminDocumentController::class, 'changeStatus'])->name('changeStatus');
     Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history');
 });
 
