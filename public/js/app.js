@@ -23,3 +23,17 @@ function setActionAndSubmit(action) {
     form.submit();
 }
 
+function showPopup(formId) {
+    const sectionPopup = document.getElementById("modal-parent");
+    const popUp = document.querySelector(formId);
+    popUp.style.display = "flex";
+    sectionPopup.style.display = "flex";
+}
+
+function closeForm(formId) {
+    const sectionPopup = document.getElementById("modal-parent");
+    const popUp = document.querySelector(formId);
+    popUp.style.display = "none";
+    sectionPopup.style.display = "none";
+}
+
