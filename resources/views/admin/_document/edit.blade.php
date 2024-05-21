@@ -13,7 +13,7 @@
         <h1 class="h1-semibold">Verifikasi Dokumen</h1>
     </div>
     <main class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
-        <form class="grid grid-cols-2 grid-rows-4 gap-4" method="POST" action="{{ route('admin.data-dokumen.validateDocument', ['document' => $document->id_dokumen, 'status']) }}">
+        <form method="POST" action="{{ route('admin.data-dokumen.validateDocument', ['document' => $document->id_dokumen]) }}" class="grid grid-cols-2 grid-rows-4 gap-4">
             @csrf
             @method('PUT')
             <div class="form-group col-span-2">
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="nama" class="text-label_light">Nama Lengkap</label>
-                <input type="text" name="name" id="nama" class="form-control" disabled
+                <input type="text" name="fullName" id="nama" class="form-control" disabled
                     value="{{ $document->penduduk->nama }}">
             </div>
             <div class="form-group">
@@ -35,10 +35,14 @@
                 <label for="nama" class="text-label_light">Deskripsi</label>
                 <textarea type="text" name="description" id="nama" class="form-control min-h-[10rem] text-left " disabled>{{ $document->keperluan }}</textarea>
             </div>
-            <div class="flex-end col-span-2 gap-6 text-white font-semibold">
-                <button type="submit" class="btn btn-primary px-24 py-3 rounded-2xl bg-red-600" name="status" value="tolak">Tolak</button>
-                <button type="submit" class="btn btn-primary px-24 py-3 rounded-2xl bg-main" name="status" value="terima">Setuju</button>
+            <div class="form-group row-span-2">
+                <label for="nama" class="text-label_light">Catatan</label>
+                <textarea type="text" name="keterangan_status" id="keterangan_status" class="border-2 border-input-border outline-none rounded-2xl py-2 px-4 min-h-[10rem] text-left " required></textarea>
             </div>
+            <fieldset class="flex-end col-span-2 gap-6 text-white font-semibold">
+                <button type="submit" class="button-action_reject" name="action" value="tolak" onclick="setActionAndSubmit('tolak')">Tolak</button>
+                <button type="submit" class="button-action_accept" name="action" value="terima" onclick="setActionAndSubmit('terima')">Setuju</button>
+            </fieldset>
         </form>
     </main>
 @endsection
