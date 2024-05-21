@@ -68,7 +68,7 @@ Route::group([
     Route::get('/', [ResidentController::class, 'indexAdmin'])->name('index');
     Route::get('/tambah-penduduk', [ResidentController::class, 'add'])->name('add');
     Route::post('/store', [ResidentController::class, 'storeResident'])->name('store');
-    Route::get('/{resident}/show', [ResidentController::class, 'show'])->name('show');
+    Route::get('/{resident}/show', [ResidentController::class, 'showDetailResident'])->name('show');
     Route::delete('/{resident}/delete', [ResidentController::class, 'deleteResident'])->name('delete');
     Route::get('/{resident}/edit', [ResidentController::class, 'editResident'])->name('edit');
     Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
@@ -110,7 +110,7 @@ Route::group([
     Route::get('/', [AdminDocumentController::class, 'index'])->name('index'); //mendapatkan halaman data dokumen yang harus divalidasi
     Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument'); //proses validasi dokumen
     Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
-    Route::put('/{document}/status', [AdminDocumentController::class, 'changeStatus '])->name('changeStatus'); //proses mengganti status ke bisa diambil / dibatalkan
+    Route::put('/{document}/status', [AdminDocumentController::class, 'changeStatus'])->name('changeStatus'); //proses mengganti status ke bisa diambil / dibatalkan
     Route::put('/{document}/selesai', [AdminDocumentController::class, 'changeIntoSelesai '])->name('changeIntoSelesai'); //proses mengganti status ke bisa diambil / dibatalkan
     Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history'); // mendapatkan riwayat data dokumen
 });

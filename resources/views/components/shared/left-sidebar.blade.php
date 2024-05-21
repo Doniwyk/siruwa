@@ -2,7 +2,7 @@
     <ul class="flex flex-col justify-between gap-4 text-white">
         @foreach (config('constants') as $item)
             @php
-                $isActivePage = $page == $item['route'][0] || $page == $item['route'][1];
+                $isActivePage = $page == $item['route'][0] || $page == $item['route'][1] || $page == $item['route'][2];
                 $route = 'admin.' . $item['route'][0] . '.index';
             @endphp
             <li>

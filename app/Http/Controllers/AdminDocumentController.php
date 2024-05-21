@@ -24,17 +24,39 @@ class AdminDocumentController extends Controller
         $typeDocument = $request->query('typeDocument', 'pengajuan');
         $page = 'data-dokumen';
         $title = 'Manajemen Dokumen';
-        $documents = $this->documentService->getDocumentRequest();
+        // $reqDocuments = $this->documentService->getDocumentRequest();
+        // $historyDocuments = $this->documentService->getValidateHistory();
+
+        switch ($typeDocument) {
+            case 'pengajuan':
+                $documents = $this->documentService->getDocumentRequest();
+                break;
+            case 'ongoing':
+                $documents = $this->documentService->getDocumentOngoing();
+                break;
+            case 'canBeTaken':
+                $documents = $this->documentService->getDocumentCanBeTaken();
+                break;
+            case 'riwayat':
+                $documents = $this->documentService->getValidateHistory();
+                break;
+            
+            default:
+
+                break;
+        }
 
         return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
     }
   
-    public function validateDocument(ValidateDocumentRequest $request, string $action, DocumentModel $document)
+    public function validateDocument(ValidateDocumentRequest $request, DocumentModel $document)
     {
+        $action = $request->action;
         try {
             $validatedData = $request->validated();
             $this->documentService->validateDocument($validatedData, $action, $document);
         } catch(\Exception $e){
+            dd($e);
             report($e);
             return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat memvalidasi dokumen.');;
         }
@@ -51,12 +73,20 @@ class AdminDocumentController extends Controller
     {
         $page = 'edit-data-dokumen';
         $title = 'Manajemen Dokumen';
-        $documents = $this->documentService->getDocumentRequest();
         $document = $document->findOrFail($document->id_dokumen);
         return view('admin._document.edit', compact('page', 'title', 'document'));
     }
-    public function changeStatus(ChangeDocumentStatusRequest $request, DocumentModel $document){
-        $action = $request->action;
+
+    public function getShowPage(DocumentModel $document)
+    {
+        $page = 'show-data-dokumen';
+        $title = 'Manajemen Dokumen';
+        $documents = $this->documentService->getDocumentRequest();
+        $document = $document->findOrFail($document->id_dokumen);
+        return view('admin._document.show', compact('page', 'title', 'document'));
+    }
+    public function changeStatus(ValidateDocumentRequest $request, DocumentModel $document){
+
         try {
             $validatedData = $request->validated();
             $this->documentService->changeStatus($validatedData, $document, $action);

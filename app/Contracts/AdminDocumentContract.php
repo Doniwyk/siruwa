@@ -9,6 +9,9 @@ interface AdminDocumentContract
     public function validateDocument(array $validatedData, string $action, DocumentModel $dokumen);
 
     public function getDocumentRequest();
+    public function getDocumentOngoing();
+
+    public function getDocumentCanBeTaken();
 
     public function getValidateHistory();
 

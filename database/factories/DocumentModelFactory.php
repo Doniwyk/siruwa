@@ -22,7 +22,7 @@ class DocumentModelFactory extends Factory
         return [
             'id_penduduk' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'jenis' => $this->faker->randomElement(['SKTM','SPU','Surat Pengadaan Tanah']),
-            'status' => $this->faker->randomElement(['Bisa Amnbil', 'Proses Verivikasi', 'Ditolak']),
+            'status' => $this->faker->randomElement(['Bisa Ambil', 'Proses Verifikasi', 'Ditolak']),
             'keterangan_status' => $this->faker->sentence,
             'keperluan' => $this->faker->sentence,
             'alasan_ditolak' => $this->faker->sentence,

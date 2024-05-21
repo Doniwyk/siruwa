@@ -11,4 +11,29 @@ function togglePassword(idInputField) {
     const typeInput = input.type;
     input.type = typeInput == "text" ? "password" : "text";
 }
+function setActionAndSubmit(action) {
+    let form = document.querySelector("form");
+    let formAction = form.getAttribute("action");
+    if (action === "tolak") {
+        formAction += "?action=tolak&status=Ditolak";
+    } else {
+        formAction += "?action=terima&status=Proses";
+    }
+    form.setAttribute("action", formAction);
+    form.submit();
+}
+
+function showPopup(formId) {
+    const sectionPopup = document.getElementById("modal-parent");
+    const popUp = document.querySelector(formId);
+    popUp.style.display = "flex";
+    sectionPopup.style.display = "flex";
+}
+
+function closeForm(formId) {
+    const sectionPopup = document.getElementById("modal-parent");
+    const popUp = document.querySelector(formId);
+    popUp.style.display = "none";
+    sectionPopup.style.display = "none";
+}
 

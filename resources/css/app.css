@@ -59,6 +59,12 @@
     .form-control{
         @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text 
     }
+    .button-action_accept{
+        @apply px-24 py-3 rounded-2xl bg-main;
+    }
+    .button-action_reject{
+        @apply px-24 py-3 rounded-2xl bg-red-600;
+    }
 }
 .bg_beranda {
     background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
@@ -115,7 +121,7 @@
 }
 th,
 td {
-    @apply p-3 text-left px-6;
+    @apply p-3 text-left px-6 min-w-[275px];
 }
 thead th {
     @apply text-lg font-bold text-white bg-main;
@@ -145,7 +151,7 @@ tbody td {
     @apply bg-white flex-1 p-4 rounded-2xl;
 }
 .card-total {
-    @apply grid grid-rows-2 grid-cols-2;
+    @apply flex flex-auto;
 }
 .card-total > div {
     @apply flex items-center justify-center flex-col text-base text-main gap-2;

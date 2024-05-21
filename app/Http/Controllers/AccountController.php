@@ -23,12 +23,12 @@ class AccountController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $account = AccountModel::findOrFail($userId);
+        $account = AccountModel::find($userId);
+        $detailAccount = UserModel::find($userId);
         $page = 'profil';
         $title = 'Profil';
         $role= Auth::user()->role;
-        // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
-        return view($role.'._profile.index', compact('account', 'page', 'title', 'userId'));
+        return view($role.'._profile.index', compact('account', 'detailAccount', 'page', 'title', 'userId'));
 
     }
 

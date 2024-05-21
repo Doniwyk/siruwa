@@ -16,11 +16,11 @@
             </div>
         </div>
         <div class="profile-desc">
-            <h4 class="text-2xl font-bold">nadilaamaliaa</>
-                <h3 class="text-3xl font-bold tracking-wider pb-1">{{ $account['username'] }}</h3>
-                <label for="">123456789</label>
-                <label for="">{{ $account['email'] }}</label>
-                <label for="">123456789</label>
+            <h4 class="text-2xl font-bold">{{$account->username}}</h4>
+            <h3 class="text-3xl font-bold tracking-wider pb-1">{{ $detailAccount->nama }}</h3>
+            <label for="">{{ $detailAccount->nik }}</label>
+            <label for="">{{ $account->email }}</label>
+            <label for="">{{ $account->noHp }}</label>
         </div>
     </div>
     <div class="p-8 bg-white flex flex-col ">
@@ -28,11 +28,11 @@
             <h3 class="text-main font-bold text-2xl">Informasi Pengguna</h3>
             <div class="wrapper grid grid-rows-2 grid-cols-2 gap-x-9 gap-y-5">
                 <x-shared.input :label="'Username'" :type="'text'" :name="'username'" :id="'username'" :placeholder="'Username'"
-                    :value="'nadilaamalia'" />
+                    :value="$account->username" />
                 <x-shared.input :label="'Email'" :type="'email'" :name="'email'" :id="'email'" :placeholder="'Email'"
-                    :value="'nadila@gmail.com'" />
-                <x-shared.input :label="'No. Hp'" :type="'number'" :name="'nohp'" :id="'nohp'"
-                    :placeholder="'No. Hp'" :value="'3456789'" />
+                    :value="$account->email" />
+                <x-shared.input :label="'No. Hp'" :type="'text'" :name="'nohp'" :id="'nohp'"
+                    :placeholder="'No. Hp'" :value="$account->noHp" />
             </div>
             <div class="action flex justify-end">
                 <button class="bg-main text-white py-3 px-[3.5rem] rounded-2xl font-semibold">Simpan Perubahan</button>

@@ -23,13 +23,24 @@
         }
         public function getDocumentRequest() //Untuk di page index
         {
-            $userId = Auth::id();
-            $accountData = AccountModel::findOrFail($userId);
-            $documentData = DocumentModel::where('status', 'Menunggu Verifikasi')->with('penduduk')->get();
-            return [
-                'accountData' => $accountData,
-                'documentData' => $documentData
-            ];
+            return DocumentModel::whereIn('status', ['Proses Verifikasi'])->with('penduduk')->get();
+        }
+        public function getDocumentOngoing()
+        {
+            return DocumentModel::whereIn('status', ['Proses'])->with('penduduk')->get();
+        }
+        public function getDocumentCanBeTaken()
+        {
+            return DocumentModel::whereIn('status', ['Bisa Diambil'])->with('penduduk')->get();
+
+//             $userId = Auth::id();
+//             $accountData = AccountModel::findOrFail($userId);
+//             $documentData = DocumentModel::where('status', 'Menunggu Verifikasi')->with('penduduk')->get();
+//             return [
+//                 'accountData' => $accountData,
+//                 'documentData' => $documentData
+//             ];
+
         }
         public function getValidateHistory() //Untuk di page riwayat
         {
