@@ -87,7 +87,7 @@ class AdminDocumentController extends Controller
         return view('admin._document.show', compact('page', 'title', 'document'));
     }
     public function changeStatus(ValidateDocumentRequest $request, DocumentModel $document){
-
+        $action = $request->action;
         try {
             $validatedData = $request->validated();
             $this->documentService->changeStatus($validatedData, $document, $action);
