@@ -24,7 +24,6 @@ class ValidateDocumentRequest extends FormRequest
         return [
             'status' => 'required',
             'keterangan_status' => 'nullable',
-            'alasan_ditolak' => 'nullable',
         ];
     }
 }
