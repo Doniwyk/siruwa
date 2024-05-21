@@ -107,12 +107,12 @@ Route::group([
     'as' => 'admin.data-dokumen.',
     'middleware' => 'isAuth'
 ],function(){
-    Route::get('/', [AdminDocumentController::class, 'index'])->name('index');
-    Route::put('/{document}/validate', [AdminDocumentController::class,'validateDocument'])->name('validateDocument');
+    Route::get('/', [AdminDocumentController::class, 'index'])->name('index'); //mendapatkan halaman data dokumen yang harus divalidasi
+    Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument'); //proses validasi dokumen
     Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
-    Route::get('/{document}/show', [AdminDocumentController::class, 'getShowPage'])->name('show-data-dokumen');
-    Route::put('/{document}', [AdminDocumentController::class, 'changeStatus'])->name('changeStatus');
-    Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history');
+    Route::put('/{document}/status', [AdminDocumentController::class, 'changeStatus'])->name('changeStatus'); //proses mengganti status ke bisa diambil / dibatalkan
+    Route::put('/{document}/selesai', [AdminDocumentController::class, 'changeIntoSelesai '])->name('changeIntoSelesai'); //proses mengganti status ke bisa diambil / dibatalkan
+    Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history'); // mendapatkan riwayat data dokumen
 });
 
 //==================================ROUTE PAYMENT FOR RESIDENT========================================
@@ -133,9 +133,9 @@ Route::group([
     'as' => 'admin.data-pembayaran.',
     'middleware' => 'isAuth'
 ],function(){
-    Route::get('/', [AdminPaymentController::class, 'index'])->name('index');
-    Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment  '])->name('validatePembayaran');
-    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history');
+    Route::get('/', [AdminPaymentController::class, 'index'])->name('index'); //mendapatkan halaman data pembayaran yang harus divalidasi
+    Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment  '])->name('validatePembayaran'); //proses validasi pembayaran
+    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
 });
 
 
