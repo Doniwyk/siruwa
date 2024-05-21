@@ -50,6 +50,7 @@ class AdminDocumentController extends Controller
   
     public function validateDocument(ValidateDocumentRequest $request, DocumentModel $document)
     {
+        
         $action = $request->action;
         try {
             $validatedData = $request->validated();
