@@ -21,7 +21,15 @@
         }
         public function getDocumentRequest()
         {
-            return DocumentModel::whereNotIn('status', ['Selesai', 'Ditolak'])->with('penduduk')->get();
+            return DocumentModel::whereIn('status', ['Proses Verifikasi'])->with('penduduk')->get();
+        }
+        public function getDocumentOngoing()
+        {
+            return DocumentModel::whereIn('status', ['Proses'])->with('penduduk')->get();
+        }
+        public function getDocumentCanBeTaken()
+        {
+            return DocumentModel::whereIn('status', ['Bisa Diambil'])->with('penduduk')->get();
         }
         public function getValidateHistory()
         {
