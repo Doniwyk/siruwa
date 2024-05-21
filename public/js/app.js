@@ -11,4 +11,15 @@ function togglePassword(idInputField) {
     const typeInput = input.type;
     input.type = typeInput == "text" ? "password" : "text";
 }
+function setActionAndSubmit(action) {
+    let form = document.querySelector("form");
+    let formAction = form.getAttribute("action");
+    if (action === "tolak") {
+        formAction += "?action=tolak&status=Ditolak";
+    } else {
+        formAction += "?action=terima&status=Proses";
+    }
+    form.setAttribute("action", formAction);
+    form.submit();
+}
 
