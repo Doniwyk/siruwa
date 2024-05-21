@@ -16,8 +16,10 @@ class AdminPaymentController extends Controller
         $this->paymentService = $paymentService;
     }
     public function index(){
-        $fundData = $this->paymentService->getFundData();
-        return view('admin._fund.index', compact('fundData'));
+        $title = "Manajemen Dana";
+        $page = "manajemen-dana";
+        $fundData = $this->paymentService->getSubmission();
+        return view('admin._fund.index', compact('fundData', 'title','page'));
     }
     public function validatePayment(ValidatePaymentRequest $request, string $action, PaymentModel $payment){
         try {
