@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 interface UserContract
 {
-    public function storeUser(array $validatedData):UserModel;
+    public function storeUser(array $validatedData): UserModel;
 
     public function updateUser(array $validatedData, UserModel $penduduk);
 
@@ -16,4 +16,10 @@ interface UserContract
     public function validateEditRequest(Request $request, UserModel $resident);
 
     public function editRequest(Request $request, UserModel $resident);
+
+    public function getFilteredResidentData($search, $order);
+
+    public function getFilteredRequestResidentData($search, $order);
+
+    public function getFilteredHistoryResidentData($search, $order);
 }
