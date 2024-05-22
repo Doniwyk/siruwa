@@ -12,17 +12,17 @@ use Illuminate\Http\Request;
 class UserService implements UserContract
 {
 
-    public function storeUser(array $validatedData):UserModel
+    public function storeUser(array $validatedData): UserModel
     {
         return UserModel::create($validatedData);
     }
 
-    public function updateUser(array $validatedData, UserModel $penduduk):void
+    public function updateUser(array $validatedData, UserModel $penduduk): void
     {
         $penduduk->update($validatedData);
     }
 
-    public function deleteUser(UserModel $penduduk):void
+    public function deleteUser(UserModel $penduduk): void
     {
         $penduduk->delete();
     }
@@ -35,7 +35,7 @@ class UserService implements UserContract
             // dd($reqData);
             $resident->update($reqData);
             $tempResident->status = 'Diterima';
-            
+
             $tempResident->save();
         }
 
@@ -44,8 +44,8 @@ class UserService implements UserContract
             $tempResident->save();
         }
     }
-    
-    public function editRequest(Request $request , UserModel $resident)
+
+    public function editRequest(Request $request, UserModel $resident)
     {
         $existingRequest = TempResidentModel::where('id_penduduk', $resident->id_penduduk)
             ->where('status', 'Menunggu Verifikasi')
@@ -72,7 +72,7 @@ class UserService implements UserContract
     public function getFilteredRequestResidentData($search, $order)
     {
         $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', $search . '%');
+            $query->where('name', 'like', $search . '%');
         })
             ->where('status', 'Menunggu Verifikasi')
             ->orderBy('nama', $order)
@@ -91,6 +91,4 @@ class UserService implements UserContract
 
         return $residents;
     }
-
-    
 }

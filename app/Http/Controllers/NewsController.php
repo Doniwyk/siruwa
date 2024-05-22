@@ -23,18 +23,14 @@ class NewsController extends Controller
     //===========================FOR ADMIN============================
 
 
-    public function index()
+    public function index(Request $request)
     {
-        try {
-            $news = NewsModel::paginate(6);
 
-            $page = 'manajemen-berita';
-            $title = 'Manajemen Berita';
-            return view('admin._news.index', compact('news', 'title', 'page'));
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
-        }
-    }
+        $typeDocument = $request->query('typeDocument', 'berita');
+        $search = $request->query('search', '');
+        $order = $request->query('order', 'asc');
+
+        $news = $this->getFilterNews($search, $order);
 
 
         $paginationHtml = $news->appends([
@@ -52,8 +48,8 @@ class NewsController extends Controller
                 'paginationHtml' => $paginationHtml
             ];
         }
-        
-        return view('admin._news.index',compact('news','paginationHtml', 'title', 'page', 'typeDocument', 'search', 'order'));
+
+        return view('admin._news.index', compact('news', 'paginationHtml', 'title', 'page', 'typeDocument', 'search', 'order'));
     }
 
 
