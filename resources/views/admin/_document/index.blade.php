@@ -102,15 +102,15 @@
                                 <button class="w-10 h-10 bg-main" onclick="showPopup('#approve-description')"></button>
                             </td>
                         </tr>
+                        <section class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden" id="modal-parent"
+                            onclick="hiddenSection(this)">
+                            <x-shared.action-description-form :document="$document" :formId="'cancel-description'" :statusValue="'batalkan'" />
+                            <x-shared.action-description-form :document="$document" :formId="'approve-description'" :statusValue="'lanjut'" />
+                        </section>
                     @endforeach
                     @endif
                 </tbody>
             </table>
-            <section class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden" id="modal-parent"
-                onclick="hiddenSection(this)">
-                <x-shared.action-description-form :document="$document" :formId="'cancel-description'" :statusValue="'batalkan'" />
-                <x-shared.action-description-form :document="$document" :formId="'approve-description'" :statusValue="'lanjut'" />
-            </section>
         @break
 
         @case('canBeTaken')

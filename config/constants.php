@@ -26,6 +26,11 @@ return [
         "label" => "Manajemen Berita",
     ],
     [
+        "imgURL" => 'assets/icons/manajemen-agenda.svg',
+        "route" => ['manajemen-acara', '',''],
+        "label" => "Manajemen Agenda",
+    ],
+    [
         "imgURL" => 'assets/icons/edit-profil.svg',
         "route" => ['profil', '',''],
         "label" => "Ubah Profil",
