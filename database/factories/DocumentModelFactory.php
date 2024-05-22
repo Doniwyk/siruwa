@@ -25,7 +25,6 @@ class DocumentModelFactory extends Factory
             'status' => $this->faker->randomElement(['Bisa Amnbil', 'Proses Verivikasi', 'Ditolak']),
             'keterangan_status' => $this->faker->sentence,
             'keperluan' => $this->faker->sentence,
-            'alasan_ditolak' => $this->faker->sentence,
         ];
     }
 }
