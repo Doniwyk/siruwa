@@ -175,7 +175,7 @@ class ResidentController extends Controller
                 $residents = $this->residentContract->getFilteredRequestResidentData($search, $order);
                 break;
             case 'riwayat':
-                $residents = $this->residentContract->getFilterHistoryResidentData($search, $order);
+                $residents = $this->residentContract->getFilteredHistoryResidentData($search, $order);
                 break;
         }
         return $residents;

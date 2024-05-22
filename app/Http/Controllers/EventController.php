@@ -21,9 +21,13 @@ class EventController extends Controller
 
     public function index()
     {
-        $event = EventModel::all();
-        $title='Manajemen Agenda';
-        return view('admin._event.index', [compact('event'),'page'=> $title]);
+        try {
+            $event = EventModel::all();
+            $title = 'Manajemen Agenda';
+            return view('admin._event.index', [compact('event'), 'page' => $title]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data agenda tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function add()
@@ -33,9 +37,13 @@ class EventController extends Controller
 
     public function storeEvent(EventRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-        $this->eventContract->storeEvent($validated);
-        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
+        try {
+            $validated = $request->validated();
+            $this->eventContract->storeEvent($validated);
+            return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menambahkan agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function editEvent(EventModel $news): View
@@ -45,16 +53,23 @@ class EventController extends Controller
 
     public function updateEvent(EventRequest $request, EventModel $news): RedirectResponse
     {
-        $validated = $request->validated();
-        $this->eventContract->updateEvent($validated, $news);
-
-        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil diperbarui.');
+        try {
+            $validated = $request->validated();
+            $this->eventContract->updateEvent($validated, $news);
+            return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mengubah agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function deleteEvent(EventModel $news): RedirectResponse
     {
-        $this->eventContract->deleteEvent($news);
+        try {
+            $this->eventContract->deleteEvent($news);
+            return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil di hapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
 
-        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil di hapus.');
+        }
     }
 }
