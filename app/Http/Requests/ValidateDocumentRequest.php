@@ -22,8 +22,8 @@ class ValidateDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'status' => 'required',
-            'keterangan_status' => 'nullable'
+            'status' => 'required',
+            'keterangan_status' => 'nullable',
         ];
     }
 }

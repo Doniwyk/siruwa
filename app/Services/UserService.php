@@ -31,8 +31,11 @@ class UserService implements UserContract
     {
         $tempResident = TempResidentModel::where('nik', $resident->nik)->first();
         if ($request->action === 'accept') {
-            $resident->update((array) $tempResident);
+            $reqData = collect($tempResident)->only($resident->getFillable())->toArray();
+            // dd($reqData);
+            $resident->update($reqData);
             $tempResident->status = 'Diterima';
+            
             $tempResident->save();
         }
 

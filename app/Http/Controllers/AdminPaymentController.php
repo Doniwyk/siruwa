@@ -16,8 +16,10 @@ class AdminPaymentController extends Controller
         $this->paymentService = $paymentService;
     }
     public function index(){
-        $fundData = $this->paymentService->getFundData();
-        return view('admin._fund.index', compact('fundData'));
+        $title = "Manajemen Dana";
+        $page = "manajemen-dana";
+        $fundData = $this->paymentService->getSubmission();
+        return view('admin._fund.index', compact('fundData', 'title','page'));
     }
     public function validatePayment(ValidatePaymentRequest $request, string $action, PaymentModel $payment){
         try {
@@ -29,8 +31,10 @@ class AdminPaymentController extends Controller
         }
         return redirect()->route('admin.data-pembayaran.index');
     }
-    public function validatedPayment(){
+    public function validatedPayment(){ //riwayat
+        $title = "Manajemen Dana";
+        $page = "manajemen-dana";
         $validatedPayment = $this->paymentService->getValidatedPayment();
-        return view('admin._fund.history', compact('validatedPayment'));
+        return view('admin._fund.history', compact('validatedPayment', 'title','page'));
     }
 }

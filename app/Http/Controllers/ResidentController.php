@@ -181,7 +181,7 @@ class ResidentController extends Controller
         return $residents;
     }
 
-    public function show(UserModel $resident)
+    public function showDetailResident(UserModel $resident)
     {
         $page = 'edit-data-penduduk';
         $title = 'Edit Data Penduduk';

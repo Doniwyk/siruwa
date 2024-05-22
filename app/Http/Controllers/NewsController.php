@@ -22,6 +22,7 @@ class NewsController extends Controller
 
     //===========================FOR ADMIN============================
 
+
     public function index()
     {
         try {
@@ -35,17 +36,25 @@ class NewsController extends Controller
         }
     }
 
-    // // public function indexUser(){
-    // //     return view('landingpage');
-    // //     $news = NewsModel::all();
-    // //     $page = 'Manajemen Berita';
-    // //     return view('admin._news.index', ['page' => $page, 'news' => $news]);
-    // // }
-    //     $title = 'Manajemen Berita';
-    //     return view('landingpage',compact('news', 'title'));
-    // }
 
+        $paginationHtml = $news->appends([
+            'typeDocument' => $typeDocument,
+            'search' => $search,
+            'order' => $order
+        ])->links()->toHtml();
 
+        $page = 'manajemen-berita';
+        $title = 'Manajemen Berita';
+
+        if ($request->wantsJson()) {
+            return [
+                'news' => $news->items(),
+                'paginationHtml' => $paginationHtml
+            ];
+        }
+        
+        return view('admin._news.index',compact('news','paginationHtml', 'title', 'page', 'typeDocument', 'search', 'order'));
+    }
 
 
     public function add()
@@ -90,7 +99,14 @@ class NewsController extends Controller
         }
     }
 
-    //===========================FOR RESIDENT============================
+
+    public function getFilterNews($search, $order){
+        $news = NewsModel::where('judul', 'like', $search.'%')->orderBy('judul', $order);
+        return $news->paginate(6);
+    }
+
+        //===========================FOR RESIDENT============================
+
     public function indexResident()
     {
         try {

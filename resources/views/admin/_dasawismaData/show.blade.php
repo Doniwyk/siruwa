@@ -10,56 +10,39 @@
             </svg>
         </span>
     </a>
-    <h1 class="h1-semibold">Edit Data Penduduk</h1>
+    <h1 class="h1-semibold">Detail Data Penduduk</h1>
 </div>
 <main class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
     <section id="identitas-kependudukan" class="">
         <h4 class="h4-semibold">Identitas Kependudukan</h4>
         <form action="" class="grid grid-rows-2 grid-flow-col gap-x-9 gap-y-5">
-            <x-form.input-form_-show :label="'Nama'"  :name="'reqNama'" :value="$resident->nama"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'No. KTP/NIK'"  :name="'reqKtp'" :value="$resident->nik"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'No. Registrasi'"  :name="'reqRegistrasi'" :value="$resident->no_reg"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Alamat Lengkap'"  :name="'reqAlamat'" :value="$resident->alamat"
-                :reqValue="' '" />
+            <x-form.show-input-form :label="'Nama'"  :name="'reqNama'" :value="$resident->nama" />
+            <x-form.show-input-form :label="'No. KTP/NIK'"  :name="'reqKtp'" :value="$resident->nik" />
+            <x-form.show-input-form :label="'No. Registrasi'"  :name="'reqRegistrasi'" :value="$resident->no_reg" />
+            <x-form.show-input-form :label="'Alamat Lengkap'"  :name="'reqAlamat'" :value="$resident->alamat" />
         </form>
     </section>
     <section id="identitas-lengkap">
         <h4 class="h4-semibold">Identitas Lengkap</h4>
         <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <x-form.input-form_-show :label="'Pekerjaan dan Jabatan'"  :name="'reqPekerjaan'" :value="$resident->pekerjaan"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Tempat Lahir / Umur'"  :name="'reqTempatLahir'" :value="$resident->tempat_lahir . ' / ' . $resident->umur"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Jenis Kelamin'"  :name="'reqJenisKelamin'" :value="$resident->jenis_kelamin"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Agama'"  :name="'reqAgama'" :value="$resident->agama"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Pendidikan'"  :name="'reqPendidikan'" :value="$resident->pendidikan"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Status Perkawinan'"  :name="'reqStatusPerkawinan'" :value="$resident->status_kawin"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Status dalam Keluarga'"  :name="'reqStatusDalamKeluarga'" :value="$resident->status_keluarga"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Memiliki Tabungan'"  :name="'reqMemilikiTabungan'" :value="$resident->has_tabungan"
-                :reqValue="' '" />
+            <x-form.show-input-form :label="'Pekerjaan dan Jabatan'"  :name="'reqPekerjaan'" :value="$resident->pekerjaan" />
+            <x-form.show-input-form :label="'Tempat Lahir / Umur'"  :name="'reqTempatLahir'" :value="$resident->tempat_lahir . ' / ' . $resident->umur" />
+            <x-form.show-input-form :label="'Jenis Kelamin'"  :name="'reqJenisKelamin'" :value="$resident->jenis_kelamin" />
+            <x-form.show-input-form :label="'Agama'"  :name="'reqAgama'" :value="$resident->agama" />
+            <x-form.show-input-form :label="'Pendidikan'"  :name="'reqPendidikan'" :value="$resident->pendidikan" />
+            <x-form.show-input-form :label="'Status Perkawinan'"  :name="'reqStatusPerkawinan'" :value="$resident->status_kawin" />
+            <x-form.show-input-form :label="'Status dalam Keluarga'"  :name="'reqStatusDalamKeluarga'" :value="$resident->status_keluarga" />
+            <x-form.show-input-form :label="'Memiliki Tabungan'"  :name="'reqMemilikiTabungan'" :value="$resident->has_tabungan" />
         </form>
     </section>
     <section id="kegiatan-keorganisasian">
         <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
         <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <x-form.input-form_-show :label="'Aktif dalam Kegiatan'"  :name="'reqAktifKegiatan'" :value="$resident->aktif_kegiatan"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Ikut dalam kegiatan Koperasi'"  :name="'reqKoperasi'" :value="$resident->ikut_koperasi"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Mengikuti Kelompok Belajar Jenis'"  :name="'reqKelompokBelajarJenis'" :value="$resident->ikut_kel_belajar"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Mengikuti PAUD/Sejenis'"  :name="'reqPaud'" :value="$resident->ikut_paud"
-                :reqValue="' '" />
-            <x-form.input-form_-show :label="'Mengikuti Program Bina Keluarga Balita'"  :name="'reqProgramBinaKeluargaBalita'" :value="$resident->has_BKB"
-                :reqValue="' '" />
+            <x-form.show-input-form :label="'Aktif dalam Kegiatan'"  :name="'reqAktifKegiatan'" :value="$resident->aktif_kegiatan" />
+            <x-form.show-input-form :label="'Ikut dalam kegiatan Koperasi'"  :name="'reqKoperasi'" :value="$resident->ikut_koperasi" />
+            <x-form.show-input-form :label="'Mengikuti Kelompok Belajar Jenis'"  :name="'reqKelompokBelajarJenis'" :value="$resident->ikut_kel_belajar" />
+            <x-form.show-input-form :label="'Mengikuti PAUD/Sejenis'"  :name="'reqPaud'" :value="$resident->ikut_paud" />
+            <x-form.show-input-form :label="'Mengikuti Program Bina Keluarga Balita'"  :name="'reqProgramBinaKeluargaBalita'" :value="$resident->has_BKB" />
         </form>
     </section>
 </main>

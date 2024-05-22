@@ -3,10 +3,10 @@
     namespace App\Services;
 
     use App\Contracts\AdminDocumentContract;
-use App\Models\AccountModel;
-use App\Models\DocumentModel;
+    use App\Models\AccountModel;
+    use App\Models\DocumentModel;
     use Exception;
-use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Auth;
 
     class AdminDocumentService implements AdminDocumentContract
     {
@@ -21,23 +21,65 @@ use Illuminate\Support\Facades\Auth;
             };
             $document->save();
         }
-        public function getDocumentRequest()
+        public function getDocumentRequest() //Untuk di page index
+        {
+            return DocumentModel::whereIn('status', ['Proses Verifikasi'])->with('penduduk')->get();
+        }
+        public function getDocumentOngoing()
+        {
+            return DocumentModel::whereIn('status', ['Proses'])->with('penduduk')->get();
+        }
+        public function getDocumentCanBeTaken()
+        {
+            return DocumentModel::whereIn('status', ['Bisa Diambil'])->with('penduduk')->get();
+
+//             $userId = Auth::id();
+//             $accountData = AccountModel::findOrFail($userId);
+//             $documentData = DocumentModel::where('status', 'Menunggu Verifikasi')->with('penduduk')->get();
+//             return [
+//                 'accountData' => $accountData,
+//                 'documentData' => $documentData
+//             ];
+
+        }
+        public function getValidateHistory() //Untuk di page riwayat
+        {
+            return DocumentModel::whereIn('status', ['Selesai', 'Ditolak', 'Dibatalkan'])->with('penduduk')->get();
+        }
+
+        public function getProcessedDocument() //Untuk di page proses
         {
             $userId = Auth::id();
             $accountData = AccountModel::findOrFail($userId);
-            $documentData = DocumentModel::whereNotIn('status', ['Selesai', 'Ditolak'])->with('penduduk')->get();
+            $documentData = DocumentModel::where('status', 'Proses')->with('penduduk')->get();
             return [
                 'accountData' => $accountData,
                 'documentData' => $documentData
             ];
         }
-        public function getValidateHistory()
-        {
-            return DocumentModel::whereIn('status', ['Selesai', 'Ditolak'])->with('penduduk')->get();
+        public function changeStatus(array $validatedData, DocumentModel $dokumen, string $action){ //Untuk di page proses
+            $keteranganStatus = $validatedData['keterangan_status'];
+            $dokumen->keterangan_status = $keteranganStatus;
+            $dokumen->status = match ($action) {
+                'lanjut' => 'Bisa Diambil',
+                'batalkan' => 'Dibatalkan',
+                default => throw new Exception("Invalid action status")
+            };
+            $dokumen->save();
         }
-        public function changeStatus(array $validatedData, DocumentModel $dokumen){
-            $dokumen->status = $validatedData['status'];
-            $dokumen->keterangan_status = $validatedData['keterangan_status'];
+        
+        public function getCanBeTakenDocument() //Untuk di page bisa diambil
+        {
+            $userId = Auth::id();
+            $accountData = AccountModel::findOrFail($userId);
+            $documentData = DocumentModel::where('status', ['Bisa Diambil'])->with('penduduk')->get();
+            return [
+                'accountData' => $accountData,
+                'documentData' => $documentData
+            ];
+        }
+        public function changeIntoSelesai(DocumentModel $dokumen){ //Untuk di page bisa diambil
+            $dokumen->status = 'Selesai';
             $dokumen->save();
         }
     }

@@ -23,6 +23,7 @@ class AccountController extends Controller
 
     public function index()
     {
+
         try {
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
@@ -34,6 +35,7 @@ class AccountController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
+
     }
 
 
