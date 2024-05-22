@@ -6,17 +6,17 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class ActionDescriptionForm extends Component
+class ConfirmationPaymentCard extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $document;
-    public string $formId;
-    public string $statusValue;
-    public function __construct($document, string $formId,string $statusValue)
+    public $fundData;
+    public $formId;
+    public $statusValue;
+    public function __construct($fundData, $formId, $statusValue)
     {
-        $this->document = $document;
+        $this->fundData = $fundData;
         $this->formId = $formId;
         $this->statusValue = $statusValue;
     }
@@ -26,6 +26,6 @@ class ActionDescriptionForm extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.action-description-form');
+        return view('components.shared.confirmation-payment-card');
     }
 }

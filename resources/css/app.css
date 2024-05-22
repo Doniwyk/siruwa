@@ -136,7 +136,7 @@ tbody td {
     @apply flex h-28 gap-x-9;
 }
 .card {
-    @apply bg-third flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main;
+    @apply bg-third flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main h-[7rem];
 }
 .text-fund {
     @apply text-2xl font-bold;

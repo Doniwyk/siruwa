@@ -2,7 +2,8 @@
     action="{{ route('admin.data-dokumen.changeStatus', ['document' => $document->id_dokumen]) }}" method="POST">
     @csrf
     @method('PUT')
-    <button class="absolute w-[25px] h-[25px] -right-2 -top-2 rounded-full bg-red-600" onclick="closeForm('#{{ $formId }}')"></button>
+    <button class="absolute w-[25px] h-[25px] -right-2 -top-2 rounded-full bg-red-600"
+        onclick="closeForm('#{{ $formId }}')"></button>
     <h1 class="text-xl font-bold text-main">Catatan</h1>
     <textarea name="keterangan_status" id="keterangan_status"
         class="h-[10rem] w-[22rem] mt-4 border-2 p-2 border-outline outline-none rounded-2xl" required></textarea>

@@ -6,6 +6,7 @@ use App\Contracts\AdminPaymentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
+use Illuminate\Http\Request;
 
 class AdminPaymentController extends Controller
 {
@@ -15,11 +16,16 @@ class AdminPaymentController extends Controller
     {
         $this->paymentService = $paymentService;
     }
-    public function index(){
+    public function index(Request $request){
+        $typeDocument = $request->query('typeDocument', 'pembayaran');
+        $search = $request->query('search', '');
+        $order = $request->query('order', 'asc');
+
         $title = "Manajemen Dana";
-        $page = "manajemen-dana";
+        $page = "data-pembayaran";
         $fundData = $this->paymentService->getSubmission();
-        return view('admin._fund.index', compact('fundData', 'title','page'));
+        // dd($fundData);
+        return view('admin._fund.index', compact('fundData', 'title','page','typeDocument','search','order'));
     }
     public function validatePayment(ValidatePaymentRequest $request, string $action, PaymentModel $payment){
         try {
