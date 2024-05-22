@@ -11,13 +11,15 @@ class Card extends Component
     public $type;
     public $label;
     public $value;
+    public $data;
     /**
      * Create a new component instance.
      */
-    public function __construct( $label, $value, $type = null)
+    public function __construct( $label, $value, $data = null,$type = null)
     {
         $this->type = $type;
         $this->label = $label;
+        $this->data = $data;
         $this->value = $value;
     }
 
