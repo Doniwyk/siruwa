@@ -9,6 +9,7 @@ use App\Contracts\AccountContract;
 use App\Http\Requests\AccountRequest;
 use App\Models\AccountModel;
 use App\Models\UserModel;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
@@ -22,33 +23,45 @@ class AccountController extends Controller
 
     public function index()
     {
-        $userId = Auth::id();
-        $account = AccountModel::find($userId);
-        $detailAccount = UserModel::find($userId);
-        $page = 'profil';
-        $title = 'Profil';
-        $role= Auth::user()->role;
-        return view($role.'._profile.index', compact('account', 'detailAccount', 'page', 'title', 'userId'));
+
+        try {
+            $userId = Auth::id();
+            $account = AccountModel::findOrFail($userId);
+            $page = 'profil';
+            $title = 'Profil';
+            $role = Auth::user()->role;
+            // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
+            return view($role . '._profile.index', compact('account', 'page', 'title', 'userId'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
 
     }
 
 
     public function editAccount(): View
     {
-        $userId = Auth::id();
-        $account = AccountModel::findOrFail($userId);
-        $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
-        $title = 'Edit Profil';
-        $role = Auth::user()->role;
-        return view($role . '._profile.edit', ['title' => $title, 'account' => $account,'resident' =>$resident]);
+        try {
+            $userId = Auth::id();
+            $account = AccountModel::findOrFail($userId);
+            $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
+            $title = 'Edit Profil';
+            $role = Auth::user()->role;
+            return view($role . '._profile.edit', ['title' => $title, 'account' => $account, 'resident' => $resident]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function updateAccount(AccountRequest $request, AccountModel $account): RedirectResponse
     {
-        $role = Auth::user()->role;
-        $validated = $request->validated();
-        $this->akunContract->updateAccount($validated, $account);
-        return redirect()->route($role . '._profile.index')->with('success', 'Data akun berhasil di ubah');
+        try {
+            $role = Auth::user()->role;
+            $validated = $request->validated();
+            $this->akunContract->updateAccount($validated, $account);
+            return redirect()->route($role . '._profile.index')->with('success', 'Data akun berhasil diubah');
+        } catch (\Exception $e) {
+            return redirect()->route($role . '._profile.index')->with('error', 'Data akun gagal diubah ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
-
 }
