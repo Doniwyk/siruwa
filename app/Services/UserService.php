@@ -56,4 +56,38 @@ class UserService implements UserContract
             return true;
         }
     }
+
+    public function getFilteredResidentData($search, $order)
+    {
+        $residents = UserModel::when($search, function ($query) use ($search) {
+            return $query->where('nama', 'like', $search . '%');
+        })->orderBy('nama', $order)
+            ->paginate(15);
+        return $residents;
+    }
+
+    public function getFilteredRequestResidentData($search, $order)
+    {
+        $residents = TempResidentModel::when($search, function ($query) use ($search) {
+            $query->where('nama', 'like', $search . '%');
+        })
+            ->where('status', 'Menunggu Verifikasi')
+            ->orderBy('nama', $order)
+            ->paginate(15);
+        return $residents;
+    }
+
+    public function getFilteredHistoryResidentData($search, $order)
+    {
+        $residents = TempResidentModel::when($search, function ($query) use ($search) {
+            $query->where('nama', 'like', $search . '%');
+        })
+            ->where('status', '!=', 'Menunggu Verifikasi')
+            ->orderBy('nama', $order)
+            ->paginate(15);
+
+        return $residents;
+    }
+
+    
 }
