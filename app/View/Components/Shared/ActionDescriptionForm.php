@@ -12,9 +12,9 @@ class ActionDescriptionForm extends Component
      * Create a new component instance.
      */
     public $document;
-    public $formId;
-    public $statusValue;
-    public function __construct($document, $formId, $statusValue)
+    public string $formId;
+    public string $statusValue;
+    public function __construct($document, string $formId,string $statusValue)
     {
         $this->document = $document;
         $this->formId = $formId;
