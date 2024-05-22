@@ -108,10 +108,10 @@ Route::group([
     'middleware' => 'isAuth'
 ],function(){
     Route::get('/', [AdminDocumentController::class, 'index'])->name('index'); //mendapatkan halaman data dokumen yang harus divalidasi
-    Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument '])->name('validateDocument'); //proses validasi dokumen
+    Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument'])->name('validateDocument'); //proses validasi dokumen
     Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
     Route::put('/{document}/status', [AdminDocumentController::class, 'changeStatus'])->name('changeStatus'); //proses mengganti status ke bisa diambil / dibatalkan
-    Route::put('/{document}/selesai', [AdminDocumentController::class, 'changeIntoSelesai '])->name('changeIntoSelesai'); //proses mengganti status ke bisa diambil / dibatalkan
+    Route::put('/{document}/selesai', [AdminDocumentController::class, 'changeIntoSelesai'])->name('changeIntoSelesai'); //proses mengganti status ke bisa diambil / dibatalkan
     Route::get('/history', [AdminDocumentController::class, 'validatedHistory'])->name('history'); // mendapatkan riwayat data dokumen
 });
 

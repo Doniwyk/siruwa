@@ -108,8 +108,8 @@
             </table>
             <section class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden" id="modal-parent"
                 onclick="hiddenSection(this)">
-                <x-shared.action-description-form :document="$document" :formId="'cancel-description'" :statusValue="'Ditolak'" />
-                <x-shared.action-description-form :document="$document" :formId="'approve-description'" :statusValue="'Bisa Diambil'" />
+                <x-shared.action-description-form :document="$document" :formId="'cancel-description'" :statusValue="'batalkan'" />
+                <x-shared.action-description-form :document="$document" :formId="'approve-description'" :statusValue="'lanjut'" />
             </section>
         @break
 
@@ -139,7 +139,7 @@
                             <td>{{ $document->no_reg }}</td>
                             <td class="flex-start">
                                 <form
-                                    action="{{ route('admin.data-dokumen.changeStatus', ['document' => $document->id_dokumen]) }}"
+                                    action="{{ route('admin.data-dokumen.changeIntoSelesai', ['document' => $document->id_dokumen]) }}"
                                     method="POST">
                                     @csrf
                                     @method('PUT')
