@@ -164,47 +164,18 @@ class ResidentController extends Controller
 
     }
 
-    public function getFilterDataPenduduk($search, $order)
-    {
-        $residents = UserModel::when($search, function ($query) use ($search) {
-            return $query->where('nama', 'like', $search . '%');
-        })->orderBy('nama', $order)
-            ->paginate(15);
-        return $residents;
-    }
-    public function getFilterPengajuanDataPenduduk($search, $order)
-    {
-        $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', $search . '%');
-        })
-            ->where('status', 'Menunggu Verifikasi')
-            ->orderBy('nama', $order)
-            ->paginate(15);
-        return $residents;
-    }
-    public function getFilterRiwayatDataPenduduk($search, $order)
-    {
-        $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', $search . '%');
-        })
-            ->where('status', '!=', 'Menunggu Verifikasi')
-            ->orderBy('nama', $order)
-            ->paginate(15);
-
-        return $residents;
-    }
 
     public function getDataRequest($typeDocument, $search, $order)
     {
         switch ($typeDocument) {
             case 'daftar-penduduk':
-                $residents = $this->getFilterDataPenduduk($search, $order);
+                $residents = $this->residentContract->getFilteredResidentData($search, $order);
                 break;
             case 'pengajuan':
-                $residents = $this->getFilterPengajuanDataPenduduk($search, $order);
+                $residents = $this->residentContract->getFilteredRequestResidentData($search, $order);
                 break;
             case 'riwayat':
-                $residents = $this->getFilterRiwayatDataPenduduk($search, $order);
+                $residents = $this->residentContract->getFilterHistoryResidentData($search, $order);
                 break;
         }
         return $residents;
