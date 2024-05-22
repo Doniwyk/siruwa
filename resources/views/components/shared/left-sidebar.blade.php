@@ -8,7 +8,7 @@
             <li>
                 {{-- id pada tag a kyk e bakal diganti id user sg log in --}}
                 <a href="{{ route($route) }}" @class(['nav-menu', 'bg-white text-main font-bold' => $isActivePage])>
-                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class([ 'invert-black' => $isActivePage])>
+                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class(['invert-black' => $isActivePage])>
                     {{ $item['label'] }}
                 </a>
             </li>
@@ -20,5 +20,5 @@
             <img src="{{ asset('assets/icons/logout.svg') }}" alt="">
             <label for="">Keluar</label>
         </button>
-        </d>
+    </div>
 </nav>
