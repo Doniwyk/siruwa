@@ -11,5 +11,6 @@ interface AdminPaymentContract
     public function getFundData();
 
     public function getValidatedPayment();
+
     public function getSubmission();
 }
