@@ -8,13 +8,13 @@
         class="h-[10rem] w-[22rem] mt-4 border-2 p-2 border-outline outline-none rounded-2xl" required></textarea>
     <button type="submit" @class([
         'mt-5',
-        'bg-red-600' => $statusValue == 'Ditolak',
-        'bg-main' => $statusValue == 'Bisa Diambil',
+        'bg-red-600' => $statusValue == 'batalkan',
+        'bg-main' => $statusValue == 'lanjut',
         'text-white',
         'px-4',
         'py-2',
         'rounded-md',
         'flex-1',
     ]) type="submit" name="status"
-        value="{{ $statusValue }}">{{ $statusValue == 'Ditolak' ? 'Batalkan' : 'Konfirmasi' }}</button>
+        value="{{ $statusValue }}">{{ $statusValue == 'batalkan' ? 'Batalkan' : 'Konfirmasi' }}</button>
 </form>
