@@ -20,8 +20,8 @@ class AdminImportResidentController extends Controller
             $this->importService->importResident($validatedData);
         } catch (\Exception $e) {
             report($e);
-            return redirect()->route('admin.data-penduduk..index')->with('Terjadi kesalahan tak terduga saat import data.');
+            return redirect()->route('admin.data-penduduk.index')->with('Terjadi kesalahan tak terduga saat import data.');
         }
-        return redirect()->route('admin.data-penduduk..index');
+        return redirect()->route('admin.data-penduduk.index');
     }
 }
