@@ -15,9 +15,13 @@ class AdminImportResidentController extends Controller
         $this->importService = $importService;
     }
     public function importFile(ImportResidentRequest $request){
-        $validatedData = $request->validated();
-        $this->importService->importResident($validatedData);
-
-        return redirect()->route('admin._resident.index');
+        try {
+            $validatedData = $request->validated();
+            $this->importService->importResident($validatedData);
+        } catch (\Exception $e) {
+            report($e);
+            return redirect()->route('admin.data-penduduk..index')->with('Terjadi kesalahan tak terduga saat import data.');
+        }
+        return redirect()->route('admin.data-penduduk..index');
     }
 }

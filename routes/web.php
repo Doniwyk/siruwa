@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AdminDocumentController;
+use App\Http\Controllers\AdminImportResidentController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DocumentController;
@@ -74,6 +75,8 @@ Route::group([
     Route::put('/{resident}', [ResidentController::class, 'updateResident'])->name('update');
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
     Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
+    //==================================ROUTE IMPORT DATA FOR ADMIN========================================
+    Route::post('/import', [AdminImportResidentController::class, 'importFile'])->name('import');
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
