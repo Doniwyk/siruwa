@@ -139,7 +139,7 @@
         </div>
 
         <!-- Modal -->
-        <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+        <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display: none;">
             <div class="bg-white rounded-2xl p-10 w-[33rem]">
                 <form action="">
                     <div class="flex flex-col mb-4">
@@ -165,34 +165,57 @@
                         </div>
                     </div>
                     <div class="flex items-center justify-center w-full">
-                        <label for="dropzone-file" class="relative flex flex-col items-center justify-center w-full h-64 border-secondary border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-100">
+                        <div id="dropzone" class="relative flex flex-col items-center justify-center w-full h-64 border-secondary border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-100">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <img src="{{ asset('assets/icons/image-upload.svg') }}" alt="upload image" class="mb-3">
                                 <p class="font-medium text-secondary">Upload Bukti Pembayaran</p>
                             </div>
-                            <input id="dropzone-file" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
-                            <img id="preview-image" class="hidden absolute inset-0 object-cover w-full h-full rounded-2xl" alt="Uploaded Image" />
-                        </label>
+                            <input id="dropzone-file" type="file" class="hidden" accept="image/*">
+                            <img id="preview-image" class="hidden absolute inset-0 object-cover w-full h-full rounded-2xl" alt="Uploaded Image">
+                        </div>
                     </div>
                     
                     <script>
-                        // Function to display preview image
-                        function previewImage(event) {
-                            var input = event.target;
-                            var reader = new FileReader();
-                    
-                            reader.onload = function () {
-                                var img = document.getElementById('preview-image');
-                                img.src = reader.result;
-                                img.classList.remove('hidden');
+                        const dropzone = document.getElementById('dropzone');
+                        const dropzoneFileInput = document.getElementById('dropzone-file');
+                        const previewImage = document.getElementById('preview-image');
+
+                        ['dragover', 'dragenter'].forEach(event => {
+                            dropzone.addEventListener(event, function(e) {
+                                e.preventDefault();
+                                dropzone.classList.add('bg-gray-100');
+                            });
+                        });
+
+                        ['dragleave', 'drop'].forEach(event => {
+                            dropzone.addEventListener(event, function(e) {
+                                e.preventDefault();
+                                dropzone.classList.remove('bg-gray-100');
+                                if (e.type === 'drop') {
+                                    dropzoneFileInput.files = e.dataTransfer.files;
+                                    displayPreview(dropzoneFileInput.files[0]);
+                                }
+                            });
+                        });
+
+                        dropzone.addEventListener('click', () => dropzoneFileInput.click());
+
+                        dropzoneFileInput.addEventListener('change', function(e) {
+                            displayPreview(e.target.files[0]);
+                        });
+
+                        function displayPreview(file) {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                previewImage.src = reader.result;
+                                previewImage.classList.remove('hidden');
                             };
-                    
-                            reader.readAsDataURL(input.files[0]);
+                            reader.readAsDataURL(file);
                         }
-                    </script>
+                    </script>                    
                     
                     <div class="mt-9 flex space-x-5">
-                        <button class="py-2 font-semibold text-secondary rounded-2xl w-1/2 border-2 border-secondary" @click="showModal = false">Batal</button>
+                        <button class="py-2 font-semibold text-secondary rounded-2xl w-1/2 border-2 border-secondary" @click.prevent="showModal = false">Batal</button>
                         <button class="py-2 bg-secondary font-semibold text-white rounded-2xl w-1/2">Konfirmasi</button>
                     </div>
                 </form>
