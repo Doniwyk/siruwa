@@ -114,7 +114,6 @@ class NewsController extends Controller
     }
 
 
-
     public function getFilterNews($search, $order)
     {
         $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order);

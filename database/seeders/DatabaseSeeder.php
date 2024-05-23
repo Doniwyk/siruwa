@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             EventSeeder::class,
             DeathFundSeeder::class,
-            GarbageFundSeeder::class
+            GarbageFundSeeder::class,
+            PendudukTemporarySeeder::class
         ]);
         
     }

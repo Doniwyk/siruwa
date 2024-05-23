@@ -93,13 +93,21 @@ class AdminPaymentService implements AdminPaymentContract
     public function getSubmission()
     {
         $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')->with('penduduk', 'admin')->get();
+
         $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')
         ->count() * 10000;
         $getGarbageFundAmount = GarbageFundModel::where('status', 'Lunas')
         ->count() * 10000;
+
+        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')
+        ->count() * 10000;
+        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')
+        ->count() * 10000;
+        $getTunggakan = $getDeathFundTunggakan+$getGarbageFundTunggakan;
         
         return ['getSubmission' => $getSubmission, 
                 'deathFundTotal' => $getDeathFundAmount, 
-                'garbageFundTotal' => $getGarbageFundAmount];
+                'garbageFundTotal' => $getGarbageFundAmount,
+                'tunggakan' => $getTunggakan];
     }
 }
