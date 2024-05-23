@@ -24,12 +24,15 @@ class ResidentDocumentController extends Controller
       return view('resident._requestDocument.history', compact('documentData'));
     }
   
-    public function requestDocument(StoreDocumentRequest $request) // Use validated request
+    public function requestDocument(StoreDocumentRequest $request) 
     {
-      $validatedData = $request->validated(); // Access validated data directly
+      $validatedData = $request->validated(); 
   
-      $this->documentContract->requestDocument($validatedData);
-  
-      return redirect()->route('resident.data-dokumen.index')->with('success', 'Pengajuan berhasil disimpan!');
+      try {
+          $this->documentContract->requestDocument($validatedData);
+          return redirect()->route('resident.data-dokumen.index')->with('success', 'Pengajuan berhasil disimpan!');
+      } catch (\Exception $e) {
+          return redirect()->route('resident.data-dokumen.index')->with('error', 'Terjadi kesalahan saat menyimpan pengajuan.');
+      }
     }
 }
