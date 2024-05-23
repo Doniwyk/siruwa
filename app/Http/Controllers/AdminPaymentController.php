@@ -27,11 +27,13 @@ class AdminPaymentController extends Controller
         // dd($fundData);
         return view('admin._fund.index', compact('fundData', 'title','page','typeDocument','search','order'));
     }
-    public function validatePayment(ValidatePaymentRequest $request, string $action, PaymentModel $payment){
+    public function validatePayment(ValidatePaymentRequest $request, PaymentModel $payment){
+        $action = $request->action;
         try {
             $validatedData = $request->validated();
             $this->paymentService->validatePayment($validatedData, $action, $payment);
         } catch (\Exception $e) {
+            dd($e);
             report($e);
             return redirect()->route('admin.data-pembayaran.index')->with('Terjadi kesalahan tak terduga saat memvalidasi pembayaran.');
         }
