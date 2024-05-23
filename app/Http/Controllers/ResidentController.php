@@ -59,13 +59,11 @@ class ResidentController extends Controller
         }
 
         return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
-
     }
 
     public function add()
     {
         return view('admin._dasawismaData.add');
-
     }
 
     //To store resident data in database
@@ -111,12 +109,14 @@ class ResidentController extends Controller
     {
         $page = 'edit-data-penduduk';
         $title = 'Edit Data Penduduk';
+        //Data on residents who submitted data changes
         $resident = UserModel::findOrFail($resident->id_penduduk);
-        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first();
+        // Data that  want to change
+        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first(); 
         return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
     }
 
-    
+
 
     //To update resident data which has been edited by admin
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
@@ -163,7 +163,6 @@ class ResidentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
     }
 
 
@@ -189,7 +188,6 @@ class ResidentController extends Controller
         $title = 'Edit Data Penduduk';
         $resident = UserModel::find($resident->id_penduduk);
         return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
-
     }
 
 
@@ -239,5 +237,4 @@ class ResidentController extends Controller
 
         return view('resident._dasawismaData.history', ['title' => 'Riwayat Pengajuan', 'history' => $history]);
     }
-
 }
