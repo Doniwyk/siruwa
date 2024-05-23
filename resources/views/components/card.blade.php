@@ -14,5 +14,5 @@
         @endswitch
         <h4>{{ $label }}</h4>
     </header>
-    <label class="text-fund">Rp 900.000</label>
+    <label class="text-fund">Rp {{ number_format($value, 0, ',', '.') }}</label>
 </div>
