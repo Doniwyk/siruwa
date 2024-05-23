@@ -25,7 +25,9 @@ class NewsController extends Controller
 
     //===========================FOR ADMIN============================
 
-    public function index(Request $request){
+
+    public function index(Request $request)
+    {
 
         $typeDocument = $request->query('typeDocument', 'berita');
         $search = $request->query('search', '');
@@ -74,20 +76,31 @@ class NewsController extends Controller
         return view('admin._news.create', compact('page', 'title'));
     }
 
-    public function storeNews(NewsRequest $request):RedirectResponse{
-        $validated = $request->validated();
-        $this->newsContract->storeNews($validated);
-        return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');    
+    public function storeNews(NewsRequest $request): RedirectResponse
+    {
+        try {
+            $validated = $request->validated();
+            $this->newsContract->storeNews($validated);
+            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menambahkan berita' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
-    public function editNews(NewsModel $news):View{
+    public function editNews(NewsModel $news): View
+    {
         return view('admin._news.edit', compact('news'));
     }
 
-    public function updateNews(NewsRequest $request, NewsModel $news):RedirectResponse{
-        $validated = $request->validated();
-        $this->newsContract->updateNews($validated, $news);
-        return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil diperbarui.');    
+    public function updateNews(NewsRequest $request, NewsModel $news): RedirectResponse
+    {
+        try {
+            $validated = $request->validated();
+            $this->newsContract->updateNews($validated, $news);
+            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal megubah berita' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function deleteNews(NewsModel $news): RedirectResponse
@@ -99,7 +112,6 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Gagal menghapus berita' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-
 
 
     public function getFilterNews($search, $order)
@@ -127,11 +139,13 @@ class NewsController extends Controller
 
     public function indexResident()
     {
-        $news = NewsModel::all();
-        $event = EventModel::all();
-        $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
-        return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews'=>$latestNews]);
-
+        try {
+            $news = NewsModel::all();
+            $event = EventModel::all();
+            $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
+            return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
-
 }

@@ -59,13 +59,11 @@ class ResidentController extends Controller
         }
 
         return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
-
     }
 
     public function add()
     {
         return view('admin._dasawismaData.add');
-
     }
 
     //To store resident data in database
@@ -111,10 +109,14 @@ class ResidentController extends Controller
     {
         $page = 'edit-data-penduduk';
         $title = 'Edit Data Penduduk';
+        //Data on residents who submitted data changes
         $resident = UserModel::findOrFail($resident->id_penduduk);
-        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first();
+        // Data that  want to change
+        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first(); 
         return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
     }
+
+
 
     //To update resident data which has been edited by admin
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
@@ -161,50 +163,20 @@ class ResidentController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
     }
 
-    public function getFilterDataPenduduk($search, $order)
-    {
-        $residents = UserModel::when($search, function ($query) use ($search) {
-            return $query->where('nama', 'like', $search . '%');
-        })->orderBy('nama', $order)
-            ->paginate(15);
-        return $residents;
-    }
-    public function getFilterPengajuanDataPenduduk($search, $order)
-    {
-        $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', $search . '%');
-        })
-            ->where('status', 'Menunggu Verifikasi')
-            ->orderBy('nama', $order)
-            ->paginate(15);
-        return $residents;
-    }
-    public function getFilterRiwayatDataPenduduk($search, $order)
-    {
-        $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', $search . '%');
-        })
-            ->where('status', '!=', 'Menunggu Verifikasi')
-            ->orderBy('nama', $order)
-            ->paginate(15);
-
-        return $residents;
-    }
 
     public function getDataRequest($typeDocument, $search, $order)
     {
         switch ($typeDocument) {
             case 'daftar-penduduk':
-                $residents = $this->getFilterDataPenduduk($search, $order);
+                $residents = $this->residentContract->getFilteredResidentData($search, $order);
                 break;
             case 'pengajuan':
-                $residents = $this->getFilterPengajuanDataPenduduk($search, $order);
+                $residents = $this->residentContract->getFilteredRequestResidentData($search, $order);
                 break;
             case 'riwayat':
-                $residents = $this->getFilterRiwayatDataPenduduk($search, $order);
+                $residents = $this->residentContract->getFilteredHistoryResidentData($search, $order);
                 break;
         }
         return $residents;
@@ -216,8 +188,9 @@ class ResidentController extends Controller
         $title = 'Edit Data Penduduk';
         $resident = UserModel::find($resident->id_penduduk);
         return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
-
     }
+
+
 
 
     //========================FOR RESIDENT========================
@@ -264,5 +237,4 @@ class ResidentController extends Controller
 
         return view('resident._dasawismaData.history', ['title' => 'Riwayat Pengajuan', 'history' => $history]);
     }
-
 }

@@ -12,7 +12,17 @@ use Illuminate\Support\Facades\Auth;
 class ResidentPaymentService implements ResidentPaymentContract
 {
     public function storePayment(array $validatedData){
-        PaymentModel::create($validatedData);
+      $response = cloudinary()->upload($validatedData['urlBuktiPembayaran']->getRealPath())->getSecurePath();
+
+      $user = Auth::user();
+      $penduduk = UserModel::find($user->id_penduduk);
+      if ($penduduk) {
+          $validatedData['nomor_kk'] = $penduduk->nomor_kk;
+      } else {
+          return redirect()->back()->with('error', 'Nomor KK tidak ditemukan.');
+      }
+      $validatedData['urlBuktiPembayaran'] = $response;
+      PaymentModel::create($validatedData);
     }
     public function getFundData()
     {

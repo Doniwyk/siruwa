@@ -12,30 +12,30 @@ use Illuminate\Http\Request;
 class UserService implements UserContract
 {
 
-    public function storeUser(array $validatedData):UserModel
+    public function storeUser(array $validatedData): UserModel
     {
         return UserModel::create($validatedData);
     }
 
-    public function updateUser(array $validatedData, UserModel $penduduk):void
+    public function updateUser(array $validatedData, UserModel $penduduk): void
     {
         $penduduk->update($validatedData);
     }
 
-    public function deleteUser(UserModel $penduduk):void
+    public function deleteUser(UserModel $penduduk): void
     {
         $penduduk->delete();
     }
 
     public function validateEditRequest(Request $request, UserModel $resident)
     {
-        $tempResident = TempResidentModel::where('nik', $resident->nik)->first();
+        $tempResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first();
         if ($request->action === 'accept') {
             $reqData = collect($tempResident)->only($resident->getFillable())->toArray();
             // dd($reqData);
             $resident->update($reqData);
             $tempResident->status = 'Diterima';
-            
+
             $tempResident->save();
         }
 
@@ -44,8 +44,8 @@ class UserService implements UserContract
             $tempResident->save();
         }
     }
-    
-    public function editRequest(Request $request , UserModel $resident)
+
+    public function editRequest(Request $request, UserModel $resident)
     {
         $existingRequest = TempResidentModel::where('id_penduduk', $resident->id_penduduk)
             ->where('status', 'Menunggu Verifikasi')
@@ -58,5 +58,38 @@ class UserService implements UserContract
             TempResidentModel::create($mergeResident);
             return true;
         }
+    }
+
+    public function getFilteredResidentData($search, $order)
+    {
+        $residents = UserModel::when($search, function ($query) use ($search) {
+            return $query->where('nama', 'like', $search . '%');
+        })->orderBy('nama', $order)
+            ->paginate(15);
+        return $residents;
+    }
+
+    public function getFilteredRequestResidentData($search, $order)
+    {
+        $residents = TempResidentModel::with('penduduk')
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'like', $search . '%');
+            })
+            ->where('status', 'Menunggu Verifikasi')
+            ->orderBy('nama', $order)
+            ->paginate(15);
+        return $residents;
+    }
+
+    public function getFilteredHistoryResidentData($search, $order)
+    {
+        $residents = TempResidentModel::when($search, function ($query) use ($search) {
+            $query->where('nama', 'like', $search . '%');
+        })
+            ->where('status', '!=', 'Menunggu Verifikasi')
+            ->orderBy('nama', $order)
+            ->paginate(15);
+
+        return $residents;
     }
 }

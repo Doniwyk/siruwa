@@ -28,8 +28,12 @@ class ResidentDocumentController extends Controller
     {
       $validatedData = $request->validated(); // Access validated data directly
   
-      $this->documentContract->requestDocument($validatedData);
+      try {
+        $this->documentContract->requestDocument($validatedData);
+        return redirect()->route('resident.data-dokumen.index')->with('success', 'Pengajuan berhasil disimpan!');
+      } catch (\Exception $e) {
+        return redirect()->route('resident.data-dokumen.index')->with('error', 'Terjadi kesalahan saat menyimpan pengajuan.');
+      }
   
-      return redirect()->route('resident.data-dokumen.index')->with('success', 'Pengajuan berhasil disimpan!');
     }
 }

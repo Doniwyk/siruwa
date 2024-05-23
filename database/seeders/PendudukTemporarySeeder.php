@@ -14,7 +14,7 @@ class PendudukTemporarySeeder extends Seeder
     public function run()
     {
         TempResidentModel::create([
-            'id_penduduk' => 1,
+            'id_penduduk' => 6,
             'no_reg' => '12345',
             'tgl_lahir' => '1990-01-01',
             'nik' => '1234567890',
@@ -47,7 +47,7 @@ class PendudukTemporarySeeder extends Seeder
             'status' => 'Menunggu Verifikasi',
         ]);
         TempResidentModel::create([
-            'id_penduduk' => 2,
+            'id_penduduk' => 7,
             'no_reg' => '12344',
             'tgl_lahir' => '1990-01-01',
             'nik' => '1234567894',
@@ -80,7 +80,7 @@ class PendudukTemporarySeeder extends Seeder
             'status' => 'Menunggu Verifikasi',
         ]);
         TempResidentModel::create([
-            'id_penduduk' => 3,
+            'id_penduduk' => 8,
             'no_reg' => '12345',
             'tgl_lahir' => '1990-01-01',
             'nik' => '1234567895',
@@ -113,7 +113,7 @@ class PendudukTemporarySeeder extends Seeder
             'status' => 'Ditolak',
         ]);
         TempResidentModel::create([
-            'id_penduduk' => 4,
+            'id_penduduk' => 9,
             'no_reg' => '12346',
             'tgl_lahir' => '1990-01-01',
             'nik' => '1234567896',

@@ -84,10 +84,10 @@
                     @foreach ($residents as $resident)
                             <tr>
                                 <td class="hidden">{{ $resident->id_penduduk }}</td>
-                                <td>{{ $resident->nama }}</td>
-                                <td>{{ $resident->nik }}</td>
-                                <td>{{ $resident->tgl_lahir }}</td>
-                                <td>{{ $resident->no_reg }}</td>
+                                <td>{{ $resident->penduduk->nama }}</td>
+                                <td>{{ $resident->penduduk->nik }}</td>
+                                <td>{{ $resident->penduduk->tgl_lahir }}</td>
+                                <td>{{ $resident->penduduk->no_reg }}</td>
                                 <td>
                                     <a class="flex-start"
                                         href="{{ route('admin.data-penduduk.edit', ['resident' => $resident['id_penduduk']]) }}">
