@@ -82,6 +82,9 @@
                             <td colspan="5" class="text-center">No data found</td>
                         </tr>
                     @else
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($documents as $document)
                             <tr class="hover:bg-fourth transition-all ease-linear cursor-pointer">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
@@ -90,14 +93,20 @@
                                 <td>{{ $document->created_at }}</td>
                                 <td>{{ $document->no_reg }}</td>
                                 <td class="flex-start">
-                                    <button class="w-10 h-10 bg-red-600" onclick="showPopup('#cancel-description')"></button>
-                                    <button class="w-10 h-10 bg-main" onclick="showPopup('#approve-description')"></button>
+                                    <button class="w-10 h-10 bg-red-600"
+                                        onclick="showPopup('#cancel-description-{{ $i }}', '#modal-parent-{{ $i }}')"></button>
+                                    <button class="w-10 h-10 bg-main"
+                                        onclick="showPopup('#approve-description-{{ $i }}', '#modal-parent-{{ $i }}')"></button>
                                 </td>
-                                <td class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden" id="modal-parent">
-                                        <x-shared.action-description-form :document=$document :formId="'cancel-description'" :statusValue="'batalkan'" />
-                                        <x-shared.action-description-form :document=$document :formId="'approve-description'" :statusValue="'lanjut'" />
+                                <td class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden"
+                                    id="modal-parent-{{ $i }}">
+                                    <x-shared.action-description-form :document=$document :formId="'cancel-description-'" :statusValue="'batalkan'" :idx=$i />
+                                    <x-shared.action-description-form :document=$document :formId="'approve-description-'" :statusValue="'lanjut'" :idx=$i />
                                 </td>
                             </tr>
+                            @php
+                                $i++;
+                            @endphp
                         @endforeach
                     @endif
                 </tbody>
