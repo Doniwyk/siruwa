@@ -28,13 +28,16 @@ class ResidentPaymentController extends Controller
   }
 
 
-  public function storePayment(StorePaymentRequest $request) // Use validated request
+  public function storePayment(StorePaymentRequest $request) 
   {
-    $validatedData = $request->validated(); // Access validated data directly
+    $validatedData = $request->validated(); 
 
-    $this->paymentContract->storePayment($validatedData);
-
-    return redirect()->route('resident.data-pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
+    try {
+        $this->paymentContract->storePayment($validatedData);
+        return redirect()->route('resident.data-pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
+    } catch (\Exception $e) {
+        return redirect()->route('resident.data-pembayaran.index')->with('error', 'Terjadi kesalahan saat menyimpan pembayaran.');
+    }
   }
 
   public function getHistory()
