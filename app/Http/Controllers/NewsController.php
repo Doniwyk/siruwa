@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\EventContract;
 use App\Contracts\NewsContract;
 use App\Http\Requests\NewsRequest;
 use App\Models\EventModel;
@@ -14,10 +15,12 @@ class NewsController extends Controller
 {
     //
     protected NewsContract $newsContract;
+    protected EventContract $eventContract;
 
-    public function __construct(NewsContract $newsContract)
+    public function __construct(NewsContract $newsContract, EventContract $eventContract)
     {
         $this->newsContract = $newsContract;
+        $this->eventContract = $eventContract;
     }
 
     //===========================FOR ADMIN============================
@@ -30,14 +33,27 @@ class NewsController extends Controller
         $search = $request->query('search', '');
         $order = $request->query('order', 'asc');
 
-        $news = $this->getFilterNews($search, $order);
+        $lastestEvent = $this->getLastestEvent($search, 'desc', 2);
+        $lastestNews = $this->getLastestNews($search, 'desc', 2);
 
+        switch ($typeDocument) {
+            case 'berita':
+                $news = $this->getFilterNews($search, $order);
+                break;
+
+            case 'acara':
+                $news = $this->getFilterEvent($search, $order);
+                break;
+        }
+
+        // dd($news[0]->judul);
 
         $paginationHtml = $news->appends([
             'typeDocument' => $typeDocument,
             'search' => $search,
             'order' => $order
         ])->links()->toHtml();
+
 
         $page = 'manajemen-berita';
         $title = 'Manajemen Berita';
@@ -49,13 +65,15 @@ class NewsController extends Controller
             ];
         }
 
-        return view('admin._news.index', compact('news', 'paginationHtml', 'title', 'page', 'typeDocument', 'search', 'order'));
+        return view('admin._news.index', compact('news', 'paginationHtml', 'title', 'page', 'typeDocument', 'search', 'order', 'lastestEvent', 'lastestNews'));
     }
 
 
     public function add()
     {
-        return view('admin._news.add');
+        $page = 'manajemen-berita';
+        $title = 'Manajemen Berita';
+        return view('admin._news.create', compact('page', 'title'));
     }
 
     public function storeNews(NewsRequest $request): RedirectResponse
@@ -96,12 +114,29 @@ class NewsController extends Controller
     }
 
 
-    public function getFilterNews($search, $order){
-        $news = NewsModel::where('judul', 'like', $search.'%')->orderBy('judul', $order);
+
+    public function getFilterNews($search, $order)
+    {
+        $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order);
         return $news->paginate(6);
     }
+    public function getFilterEvent($search, $order)
+    {
+        $event = EventModel::where('judul', 'like', $search . '%')->orderBy('judul', $order);
+        return $event->paginate(6);
+    }
+    public function getLastestNews($search, $order, $count)
+    {
+        $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
+        return $news;
+    }
+    public function getLastestEvent($search, $order, $count)
+    {
+        $event = EventModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
+        return $event;
+    }
 
-        //===========================FOR RESIDENT============================
+    //===========================FOR RESIDENT============================
 
     public function indexResident()
     {
