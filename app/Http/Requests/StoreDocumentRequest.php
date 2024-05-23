@@ -22,7 +22,6 @@ class StoreDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_penduduk' => 'required',
             'jenis' => 'required',
             'keperluan' => 'required',
         ];
