@@ -13,12 +13,10 @@ class ConfirmationPaymentCard extends Component
      */
     public $fundData;
     public $formId;
-    public $statusValue;
-    public function __construct($fundData, $formId, $statusValue)
+    public function __construct($fundData, $formId )
     {
         $this->fundData = $fundData;
         $this->formId = $formId;
-        $this->statusValue = $statusValue;
     }
 
     /**
