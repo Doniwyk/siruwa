@@ -81,56 +81,58 @@
     background-size: cover;
     background-attachment: scroll;
 }
-.topbar {
-    @apply h-[5.75rem] w-full bg-secondary flex justify-between fixed z-10;
-}
-.left-sidebar {
-    @apply min-h-full w-[18rem] flex flex-col justify-between px-4 pb-6 pt-28 bg-main text-[16px] font-medium text-white fixed;
-}
-.left-sidebar a:hover img {
-    @apply invert-black;
-}
-.content {
-    @apply px-16 py-9 pl-[22rem] pt-32 h-screen w-full bg-main-bg flex flex-col gap-y-9 overflow-scroll;
-}
-
-.content-landingpage {
-    @apply p-0;
-}
-.nav-menu {
-    @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
-}
-.nav-menu:hover {
-    @apply bg-white text-main font-bold;
-}
-.topbar {
-    @apply px-6 py-4;
-}
-
-.filter_parent {
-    @apply min-h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden;
-}
-.search-option {
-    @apply basis-3/4 bg-white flex items-center  px-6 rounded-2xl;
-}
-.filter-option_parent {
-    @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between;
-}
-.table-parent {
-    @apply w-full rounded-2xl overflow-hidden bg-white;
-}
-th,
-td {
-    @apply p-3 text-left px-6 min-w-[275px];
-}
-thead th {
-    @apply text-lg font-bold text-white bg-main;
-}
-tbody tr {
-    @apply border-b-2;
-}
-tbody td {
-    @apply text-main text-base font-medium;
+@layer components {
+    .topbar {
+        @apply h-[5.75rem] w-full bg-secondary flex justify-between fixed z-10;
+    }
+    .left-sidebar {
+        @apply min-h-full w-[18rem] flex flex-col justify-between px-4 pb-6 pt-28 bg-main text-[16px] font-medium text-white fixed;
+    }
+    .left-sidebar a:hover img {
+        @apply invert-black;
+    }
+    .content {
+        @apply px-16 py-9 pl-[22rem] pt-32 h-screen w-full bg-main-bg flex flex-col gap-y-9 overflow-scroll;
+    }
+    
+    .content-landingpage {
+        @apply p-0;
+    }
+    .nav-menu {
+        @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
+    }
+    .nav-menu:hover {
+        @apply bg-white text-main font-bold;
+    }
+    .topbar {
+        @apply px-6 py-4;
+    }
+    
+    .filter_parent {
+        @apply min-h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden;
+    }
+    .search-option {
+        @apply basis-3/4 bg-white flex items-center  px-6 rounded-2xl;
+    }
+    .filter-option_parent {
+        @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between;
+    }
+    .table-parent {
+        @apply w-full rounded-2xl overflow-hidden bg-white;
+    }
+    th,
+    td {
+        @apply p-3 text-left px-6 min-w-[275px];
+    }
+    thead th {
+        @apply text-lg font-bold text-white bg-main;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-main text-base font-medium;
+    }
 }
 .summary-card_fund {
     @apply flex h-28 gap-x-9;
@@ -145,7 +147,7 @@ tbody td {
     @apply bg-danger-bg text-danger;
 }
 .summary-card_news {
-    @apply h-[18rem] flex gap-9;
+    @apply  flex gap-9;
 }
 .summary-card {
     @apply bg-white flex-1 p-4 rounded-2xl;
@@ -162,11 +164,12 @@ tbody td {
 .news {
     @apply h-[5rem] flex justify-between items-center;
 }
-.card-top .desc {
-    @apply text-xs text-gray-400;
-}
+
 .desc-news {
-    @apply text-base text-main font-medium;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Jumlah maksimal baris */
+    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem];
 }
 .details {
     @apply flex gap-2 items-center;
