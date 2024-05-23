@@ -29,7 +29,7 @@ class UserService implements UserContract
 
     public function validateEditRequest(Request $request, UserModel $resident)
     {
-        $tempResident = TempResidentModel::where('nik', $resident->nik)->first();
+        $tempResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first();
         if ($request->action === 'accept') {
             $reqData = collect($tempResident)->only($resident->getFillable())->toArray();
             // dd($reqData);
@@ -71,9 +71,10 @@ class UserService implements UserContract
 
     public function getFilteredRequestResidentData($search, $order)
     {
-        $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('name', 'like', $search . '%');
-        })
+        $residents = TempResidentModel::with('penduduk')
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'like', $search . '%');
+            })
             ->where('status', 'Menunggu Verifikasi')
             ->orderBy('nama', $order)
             ->paginate(15);
