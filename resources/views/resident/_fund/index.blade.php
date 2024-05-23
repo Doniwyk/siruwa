@@ -3,7 +3,7 @@
     <div class="resident-header">Iuran RW</div>
 
     <!-- TAB -->
-    <div x-data="{ openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1 }">
+    <div x-data="{ openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1, showModal: false }">
         <div class="resident-tab-parent">
             <button x-on:click="openTab = 1; localStorage.setItem('openTab', 1)" :class="{ 'bg-secondary text-white': openTab === 1 }"
                 class="resident-tab">Pembayaran</button>
@@ -24,7 +24,7 @@
                     <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon">
                 </div>
                 <!-- BUTTON PAYMENT -->
-                <button class="button-pay">Lakukan Pembayaran</button>
+                <button class="button-pay" @click="showModal = true">Lakukan Pembayaran</button>
             </div>
             <!-- TABLE -->
             <div class="bg-white rounded-2xl p-3">
@@ -100,7 +100,7 @@
                         <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon">
                         <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon">
                     </div>
-                    <button class="button-pay">Lakukan Pembayaran</button>
+                    <button class="button-pay" @click="showModal = true">Lakukan Pembayaran</button>
                 </div>
             </div>
 
@@ -135,6 +135,67 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-10 w-[33rem]">
+                <form action="">
+                    <div class="flex flex-col mb-4">
+                        <label class="text-secondary text-xl font-semibold mb-4">Jenis Iuran</label>
+                        <div class="relative">
+                            <select class="resident-input">
+                                <option value="">Jenis Pembayaran</option>
+                                <option value="sampah">Iuran Sampah</option>
+                                <option value="kematian">Iuran Kematian</option>
+                            </select>
+                            <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon" class="right-icon">
+                        </div>
+                    </div>
+                    <div class="flex flex-col mb-9">
+                        <label class="text-secondary text-xl font-semibold mb-4">Metode Pembayaran</label>
+                        <div class="relative">
+                            <select class="resident-input">
+                                <option value="">Pilih Metode</option>
+                                <option value="cash">Tunai</option>
+                                <option value="transfer">Transfer</option>
+                            </select>
+                            <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon" class="right-icon">
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center w-full">
+                        <label for="dropzone-file" class="relative flex flex-col items-center justify-center w-full h-64 border-secondary border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-100">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <img src="{{ asset('assets/icons/image-upload.svg') }}" alt="upload image" class="mb-3">
+                                <p class="font-medium text-secondary">Upload Bukti Pembayaran</p>
+                            </div>
+                            <input id="dropzone-file" type="file" class="hidden" accept="image/*" onchange="previewImage(event)" />
+                            <img id="preview-image" class="hidden absolute inset-0 object-cover w-full h-full rounded-2xl" alt="Uploaded Image" />
+                        </label>
+                    </div>
+                    
+                    <script>
+                        // Function to display preview image
+                        function previewImage(event) {
+                            var input = event.target;
+                            var reader = new FileReader();
+                    
+                            reader.onload = function () {
+                                var img = document.getElementById('preview-image');
+                                img.src = reader.result;
+                                img.classList.remove('hidden');
+                            };
+                    
+                            reader.readAsDataURL(input.files[0]);
+                        }
+                    </script>
+                    
+                    <div class="mt-9 flex space-x-5">
+                        <button class="py-2 font-semibold text-secondary rounded-2xl w-1/2 border-2 border-secondary" @click="showModal = false">Batal</button>
+                        <button class="py-2 bg-secondary font-semibold text-white rounded-2xl w-1/2">Konfirmasi</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
