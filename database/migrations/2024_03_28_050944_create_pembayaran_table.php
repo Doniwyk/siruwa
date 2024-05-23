@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('jenis', ['Iuran Kematian', 'Iuran Sampah']);
             $table->enum('metode', ['Tunai', 'Transfer']);
             $table->string('urlBuktiPembayaran', 250);
-            $table->float('jumlah')->nullable();
+            $table->float('jumlah');
             $table->enum('status', ['Terverifikasi', 'Belum Terverifikasi'])->default('Belum Terverifikasi');
             $table->string('keterangan_status', 250);
 
