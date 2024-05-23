@@ -27,11 +27,12 @@ class AccountController extends Controller
         try {
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
+            $detailAccount = UserModel::findOrFail($userId);
             $page = 'profil';
             $title = 'Profil';
             $role = Auth::user()->role;
             // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
-            return view($role . '._profile.index', compact('account', 'page', 'title', 'userId'));
+            return view($role . '._profile.index', compact('account','detailAccount', 'page', 'title', 'userId'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -62,6 +63,23 @@ class AccountController extends Controller
             return redirect()->route($role . '._profile.index')->with('success', 'Data akun berhasil diubah');
         } catch (\Exception $e) {
             return redirect()->route($role . '._profile.index')->with('error', 'Data akun gagal diubah ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        try {
+            $this->akunContract->changePassword($user, $request->input('current_password'), $request->input('new_password'));
+            return response()->json(['message' => 'Password updated successfully.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 403);
         }
     }
 }

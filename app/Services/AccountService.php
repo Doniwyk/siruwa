@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Contracts\AccountContract;
 use App\Models\AccountModel;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AccountService implements AccountContract
 {
@@ -21,5 +23,15 @@ class AccountService implements AccountContract
     public function deleteAccount(AccountModel $akun): void
     {
         $akun->delete();
+    }
+
+    public function changePassword(AccountModel $akun, string $currentPassword, string $newPassword): void
+    {
+        if (!Hash::check($currentPassword, $akun->password)) {
+            throw ValidationException::withMessages(['current_password' => 'Current password is incorrect.']);
+        }
+
+        $akun->password = Hash::make($newPassword);
+        $akun->save();
     }
 }

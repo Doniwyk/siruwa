@@ -80,15 +80,16 @@ Route::group([
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
-Route::group([
-    'prefix' => 'penduduk/data-dasawisma',
-    'as' => 'resident.data-dasawisma.',
-    'middleware' => 'isAuth'
-],
+Route::group(
+    [
+        'prefix' => 'penduduk/data-dasawisma',
+        'as' => 'resident.data-dasawisma.',
+        'middleware' => 'isAuth'
+    ],
     function () {
         Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
         Route::get('/{resident}/edit', [ResidentController::class, 'editForm'])->name('edit');
-        Route::post('/store', [ResidentController::class, 'storeEditRequest'])->name('store');// To store the submission data into the resident temp
+        Route::post('/store', [ResidentController::class, 'storeEditRequest'])->name('store'); // To store the submission data into the resident temp
         Route::put('/riwayat', [ResidentController::class, 'historyEditRequest'])->name('request');
     }
 );
@@ -98,7 +99,7 @@ Route::group([
     'prefix' => 'penduduk/data-dokumen',
     'as' => 'resident.data-dokumen.',
     'middleware' => 'isAuth'
-],function(){
+], function () {
     Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
     Route::post('/request', [ResidentDocumentController::class, 'requestDocument'])->name('request');
     Route::get('/riwayat', [ResidentDocumentController::class, 'history'])->name('history');
@@ -109,7 +110,7 @@ Route::group([
     'prefix' => 'admin/data-dokumen',
     'as' => 'admin.data-dokumen.',
     'middleware' => 'isAuth'
-],function(){
+], function () {
     Route::get('/', [AdminDocumentController::class, 'index'])->name('index'); //mendapatkan halaman data dokumen yang harus divalidasi
     Route::put('/{document}/validate', [AdminDocumentController::class, 'validateDocument'])->name('validateDocument'); //proses validasi dokumen
     Route::get('/{document}/edit', [AdminDocumentController::class, 'getEditPage'])->name('edit-data-dokumen');
@@ -123,7 +124,7 @@ Route::group([
     'prefix' => 'penduduk/data-pembayaran',
     'as' => 'resident.data-pembayaran.',
     'middleware' => 'isAuth'
-],function(){
+], function () {
     Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
     Route::get('/add-pembayaran', [ResidentPaymentController::class, 'getAddPaymentForm'])->name('formPembayaran');
     Route::post('/add-pembayaran', [ResidentPaymentController::class, 'storePayment'])->name('store');
@@ -135,7 +136,7 @@ Route::group([
     'prefix' => 'admin/data-pembayaran',
     'as' => 'admin.data-pembayaran.',
     'middleware' => 'isAuth'
-],function(){
+], function () {
     Route::get('/', [AdminPaymentController::class, 'index'])->name('index'); //mendapatkan halaman data pembayaran yang harus divalidasi
     Route::post('/{payment}/validate', [AdminPaymentController::class, 'validatePayment'])->name('validatePembayaran'); //proses validasi pembayaran
     Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
@@ -183,6 +184,7 @@ Route::group([
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
+    Route::post('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
 });
 
 
@@ -197,6 +199,8 @@ Route::group([
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
+    Route::post('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
+
 });
 
 //==================================ROUTE PENDUDUK========================================
@@ -211,5 +215,4 @@ Route::group([
 
 ], function () {
     Route::get('/', [NewsController::class, 'indexResident'])->name('index');
-
 });
