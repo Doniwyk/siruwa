@@ -23,17 +23,19 @@ function setActionAndSubmit(action) {
     form.submit();
 }
 
-function showPopup(formId) {
-    const sectionPopup = document.getElementById("modal-parent");
+function showPopup(formId, modalId) {
+    const sectionPopup = document.querySelector(modalId);
     const popUp = document.querySelector(formId);
-    popUp.style.display = "flex";
-    sectionPopup.style.display = "flex";
+
+    sectionPopup.classList.remove("hidden");
+    popUp.classList.remove("hidden");
 }
 
-function closeForm(formId) {
-    const sectionPopup = document.getElementById("modal-parent");
+function closeForm(formId, modalId) {
+    const sectionPopup = document.querySelector(modalId);
     const popUp = document.querySelector(formId);
-    popUp.style.display = "none";
-    sectionPopup.style.display = "none";
+
+    popUp.classList.add("hidden");
+    sectionPopup.classList.add("hidden");
 }
 
