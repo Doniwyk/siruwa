@@ -27,11 +27,12 @@ class AccountController extends Controller
         try {
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
+            $detailAccount = UserModel::findOrFail($userId);
             $page = 'profil';
             $title = 'Profil';
             $role = Auth::user()->role;
             // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
-            return view($role . '._profile.index', compact('account', 'page', 'title', 'userId'));
+            return view($role . '._profile.index', compact('account','detailAccount', 'page', 'title', 'userId'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
