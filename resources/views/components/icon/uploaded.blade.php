@@ -16,5 +16,4 @@
             stroke="#225157" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round"
             stroke-linejoin="round" />
     </svg>
-    <label for="">Maret, 14 2024</label>
 </div>
