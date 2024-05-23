@@ -22,9 +22,21 @@ class StoreDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_penduduk' => 'required',
-            'jenis' => 'required',
-            'keperluan' => 'required',
+            'jenis' => 'required|string|max:255',
+            'keperluan' => 'required|string|max:255',
+            'urlBuktiPembayaran' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048' // Validate file type and size
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'jenis.required' => 'Jenis dokumen wajib diisi.',
+            'keperluan.required' => 'Keperluan wajib diisi.',
+            'urlBuktiPembayaran.required' => 'Bukti pembayaran wajib diupload.',
+            'urlBuktiPembayaran.file' => 'Bukti pembayaran harus berupa file.',
+            'urlBuktiPembayaran.mimes' => 'Bukti pembayaran harus berupa file dengan format: jpeg, png, jpg, pdf.',
+            'urlBuktiPembayaran.max' => 'Ukuran file bukti pembayaran tidak boleh lebih dari 2MB.'
         ];
     }
 }
