@@ -116,6 +116,8 @@ class ResidentController extends Controller
         return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
     }
 
+    
+
     //To update resident data which has been edited by admin
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
     {
@@ -189,6 +191,8 @@ class ResidentController extends Controller
         return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
 
     }
+
+
 
 
     //========================FOR RESIDENT========================
