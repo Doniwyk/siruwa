@@ -54,15 +54,23 @@ class AccountController extends Controller
         }
     }
 
-    public function updateAccount(AccountRequest $request, AccountModel $account): RedirectResponse
+    public function updateAccount(Request $request)
     {
+        
         try {
             $role = Auth::user()->role;
-            $validated = $request->validated();
+            $account = Auth::user();
+            
+            // Validasi input
+            $validated = $request->validate([
+                'username' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'noHp' => 'required|string|max:15',
+            ]);
             $this->akunContract->updateAccount($validated, $account);
-            return redirect()->route($role . '._profile.index')->with('success', 'Data akun berhasil diubah');
+            return response()->json(['message' => 'Account updated successfully.'], 200);
         } catch (\Exception $e) {
-            return redirect()->route($role . '._profile.index')->with('error', 'Data akun gagal diubah ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()], 403);
         }
     }
 

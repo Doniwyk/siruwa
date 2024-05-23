@@ -183,8 +183,8 @@ Route::group([
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
-    Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
-    Route::post('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
+    Route::put('/update-profil}', [AccountController::class, 'updateAccount'])->name('update');
+    Route::put('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
 });
 
 
@@ -199,7 +199,8 @@ Route::group([
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
-    Route::post('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
+    Route::put('/update-profil}', [AccountController::class, 'updateAccount'])->name('update');
+    Route::put('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
 
 });
 

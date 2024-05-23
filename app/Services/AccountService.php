@@ -17,7 +17,7 @@ class AccountService implements AccountContract
 
     public function updateAccount(array $validatedData, AccountModel $akun): void
     {
-        $akun->save($validatedData);
+        $akun->update($validatedData);
     }
 
     public function deleteAccount(AccountModel $akun): void
