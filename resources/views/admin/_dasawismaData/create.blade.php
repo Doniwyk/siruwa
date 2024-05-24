@@ -16,33 +16,33 @@
     <section id="identitas-kependudukan" class="">
         <h4 class="h4-semibold">Identitas Kependudukan</h4>
         <form action="" class="grid grid-rows-2 grid-flow-col gap-x-9 gap-y-5">
-            <x-form.add-input :label="'Nama'"  :name="'reqNama'" />
-            <x-form.add-input :label="'No. KTP/NIK'"  :name="'reqKtp'" />
-            <x-form.add-input :label="'No. Registrasi'"  :name="'reqRegistrasi'" />
-            <x-form.add-input :label="'Alamat Lengkap'"  :name="'reqAlamat'" />
+            <x-form.add-input :label="'Nama'"  :name="'reqNama'" :placeholder="'Masukkan Nama'" />
+            <x-form.add-input :label="'No. KTP/NIK'"  :name="'reqKtp'" :placeholder="'Masukkan No. KTP/NIK'" />
+            <x-form.add-input :label="'No. Registrasi'"  :name="'reqRegistrasi'" :placeholder="'Masukkan No. Registrasi'" />
+            <x-form.add-input :label="'Alamat Lengkap'"  :name="'reqAlamat'" :placeholder="'Masukkan Alamat Lengkap'" />
         </form>
     </section>
     <section id="identitas-lengkap">
         <h4 class="h4-semibold">Identitas Lengkap</h4>
         <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <x-form.add-input :label="'Pekerjaan dan Jabatan'"  :name="'reqPekerjaan'" />
-            <x-form.add-input :label="'Tempat Lahir / Umur'"  :name="'reqTempatLahir'" />
-            <x-form.add-input :label="'Jenis Kelamin'"  :name="'reqJenisKelamin'" />
-            <x-form.add-input :label="'Agama'"  :name="'reqAgama'" />
-            <x-form.add-input :label="'Pendidikan'"  :name="'reqPendidikan'" />
-            <x-form.add-input :label="'Status Perkawinan'"  :name="'reqStatusPerkawinan'" />
-            <x-form.add-input :label="'Status dalam Keluarga'"  :name="'reqStatusDalamKeluarga'" />
-            <x-form.add-input :label="'Memiliki Tabungan'"  :name="'reqMemilikiTabungan'" />
+            <x-form.add-input :label="'Pekerjaan dan Jabatan'"  :name="'reqPekerjaan'" :placeholder="'Masukkan Pekerjaan dan Jabatan'" />
+            <x-form.add-input :label="'Tempat Lahir / Umur'"  :name="'reqTempatLahir'" :placeholder="'Masukkan Tempat Lahir / Umur'" />
+            <x-form.add-input :label="'Jenis Kelamin'"  :name="'reqJenisKelamin'" :placeholder="'Masukkan Jenis Kelamin'" />
+            <x-form.add-input :label="'Agama'"  :name="'reqAgama'" :placeholder="'Masukkan Agama'" />
+            <x-form.add-input :label="'Pendidikan'"  :name="'reqPendidikan'" :placeholder="'Masukkan Pendidikan'" />
+            <x-form.add-input :label="'Status Perkawinan'"  :name="'reqStatusPerkawinan'" :placeholder="'Masukkan Status Perkawinan'" />
+            <x-form.add-input :label="'Status dalam Keluarga'"  :name="'reqStatusDalamKeluarga'" :placeholder="'Masukkan Status dalam Keluarga'" />
+            <x-form.add-input :label="'Memiliki Tabungan'"  :name="'reqMemilikiTabungan'" :placeholder="'Iya/Tidak'" />
         </form>
     </section>
     <section id="kegiatan-keorganisasian">
         <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
         <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <x-form.add-input :label="'Aktif dalam Kegiatan'"  :name="'reqAktifKegiatan'" />
-            <x-form.add-input :label="'Ikut dalam kegiatan Koperasi'"  :name="'reqKoperasi'" />
-            <x-form.add-input :label="'Mengikuti Kelompok Belajar Jenis'"  :name="'reqKelompokBelajarJenis'" />
-            <x-form.add-input :label="'Mengikuti PAUD/Sejenis'"  :name="'reqPaud'" />
-            <x-form.add-input :label="'Mengikuti Program Bina Keluarga Balita'"  :name="'reqProgramBinaKeluargaBalita'" />
+            <x-form.add-input :label="'Aktif dalam Kegiatan'"  :name="'reqAktifKegiatan'" :placeholder="'Iya/Tidak'" />
+            <x-form.add-input :label="'Ikut dalam kegiatan Koperasi'"  :name="'reqKoperasi'" :placeholder="'Iya/Tidak'" />
+            <x-form.add-input :label="'Mengikuti Kelompok Belajar Jenis'"  :name="'reqKelompokBelajarJenis'" :placeholder="'Iya/Tidak'" />
+            <x-form.add-input :label="'Mengikuti PAUD/Sejenis'"  :name="'reqPaud'" :placeholder="'Iya/Tidak'" />
+            <x-form.add-input :label="'Mengikuti Program Bina Keluarga Balita'"  :name="'reqProgramBinaKeluargaBalita'" :placeholder="'Iya/Tidak'" />
         </form>
     </section>
 </main>
