@@ -143,26 +143,30 @@
             <div class="bg-white rounded-2xl p-10 w-[33rem]">
                 <form action="">
                     <div class="flex flex-col mb-4">
-                        <label class="text-secondary text-xl font-semibold mb-4">Jenis Iuran</label>
+                        <label class="text-secondary text-xl font-semibold mb-2">Jenis Iuran</label>
                         <div class="relative">
                             <select class="resident-input">
-                                <option value="">Jenis Pembayaran</option>
+                                <option value="">Pilih Jenis Pembayaran</option>
                                 <option value="sampah">Iuran Sampah</option>
                                 <option value="kematian">Iuran Kematian</option>
                             </select>
                             <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon" class="right-icon">
                         </div>
                     </div>
-                    <div class="flex flex-col mb-9">
-                        <label class="text-secondary text-xl font-semibold mb-4">Metode Pembayaran</label>
+                    <div class="flex flex-col mb-4">
+                        <label class="text-secondary text-xl font-semibold mb-2">Metode Pembayaran</label>
                         <div class="relative">
                             <select class="resident-input">
                                 <option value="">Pilih Metode</option>
-                                <option value="cash">Tunai</option>
+                                <option value="tunai">Tunai</option>
                                 <option value="transfer">Transfer</option>
                             </select>
                             <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon" class="right-icon">
                         </div>
+                    </div>
+                    <div class="flex flex-col mb-9">
+                        <label class="text-secondary text-xl font-semibold mb-2">Nominal</label>
+                        <input type="text" id="nominal" name="nominal" class="resident-input" inputmode="numeric" pattern="[0-9]*" placeholder="Masukkan Nominal" oninput="formatNumber(this)">
                     </div>
                     <div class="flex items-center justify-center w-full">
                         <div id="dropzone" class="relative flex flex-col items-center justify-center w-full h-64 border-secondary border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-100">
@@ -211,6 +215,12 @@
                                 previewImage.classList.remove('hidden');
                             };
                             reader.readAsDataURL(file);
+                        }
+
+                        function formatNumber(input) {
+                            let value = input.value.replace(/\D/g, ''); // Remove non-digits
+                            let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Add dot as thousand separator
+                            input.value = formatted;
                         }
                     </script>                    
                     
