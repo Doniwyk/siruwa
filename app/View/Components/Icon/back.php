@@ -1,20 +1,19 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Icon;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class AddNewsButton extends Component
+class back extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $route;
-    public function __construct($route)
+    public function __construct()
     {
-        $this->route = $route;
+        //
     }
 
     /**
@@ -22,6 +21,6 @@ class AddNewsButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.add-news-button');
+        return view('components.icon.back');
     }
 }

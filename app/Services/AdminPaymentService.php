@@ -17,7 +17,7 @@ class AdminPaymentService implements AdminPaymentContract
 
     public function validatePayment(array $validatedData, string $action, PaymentModel $payment)
     {
-        if ($action !== 'terima') {
+        if ($action != 'terima') {
             $payment->status = 'Ditolak';
             $payment->save;
             return;
@@ -31,12 +31,12 @@ class AdminPaymentService implements AdminPaymentContract
         $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
 
         // Ambil nomor kartu keluarga dari data yang ingin divalidasi
-        $no_kk = $payment->no_kk;
+        $no_kk = $payment->nomor_kk;
 
         // Temukan bulan terlama yang statusnya 'Belum Lunas' untuk nomor kartu keluarga yang ingin divalidasi
-        $monthsDue = $table::where('no_kk', $no_kk)
+        $monthsDue = $table::where('nomor_kk', $no_kk)
             ->where('status', 'Belum Lunas')
-            ->orderBy('bulan', 'asc');
+            ->orderBy('bulan', 'asc')->get();
 
         DB::beginTransaction();
         try {
@@ -45,20 +45,25 @@ class AdminPaymentService implements AdminPaymentContract
             $payment->id_admin = Auth::user()->id; // Ambil id_admin dari penduduk yang sedang login
             $payment->save();
 
-            for ($i = 0; $i < $monthsPaid; $i++) {
-                $currentMonth = $monthsDue[$i];
+            foreach ($monthsDue as $index => $currentMonth) {
                 // the month hasn't been created yet
-                if ($i > $monthsDue->count()) {
-                    $table::create([
-                        'no_kk' => $no_kk,
-                        'bulan' => Carbon::parse($monthsDue[$i - 1]->bulan)->addMonth(),
+                if ($index >= $monthsPaid) {
+                    $newMonth = $table::create([
+                        'nomor_kk' => $no_kk,
+                        'bulan' => $index == 0 ? Carbon::parse($currentMonth->bulan)->addMonth() : Carbon::parse($monthsDue[$index - 1]->bulan)->addMonth(),
                         'status' => 'Lunas'
                     ]);
+            
+                    $newMonth->id_pembayaran = $payment->id_pembayaran;
+                    $newMonth->status = 'Lunas';
+                    $newMonth->save();
+                } else {
+                    $currentMonth->id_pembayaran = $payment->id_pembayaran;
+                    $currentMonth->status = 'Lunas';
+                    $currentMonth->save();
                 }
-                $currentMonth->id_pembayaran = $payment->id_pembayaran;
-                $currentMonth->status = 'Lunas';
-                $currentMonth->save();
             }
+            
             DB::commit();
         } catch (Exception $exception) {
             DB::rollBack();

@@ -6,15 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class AddNewsButton extends Component
+class HighlightCard extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $route;
-    public function __construct($route)
+    public $newsData;
+
+    public function __construct($newsData)
     {
-        $this->route = $route;
+        $this->newsData = $newsData;
     }
 
     /**
@@ -22,6 +23,6 @@ class AddNewsButton extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.add-news-button');
+        return view('components.highlight-card');
     }
 }
