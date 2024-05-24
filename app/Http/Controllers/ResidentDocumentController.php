@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Contracts\ResidentDocumentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDocumentRequest;
+use App\Models\UserModel;
+use Illuminate\Support\Facades\Auth;
 
 class ResidentDocumentController extends Controller
 {
@@ -16,7 +18,8 @@ class ResidentDocumentController extends Controller
     }
     public function index(){
       $title = 'Pengajuan Dokumen';
-      return view('resident._requestDocument.index', compact('title'));
+      $resident = UserModel::findOrFail(Auth::id());
+      return view('resident._requestDocument.index', compact('title','resident'));
     }
     public function history()
     {
