@@ -54,7 +54,7 @@ Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 Route::group([
     'prefix' => 'admin/statistik',
     'as' => 'admin.statistic.',
-    'middleware' => 'isAuth'
+    'middleware' => 'isAuth', 'userAccess'
 ], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('index');
 });
