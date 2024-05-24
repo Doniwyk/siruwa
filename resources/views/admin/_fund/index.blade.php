@@ -4,7 +4,7 @@
     <div class="summary-card_fund">
         <x-card :label="'Dana Kematian'" :value="$fundData['deathFundTotal']" />
         <x-card :label="'Dana Sampah'" :value="$fundData['garbageFundTotal']" />
-        <x-card :label="'Tunggakan'" :type="'danger'" :value="9000000" />
+        <x-card :label="'Tunggakan'" :type="'danger'" :value="$fundData['tunggakan']" />
     </div>
     <div class="link-option_parrent">
         <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"
