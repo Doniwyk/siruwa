@@ -22,10 +22,10 @@ class StorePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_kk' => 'required',
             'jenis' => 'required',
             'metode' => 'required',
-            'urlBuktiPembayaran' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+            'jumlah' => 'required|numeric',
+            'urlBuktiPembayaran' => 'required|file|mimes:jpeg,png,jpg|max:2048',
         ];
     }
     public function messages(): array
@@ -35,7 +35,7 @@ class StorePaymentRequest extends FormRequest
             'metode.required' => 'Metode pembayaran wajib diisi.',
             'urlBuktiPembayaran.required' => 'Bukti pembayaran wajib diupload.',
             'urlBuktiPembayaran.file' => 'Bukti pembayaran harus berupa file.',
-            'urlBuktiPembayaran.mimes' => 'Bukti pembayaran harus berupa file dengan format: jpeg, png, jpg, pdf.',
+            'urlBuktiPembayaran.mimes' => 'Bukti pembayaran harus berupa file dengan format: jpeg, png, jpg.',
             'urlBuktiPembayaran.max' => 'Ukuran file bukti pembayaran tidak boleh lebih dari 2MB.'
         ];
     }
