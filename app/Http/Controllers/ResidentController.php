@@ -63,7 +63,9 @@ class ResidentController extends Controller
 
     public function add()
     {
-        return view('admin._dasawismaData.add');
+        $title = 'Form Tambah Penduduk';
+        $page = 'tambah-data-penduduk';
+        return view('admin._dasawismaData.add', compact('title', 'page'));
     }
 
     //To store resident data in database
