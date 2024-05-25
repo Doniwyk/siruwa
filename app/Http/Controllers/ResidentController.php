@@ -71,25 +71,26 @@ class ResidentController extends Controller
     //To store resident data in database
     public function storeResident(UserRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
+        
         try {
-
+               $validated = $request->validated();
+         
             $resident = $this->residentContract->storeUser($validated);
 
             $account = [
-                'id_penduduk' => $resident->id,
+                'id_penduduk' => $resident->id_penduduk,
                 'urlProfile' => $request->has('urlProfile') ? $request->urlProfile : null,
                 'noHp' => $request->has('noHp') ? $request->noHp : null,
                 'username' => $resident->nomor_kk,
                 'email' => $request->has('email') ? $request->email : null,
                 'email_verified_at' => now(),
-                'password' => bcrypt($resident->nomor_kk),
+                'password' => bcrypt($resident->nik),
                 'role' => 'resident'
             ];
-            AccountModel::insert($account);
-            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil ditambahkan.');
+            AccountModel::create($account);
+            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()-> route('admin.data-penduduk.index')->with('error', 'Gagal menambahkan data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
