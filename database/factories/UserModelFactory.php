@@ -19,7 +19,6 @@ class UserModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'no_reg' => fake()->unique()->regexify('[A-Za-z0-9]{10}'),
             'tgl_lahir' => fake()->date(),
             'nik' => fake()->unique()->regexify('[0-9]{16}'),
             'nomor_kk' => fake()->regexify('[0-9]{16}'),
@@ -27,7 +26,6 @@ class UserModelFactory extends Factory
             'tempat_lahir' => fake()->city,
             'jenis_kelamin' => fake()->randomElement(['L', 'P']),
             'rt' => fake()->numberBetween(1, 20),
-            'umur' => fake()->numberBetween(18, 90),
             'status_kawin' => fake()->randomElement(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati']),
             'status_keluarga' => fake()->randomElement(['Kepala Keluarga', 'Istri', 'Anak']),
             'agama' => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
