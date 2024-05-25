@@ -8,7 +8,7 @@
         <section class="shrink-0 flex flex-col" x-data="imageHandler()">
             <span class="mb-6 block text-2xl font-semibold text-secondary">Foto Profil</span>
             <div class="relative w-[335px] cursor-pointer" @click="$refs.profileImageUpload.click()">
-                <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*" @change="loadFile($event)">
+                <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*" @change="loadFile($event)" name="urlProfile">
                 <img id="profile-image" class="w-[335px] h-[255px] rounded-xl absolute" :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" /> <!-- Profil -->
                 <span class="w-[335px] h-[255px] group bg-black opacity-50 rounded-xl absolute"></span> <!-- Background Black 50%-->
                 <span class="w-[335px] h-[255px] group absolute flex flex-col justify-center items-center gap-2"> <!-- Upload Icon -->
@@ -20,7 +20,7 @@
 
         <!-- Identitas Diri -->
         <section class="w-full flex flex-col">
-            <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
+            <span class="mb-6 block text-2xl font-semibold text-secondary">Identitas Diri</span>
     
             <div class="grid grid-rows-3 grid-flow-col gap-x-9 gap-y-5 mb-6">
                 <x-form.show-input-form :label="'Nama Lengkap'"  :name="'nama'" :value="$resident->nama" />
@@ -32,22 +32,25 @@
             </div>
             
             <div class="flex justify-end">
-                <button class="btn-main">Simpan Perubahan</button>
+                <button type="submit" class="btn-main">Simpan Perubahan</button>
             </div>
         </section>
     </form>
 </div>
 
 <div class="bg-white p-9 rounded-2xl mb-6">
-    <span class="text-2xl font-semibold text-secondary">Ubah Password</span>
-    <form action="" class="mt-6">
+    <span class="mb-6 block text-2xl font-semibold text-secondary">Ubah Password</span>
+    <form action="{{ route('admin.profil.changePassword') }}" method="post">
+        @csrf
+        <input type="hidden" name="_method" value="PUT"> <!-- Manually adding the method override -->
+
         <div class="grid grid-cols-3 grid-flow-row gap-x-9 gap-y-5 mb-6">
-            <x-form.text-input-form type="password" label="Password Lama" name="old_password" />
+            <x-form.text-input-form type="password" label="Password Lama" name="current_password" />
             <x-form.text-input-form type="password" label="Password Baru" name="new_password" />
-            <x-form.text-input-form type="password" label="Konfirmasi Password" name="confirm_password" />
+            <x-form.text-input-form type="password" label="Konfirmasi Password" name="new_password_confirmation" />
         </div>
         <div class="flex justify-end">
-            <button class="btn-main">Simpan Perubahan</button>
+            <button type="submit" class="btn-main">Simpan Perubahan</button>
         </div>
     </form>
 </div>
