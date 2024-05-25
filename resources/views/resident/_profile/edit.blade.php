@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label for="nama" class="text-label_light">Username</label>
-                <input type="text" name="" id="" class="form-control" disabled>
+                <input type="text" name="" id="" class="form-control-input" disabled>
             </div>
             <div class="form-group">
                 <label for="nama" class="text-label_light">Role</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for="nama" class="text-label_light">Email</label>
-                <input type="text" name="" id="" class="form-control" disabled>
+                <input type="text" name="" id="" class="form-control-input" disabled>
             </div>
             <div class="form-group">
                 <label for="nama" class="text-label_light">Alamat</label>
@@ -32,12 +32,36 @@
             </div>
             <div class="form-group">
                 <label for="nama" class="text-label_light">No. Telepon</label>
-                <input type="text" name="" id="" class="form-control" disabled>
+                <input type="text" name="" id="" class="form-control-input" disabled>
             </div>
         </form>
     </section>
 </div>
+<div class="flex justify-end mb-9">
+    <button class="w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl">Simpan Perubahan</button>
+</div>
+
+<div class="bg-white p-9 rounded-2xl mb-6">
+    <span class="text-2xl font-semibold text-secondary">Ubah Password</span>
+    <section class="mt-6">
+        <form action="" class="grid grid-cols-3 grid-flow-row gap-x-9 gap-y-5">
+            <div class="form-group">
+                <label for="nama" class="text-label_light">Password Lama</label>
+                <input type="text" name="" id="" class="form-control-input">
+            </div>
+            <div class="form-group">
+                <label for="nama" class="text-label_light">Password Baru</label>
+                <input type="text" name="" id="" class="form-control-input">
+            </div>
+            <div class="form-group">
+                <label for="nama" class="text-label_light">Konfirmasi Passowrd</label>
+                <input type="text" name="" id="" class="form-control-input">
+            </div>
+        </form>
+    </section>
+</div>
+
 <div class="flex justify-end">
-    <a href="{{ route('resident.profil.edit') }}" class="w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center">Edit Profil</a>
+    <button class="w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl">Simpan Perubahan</button>
 </div>
 @endsection
