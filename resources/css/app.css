@@ -201,6 +201,12 @@ tbody td {
 .content-user {
     @apply px-16 py-9;
 }
+.resident-profile-subheader {
+    @apply mb-6 text-2xl font-semibold text-secondary;
+}
+.btn-main {
+    @apply w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center;
+}
 .resident-header {
     @apply text-secondary text-4xl font-semibold mb-9;
 }
