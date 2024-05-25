@@ -2,66 +2,97 @@
 @section('content-user')
 
 <div class="resident-header">{{ $title }}</div>
-<div class="bg-white p-9 rounded-2xl flex space-x-9 mb-6">
-    <section class="shrink-0 flex flex-col">
-        <span class="mb-6 text-2xl font-semibold text-secondary">Foto Profil</span>
-        <img src="https://via.placeholder.com/336x258" class="h-[258px] w-[336px] rounded-xl" alt="">
-    </section>
-    <section class="w-full flex flex-col">
-        <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
-        <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Nama Lengkap</label>
-                <input type="text" name="" id="" class="form-control" disabled>
+<div class="bg-white p-9 rounded-2xl flex mb-6">
+    <form action="" class="flex w-full space-x-9">
+        <!-- Foto Profil -->
+        <section class="shrink-0 flex flex-col" x-data="imageHandler()">
+            <span class="mb-6 block text-2xl font-semibold text-secondary">Foto Profil</span>
+            <div class="relative w-[335px] cursor-pointer" @click="$refs.profileImageUpload.click()">
+                <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*" @change="loadFile($event)">
+                <img id="profile-image" class="w-[335px] h-[255px] rounded-xl absolute" :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" /> <!-- Profil -->
+                <span class="w-[335px] h-[255px] group bg-black opacity-50 rounded-xl absolute"></span> <!-- Background Black 50%-->
+                <span class="w-[335px] h-[255px] group absolute flex flex-col justify-center items-center gap-2"> <!-- Upload Icon -->
+                    <img class="block w-12 opacity-100" src="{{ asset('assets/icons/upload-profile.svg') }}" alt="Upload" /> 
+                    <span class="text-white font-medium">Upload Foto Profil</span> 
+                </span>
             </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Username</label>
-                <input type="text" name="" id="" class="form-control-input" disabled>
+        </section>
+
+        <!-- Identitas Diri -->
+        <section class="w-full flex flex-col">
+            <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
+    
+            <div class="grid grid-rows-3 grid-flow-col gap-x-9 gap-y-5 mb-6">
+                <x-form.show-input-form :label="'Nama Lengkap'"  :name="'nama'" :value="$resident->nama" />
+                <x-form.show-input-form :label="'Role'"  :name="'role'" :value="$account->role" />
+                <x-form.show-input-form :label="'Alamat Lengkap'"  :name="'alamat'" :value="$resident->alamat" />
+                <x-form.text-input-form label="Username" name="username" :value="$account->username" />
+                <x-form.text-input-form label="Email" name="email" :value="$account->email" />
+                <x-form.text-input-form label="No. Telepon" name="noHp" :value="$account->noHp" />
             </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Role</label>
-                <input type="text" name="" id="" class="form-control" disabled>
+            
+            <div class="flex justify-end">
+                <button class="btn-main">Simpan Perubahan</button>
             </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Email</label>
-                <input type="text" name="" id="" class="form-control-input" disabled>
-            </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Alamat</label>
-                <input type="text" name="" id="" class="form-control" disabled>
-            </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">No. Telepon</label>
-                <input type="text" name="" id="" class="form-control-input" disabled>
-            </div>
-        </form>
-    </section>
-</div>
-<div class="flex justify-end mb-9">
-    <button class="w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl">Simpan Perubahan</button>
+        </section>
+    </form>
 </div>
 
 <div class="bg-white p-9 rounded-2xl mb-6">
     <span class="text-2xl font-semibold text-secondary">Ubah Password</span>
-    <section class="mt-6">
-        <form action="" class="grid grid-cols-3 grid-flow-row gap-x-9 gap-y-5">
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Password Lama</label>
-                <input type="text" name="" id="" class="form-control-input">
-            </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Password Baru</label>
-                <input type="text" name="" id="" class="form-control-input">
-            </div>
-            <div class="form-group">
-                <label for="nama" class="text-label_light">Konfirmasi Passowrd</label>
-                <input type="text" name="" id="" class="form-control-input">
-            </div>
-        </form>
-    </section>
+    <form action="" class="mt-6">
+        <div class="grid grid-cols-3 grid-flow-row gap-x-9 gap-y-5 mb-6">
+            <x-form.text-input-form type="password" label="Password Lama" name="old_password" />
+            <x-form.text-input-form type="password" label="Password Baru" name="new_password" />
+            <x-form.text-input-form type="password" label="Konfirmasi Password" name="confirm_password" />
+        </div>
+        <div class="flex justify-end">
+            <button class="btn-main">Simpan Perubahan</button>
+        </div>
+    </form>
 </div>
 
-<div class="flex justify-end">
-    <button class="w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl">Simpan Perubahan</button>
-</div>
+<!-- HIDUP CHAT GPT AKWOKWOKWOK -->
+<script>
+    function imageHandler() {
+        return {
+            croppedImageUrl: null,
+            loadFile(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = 335;
+                            canvas.height = 255;
+                            const ctx = canvas.getContext('2d');
+
+                            // Calculate cropping area
+                            let offsetX = 0;
+                            let offsetY = 0;
+                            let cropWidth = img.width;
+                            let cropHeight = img.height;
+
+                            if (img.width > img.height) {
+                                cropWidth = img.height * (335 / 255);
+                                offsetX = (img.width - cropWidth) / 2;
+                            } else {
+                                cropHeight = img.width * (255 / 335);
+                                offsetY = (img.height - cropHeight) / 2;
+                            }
+
+                            ctx.drawImage(img, offsetX, offsetY, cropWidth, cropHeight, 0, 0, 335, 255);
+                            this.croppedImageUrl = canvas.toDataURL('image/jpeg');
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        };
+    }
+</script>
+
 @endsection
