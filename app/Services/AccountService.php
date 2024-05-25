@@ -12,6 +12,8 @@ class AccountService implements AccountContract
 
     public function storeAccount(array $validatedData): void
     {
+        $response = cloudinary()->upload($validatedData['urlProfile']->getRealPath())->getSecurePath();
+        $validatedData['urlProfile'] = $response;
         AccountModel::create($validatedData);
     }
 

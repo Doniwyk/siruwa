@@ -23,30 +23,31 @@ class UserRequest extends FormRequest
     {
         return [
             //
-            'id_user' => 'required',
-            'no_reg'  => 'required',
-            'tgl_lahir' => 'required',
-            'nik'  => 'required|string|size:16',
             'nama' => 'required|string',
-            'tempat_lahir' => 'required',
-            'jenis_kelamin' => 'required',
+            'nik'  => 'required|string|size:16',
+            'nomor_kk' => 'required',
             'rt' => 'required',
-            'umur' => 'required',
+            'alamat' => 'required',
+            'pekerjaan' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'agama' => 'required',
+            'pendidikan' => 'required',
             'status_kawin' => 'required',
             'status_keluarga' => 'required',
-            'agama' => 'required',
-            'alamat' => 'required',
-            'pendidikan' => 'required',
-            'pekerjaan' => 'required',
-            'akseptor_kb' => 'required',
-            'jenis_akseptor' => 'required',
-            'aktif_posyandu' => 'required',
-            'has_BKB' => 'required',
             'has_tabungan' => 'required',
+            'akseptor_kb' => 'required',
+            'aktif_posyandu' => 'required',
             'ikut_kel_belajar' => 'required',
-            'jenis_kel_belajar' => 'required',
+            'ikut_koperasi' => 'required',
             'ikut_paud' => 'required',
-            'ikut_koperasi' => 'required'
+            'has_BKB' => 'required',
+            'gaji'=> 'required',
+            'jumlah_kendaraan_bermotor' => 'required',
+            'pajak_bumi' => 'required',
+            'biaya_listrik' => 'required',
+            'biaya_air' => 'required'
 
         ];
     }
@@ -54,17 +55,16 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'id_user.required' => 'ID User wajib diisi.',
-            'urlProfile.required' => 'URL profile wajib diisi.',
-            'no_reg.required' => 'Nomor registrasi wajib diisi.',
+
+
             'tgl_lahir.required' => 'Tanggal lahir wajib diisi.',
             'nik.required' => 'NIK wajib diisi.',
+            'no_kk.required' => 'No KK wajib diisi',
             'nik.size' => 'NIK harus berjumlah 16 karakter.',
             'nama.required' => 'Nama wajib diisi.',
             'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
             'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
             'rt.required' => 'RT wajib diisi.',
-            'umur.required' => 'Umur wajib diisi.',
             'status_kawin.required' => 'Status kawin wajib diisi.',
             'status_keluarga.required' => 'Status keluarga wajib diisi.',
             'agama.required' => 'Agama wajib diisi.',
@@ -72,14 +72,18 @@ class UserRequest extends FormRequest
             'pendidikan.required' => 'Pendidikan wajib diisi.',
             'pekerjaan.required' => 'Pekerjaan wajib diisi.',
             'akseptor_kb.required' => 'Akseptor KB wajib diisi.',
-            'jenis_akseptor.required' => 'Jenis kkseptor wajib diisi.',
             'aktif_posyandu.required' => 'Aktif posyandu wajib diisi.',
             'has_BKB.required' => 'Memiliki BKB wajib diisi.',
             'has_tabungan.required' => 'Memiliki Tabungan wajib diisi.',
             'ikut_kel_belajar.required' => 'Ikut Kelas Belajar wajib diisi.',
-            'jenis_kel_belajar.required' => 'Jenis Kelas Belajar wajib diisi.',
             'ikut_paud.required' => 'Ikut PAUD wajib diisi.',
-            'ikut_koperasi.required' => 'Ikut Koperasi wajib diisi.'
+            'ikut_koperasi.required' => 'Ikut Koperasi wajib diisi.',
+            'biaya_listrik.required' => 'Biaya listrik wajib diisi.',
+            'biaya_air.required' => 'Biaya listrik wajib diisi.',
+            'jumlah_kendaraan_bermotor.required' => 'Jumlah kendaraan bermotor wajib diisi.',
+            'pajak_bumi.required' => 'Pajak bumi wajib diisi.',
+            'gaji.required' => 'Gaji wajib diisi'
+            
         ];
     }
 

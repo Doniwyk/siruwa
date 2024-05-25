@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('penduduk', function (Blueprint $table) {
             $table->id('id_penduduk');
-            $table->string('no_reg', 25);
             $table->date('tgl_lahir');
             $table->string('nik')->unique();
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
             $table->char('jenis_kelamin', 2);
-            $table->integer('rt');
-            $table->integer('umur');
+            $table->string('rt') ;
             $table->string('status_kawin', 50);
             $table->string('status_keluarga', 100);
             $table->string('agama', 100);
@@ -34,12 +32,12 @@ return new class extends Migration
             $table->double('biaya_air');
             $table->integer('jumlah_kendaraan_bermotor');
             $table->boolean('akseptor_kb');
-            $table->string('jenis_akseptor', 100);
+            $table->string('jenis_akseptor', 100)->nullable();
             $table->boolean('aktif_posyandu');
             $table->boolean('has_BKB');
             $table->boolean('has_tabungan');
             $table->boolean('ikut_kel_belajar');
-            $table->string('jenis_kel_belajar', 100);
+            $table->string('jenis_kel_belajar', 100)->nullable();
             $table->boolean('ikut_paud');
             $table->boolean('ikut_koperasi');
             $table->timestamps();
