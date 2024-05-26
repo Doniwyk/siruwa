@@ -76,7 +76,9 @@ Route::group([
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
     Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
     //==================================ROUTE IMPORT DATA FOR ADMIN========================================
-    Route::post('/import', [AdminImportResidentController::class, 'importFile'])->name('import');
+    Route::post('/admin/import-resident', [AdminImportResidentController::class, 'importResident'])->name('admin.import.resident');
+    Route::get('/admin/resident-preview', [AdminImportResidentController::class, 'showPreview'])->name('admin.resident.preview');
+    Route::post('/admin/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('admin.save.imported.residents');
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
