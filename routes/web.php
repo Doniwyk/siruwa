@@ -37,11 +37,11 @@ Route::get('/list-berita', function () {
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
-Route::group(['middleware' => 'isGuest'], function () {
+Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'doLogin']);
 });
-Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth')->name('logout');
+Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth', 'revalidate')->name('logout');
 
 
 //==================================ROUTE LANDING PAGE========================================
@@ -54,7 +54,7 @@ Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 Route::group([
     'prefix' => 'admin/statistik',
     'as' => 'admin.statistic.',
-    'middleware' => 'isAuth', 'userAccess'
+    'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('index');
 });
@@ -200,10 +200,9 @@ Route::group([
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
-    Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
+    // Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-profil}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
-
 });
 
 //==================================ROUTE PENDUDUK========================================
