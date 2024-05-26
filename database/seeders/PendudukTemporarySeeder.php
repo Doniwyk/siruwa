@@ -127,7 +127,7 @@ class PendudukTemporarySeeder extends Seeder
             'biaya_listrik' => 200000,
             'biaya_air' => 150000,
             'jumlah_kendaraan_bermotor' => 2,
-            'akseptort_kb' => true,
+            'akseptor_kb' => true,
             'jenis_akseptor' => 'IUD',
             'aktif_posyandu' => true,
             'has_BKB' => true,
