@@ -215,6 +215,9 @@
 .btn-main {
     @apply w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center;
 }
+.btn-secondary{
+    @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
+}
 .resident-header {
     @apply text-secondary text-4xl font-semibold mb-9;
 }
