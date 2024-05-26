@@ -75,9 +75,9 @@
                     <thead class="history-header">
                         <tr>
                             <th>Nama Pembayar</th>
-                            <th>Tipe Berkas</th>
                             <th>Tgl. Pengajuan</th>
                             <th>Detail Status</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody class="history-body">
