@@ -28,7 +28,7 @@ class UserModelFactory extends Factory
             'rt' => fake()->numberBetween(1, 20),
             'status_kawin' => fake()->randomElement(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati']),
             'status_keluarga' => fake()->randomElement(['Kepala Keluarga', 'Istri', 'Anak']),
-            'agama' => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
+            'agama' => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha','']),
             'alamat' => fake()->address,
             'pendidikan' => fake()->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
             'pekerjaan' => fake()->randomElement(['PNS', 'TNI/Polri', 'Wirausaha', 'Wiraswasta','Pelajar/Mahasiswa']),
