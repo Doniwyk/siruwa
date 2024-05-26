@@ -106,7 +106,7 @@
 
             <div class="overflow-x-auto rounded-xl">
                 <table class="w-full text-left table-fixed">
-                    <thead class="history-fund-header">
+                    <thead class="history-header">
                         <tr>
                             <th>Nama Pembayar</th>
                             <th>Tipe Pembayaran</th>
@@ -116,7 +116,7 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tbody class="history-fund-body">
+                    <tbody class="history-body">
                         <tr>
                             <td>Daffa Maulana Satria</td>
                             <td>Iuran Sampah</td>

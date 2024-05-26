@@ -65,7 +65,7 @@ class ResidentController extends Controller
     {
         $title = 'Form Tambah Penduduk';
         $page = 'tambah-data-penduduk';
-        return view('admin._dasawismaData.create', compact('title', 'page'));
+        return view('admin._dasawismaData.add', compact('title', 'page'));
 
     }
 
@@ -205,7 +205,7 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident._dasawismaData.index', ['title' => 'Data Diri', 'resident' => $resident]);
+        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident]);
     }
 
 
@@ -215,9 +215,9 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident.data-dasawisma.edit', compact('resident'));
+        $title = 'Pengajuan Perubahan Data Penduduk';
+        return view('resident._residentData.edit', compact('resident', 'title'));
     }
-
 
     //To store change data in database(temp penduduk)
     public function storeEditRequest(Request $request, UserModel $resident)

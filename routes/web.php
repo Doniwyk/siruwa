@@ -90,8 +90,8 @@ Route::group(
     ],
     function () {
         Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
-        Route::get('/{resident}/edit', [ResidentController::class, 'editForm'])->name('edit');
-        Route::post('/store', [ResidentController::class, 'storeEditRequest'])->name('store'); // To store the submission data into the resident temp
+        Route::get('/edit', [ResidentController::class, 'editForm'])->name('edit');
+        Route::post('/{resident}/store', [ResidentController::class, 'storeEditRequest'])->name('store'); // To store the submission data into the resident temp
         Route::put('/riwayat', [ResidentController::class, 'historyEditRequest'])->name('request');
     }
 );
