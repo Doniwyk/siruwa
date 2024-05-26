@@ -7,11 +7,11 @@
         <!-- Foto Profil -->
         <section class="shrink-0 flex flex-col" x-data="imageHandler()">
             <span class="mb-6 block text-2xl font-semibold text-secondary">Foto Profil</span>
-            <div class="relative w-[335px] cursor-pointer" @click="$refs.profileImageUpload.click()">
+            <div class="relative w-[21rem] cursor-pointer" @click="$refs.profileImageUpload.click()">
                 <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*" @change="loadFile($event)" name="urlProfile">
-                <img id="profile-image" class="w-[335px] h-[255px] rounded-xl absolute" :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" /> <!-- Profil -->
-                <span class="w-[335px] h-[255px] group bg-black opacity-50 rounded-xl absolute"></span> <!-- Background Black 50%-->
-                <span class="w-[335px] h-[255px] group absolute flex flex-col justify-center items-center gap-2"> <!-- Upload Icon -->
+                <img id="profile-image" class="w-[21rem] h-[16rem] rounded-xl absolute" :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" /> <!-- Profil -->
+                <span class="w-[21rem] h-[16rem] group bg-black opacity-50 rounded-xl absolute"></span> <!-- Background Black 50%-->
+                <span class="w-[21rem] h-[16rem] group absolute flex flex-col justify-center items-center gap-2"> <!-- Upload Icon -->
                     <img class="block w-12 opacity-100" src="{{ asset('assets/icons/upload-profile.svg') }}" alt="Upload" /> 
                     <span class="text-white font-medium">Upload Foto Profil</span> 
                 </span>
