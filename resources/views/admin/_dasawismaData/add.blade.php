@@ -28,9 +28,8 @@
             <h4 class="h4-semibold">Identitas Kependudukan</h4>
             <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form label="Nama" name="nama" />
-                <x-form.text-input-form label="NO KK" name="nomor_kk" />
+                <x-form.text-input-form label="No. KK" name="nomor_kk" />
                 <x-form.text-input-form label="No. KTP/NIK" name="nik" />
-                <x-form.text-input-form label="No. Registrasi" name="no_reg" />
                 <x-form.text-input-form label="Alamat Lengkap" name="alamat" />
                 <x-form.text-input-form label="RT" name="rt" />
             </div>
@@ -38,44 +37,53 @@
         <section id="identitas-lengkap">
             <h4 class="h4-semibold">Identitas Lengkap</h4>
             <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-                <x-form.text-input-form label="Pekerjaan dan Jabatan" name="pekerjaan" />
+                <x-form.text-input-form label="Tempat Lahir" name="tempat_lahir" />
+                <x-form.text-input-form type="date" label="Tanggal Lahir" name="tgl_lahir" />
                 <x-form.select-input-form label="Jenis Kelamin" name="jenis_kelamin">
                     <option value="">Jenis Kelamin</option>
-                    <option value="L">Laki-laki</option>
-                    <option value="P">Perempuan</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
                 </x-form.select-input-form>
-                <x-form.text-input-form label="Tempat Lahir" name="tempat_lahir" />
-                <x-form.text-input-form label="Tanggal Lahir" name="tgl_lahir" />
-                <x-form.text-input-form label="Agama" name="agama" />
+                <x-form.select-input-form label="Agama" name="agama">
+                    <option value="">Agama</option>
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Khatolik</option>
+                    <option value="Hindu">Hindu</option>
+                    <option value="Buddha">Budha</option>
+                    <option value="Konghucu">Konghucu</option>
+                    <option value="Kepercayaan Lain">Kepercayaan Lain</option>
+                </x-form.select-input-form>
                 <x-form.select-input-form label="Pendidikan" name="pendidikan">
                     <option value="">Pendidikan</option>
-                    <option value="ts">Tidak sekolah/Tamat SD</option>
-                    <option value="sd">SD</option>
-                    <option value="sd">SD</option>
-                    <option value="smp">SMP</option>
-                    <option value="sma">SMA</option>
-                    <option value="diploma">Diploma</option>
-                    <option value="sarjana">Sarjana</option>
+                    <option value="Tidak Tamat SD">Tidak sekolah/Tamat SD</option>
+                    <option value="SD">SD</option>
+                    <option value="SMP">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA">SMA</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Sarjana">Sarjana</option>
                 </x-form.select-input-form>
-                <x-form.text-input-form label="E-mail" name="emsil" />
-                <x-form.text-input-form label="No HP" name="noHp" />
+                <x-form.select-input-form label="Pekerjaan" name="pekerjaan">
+                    <option value="">Pekerjaan</option>
+                    <option value="PNS">PNS</option>
+                    <option value="TNI/Polri">TNI/Polri</option>
+                    <option value="Wirausaha">Wirausaha</option>
+                    <option value="Wiraswasta">Wiraswasta</option>
+                    <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+                </x-form.select-input-form>
                 <x-form.select-input-form label="Status Perkawinan" name="status_kawin">
                     <option value="">Status Perkawinan</option>
-                    <option value="belum_menikah">Belum Menikah</option>
-                    <option value="menikah">Menikah</option>
-                    <option value="cerai_hidup">Cerai Hidup</option>
-                    <option value="cerai_mati">Cerai Mati</option>
+                    <option value="Belum Menikah">Belum Menikah</option>
+                    <option value="Menikah">Menikah</option>
+                    <option value="Cerai Hidup">Cerai Hidup</option>
+                    <option value="Cerai Mati">Cerai Mati</option>
                 </x-form.select-input-form>
                 <x-form.select-input-form label="Status dalam Keluarga" name="status_keluarga">
                     <option value="">Status dalam Keluarga</option>
-                    <option value="kepala_keluarga">Kepala Keluarga</option>
-                    <option value="istri">Istri</option>
-                    <option value="anak">Anak</option>
-                </x-form.select-input-form>
-                <x-form.select-input-form label="Memiliki Tabungan" name="has_tabungan">
-                    <option value="">Memiliki Tabungan</option>
-                    <option value="1">Ya</option>
-                    <option value="0">Tidak</option>
+                    <option value="Kepala Keluarga">Kepala Keluarga</option>
+                    <option value="Istri">Istri</option>
+                    <option value="Anak">Anak</option>
                 </x-form.select-input-form>
                 <x-form.select-input-form label="Akseptor KB" name="akseptor_kb">
                     <option value="">Akseptor KB</option>
@@ -83,6 +91,13 @@
                     <option value="0">Tidak</option>
                 </x-form.select-input-form>
                 <x-form.text-input-form label="Jenis Akseptor" name="jenis_akseptor" />
+                <x-form.text-input-form label="Email" name="email" />
+                <x-form.text-input-form label="No. Telepon" name="noHp" />
+                <x-form.select-input-form label="Memiliki Tabungan" name="has_tabungan">
+                    <option value="">Memiliki Tabungan</option>
+                    <option value="1">Ya</option>
+                    <option value="0">Tidak</option>
+                </x-form.select-input-form>
             </div>
         </section>
         <section id="kegiatan-keorganisasian">
