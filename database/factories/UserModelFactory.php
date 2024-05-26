@@ -31,7 +31,7 @@ class UserModelFactory extends Factory
             'agama' => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
             'alamat' => fake()->address,
             'pendidikan' => fake()->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
-            'pekerjaan' => fake()->jobTitle,
+            'pekerjaan' => fake()->randomElement(['PNS', 'TNI/Polri', 'Wirausaha', 'Wiraswasta','Pelajar/Mahasiswa']),
             'gaji' => fake()->randomFloat(2, 1000, 10000),
             'pajak_bumi' => fake()->randomFloat(2, 100, 500),
             'biaya_listrik' => fake()->randomFloat(2, 50, 200),
