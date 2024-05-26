@@ -27,7 +27,6 @@ class AdminImportService implements AdminResidentImportContract
 
             // Custom validation for each row
             $rowValidator = Validator::make($data, [
-                'no_reg' => 'required|string',
                 'tgl_lahir' => 'required|date',
                 'nik' => 'required|numeric|digits:16|unique:penduduk,nik',
                 'nomor_kk' => 'required|numeric|digits:16',
@@ -35,7 +34,6 @@ class AdminImportService implements AdminResidentImportContract
                 'tempat_lahir' => 'required|string',
                 'jenis_kelamin' => 'required|string',
                 'rt' => 'required|string',
-                'umur' => 'required|numeric',
                 'status_kawin' => 'required|string',
                 'status_keluarga' => 'required|string',
                 'agama' => 'required|string',
