@@ -1,32 +1,34 @@
 @extends('layouts.admin')
 @section('content')
     <h1 class="h1-semibold">Manajemen Dokumen</h1>
-    <div class="link-option_parrent">
-        <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'pengajuan']) }}" @class([
-            'link-option',
-            'link-option_active' => $typeDocument == 'pengajuan',
-        ])>
-            Pengajuan
-        </a>
-        <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'ongoing']) }}" @class([
-            'link-option',
-            'link-option_active' => $typeDocument == 'ongoing',
-        ])>
-            Proses
-        </a>
-        <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'canBeTaken']) }}" @class([
-            'link-option',
-            'link-option_active' => $typeDocument == 'canBeTaken',
-        ])>
-            Bisa Diambil
-        </a>
-        <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'riwayat']) }}" @class([
-            'link-option',
-            'link-option_active' => $typeDocument == 'riwayat',
-        ])>
-            Riwayat
-        </a>
-    </div>
+    <section id="tab-slider" class="flex">
+        <div class="link-option_parrent">
+            <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'pengajuan']) }}" @class([
+                'link-option',
+                'link-option_active' => $typeDocument == 'pengajuan',
+            ])>
+                Pengajuan
+            </a>
+            <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'ongoing']) }}" @class([
+                'link-option',
+                'link-option_active' => $typeDocument == 'ongoing',
+            ])>
+                Proses
+            </a>
+            <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'canBeTaken']) }}" @class([
+                'link-option',
+                'link-option_active' => $typeDocument == 'canBeTaken',
+            ])>
+                Bisa Diambil
+            </a>
+            <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'riwayat']) }}" @class([
+                'link-option',
+                'link-option_active' => $typeDocument == 'riwayat',
+            ])>
+                Riwayat
+            </a>
+        </div>
+    </section>
     @switch($typeDocument)
         @case('pengajuan')
             <table class="table-parent" id="table-parent">
