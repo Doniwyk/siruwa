@@ -31,10 +31,11 @@ use Illuminate\Support\Facades\Route;
 
 // COBA LISST BERITA COYYYY
 
-Route::get('/list-berita', function () {
-    return view('/berita/list-berita');
-});
+Route::get('/berita/list-berita', [NewsController::class, 'NewsList'])->name('list-berita.index');
+Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
+Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
 
+Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 //==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest'], function () {
