@@ -37,11 +37,11 @@ Route::get('/list-berita', function () {
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
-Route::group(['middleware' => 'isGuest'], function () {
+Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'doLogin']);
 });
-Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth')->name('logout');
+Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware('isAuth', 'revalidate')->name('logout');
 
 
 //==================================ROUTE LANDING PAGE========================================
@@ -54,7 +54,7 @@ Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 Route::group([
     'prefix' => 'admin/statistik',
     'as' => 'admin.statistic.',
-    'middleware' => 'isAuth', 'userAccess'
+    'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('index');
 });
@@ -76,7 +76,9 @@ Route::group([
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
     Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
     //==================================ROUTE IMPORT DATA FOR ADMIN========================================
-    Route::post('/import', [AdminImportResidentController::class, 'importFile'])->name('import');
+    Route::post('/admin/import-resident', [AdminImportResidentController::class, 'importResident'])->name('admin.import.resident');
+    Route::get('/admin/resident-preview', [AdminImportResidentController::class, 'showPreview'])->name('admin.resident.preview');
+    Route::post('/admin/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('admin.save.imported.residents');
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
@@ -88,8 +90,8 @@ Route::group(
     ],
     function () {
         Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
-        Route::get('/{resident}/edit', [ResidentController::class, 'editForm'])->name('edit');
-        Route::post('/store', [ResidentController::class, 'storeEditRequest'])->name('store'); // To store the submission data into the resident temp
+        Route::get('/edit', [ResidentController::class, 'editForm'])->name('edit');
+        Route::post('/{resident}/store', [ResidentController::class, 'storeEditRequest'])->name('store'); // To store the submission data into the resident temp
         Route::put('/riwayat', [ResidentController::class, 'historyEditRequest'])->name('request');
     }
 );
@@ -198,10 +200,9 @@ Route::group([
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
-    Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
+    // Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-profil}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
-
 });
 
 //==================================ROUTE PENDUDUK========================================

@@ -12,37 +12,37 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('penduduk_temporary', function (Blueprint $table) {
+            $table->id('id_temporary');
             $table->unsignedBigInteger('id_penduduk')->index();
-            $table->string('no_reg', 25);
             $table->date('tgl_lahir');
-            $table->string('nik')->unique();
+            $table->string('nik');
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
-            $table->char('jenis_kelamin', 2);
-            $table->integer('rt');
-            $table->integer('umur');
-            $table->string('status_kawin', 50);
-            $table->string('status_keluarga', 100);
-            $table->string('agama', 100);
+            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->string('rt');
+            $table->enum('status_kawin', ['Belum Menikah', 'Menikah', 'Cerai Hidup', 'Cerai Mati']);
+            $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
+            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']);
             $table->text('alamat');
-            $table->string('pendidikan', 100);
-            $table->string('pekerjaan', 100);
+            $table->enum('pendidikan', ['Tidak tamat SD', 'SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']);
+            $table->enum('pekerjaan', ['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa']);
             $table->double('gaji');
             $table->double('pajak_bumi');
             $table->double('biaya_listrik');
             $table->double('biaya_air');
             $table->integer('jumlah_kendaraan_bermotor');
             $table->boolean('akseptor_kb');
-            $table->string('jenis_akseptor', 100);
+            $table->string('jenis_akseptor', 100)->nullable();
             $table->boolean('aktif_posyandu');
             $table->boolean('has_BKB');
             $table->boolean('has_tabungan');
             $table->boolean('ikut_kel_belajar');
-            $table->string('jenis_kel_belajar', 100);
+            $table->string('jenis_kel_belajar', 100)->nullable();
             $table->boolean('ikut_paud');
             $table->boolean('ikut_koperasi');
             $table->enum('status', ['Menunggu Verifikasi', 'Diterima', 'Ditolak'])->default('Menunggu Verifikasi');
+            $table->string('keterangan_status')->nullable();
             $table->timestamps();
 
             $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');

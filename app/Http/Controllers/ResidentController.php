@@ -65,32 +65,32 @@ class ResidentController extends Controller
     {
         $title = 'Form Tambah Penduduk';
         $page = 'tambah-data-penduduk';
-        return view('admin._dasawismaData.create', compact('title', 'page'));
-
+        return view('admin._dasawismaData.add', compact('title', 'page'));
     }
 
     //To store resident data in database
     public function storeResident(UserRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
+
         try {
+            $validated = $request->validated();
 
             $resident = $this->residentContract->storeUser($validated);
 
             $account = [
-                'id_penduduk' => $resident->id,
+                'id_penduduk' => $resident->id_penduduk,
                 'urlProfile' => $request->has('urlProfile') ? $request->urlProfile : null,
                 'noHp' => $request->has('noHp') ? $request->noHp : null,
                 'username' => $resident->nomor_kk,
                 'email' => $request->has('email') ? $request->email : null,
                 'email_verified_at' => now(),
-                'password' => bcrypt($resident->nomor_kk),
+                'password' => bcrypt($resident->nik),
                 'role' => 'resident'
             ];
-            AccountModel::insert($account);
-            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil ditambahkan.');
+            AccountModel::create($account);
+            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal menambahkan data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
@@ -115,11 +115,9 @@ class ResidentController extends Controller
         //Data on residents who submitted data changes
         $resident = UserModel::findOrFail($resident->id_penduduk);
         // Data that  want to change
-        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first(); 
+        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->orderBy('created_at', 'desc')->first();
         return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
     }
-
-
 
     //To update resident data which has been edited by admin
     public function updateResident(UserRequest $request, UserModel $resident): RedirectResponse
@@ -151,13 +149,14 @@ class ResidentController extends Controller
 
     //To validate edit request data from resident 
 
-    public function validateEditRequest(Request $request, UserModel $resident)
+    public function validateEditRequest(Request $request)
     {
         $request->validate([
+            'id' => 'required',
             'action' => 'required|in:accept,reject',
         ]);
         try {
-            $this->residentContract->validateEditRequest($request, $resident);
+            $this->residentContract->validateEditRequest($request->action, $request->id);
             if ($request->action === 'accept') {
                 return redirect()->route('admin.data-penduduk.index')->with('success', 'Data berhasil disetujui.');
             } elseif ($request->action === 'reject') {
@@ -204,7 +203,7 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident._dasawismaData.index', ['title' => 'Data Diri', 'resident' => $resident]);
+        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident]);
     }
 
 
@@ -214,9 +213,9 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident.data-dasawisma.edit', compact('resident'));
+        $title = 'Pengajuan Perubahan Data Penduduk';
+        return view('resident._residentData.edit', compact('resident', 'title'));
     }
-
 
     //To store change data in database(temp penduduk)
     public function storeEditRequest(Request $request, UserModel $resident)

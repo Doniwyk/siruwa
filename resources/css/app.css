@@ -131,11 +131,11 @@
         @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between;
     }
     .table-parent {
-        @apply w-full rounded-2xl overflow-hidden bg-white;
+        @apply w-full rounded-2xl overflow-hidden bg-white table-fixed;
     }
     th,
     td {
-        @apply p-3 text-left px-6 min-w-[275px];
+        @apply p-3 text-left px-6;
     }
     thead th {
         @apply text-lg font-bold text-white bg-main;
@@ -215,6 +215,15 @@
 .content-user {
     @apply px-16 py-9;
 }
+.resident-profile-subheader {
+    @apply block mb-6 text-2xl font-semibold text-secondary;
+}
+.btn-main {
+    @apply w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center items-center;
+}
+.btn-secondary{
+    @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
+}
 .resident-header {
     @apply text-secondary text-4xl font-semibold mb-9;
 }
@@ -225,10 +234,10 @@
     @apply flex-1 py-2 px-4 rounded-xl text-secondary font-medium focus:font-semibold focus:outline-none w-[44rem];
 }
 .left-icon {
-    @apply absolute top-1/2 left-4 transform -translate-y-1/2 w-4 h-4 pointer-events-none;
+    @apply absolute inset-y-0 left-4 h-5 w-5 my-auto;
 }
 .right-icon {
-    @apply absolute top-1/2 right-4 transform -translate-y-1/2 w-4 h-4 pointer-events-none;
+    @apply absolute inset-y-0 right-4 h-5 w-5 my-auto;
 }
 .resident-select {
     @apply py-2 px-12 rounded-2xl text-gray-400 font-medium appearance-none h-[3rem] w-full;
@@ -254,13 +263,13 @@
 .fund-body tr td {
     @apply text-center min-w-[0px] py-5;
 }
-.history-fund-header tr th{
+.history-header tr th{
     @apply bg-secondary py-3 px-6;
 }
-.history-fund-body tr {
+.history-body tr {
     @apply border-none ;
 }
-.history-fund-body tr td{
+.history-body tr td{
     @apply bg-white py-3 px-6;
 }
 .resident-input {

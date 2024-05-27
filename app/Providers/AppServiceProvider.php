@@ -13,6 +13,7 @@ use App\Contracts\UserContract;
 use App\Contracts\AdminDocumentContract;
 use App\Contracts\AdminPaymentContract;
 use App\Contracts\AdminResidentImportContract;
+use App\Contracts\DashboardContract;
 use App\Contracts\ResidentDocumentContract;
 use App\Contracts\ResidentPaymentContract;
 use App\Http\Controllers\StatisticController;
@@ -33,7 +34,7 @@ use App\Services\AdminImportService;
 use App\Services\AdminPaymentService;
 use App\Services\ResidentDocumentService;
 use App\Services\ResidentPaymentService;
-
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -71,6 +72,7 @@ class AppServiceProvider extends ServiceProvider
             AdminResidentImportContract::class,
             ResidentDocumentContract::class,
             ResidentPaymentContract::class,
+            DashboardContract::class
         ];
     }
 

@@ -10,12 +10,17 @@ class TextInputForm extends Component
 {
     public $label;
     public $name;
+    public $type;
+    public $value;      
 
-    public function __construct($label, $name)
+    public function __construct($label, $name, $type = 'text', $value = '')
     {
         $this->label = $label;
         $this->name = $name;
+        $this->type = $type;
+        $this->value = $value;
     }
+    
 
     public function render(): View|Closure|string
     {

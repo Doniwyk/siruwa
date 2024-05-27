@@ -40,7 +40,6 @@ class AuthenticationController extends Controller
                 return redirect()->route('resident.index');
             }
         } catch (\Exception $e) {
-            dd($e);
             return back()->withErrors([
                 'email' => 'Email or password is wrong',
             ])->onlyInput('email');
@@ -52,7 +51,6 @@ class AuthenticationController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        $request->session()->regenerate();
         return redirect()->route('login');
     }
 }

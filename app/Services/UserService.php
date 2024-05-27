@@ -8,13 +8,15 @@ use App\Models\PendudukModel;
 use App\Models\TempResidentModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class UserService implements UserContract
 {
 
     public function storeUser(array $validatedData): UserModel
     {
-        return UserModel::create($validatedData);
+        $user = UserModel::create($validatedData);
+        return $user;
     }
 
     public function updateUser(array $validatedData, UserModel $penduduk): void
@@ -27,19 +29,16 @@ class UserService implements UserContract
         $penduduk->delete();
     }
 
-    public function validateEditRequest(Request $request, UserModel $resident)
+    public function validateEditRequest(string $action, $id)
     {
-        $tempResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->first();
-        if ($request->action === 'accept') {
-            $reqData = collect($tempResident)->only($resident->getFillable())->toArray();
-            // dd($reqData);
-            $resident->update($reqData);
+        $tempResident = TempResidentModel::where('id_temporary', $id)->first();
+        $resident = UserModel::where('id_penduduk', $tempResident->id_penduduk)->first();
+        if ($action === 'accept') {
+            $resident->update($tempResident->toArray());
             $tempResident->status = 'Diterima';
-
             $tempResident->save();
         }
-
-        if ($request->action === 'reject') {
+        if ($action === 'reject') {
             $tempResident->status = 'Ditolak';
             $tempResident->save();
         }
@@ -86,6 +85,7 @@ class UserService implements UserContract
         $residents = TempResidentModel::when($search, function ($query) use ($search) {
             $query->where('nama', 'like', $search . '%');
         })
+            ->with('penduduk')
             ->where('status', '!=', 'Menunggu Verifikasi')
             ->orderBy('nama', $order)
             ->paginate(15);

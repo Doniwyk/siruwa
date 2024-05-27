@@ -19,7 +19,6 @@ class UserModelFactory extends Factory
     public function definition(): array
     {
         return [
-            'no_reg' => fake()->unique()->regexify('[A-Za-z0-9]{10}'),
             'tgl_lahir' => fake()->date(),
             'nik' => fake()->unique()->regexify('[0-9]{16}'),
             'nomor_kk' => fake()->regexify('[0-9]{16}'),
@@ -27,13 +26,12 @@ class UserModelFactory extends Factory
             'tempat_lahir' => fake()->city,
             'jenis_kelamin' => fake()->randomElement(['L', 'P']),
             'rt' => fake()->numberBetween(1, 20),
-            'umur' => fake()->numberBetween(18, 90),
-            'status_kawin' => fake()->randomElement(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati']),
+            'status_kawin' => fake()->randomElement(['Belum Menikah', 'Menikah', 'Cerai Hidup', 'Cerai Mati']),
             'status_keluarga' => fake()->randomElement(['Kepala Keluarga', 'Istri', 'Anak']),
             'agama' => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']),
             'alamat' => fake()->address,
             'pendidikan' => fake()->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
-            'pekerjaan' => fake()->jobTitle,
+            'pekerjaan' => fake()->randomElement(['PNS', 'TNI/Polri', 'Wirausaha', 'Wiraswasta','Pelajar/Mahasiswa']),
             'gaji' => fake()->randomFloat(2, 1000, 10000),
             'pajak_bumi' => fake()->randomFloat(2, 100, 500),
             'biaya_listrik' => fake()->randomFloat(2, 50, 200),
