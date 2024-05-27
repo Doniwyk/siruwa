@@ -4,23 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Contracts\EventContract;
 use App\Contracts\NewsContract;
-use App\Http\Requests\NewsRequest;
+use App\Http\Requests\EditNewsRequest;
 use App\Models\EventModel;
 use App\Models\NewsModel;
-use Illuminate\Http\RedirectResponse;
+use App\Models\UserModel;
+use Auth;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class NewsController extends Controller
 {
     //
     protected NewsContract $newsContract;
     protected EventContract $eventContract;
+    private $pageName;
 
     public function __construct(NewsContract $newsContract, EventContract $eventContract)
     {
         $this->newsContract = $newsContract;
         $this->eventContract = $eventContract;
+        $this->pageName = 'manajemen-berita';
     }
 
     //===========================FOR ADMIN============================
@@ -55,7 +57,7 @@ class NewsController extends Controller
         ])->links()->toHtml();
 
 
-        $page = 'manajemen-berita';
+        $page = $this->pageName;
         $title = 'Manajemen Berita';
 
         if ($request->wantsJson()) {
@@ -71,39 +73,60 @@ class NewsController extends Controller
 
     public function add()
     {
-        $page = 'manajemen-berita';
+        $page = $this->pageName;
         $title = 'Manajemen Berita';
-        return view('admin._news.create', compact('page', 'title'));
+        $userId = Auth::id();
+        $account = UserModel::findOrFail($userId);
+        return view('admin._news.create', compact('page', 'title', 'account'));
     }
 
-    public function storeNews(NewsRequest $request): RedirectResponse
+    public function storeNews(Request $request)
     {
         try {
-            $validated = $request->validated();
-            $this->newsContract->storeNews($validated);
+            $image = $request->file('image');
+            $admin = Auth::id();
+    
+            $cloudinaryImage = $image->storeOnCloudinary('berita');
+            $url = $cloudinaryImage->getSecurePath();
+            $publicId = $cloudinaryImage->getPublicId();
+
+            $imageUpload = NewsModel::create([
+                'url_gambar' => $url,
+                'image_public_id' => $publicId,
+                'judul' => $request->input('judul'),
+                'id_admin' => $admin,
+                'isi' => $request->input('editor')
+            ]);
+            $imageUpload->save();
             return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan berita' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return dd($e);
         }
+
     }
 
-    public function editNews(NewsModel $news): View
+    public function editNews(NewsModel $news)
     {
-        return view('admin._news.edit', compact('news'));
+        $page = $this->pageName;
+        $title = 'Manajemen Berita';
+        $userId = Auth::id();
+        $account = UserModel::findOrFail($userId);
+        return view('admin._news.edit', compact('title', 'page','news', 'account'));
     }
 
-    public function updateNews(NewsRequest $request, NewsModel $news): RedirectResponse
+    public function updateNews(EditNewsRequest $request, NewsModel $news)
     {
+        $validated = $request->validated();
         try {
-            $validated = $request->validated();
             $this->newsContract->updateNews($validated, $news);
             return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil diperbarui.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Gagal megubah berita' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
-    public function deleteNews(NewsModel $news): RedirectResponse
+    public function deleteNews(NewsModel $news)
     {
         try {
             $this->newsContract->deleteNews($news);

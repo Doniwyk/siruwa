@@ -88,14 +88,14 @@ public function validatePayment(array $validatedData, string $action, PaymentMod
 
     public function getValidatedPayment()
     {
-        $validatedPayments = PaymentModel::where('status', 'Terverifikasi')->with('penduduk', 'admin')->get();
+        $validatedPayments = PaymentModel::where('status', ['Terverifikasi', 'Ditolak'])->with('penduduk', 'admin')->paginate(10);
 
         return $validatedPayments;
     }
 
     public function getSubmission()
     {
-        $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')->with('penduduk', 'admin')->get();
+        $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')->with('penduduk', 'admin')->paginate(10);
 
         $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')
         ->count() * 10000;
