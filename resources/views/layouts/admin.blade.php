@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.1.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <title>{{ $title }}</title>
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
@@ -28,9 +29,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        const tableBody = document.getElementById('table-parent');
-        console.log(tableBody);
-
         function fetchResidentData(typeDocument = '', search = '', order = 'asc', page = 1) {
             $.ajax({
                 url: '{{ route('admin.data-penduduk.index') }}',
@@ -282,13 +280,7 @@
             var search = $(this).val();
             var order = $('#order-select').val();
             var typeDocument = $('#typeDocument').val();
-            if (typeDocument == "berita") {
-                fetchNewsData(typeDocument, search, order);
-            } else if (typeDocument == "acara") {
-                fetchEventData(typeDocument, search, order);
-            } else {
-                fetchResidentData(typeDocument, search, order);
-            }
+            fetchData(typeDocument, search, order);
         });
 
         // Event handler untuk select order
@@ -297,13 +289,7 @@
             $(this).toggleClass('button-order_desc');
             var search = $('#search-input').val();
             var typeDocument = $('#typeDocument').val();
-            if (typeDocument == "berita") {
-                fetchNewsData(typeDocument, search, order);
-            } else if (typeDocument == "acara") {
-                fetchEventData(typeDocument, search, order);
-            } else {
-                fetchResidentData(typeDocument, search, order);
-            }
+            fetchData(typeDocument, search, order);
             this.value = order;
         });
 
@@ -311,6 +297,10 @@
             var typeDocument = $(this).val();
             var search = $('#search-input').val();
             var order = $('#order-select').val();
+            fetchData(typeDocument, search, order);
+        });
+
+        function fetchData(typeDocument, search, order) {
             if (typeDocument == "berita") {
                 fetchNewsData(typeDocument, search, order);
             } else if (typeDocument == "acara") {
@@ -318,9 +308,8 @@
             } else {
                 fetchResidentData(typeDocument, search, order);
             }
-        });
+        }
 
     });
 </script>
-
 </html>
