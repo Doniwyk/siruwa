@@ -1,4 +1,4 @@
-<div class="add-news flex justify-end">
+<div class="add-news flex justify-end hover:scale-95 transition-transform">
     <a href="{{ $route }}">
     <button class="h-[3rem] w-[15rem] bg-main text-white rounded-2xl flex-center gap-3">
         <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
