@@ -37,6 +37,8 @@
         </div>
     </section>
 
+    <a href="{{ route('admin.data-penduduk.add') }}">Tambah Data</a>
+
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
 
 

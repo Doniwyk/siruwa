@@ -63,6 +63,9 @@
     .form-control{
         @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text 
     }
+    .form-control-input{
+        @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
+    }
     .button-action_accept{
         @apply px-24 py-3 rounded-2xl bg-main;
     }
@@ -143,6 +146,7 @@
     tbody td {
         @apply text-main text-base font-medium;
     }
+
 }
 .summary-card_fund {
     @apply flex h-28 gap-x-9;
@@ -206,7 +210,59 @@
 .news-landing {
     @apply flex flex-col justify-end gap-2.5 bg-gradient-to-t from-black to-transparent rounded-2xl p-4;
 }
+
 /* USER STYLING */
 .content-user {
     @apply px-16 py-9;
+}
+.resident-header {
+    @apply text-secondary text-4xl font-semibold mb-9;
+}
+.resident-tab-parent {
+    @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
+}
+.resident-tab {
+    @apply flex-1 py-2 px-4 rounded-xl text-secondary font-medium focus:font-semibold focus:outline-none w-[44rem];
+}
+.left-icon {
+    @apply absolute top-1/2 left-4 transform -translate-y-1/2 w-4 h-4 pointer-events-none;
+}
+.right-icon {
+    @apply absolute top-1/2 right-4 transform -translate-y-1/2 w-4 h-4 pointer-events-none;
+}
+.resident-select {
+    @apply py-2 px-12 rounded-2xl text-gray-400 font-medium appearance-none h-[3rem] w-full;
+}
+.resident-search {
+    @apply py-2 pl-12 pr-6 rounded-2xl placeholder:text-gray-400 font-medium h-[3rem] w-full;
+}
+.button-pay {
+    @apply px-11 py-3 bg-secondary font-semibold text-stone-50 rounded-2xl whitespace-nowrap;
+}
+.fund-header {
+    @apply text-white tracking-wider;
+}
+.left-header {
+    @apply font-medium text-white bg-secondary border-white border-r;
+}
+.fund-header tr th{
+    @apply bg-secondary font-medium text-base text-center py-5 min-w-[11rem];
+}
+.fund-body tr{
+    @apply border-none;
+}
+.fund-body tr td {
+    @apply text-center min-w-[0px] py-5;
+}
+.history-fund-header tr th{
+    @apply bg-secondary py-3 px-6;
+}
+.history-fund-body tr {
+    @apply border-none ;
+}
+.history-fund-body tr td{
+    @apply bg-white py-3 px-6;
+}
+.resident-input {
+    @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
 }
