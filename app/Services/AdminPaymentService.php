@@ -15,83 +15,65 @@ class AdminPaymentService implements AdminPaymentContract
 {
     private static int $MONTHLY_PAYMENT = 10_000;
 
-    public function validatePayment(array $validatedData, string $action, PaymentModel $payment)
-    {
-        if ($action != 'terima') {
-            $payment->status = 'Ditolak';
-            $payment->save();
-            return;
-        }
-        
-        // Validasi data yang diterima dari form validasi
-        $totalPayment = $validatedData['jumlah'];
-        $monthsPaid = (int) ($totalPayment / self::$MONTHLY_PAYMENT);
-        
-        // Tentukan model dan tabel yang sesuai berdasarkan jenis pembayaran
-        $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
-        
-        // Ambil nomor kartu keluarga dari data yang ingin divalidasi
-        $no_kk = $payment->nomor_kk;
-        
-        // Temukan bulan terlama yang statusnya 'Belum Lunas' untuk nomor kartu keluarga yang ingin divalidasi
-        $monthsDue = $table::where('nomor_kk', $no_kk)
-            ->where('status', 'Belum Lunas')
-            ->orderBy('bulan', 'asc')->get();
-        
-            DB::beginTransaction();
-            try {
-                // Update status pembayaran
-                $payment->status = 'Terverifikasi';
-                $payment->id_admin = Auth::user()->id; // Ambil id_admin dari penduduk yang sedang login
-                $payment->save();
-            
-                // Jika tidak ada bulan yang 'Belum Lunas', tambahkan baris sebanyak $monthsPaid dengan bulan-bulan setelah bulan terakhir dengan status 'Lunas'
-                if ($monthsDue->isEmpty()) {
-                    $lastPaidMonth = $table::where('nomor_kk', $no_kk)->where('status', 'Lunas')->orderBy('bulan', 'desc')->first();
-                    $lastPaidMonth = $lastPaidMonth ? Carbon::parse($lastPaidMonth->bulan) : Carbon::now();
-            
-                    for ($i = 0; $i < $monthsPaid; $i++) {
-                        $newMonth = $table::create([
-                            'nomor_kk' => $no_kk,
-                            'bulan' => $lastPaidMonth->addMonth(),
-                            'status' => 'Lunas'
-                        ]);
-                        $newMonth->id_pembayaran = $payment->id_pembayaran;
-                        $newMonth->save();
-                    }
-                } else {
-                    foreach ($monthsDue as $index => $currentMonth) {
-                        if ($index < $monthsPaid) {
-                            // Update bulan yang belum lunas
-                            $currentMonth->id_pembayaran = $payment->id_pembayaran;
-                            $currentMonth->status = 'Lunas';
-                            $currentMonth->save();
-                        } else {
-                            break; // Tidak perlu membuat baris baru jika bulan yang dibayar sudah cukup
-                        }
-                    }
-                
-                    // Jika masih ada sisa bulan yang perlu dibayar, buat bulan baru
-                    $remainingMonthsToPay = $monthsPaid - $monthsDue->count();
-                    if ($remainingMonthsToPay > 0) {
-                        $lastPaidMonth = $monthsDue->isEmpty() ? Carbon::now() : Carbon::parse($monthsDue->last()->bulan);
-                        for ($i = 0; $i < $remainingMonthsToPay; $i++) {
-                            $newMonth = $table::create([
-                                'nomor_kk' => $no_kk,
-                                'bulan' => $lastPaidMonth->addMonth(),
-                                'status' => 'Lunas'
-                            ]);
-                            $newMonth->id_pembayaran = $payment->id_pembayaran;
-                            $newMonth->save();
-                        }
-                    }
-                }
-                DB::commit();
-            } catch (Exception $exception) {
-                DB::rollBack();
-                throw new Exception($exception->getMessage());
-            }          
+public function validatePayment(array $validatedData, string $action, PaymentModel $payment)
+{
+    if ($action != 'terima') {
+        $payment->status = 'Ditolak';
+        $payment->save();
+        return;
     }
+
+    $totalPayment = $validatedData['jumlah'];
+    $monthsPaid = (int) ($totalPayment / self::$MONTHLY_PAYMENT);
+
+    $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
+    $no_kk = $payment->nomor_kk;
+
+    $monthsDue = $table::where('nomor_kk', $no_kk)
+        ->where('status', 'Belum Lunas')
+        ->orderBy('bulan', 'asc')
+        ->limit($monthsPaid)
+        ->get();
+
+    DB::beginTransaction();
+    try {
+        $payment->status = 'Terverifikasi';
+        $payment->id_admin = Auth::user()->id;
+        $payment->save();
+
+        $monthsDueCount = $monthsDue->count();
+
+        foreach ($monthsDue as $index => $currentMonth) {
+            $currentMonth->id_pembayaran = $payment->id_pembayaran;
+            $currentMonth->status = 'Lunas';
+            $currentMonth->save();
+        }
+
+        if ($monthsPaid > $monthsDueCount) {
+            $lastPaidMonth = $table::where('nomor_kk', $no_kk)
+                ->where('status', 'Lunas')
+                ->orderBy('bulan', 'desc')
+                ->first();
+
+            $lastPaidMonth = $lastPaidMonth ? Carbon::parse($lastPaidMonth->bulan) : Carbon::now();
+
+            for ($i = 0; $i < ($monthsPaid - $monthsDueCount); $i++) {
+                $table::create([
+                    'nomor_kk' => $no_kk,
+                    'bulan' => $lastPaidMonth->addMonth(),
+                    'status' => 'Lunas',
+                    'id_pembayaran' => $payment->id_pembayaran
+                ]);
+            }
+        }
+
+        DB::commit();
+    } catch (Exception $exception) {
+        DB::rollBack();
+        throw new Exception($exception->getMessage());
+    }
+}
+
 
     public function getFundData()
     {
