@@ -1,7 +1,7 @@
 <div class="username flex flex-col gap-3 relative">
-    <label for="" class="text-xl text-main">{{ $label }}</label>
-    <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}" class="input-form"
-        placeholder="{{ $placeholder }}" value="{{ $value }}">
+    <label for="" class="text-main">{{ $label }}</label>
+    <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}" class="input-form"
+        placeholder="Masukkan {{ $label }}">
     <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg"
         @class([
             'absolute',
@@ -9,7 +9,7 @@
             'right-[1.5rem]',
             'bottom-[9.5px]',
             'hidden' => $type != 'password',
-        ]) onclick="togglePassword('#{{ $id }}')">
+        ]) onclick="togglePassword('#{{ $name }}')">
         <path
             d="M12.9823 10.4999C12.9823 12.1499 11.649 13.4833 9.99896 13.4833C8.34896 13.4833 7.01562 12.1499 7.01562 10.4999C7.01562 8.84993 8.34896 7.5166 9.99896 7.5166C11.649 7.5166 12.9823 8.84993 12.9823 10.4999Z"
             stroke="#97A7A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
