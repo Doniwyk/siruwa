@@ -16,9 +16,9 @@
 
     </ul>
     <div>
-        <button @class(['flex', 'gap-4', 'px-3', 'py-4', 'w-full'])>
+        <a class=" hover:bg-white nav-menu cursor-pointer" href="{{route('logout')}}">
             <img src="{{ asset('assets/icons/logout.svg') }}" alt="">
             <label for="">Keluar</label>
-        </button>
+        </a>
     </div>
 </nav>
