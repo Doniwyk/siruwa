@@ -15,6 +15,8 @@ use App\Http\Controllers\ResidentPaymentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DSSController;
+use App\Http\Controllers\DSSFuzzyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +31,22 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// COBA LISST BERITA COYYYY
+// COBA LIST BERITA COYYYY
 
 Route::get('/list-berita', function () {
     return view('/berita/list-berita');
 });
 
+<<<<<<< Updated upstream
+=======
+Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
+
+
+// COBA BANUSOSU COYYYY
+Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
+Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
+
+>>>>>>> Stashed changes
 //==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest', 'revalidate'], function () {

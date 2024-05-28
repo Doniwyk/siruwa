@@ -34,7 +34,12 @@ use App\Services\AdminImportService;
 use App\Services\AdminPaymentService;
 use App\Services\ResidentDocumentService;
 use App\Services\ResidentPaymentService;
+<<<<<<< Updated upstream
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+=======
+use App\Services\DSSService;
+use App\Services\DSSFuzzyService;
+>>>>>>> Stashed changes
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -78,7 +83,13 @@ class AppServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        //
+        $this->app->singleton(DSSService::class, function ($app) {
+            return new DSSService();
+        });
+
+        $this->app->singleton(DSSFuzzyService::class, function ($app) {
+            return new DSSFuzzyService();
+        });
     }
 
     /**
