@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class ResidentPaymentService implements ResidentPaymentContract
 {
     public function storePayment(array $validatedData){
-      $response = cloudinary()->upload($validatedData['urlBuktiPembayaran']->getRealPath())->getSecurePath();
-
+      $cloudinaryImage = $validatedData['urlBuktiPembayaran']->storeOnCloudinary('pembayaran');
+      $response = $cloudinaryImage->getSecurePath();
       $user = Auth::user();
       $penduduk = UserModel::find($user->id_penduduk);
       if ($penduduk) {
