@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Models\UserModel;
+use App\Models\DSSModel;
 
 class DSSFuzzyService
 {
     public function calculateScores()
     {
-        $recipients = UserModel::all();
+        $recipients = DSSModel::all();
         $results = [];
 
         foreach ($recipients as $recipient) {
@@ -28,7 +28,7 @@ class DSSFuzzyService
             $crispScore = $this->defuzzify($score);
 
             $results[] = [
-                'name' => $recipient->nama,
+                'name' => $recipient->nomor_kk,
                 'score' => $crispScore
             ];
         }
@@ -151,7 +151,6 @@ class DSSFuzzyService
         ];
     }
     
-
     private function defuzzify($scores)
     {
 
