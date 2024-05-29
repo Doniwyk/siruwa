@@ -34,12 +34,9 @@ use App\Services\AdminImportService;
 use App\Services\AdminPaymentService;
 use App\Services\ResidentDocumentService;
 use App\Services\ResidentPaymentService;
-<<<<<<< Updated upstream
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-=======
 use App\Services\DSSService;
 use App\Services\DSSFuzzyService;
->>>>>>> Stashed changes
 
 class AppServiceProvider extends ServiceProvider
 {

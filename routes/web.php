@@ -37,16 +37,14 @@ Route::get('/list-berita', function () {
     return view('/berita/list-berita');
 });
 
-<<<<<<< Updated upstream
-=======
 Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
 
 // COBA BANUSOSU COYYYY
 Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
 Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
+Route::get('/banusosu2/export-pdf', [DSSFuzzyController::class, 'exportPdf'])->name('banusosu2.exportPdf');
 
->>>>>>> Stashed changes
 //==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
@@ -88,9 +86,11 @@ Route::group([
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
     Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
     //==================================ROUTE IMPORT DATA FOR ADMIN========================================
-    Route::post('/admin/import-resident', [AdminImportResidentController::class, 'importResident'])->name('admin.import.resident');
-    Route::get('/admin/resident-preview', [AdminImportResidentController::class, 'showPreview'])->name('admin.resident.preview');
-    Route::post('/admin/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('admin.save.imported.residents');
+
+    Route::get('/import', [AdminImportResidentController::class, 'importForm'])->name('import');
+    Route::post('/import-file', [AdminImportResidentController::class, 'importFile'])->name('importFile');
+    Route::post('/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('saveImport');
+    Route::get('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================

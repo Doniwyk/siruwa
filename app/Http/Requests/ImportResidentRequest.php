@@ -25,4 +25,12 @@ class ImportResidentRequest extends FormRequest
             'file' => 'required|mimes:csv'
         ];        
     }
+
+    public function messages()
+    {
+        return [
+            'file.mimes' => 'The uploaded file must be a file of type: csv.',
+            'file.required' => 'File is required.',
+        ];
+    }
 }
