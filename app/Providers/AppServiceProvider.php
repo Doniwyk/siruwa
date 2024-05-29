@@ -22,6 +22,7 @@ use App\Services\AuthenticationContract;
 use App\Services\AuthenticationService\AuthenticationService as AuthenticationServiceAuthenticationService;
 use App\Services\DocumentService;
 use App\Services\EventService;
+use App\Services\DashboardService;
 use App\Services\AuthenticationService;
 use App\Services\NewsService;
 use App\Services\PaymentService;
@@ -55,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
         AdminResidentImportContract::class => AdminImportService::class,
         ResidentDocumentContract::class => ResidentDocumentService::class,
         ResidentPaymentContract::class => ResidentPaymentService::class,
+        DashboardContract::class => DashboardService::class
     ];
 
     public function provides(): array

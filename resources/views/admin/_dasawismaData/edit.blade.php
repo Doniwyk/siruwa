@@ -11,7 +11,7 @@
     <h1 class="h1-semibold">Edit Data Penduduk</h1>
 </div>
 <main class="bg-white py-9 px-24 rounded-2xl ">
-    <form action="{{ route('admin.data-penduduk.validate', ['resident' => $reqResident->id_penduduk]) }}" method="POST" class="flex flex-col gap-9">
+    <form action="{{ route('admin.data-penduduk.validate', ['resident' => $reqResident->id_temporary]) }}" method="POST" class="flex flex-col gap-9">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="{{ $reqResident->id_temporary }}" />

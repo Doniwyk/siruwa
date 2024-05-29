@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\DashboardContract;
+use App\Models\DataDashboardModel;
 use App\Models\EventModel;
 use App\Models\NewsModel;
 use App\Models\OrStructureModel;
@@ -24,24 +25,26 @@ class DashboardController extends Controller
             $news = NewsModel::all();
             $event = EventModel::all();
             $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
-            return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews]);
+            $dataDashboard = $this->dashboardContract->dataDashboard();
+            return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard'=>$dataDashboard]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
-    public function indexOrStructure(){
+    //To manajemen organixation structure for admin
+    public function manajemenDashboard(){
+        
         return view('admin._dashboard.index');
     }
 
-    public function update(Request $request, OrStructureModel $structure){
+    public function update(Request $request, DataDashboardModel $data){
 
         try {
-            $validated = $request->validated();
-            $this->dashboardContract->updateOrganizationStructure($validated, $structure);
-            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil diperbarui.');
+            $this->dashboardContract->updateDashboardData($request, $data);
+            return redirect()->route('admin.manajemen-dashboard.index')->with('success', 'Berita berhasil diperbarui.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal megubah berita' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->back()->with('error', 'Gagal megubah data' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
 
     }
