@@ -26,6 +26,7 @@ class DashboardController extends Controller
             $event = EventModel::all();
             $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
             $dataDashboard = $this->dashboardContract->dataDashboard();
+            dd($dataDashboard);
             return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard'=>$dataDashboard]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
