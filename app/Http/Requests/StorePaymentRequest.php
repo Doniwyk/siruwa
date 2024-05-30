@@ -25,7 +25,7 @@ class StorePaymentRequest extends FormRequest
             'jenis' => 'required',
             'metode' => 'required',
             'jumlah' => 'required|numeric',
-            'urlBuktiPembayaran' => 'required|file|mimes:jpeg,png,jpg|max:2048',
+            'urlBuktiPembayaran' => 'required|mimes:jpeg,png,jpg|max:1000',
         ];
     }
     public function messages(): array
