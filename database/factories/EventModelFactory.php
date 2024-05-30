@@ -22,6 +22,7 @@ class EventModelFactory extends Factory
         return [
             'id_admin' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'url_gambar' => $this->faker->imageUrl(),
+            'image_public_id' => $this->faker->randomElement(['1', '2', '3', '4', '5']),
             'judul' => $this->faker->sentence,
             'isi' => $this->faker->paragraph,
             'tanggal' => $this->faker->date(),
