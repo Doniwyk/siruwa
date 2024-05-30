@@ -68,7 +68,7 @@
                 <x-form.select-input-form label="Pekerjaan" name="pekerjaan">
                     <option value="">Pekerjaan</option>
                     <option value="PNS" {{ $resident->pekerjaan == 'PNS' ? 'selected' : '' }}>PNS</option>
-                    <option value="TNI/Polri" {{ $resident->pekerjaan == 'TNI/Polri' ? 'selected' : '' }}>TNI/Polri</option>
+                    <option value="TNI/POLRI" {{ $resident->pekerjaan == 'TNI/POLRI' ? 'selected' : '' }}>TNI/POLRI</option>
                     <option value="Wirausaha" {{ $resident->pekerjaan == 'Wirausaha' ? 'selected' : '' }}>Wirausaha</option>
                     <option value="Wiraswasta" {{ $resident->pekerjaan == 'Wiraswasta' ? 'selected' : '' }}>Wiraswasta</option>
                     <option value="Pelajar/Mahasiswa" {{ $resident->pekerjaan == 'Pelajar/Mahasiswa' ? 'selected' : '' }}>Pelajar/Mahasiswa</option>

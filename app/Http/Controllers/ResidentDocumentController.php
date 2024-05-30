@@ -17,14 +17,12 @@ class ResidentDocumentController extends Controller
       $this->documentContract = $documentContract;
     }
     public function index(){
+      $userId = Auth::id();
+      $detailAccount = UserModel::findOrFail($userId);
       $title = 'Pengajuan Dokumen';
       $resident = UserModel::findOrFail(Auth::id());
-      return view('resident._requestDocument.index', compact('title','resident'));
-    }
-    public function history()
-    {
       $documentData = $this->documentContract->getData();
-      return view('resident._requestDocument.history', compact('documentData'));
+      return view('resident._requestDocument.index', compact('title','resident','documentData', 'detailAccount'));
     }
   
     public function requestDocument(StoreDocumentRequest $request) // Use validated request
