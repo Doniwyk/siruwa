@@ -45,8 +45,7 @@ class UserModelFactory extends Factory
             'pajak_bumi' => fake()->randomFloat(2, 100, 500),
             'biaya_listrik' => fake()->randomFloat(2, 50, 200),
             'biaya_air' => fake()->randomFloat(2, 20, 100),
-            'jumlah_sepeda' => fake()->numberBetween(0, 5),
-            'jumlah_mobil' => fake()->numberBetween(0, 5),
+            'total_pajak_kendaraan' => fake()->randomFloat(2, 100, 500),
         ];
     }
 }
