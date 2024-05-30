@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use App\Contracts\AccountContract;
-use App\Http\Requests\AccountRequest;
 use App\Models\AccountModel;
 use App\Models\UserModel;
 use Exception;
@@ -32,7 +29,7 @@ class AccountController extends Controller
             $title = 'Profil';
             $role = Auth::user()->role;
             // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
-            return view($role . '._profile.index', compact('account','detailAccount', 'page', 'title', 'userId'));
+            return view($role . '._profile.index', compact('account', 'detailAccount', 'page', 'title', 'userId'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -49,7 +46,7 @@ class AccountController extends Controller
             $title = 'Edit Profil';
             $page = 'profil';
             $role = Auth::user()->role;
-            return view($role . '._profile.edit',compact('title', 'account', 'resident', 'page'));
+            return view($role . '._profile.edit', compact('title', 'account', 'resident', 'page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -57,17 +54,17 @@ class AccountController extends Controller
 
     public function updateAccount(Request $request)
     {
-        
         try {
-            $role = Auth::user()->role;
-            $account = Auth::user();
-            
             // Validasi input
             $validated = $request->validate([
                 'username' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
                 'noHp' => 'required|string|max:15',
+                'urlProfile' => 'nullable'
             ]);
+
+            $account = Auth::user();
+
             $this->akunContract->updateAccount($validated, $account);
             return response()->json(['message' => 'Account updated successfully.'], 200);
         } catch (\Exception $e) {
