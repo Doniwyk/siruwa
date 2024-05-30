@@ -27,7 +27,8 @@ class AdminPaymentController extends Controller
         $page = $this->pageName;
         
         $fundData = $this->paymentService->getSubmission();
-        $history = $this->validatedPayment();
+        $history = $this->paymentService->getValidatedPayment();
+        
         return view('admin._fund.index', compact('fundData', 'history', 'title','page','typeDocument','search','order'));
     }
     public function validatePayment(ValidatePaymentRequest $request, PaymentModel $payment){
