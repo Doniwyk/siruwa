@@ -14,7 +14,7 @@
             <div class="row-span-2 col-span-1 relative " id="file-1">
                 <input type="file" name="image" id="image" class="hidden">
                 <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
-                    <div >
+                    <div>
                         <span class="font-semibold flex-col flex-center text-main ">
                             <x-icon.galery />
                             Upload Gambar
@@ -42,4 +42,11 @@
         <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
             Upload </button>
     </form>
+@endsection
+@section('script')
+    <script>
+        // inisiasi classic editor (CKE5)
+        ClassicEditor.create(document.querySelector('#editor'))
+        previewBeforeUpload('file-1')
+    </script>
 @endsection
