@@ -47,8 +47,7 @@ return new class extends Migration
             $table->double('pajak_bumi');
             $table->double('biaya_listrik');
             $table->double('biaya_air');
-            $table->integer('jumlah_sepeda');
-            $table->integer('jumlah_mobil');
+            $table->integer('total_pajak_kendaraan');
             $table->timestamps();
         });
     }

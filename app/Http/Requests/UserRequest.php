@@ -44,10 +44,10 @@ class UserRequest extends FormRequest
             'ikut_paud' => 'required',
             'has_BKB' => 'required',
             'gaji'=> 'required',
-            'jumlah_kendaraan_bermotor' => 'required',
             'pajak_bumi' => 'required',
             'biaya_listrik' => 'required',
-            'biaya_air' => 'required'
+            'biaya_air' => 'required',
+            'total_pajak_kendaraan' => 'required',
 
         ];
     }
