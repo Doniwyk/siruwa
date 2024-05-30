@@ -32,11 +32,6 @@ class UserModelFactory extends Factory
             'alamat' => fake()->address,
             'pendidikan' => fake()->randomElement(['TTS', 'SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
             'pekerjaan' => fake()->randomElement(['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'PM', 'TB']),
-            'gaji' => fake()->randomFloat(2, 1000, 10000),
-            'pajak_bumi' => fake()->randomFloat(2, 100, 500),
-            'biaya_listrik' => fake()->randomFloat(2, 50, 200),
-            'biaya_air' => fake()->randomFloat(2, 20, 100),
-            'jumlah_kendaraan_bermotor' => fake()->numberBetween(0, 5),
             'akseptor_kb' => fake()->boolean,
             'jenis_akseptor' => fake()->randomElement(['IUD', 'Pil', 'Suntik']),
             'aktif_posyandu' => fake()->boolean,
@@ -46,6 +41,12 @@ class UserModelFactory extends Factory
             'jenis_kel_belajar' => fake()->randomElement(['Sekolah Dasar', 'Sekolah Menengah', 'Perguruan Tinggi']),
             'ikut_paud' => fake()->boolean,
             'ikut_koperasi' => fake()->boolean,
+            'gaji' => fake()->randomFloat(2, 1000, 10000),
+            'pajak_bumi' => fake()->randomFloat(2, 100, 500),
+            'biaya_listrik' => fake()->randomFloat(2, 50, 200),
+            'biaya_air' => fake()->randomFloat(2, 20, 100),
+            'jumlah_sepeda' => fake()->numberBetween(0, 5),
+            'jumlah_mobil' => fake()->numberBetween(0, 5),
         ];
     }
 }
