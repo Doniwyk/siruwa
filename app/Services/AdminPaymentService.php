@@ -15,64 +15,64 @@ class AdminPaymentService implements AdminPaymentContract
 {
     private static int $MONTHLY_PAYMENT = 10_000;
 
-public function validatePayment(array $validatedData, string $action, PaymentModel $payment)
-{
-    if ($action != 'terima') {
-        $payment->status = 'Ditolak';
-        $payment->save();
-        return;
-    }
-
-    $totalPayment = $validatedData['jumlah'];
-    $monthsPaid = (int) ($totalPayment / self::$MONTHLY_PAYMENT);
-
-    $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
-    $no_kk = $payment->nomor_kk;
-
-    $monthsDue = $table::where('nomor_kk', $no_kk)
-        ->where('status', 'Belum Lunas')
-        ->orderBy('bulan', 'asc')
-        ->limit($monthsPaid)
-        ->get();
-
-    DB::beginTransaction();
-    try {
-        $payment->status = 'Terverifikasi';
-        $payment->id_admin = Auth::user()->id;
-        $payment->save();
-
-        $monthsDueCount = $monthsDue->count();
-
-        foreach ($monthsDue as $index => $currentMonth) {
-            $currentMonth->id_pembayaran = $payment->id_pembayaran;
-            $currentMonth->status = 'Lunas';
-            $currentMonth->save();
+    public function validatePayment(array $validatedData, string $action, PaymentModel $payment)
+    {
+        if ($action != 'terima') {
+            $payment->status = 'Ditolak';
+            $payment->save();
+            return;
         }
 
-        if ($monthsPaid > $monthsDueCount) {
-            $lastPaidMonth = $table::where('nomor_kk', $no_kk)
-                ->where('status', 'Lunas')
-                ->orderBy('bulan', 'desc')
-                ->first();
+        $totalPayment = $validatedData['jumlah'];
+        $monthsPaid = (int) ($totalPayment / self::$MONTHLY_PAYMENT);
 
-            $lastPaidMonth = $lastPaidMonth ? Carbon::parse($lastPaidMonth->bulan) : Carbon::now();
+        $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
+        $no_kk = $payment->nomor_kk;
 
-            for ($i = 0; $i < ($monthsPaid - $monthsDueCount); $i++) {
-                $table::create([
-                    'nomor_kk' => $no_kk,
-                    'bulan' => $lastPaidMonth->addMonth(),
-                    'status' => 'Lunas',
-                    'id_pembayaran' => $payment->id_pembayaran
-                ]);
+        $monthsDue = $table::where('nomor_kk', $no_kk)
+            ->where('status', 'Belum Lunas')
+            ->orderBy('bulan', 'asc')
+            ->limit($monthsPaid)
+            ->get();
+
+        DB::beginTransaction();
+        try {
+            $payment->status = 'Terverifikasi';
+            $payment->id_admin = Auth::user()->id;
+            $payment->save();
+
+            $monthsDueCount = $monthsDue->count();
+
+            foreach ($monthsDue as $index => $currentMonth) {
+                $currentMonth->id_pembayaran = $payment->id_pembayaran;
+                $currentMonth->status = 'Lunas';
+                $currentMonth->save();
             }
-        }
 
-        DB::commit();
-    } catch (Exception $exception) {
-        DB::rollBack();
-        throw new Exception($exception->getMessage());
+            if ($monthsPaid > $monthsDueCount) {
+                $lastPaidMonth = $table::where('nomor_kk', $no_kk)
+                    ->where('status', 'Lunas')
+                    ->orderBy('bulan', 'desc')
+                    ->first();
+
+                $lastPaidMonth = $lastPaidMonth ? Carbon::parse($lastPaidMonth->bulan) : Carbon::now();
+
+                for ($i = 0; $i < ($monthsPaid - $monthsDueCount); $i++) {
+                    $table::create([
+                        'nomor_kk' => $no_kk,
+                        'bulan' => $lastPaidMonth->addMonth(),
+                        'status' => 'Lunas',
+                        'id_pembayaran' => $payment->id_pembayaran
+                    ]);
+                }
+            }
+
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw new Exception($exception->getMessage());
+        }
     }
-}
 
 
     public function getFundData()
@@ -88,29 +88,32 @@ public function validatePayment(array $validatedData, string $action, PaymentMod
 
     public function getValidatedPayment()
     {
-        $validatedPayments = PaymentModel::where('status', ['Terverifikasi', 'Ditolak'])->with('penduduk', 'admin')->paginate(10);
+        $validatedPayments = PaymentModel::whereIn('status', ['Terverifikasi', 'Ditolak'])
+            ->with('penduduk', 'admin')
+            ->paginate(10, ['*'], 'validatedPage');
 
         return $validatedPayments;
     }
 
     public function getSubmission()
     {
-        $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')->with('penduduk', 'admin')->paginate(10);
+        $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')
+            ->with('penduduk', 'admin')
+            ->paginate(10, ['*'], 'submissionPage');
 
-        $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')
-        ->count() * 10000;
-        $getGarbageFundAmount = GarbageFundModel::where('status', 'Lunas')
-        ->count() * 10000;
+        $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')->count() * 10000;
+        $getGarbageFundAmount = GarbageFundModel::where('status', 'Lunas')->count() * 10000;
 
-        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')
-        ->count() * 10000;
-        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')
-        ->count() * 10000;
-        $getTunggakan = $getDeathFundTunggakan+$getGarbageFundTunggakan;
-        
-        return ['getSubmission' => $getSubmission, 
-                'deathFundTotal' => $getDeathFundAmount, 
-                'garbageFundTotal' => $getGarbageFundAmount,
-                'tunggakan' => $getTunggakan];
+        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')->count() * 10000;
+        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')->count() * 10000;
+        $getTunggakan = $getDeathFundTunggakan + $getGarbageFundTunggakan;
+
+        return [
+            'getSubmission' => $getSubmission,
+            'deathFundTotal' => $getDeathFundAmount,
+            'garbageFundTotal' => $getGarbageFundAmount,
+            'tunggakan' => $getTunggakan
+        ];
     }
+
 }

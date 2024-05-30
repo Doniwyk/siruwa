@@ -75,7 +75,7 @@ class UserService implements UserContract
     {
         $residents = TempResidentModel::with('penduduk')
             ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', $search . '%');
+                $query->where('nama', 'like', $search . '%');
             })
             ->where('status', 'Menunggu Verifikasi')
             ->orderBy('nama', $order)

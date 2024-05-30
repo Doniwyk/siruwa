@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.1.0/build/global/luxon.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>{{ $title }}</title>
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
@@ -27,6 +29,7 @@
 </body>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
         function fetchResidentData(typeDocument = '', search = '', order = 'asc', page = 1) {
@@ -41,6 +44,7 @@
                     page: page
                 },
                 success: function(data) {
+                    console.log(data);
                     const initialLocation =
                         `${window.location.origin}/admin/data-penduduk?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
                     window.history.pushState({
@@ -90,9 +94,9 @@
                                 <td>${resident.tgl_lahir}</td>
                                 <td>${resident.no_reg}</td>
                                 <td>
-                                    <button class="flex-center">
+                                    <a class="flex-start" href=" data-penduduk/${resident.id_penduduk}/edit }}">
                                         <x-icon.detail />
-                                </button>
+                                    </a>
                                 </td>
                             </tr>`
                                 );
@@ -118,7 +122,7 @@
                     $('#pagination').append(data.paginationHtml); // Update HTML paginasi
                 },
                 error: function(xhr, status, error) {
-                    console.error("Error: " + status + " " + error);
+                    console.error(error);
                 }
             });
         }
@@ -312,4 +316,5 @@
 
     });
 </script>
+@yield('script')
 </html>

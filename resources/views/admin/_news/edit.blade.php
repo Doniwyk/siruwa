@@ -38,3 +38,10 @@
             Upload </button>
     </form>
 @endsection
+@section('script')
+    <script>
+        // inisiasi classic editor (CKE5)
+        ClassicEditor.create(document.querySelector('#editor'))
+        previewBeforeUpload('file-1')
+    </script>
+@endsection

@@ -9,20 +9,14 @@ use Illuminate\View\Component;
 class Input extends Component
 {
     public $label;
-    public $placeholder;
     public $type;
     public $name;
-    public $id;
-    public $value;
     
-    public function __construct($label, $placeholder, $type, $name, $id, $value = null)
+    public function __construct($label, $type, $name)
     {
         $this->label = $label;
-        $this->placeholder = $placeholder;
         $this->type = $type;
         $this->name = $name;
-        $this->id = $id;
-        $this->value = $value;
     }
     
 
