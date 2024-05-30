@@ -20,12 +20,20 @@ return new class extends Migration
             $table->string('tempat_lahir', 100);
             $table->enum('jenis_kelamin',['L','P']);
             $table->string('rt') ;
-            $table->enum('status_kawin',['Belum Menikah','Menikah', 'Cerai Hidup', 'Cerai Mati']);
-            $table->enum('status_keluarga',['Kepala Keluarga','Istri','Anak']);
-            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu','Kepercayaan Lain']);
+            //BM -> Belum menikah
+            //M -> Menikah
+            //CH -> Cerai hidup
+            //CM -> Cerai mati
+            $table->enum('status_kawin',['BM','M', 'CH', 'CM']);
+            $table->enum('status_keluarga',['kepala_keluarga','istri','anak']);
+            //KL -> Kepercayaan lain
+            $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu','KL']);
             $table->text('alamat');
-            $table->enum('pendidikan',['Tidak tamat SD','SD','SMP','SMA','Diploma','Sarjana']);
-            $table->enum('pekerjaan',['PNS', 'TNI/POLRI','Wirausaha','Wiraswasta','Pelajar/Mahasiswa']);
+            //TTS -> Tidak tamat SD
+            $table->enum('pendidikan',['TTS','SD','SMP','SMA','Diploma','Sarjana']);
+            //PM -> Pelajar/Mahasiswa
+            //TB -> Tidak bekerja
+            $table->enum('pekerjaan',['PNS', 'TNI/POLRI','Wirausaha','Wiraswasta','PM','TB']);
             $table->double('gaji');
             $table->double('pajak_bumi');
             $table->double('biaya_listrik');
