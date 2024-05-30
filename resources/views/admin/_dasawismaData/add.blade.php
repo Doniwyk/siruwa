@@ -67,7 +67,7 @@
                 <x-form.select-input-form label="Pekerjaan" name="pekerjaan">
                     <option value="">Pekerjaan</option>
                     <option value="PNS">PNS</option>
-                    <option value="TNI/Polri">TNI/Polri</option>
+                    <option value="TNI/POLRI">TNI/POLRI</option>
                     <option value="Wirausaha">Wirausaha</option>
                     <option value="Wiraswasta">Wiraswasta</option>
                     <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
