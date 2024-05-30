@@ -14,6 +14,7 @@ class ResidentPaymentService implements ResidentPaymentContract
     public function storePayment(array $validatedData){
       $cloudinaryImage = $validatedData['urlBuktiPembayaran']->storeOnCloudinary('pembayaran');
       $response = $cloudinaryImage->getSecurePath();
+      $publicId = $cloudinaryImage->getPublicId();
       $user = Auth::user();
       $penduduk = UserModel::find($user->id_penduduk);
       if ($penduduk) {
@@ -22,6 +23,8 @@ class ResidentPaymentService implements ResidentPaymentContract
           return redirect()->back()->with('error', 'Nomor KK tidak ditemukan.');
       }
       $validatedData['urlBuktiPembayaran'] = $response;
+      $validatedData['publicId'] = $publicId;
+      $validatedData['status'] = 'Belum Terverifikasi';
       PaymentModel::create($validatedData);
     }
     public function getFundData()
