@@ -99,12 +99,21 @@
                     </tr>
                 </thead>
                 <tbody class="history-body">
-                    <tr>
-                        <td>John Doe</td>
-                        <td>Surat Pengantar KTP</td>
-                        <td>12 Agustus 2021</td>
-                        <td class="font-bold text-secondary">Menunggu Verifikasi</td>
-                    </tr>
+                    @foreach($documentData['document'] as $record)
+                        <tr>
+                            <td>{{ $detailAccount->nama }}</td>
+                            <td>{{ $record->jenis }}</td>
+                            <td>{{ $record->created_at }}</td>
+                            <td class="flex items-center">
+                                <div class="w-1/2">
+                                    {{ $record->status }}
+                                </div>
+                                <button class="w-1/2">
+                                    <x-icon.detail />
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
