@@ -203,7 +203,8 @@ class ResidentController extends Controller
     {
         $userId = Auth::id();
         $resident = UserModel::findOrFail($userId);
-        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident]);
+        $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
+        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident, 'history' => $history]);
     }
 
 
@@ -232,11 +233,4 @@ class ResidentController extends Controller
         }
     }
 
-    //For display resident data on the page "Resident->Pengajuan Perubahan Data Penduduk"
-    public function historyEditRequest(UserModel $penduduk)
-    {
-        $history = TempResidentModel::where('id_penduduk', $penduduk->id_penduduk);
-
-        return view('resident._dasawismaData.history', ['title' => 'Riwayat Pengajuan', 'history' => $history]);
-    }
 }
