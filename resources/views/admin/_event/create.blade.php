@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group ">
                     <label for="penulis" class="text-main font-semibold">Tanggal Agenda</label>
-                    <input type="date" id ="tanggal" name ="tanggal" class="px-6 py-2 rounded-2xl outline-none"  />
+                    <input type="date" id ="tanggal" name ="tanggal" class="px-6 py-2 rounded-2xl outline-none" />
                 </div>
 
             </section>
@@ -48,4 +48,11 @@
         <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
             Upload </button>
     </form>
+@endsection
+@section('script')
+    <script>
+        // inisiasi classic editor (CKE5)
+        ClassicEditor.create(document.querySelector('#editor'))
+        previewBeforeUpload('file-1')
+    </script>
 @endsection

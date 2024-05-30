@@ -1,6 +1,3 @@
-// inisiasi classic editor (CKE5)
-ClassicEditor.create(document.querySelector( '#editor' ))
-
 function activeButton(button) {
     const buttons = document.querySelectorAll(".button-option");
     buttons.forEach((button) => {
@@ -72,5 +69,3 @@ const previewBeforeUpload = (id) => {
     })
 
 }
-
-previewBeforeUpload('file-1') // id yang digunakan merupakan id dari input:file dari form tambah/edit berita/agenda
