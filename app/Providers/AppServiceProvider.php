@@ -16,6 +16,7 @@ use App\Contracts\AdminResidentImportContract;
 use App\Contracts\DashboardContract;
 use App\Contracts\ResidentDocumentContract;
 use App\Contracts\ResidentPaymentContract;
+use App\Contracts\StatisticContract;
 use App\Http\Controllers\StatisticController;
 use App\Services\AccountService;
 use App\Services\AuthenticationContract;
@@ -35,6 +36,7 @@ use App\Services\AdminImportService;
 use App\Services\AdminPaymentService;
 use App\Services\ResidentDocumentService;
 use App\Services\ResidentPaymentService;
+use App\Services\StatisticService;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class AppServiceProvider extends ServiceProvider
@@ -56,7 +58,8 @@ class AppServiceProvider extends ServiceProvider
         AdminResidentImportContract::class => AdminImportService::class,
         ResidentDocumentContract::class => ResidentDocumentService::class,
         ResidentPaymentContract::class => ResidentPaymentService::class,
-        DashboardContract::class => DashboardService::class
+        DashboardContract::class => DashboardService::class,
+        StatisticContract::class => StatisticService::class
     ];
 
     public function provides(): array
@@ -74,7 +77,8 @@ class AppServiceProvider extends ServiceProvider
             AdminResidentImportContract::class,
             ResidentDocumentContract::class,
             ResidentPaymentContract::class,
-            DashboardContract::class
+            DashboardContract::class,
+            StatisticContract::class
         ];
     }
 
