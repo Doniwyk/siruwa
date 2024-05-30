@@ -23,7 +23,7 @@ class ResidentPaymentService implements ResidentPaymentContract
           return redirect()->back()->with('error', 'Nomor KK tidak ditemukan.');
       }
       $validatedData['urlBuktiPembayaran'] = $response;
-      $validatedData['publicId'] = $publicId;
+      $validatedData['image_public_id'] = $publicId;
       $validatedData['status'] = 'Belum Terverifikasi';
       PaymentModel::create($validatedData);
     }
