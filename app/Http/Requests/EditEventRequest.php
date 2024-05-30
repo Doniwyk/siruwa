@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class NewsRequest extends FormRequest
+class EditEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,19 +23,10 @@ class NewsRequest extends FormRequest
     {
         return [
             //
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'judul' => 'required',
-            'isi' => 'required'
+            'gambar' => 'nullable',
+            'isi' => 'required',
+            'tanggal' => 'required'
         ];
-    }
-
-
-    public function messages()
-    {
-        return [
-        'id_admin.required' => 'ID Admin wajib diisi.',
-        'judul.required' => 'Judul berita wajib diisi.',
-        'isi.required' => 'Isi berita wajib diisi.'
-    ];
     }
 }

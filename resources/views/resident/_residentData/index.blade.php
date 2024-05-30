@@ -81,18 +81,15 @@
                         </tr>
                     </thead>
                     <tbody class="history-body">
-                        <tr>
-                            <td>Daffa Maulana Satria</td>
-                            <td>Iuran Sampah</td>
-                            <td>Rp. 900.000</td>
-                            <td>Januari, 24 2024</td>
-                        </tr>
-                        <tr>
-                            <td>Daffa Maulana Satria</td>
-                            <td>Iuran Sampah</td>
-                            <td>Rp. 900.000</td>
-                            <td>Januari, 24 2024</td>
-                        </tr>
+                        @foreach($history as $record)
+                            <tr>
+                                <td>{{ $record->nama }}</td>
+                                <td>{{ $record->created_at->format('d F Y') }}</td>
+                                <td class="font-bold {{ $record->status == 'Ditolak' ? 'text-red-600' : ($record->status == 'Diterima' ? 'text-secondary' : ($record->status == 'Menunggu Verifikasi' ? 'text-input-disabled' : 'text-secondary')) }}">
+                                    {{ $record->status }}</td>
+                                <td>{{ $record->keterangan_status }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

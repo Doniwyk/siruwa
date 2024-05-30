@@ -39,3 +39,33 @@ function closeForm(formId, modalId) {
     sectionPopup.classList.add("hidden");
 }
 
+const previewBeforeUpload = (id) => {
+    const input = document.querySelector('#' + id + ' input')
+    input.addEventListener('change', ({
+        target
+    }) => {
+        let file, url, imagePreview;
+        const image = document.querySelector('#' + id + ' img')
+
+        file = target.files[0];
+        if (image) {
+            url = URL.createObjectURL(file);
+            image.src = url;
+            return
+        }
+
+        if (!target.files.length) {
+            return
+        }
+
+        url = URL.createObjectURL(file);
+
+        imagePreview = document.createElement("img");
+        imagePreview.src = url;
+        imagePreview.classList.add('object-contain', 'h-full', 'w-full')
+
+        document.querySelector('#' + id + ' div').innerHTML = '';
+        document.querySelector('#' + id + '-preview').appendChild(imagePreview)
+    })
+
+}

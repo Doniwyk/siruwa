@@ -37,10 +37,10 @@
     }
 
     .link-option_parrent {
-        @apply flex max-w-[30.25rem] min-h-[3.5rem] rounded-2xl py-2 px-4 justify-between  font-semibold bg-white text-sm;
+        @apply flex-start min-h-[3.5rem] gap-5 rounded-2xl py-2 px-4 font-semibold bg-white text-sm flex-shrink;
     }
     .link-option {
-        @apply flex-center flex-1 rounded-2xl text-main font-medium transition-all ease-linear py-2 px-4 min-w-[9rem];
+        @apply flex-center rounded-2xl text-main font-medium transition-all ease-linear py-2 px-4 min-w-[9rem];
     }
     .link-option_active {
         @apply bg-main  text-white font-semibold;
@@ -71,6 +71,12 @@
     }
     .button-action_reject{
         @apply px-24 py-3 rounded-2xl bg-red-600;
+    }
+    .dropzone{
+        @apply h-full w-full border-2 border-dashed border-main bg-white rounded-2xl;
+    }
+    .ck-editor__editable_inline{
+        @apply h-[20rem]
     }
 }
 .bg_beranda {
@@ -146,7 +152,10 @@
     @apply flex h-28 gap-x-9;
 }
 .card {
-    @apply bg-third flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main h-[7rem];
+    @apply bg-white relative flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main h-[7rem];
+}
+.card::before{
+    @apply absolute h-full w-[1rem] bg-black left-0 top-0
 }
 .text-fund {
     @apply text-2xl font-bold;
@@ -158,7 +167,7 @@
     @apply  flex gap-9;
 }
 .summary-card {
-    @apply bg-white flex-1 p-4 rounded-2xl;
+    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem];
 }
 .card-total {
     @apply flex flex-auto;
@@ -170,10 +179,10 @@
     @apply text-main font-bold text-2xl;
 }
 .news {
-    @apply h-[5rem] flex justify-between items-center;
+    @apply h-[5rem] flex justify-start items-center;
 }
 
-.desc-news {
+.news p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2; /* Jumlah maksimal baris */

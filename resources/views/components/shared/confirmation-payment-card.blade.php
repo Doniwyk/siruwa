@@ -7,7 +7,8 @@
     @method('PUT')
     <h1 class="text-xl font-bold text-main text-center">Konfirmasi Pembayaran</h1>
     <img src="" alt="Bukti Pembayaran" class="h-[11.75rem]">
-    <input type="text" name="jumlah" id="#jumlah" class="w-[20rem] mt-4 border-2 p-2 border-outline outline-none rounded-2xl" value="{{ $fundData->jumlah }}" disabled>
+    <input type="text" name="jumlah" id="jumlah"  value="{{ $fundData->jumlah }}" class="hidden">
+    <input type="text" name="jumlah_display" id="jumlah_display" class="w-[20rem] mt-4 border-2 p-2 border-outline outline-none rounded-2xl" value="{{ $fundData->jumlah }}" disabled>
     <div class="wrapper flex gap-5">
         <button @class([
             'mt-5',

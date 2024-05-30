@@ -6,26 +6,21 @@
         </a>
         <h1 class="h1-semibold">Tulis Berita</h1>
     </div>
-    <form action="{{ route('admin.manajemen-berita.store') }}" enctype="multipart/form-data" method="POST"
-        class="flex flex-col gap-6 items-end" id="add_news_form">
+    <form action="{{ route('admin.manajemen-berita.update', ['news' => $news->id_berita]) }}" enctype="multipart/form-data"
+        method="POST" class="flex flex-col gap-6 items-end" id="add_news_form">
         @csrf
-        @method('POST')
+        @method('PUT')
         <section class="grid grid-rows-2 grid-cols-4 gap-6 w-full">
             <div class="row-span-2 col-span-1 relative " id="file-1">
-                <input type="file" name="image" id="image" class="hidden">
+                <input type="file" name="gambar" id="image" class="hidden">
                 <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
-                    <div>
-                        <span class="font-semibold flex-col flex-center text-main ">
-                            <x-icon.galery />
-                            Upload Gambar
-                        </span>
-                    </div>
+                    <img src="{{ $news->url_gambar }}" alt="image" class="object-contain h-full" id="imagePreview">
                 </label>
             </div>
             <div class="form-group col-span-3">
                 <label for="judul" class="text-main font-semibold">Judul Berita</label>
                 <input type="text" id ="judul" name ="judul" class="px-6 py-2 rounded-2xl outline-none"
-                    placeholder="Tuliskan Judul Berita" />
+                    placeholder="Tuliskan Judul Berita" value="{{ $news->judul }}" />
             </div>
             <div class="form-group col-span-3">
                 <label for="penulis" class="text-main font-semibold">Penulis</label>
@@ -37,7 +32,7 @@
         </section>
         <section class="flex flex-col gap-3 w-full">
             <label for="description" class="text-main font-semibold">Isi Artikel</label>
-            <textarea id="editor" name="editor" class="ck-editor__editable ck-editor__editable_inline"></textarea>
+            <textarea id="editor" name="isi" class="ck-editor__editable ck-editor__editable_inline">{{ $news->isi }}</textarea>
         </section>
         <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
             Upload </button>
