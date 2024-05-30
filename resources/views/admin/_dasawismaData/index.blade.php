@@ -24,6 +24,12 @@
             </a>
         </div>
         <div class="add-wrapper">
+            <a href="{{ route('admin.data-penduduk.export') }}">
+                <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
+                    <x-icon.import />
+                    Export .csv
+                </button>
+            </a>
             <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
                 <x-icon.import />
                 Import .csv
