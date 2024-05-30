@@ -171,6 +171,4 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-
-    
 }

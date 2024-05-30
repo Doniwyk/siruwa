@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminDocumentController;
 use App\Http\Controllers\AdminImportResidentController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
@@ -35,6 +36,9 @@ Route::get('/list-berita', function () {
     return view('/berita/list-berita');
 });
 
+Route::get('/coba', [NewsController::class, 'coba'])->name('coba');
+
+
 //==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
@@ -46,7 +50,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 
 //==================================ROUTE LANDING PAGE========================================
 
-Route::get('/', [NewsController::class, 'indexResident'])->name('index');
+Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index');
 
 
 //==================================ROUTE STATISTIC FOR ADMIN========================================
@@ -58,6 +62,19 @@ Route::group([
 ], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('index');
 });
+
+//==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
+
+Route::group([
+    'prefix' => 'admin/dashboard',
+    'as' => 'admin.dashboard.',
+    'middleware' =>  ['isAuth', 'userAccess:admin']
+], function () {
+    Route::get('/', [DashboardController::class, 'dataDashboard'])->name('index');
+    Route::put('/{resident}', [DashboardController::class, 'updateDashboardData'])->name('update');
+
+});
+
 
 
 //==================================ROUTE RESIDENT DATA FOR ADMIN========================================
