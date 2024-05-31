@@ -10,6 +10,8 @@ use App\Models\NewsModel;
 use App\Models\UserModel;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -172,5 +174,29 @@ class NewsController extends Controller
         }
     }
 
-    
+    public function NewsList()
+    {
+        return view('berita.list-berita');
+    }
+
+    public function NewsListPage()
+    {
+        try {
+            $news = NewsModel::paginate(5);
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+
+    public function showArtikel($id)
+    {
+        $artikel = DB::table('users')
+            ->join('berita', 'users.id', '=', 'berita.id_berita')
+            ->join('penduduk', 'users.id', '=', 'penduduk.id_penduduk')
+            ->select('berita.*', 'penduduk.nama')
+            ->where('berita.id_berita', $id)
+            ->first();  
+        return view('berita.artikel', compact('artikel'));
+    }
 }
