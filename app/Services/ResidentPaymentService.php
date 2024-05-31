@@ -19,6 +19,7 @@ class ResidentPaymentService implements ResidentPaymentContract
       $penduduk = UserModel::find($user->id_penduduk);
       if ($penduduk) {
           $validatedData['nomor_kk'] = $penduduk->nomor_kk;
+          $validatedData['id_penduduk'] = $penduduk->id_penduduk;
       } else {
           return redirect()->back()->with('error', 'Nomor KK tidak ditemukan.');
       }
