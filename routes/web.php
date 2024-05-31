@@ -37,8 +37,6 @@ Route::get('/list-berita', function () {
     return view('/berita/list-berita');
 });
 
-<<<<<<< Updated upstream
-=======
 Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
 
@@ -46,7 +44,6 @@ Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])-
 Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
 Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
 
->>>>>>> Stashed changes
 //==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
