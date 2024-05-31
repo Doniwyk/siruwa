@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('noHp', 25)->nullable();
             $table->string('password');
             $table->string('role');
+            $table->string('image_public_id');
             $table->rememberToken();
             $table->timestamps();
 

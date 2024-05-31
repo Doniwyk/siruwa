@@ -20,6 +20,7 @@ class PaymentModelFactory extends Factory
     public function definition(): array
     {
 return [
+            'id_penduduk' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'id_admin' => $this->faker->randomElement([1, 2, 3, 4, 5]),
             'nomor_kk' => function () {
                 return UserModel::factory()->create()->nomor_kk;

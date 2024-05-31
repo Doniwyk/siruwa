@@ -15,7 +15,7 @@ class PaymentModel extends Model
     protected $primaryKey = 'id_pembayaran';
 
 
-    protected $fillable = ['id_admin', 'nomor_kk' ,'jenis', 'metode', 'urlBuktiPembayaran', 'jumlah', 'status', 'keterangan_status'];
+    protected $fillable = ['id_admin', 'id_penduduk', 'nomor_kk' ,'jenis', 'metode', 'urlBuktiPembayaran', 'image_public_id', 'jumlah', 'status', 'keterangan_status'];
 
 
     public function admin(): BelongsTo
@@ -25,6 +25,14 @@ class PaymentModel extends Model
     public function penduduk(): BelongsTo
     {
         return $this->belongsTo(UserModel::class, 'nomor_kk');
+    }
+    public function resident(): BelongsTo
+    {
+        return $this->belongsTo(UserModel::class, 'id_penduduk');
+    }
+    public function akun(): BelongsTo
+    {
+        return $this->belongsTo(AccountModel::class, 'id_penduduk');
     }
     public function iuran_kematian(): HasMany
     {

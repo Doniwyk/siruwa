@@ -10,7 +10,7 @@ class TempResidentModel extends Model
 {
     use HasFactory;
     protected $table = 'penduduk_temporary';
-    protected $primaryKey = 'id_penduduk';
+    protected $primaryKey = 'id_temporary';
 
     protected $fillable = [
         'id_penduduk','no_reg', 'tgl_lahir', 'nik', 'nomor_kk', 'nama', 'tempat_lahir',

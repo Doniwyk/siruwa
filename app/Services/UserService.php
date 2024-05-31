@@ -32,6 +32,7 @@ class UserService implements UserContract
     public function validateEditRequest(string $action, $id)
     {
         $tempResident = TempResidentModel::where('id_temporary', $id)->first();
+
         $resident = UserModel::where('id_penduduk', $tempResident->id_penduduk)->first();
         if ($action === 'accept') {
             $resident->update($tempResident->toArray());
@@ -41,6 +42,8 @@ class UserService implements UserContract
         if ($action === 'reject') {
             $tempResident->status = 'Ditolak';
             $tempResident->save();
+            dd($tempResident)->toArray();
+
         }
     }
 
@@ -72,7 +75,7 @@ class UserService implements UserContract
     {
         $residents = TempResidentModel::with('penduduk')
             ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', $search . '%');
+                $query->where('nama', 'like', $search . '%');
             })
             ->where('status', 'Menunggu Verifikasi')
             ->orderBy('nama', $order)

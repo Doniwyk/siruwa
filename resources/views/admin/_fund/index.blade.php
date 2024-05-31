@@ -26,6 +26,7 @@
             <table class="table-parent">
                 <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Nomor KK</th>
                         <th>Tgl Permintaan</th>
                         <th>No. Telepon</th>
@@ -38,9 +39,10 @@
                     @endphp
                     @foreach ($fundData['getSubmission'] as $data)
                         <tr>
+                            <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td>{{ $data->created_at }}</td>
-                            <td>{{ $data->admin->noHp }}</td>
+                            <td>{{ $data->akun->noHp }}</td>
                             <td>
                                 <button class="w-[25px] h-[25px] flex-center"
                                     onclick="showPopup('#payment-card-{{ $i }}', '#modal-parent-{{ $i }}')">
@@ -59,7 +61,7 @@
                 </tbody>
             </table>
             <div>
-                {{ $fundData['getSubmission']->links() }}
+                {{ $fundData['getSubmission']->appends(request()->except('validatedPage'))->links() }}
             </div>
         @break
 
@@ -67,6 +69,7 @@
             <table class="table-parent">
                 <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Nomor KK</th>
                         <th>Tgl Permintaan</th>
                         <th>No. Telepon</th>
@@ -79,19 +82,12 @@
                     @endphp
                     @foreach ($history as $data)
                         <tr>
+                            <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td>{{ $data->created_at }}</td>
-                            <td>{{ $data->admin->noHp }}</td>
-                            <td>
-                                <button class="w-[25px] h-[25px] flex-center"
-                                    onclick="showPopup('#payment-card-{{ $i }}', '#modal-parent-{{ $i }}')">
-                                    <x-icon.detail />
-                                </button>
-                            </td>
-                            <td class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden"
-                                id="modal-parent-{{ $i }}">
-                                <x-shared.confirmation-payment-card :formId="$i" :fundData="$data" />
-                            </td>
+                            <td>{{ $data->akun->noHp }}</td>
+                            <td class="font-semibold {{ $data->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                                {{ $data->status }}</td>
                         </tr>
                         @php
                             $i++;
@@ -100,10 +96,8 @@
                 </tbody>
             </table>
             <div>
-                {{ $history->links() }}
+                {{ $history->appends(request()->except('submissionPage'))->links() }}
             </div>
         @break
-
-        @default
     @endswitch
 @endsection

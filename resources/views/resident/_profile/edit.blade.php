@@ -3,7 +3,7 @@
 
 <div class="resident-header">{{ $title }}</div>
 <div class="bg-white p-9 rounded-2xl flex mb-6">
-    <form action="" class="flex w-full space-x-9">
+    <form action="" class="flex space-x-9 w-full">
         <!-- Foto Profil -->
         <section class="shrink-0 flex flex-col" x-data="imageHandler()">
             <span class="mb-6 block text-2xl font-semibold text-secondary">Foto Profil</span>
@@ -22,12 +22,12 @@
         <section class="w-full flex flex-col">
             <span class="mb-6 block text-2xl font-semibold text-secondary">Identitas Diri</span>
     
-            <div class="grid grid-rows-3 grid-flow-col gap-x-9 gap-y-5 mb-6">
+            <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5 mb-6">
                 <x-form.show-input-form :label="'Nama Lengkap'"  :name="'nama'" :value="$resident->nama" />
-                <x-form.show-input-form :label="'Role'"  :name="'role'" :value="$account->role" />
-                <x-form.show-input-form :label="'Alamat Lengkap'"  :name="'alamat'" :value="$resident->alamat" />
                 <x-form.text-input-form label="Username" name="username" :value="$account->username" />
+                <x-form.show-input-form :label="'Role'"  :name="'role'" :value="$account->role" />
                 <x-form.text-input-form label="Email" name="email" :value="$account->email" />
+                <x-form.show-input-form :label="'Alamat Lengkap'"  :name="'alamat'" :value="$resident->alamat" />
                 <x-form.text-input-form label="No. Telepon" name="noHp" :value="$account->noHp" />
             </div>
             
