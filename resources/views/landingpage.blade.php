@@ -31,7 +31,7 @@
         @endauth
       </ul>
     </div>
-    
+
     <div class="text-white">
       <div class="text-center text-8xl font-extrabold">SIRUWA</div>
       <div class="text-center text-4xl font-semibold mb-10">Sistem Informasi RW Dua</div>
@@ -78,7 +78,7 @@
 
       <button class="px-8 py-3 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
         <div class="justify-start items-center gap-8 inline-flex">
-          <span class="text-white text-base font-semibold cursor-pointer" onclick="window.location='{{ route('list-berita.index') }}'">Lebih Banyak ></span>
+          <span class="text-white text-base font-semibold">Lebih Banyak ></span>
         </div>
       </button>
     </div>
