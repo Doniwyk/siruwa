@@ -89,7 +89,7 @@ class AdminPaymentService implements AdminPaymentContract
     public function getValidatedPayment()
     {
         $validatedPayments = PaymentModel::whereIn('status', ['Terverifikasi', 'Ditolak'])
-            ->with('penduduk', 'admin')
+            ->with('resident', 'admin', 'akun')
             ->paginate(10, ['*'], 'validatedPage');
 
         return $validatedPayments;
@@ -98,7 +98,7 @@ class AdminPaymentService implements AdminPaymentContract
     public function getSubmission()
     {
         $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')
-            ->with('penduduk', 'admin')
+            ->with('resident', 'admin', 'akun')
             ->paginate(10, ['*'], 'submissionPage');
 
         $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')->count() * 10000;

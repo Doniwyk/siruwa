@@ -31,6 +31,10 @@ class UserModel extends Authenticatable
     {
         return $this->hasMany(PaymentModel::class, 'nomor_kk');
     }
+    public function pembayar(): HasMany
+    {
+        return $this->hasMany(PaymentModel::class, 'id_penduduk');
+    }
     public function dokumen(): HasMany
     {
         return $this->hasMany(DocumentModel::class);

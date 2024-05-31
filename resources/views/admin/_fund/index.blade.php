@@ -26,6 +26,7 @@
             <table class="table-parent">
                 <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Nomor KK</th>
                         <th>Tgl Permintaan</th>
                         <th>No. Telepon</th>
@@ -38,9 +39,10 @@
                     @endphp
                     @foreach ($fundData['getSubmission'] as $data)
                         <tr>
+                            <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td>{{ $data->created_at }}</td>
-                            <td>{{ $data->admin->noHp }}</td>
+                            <td>{{ $data->akun->noHp }}</td>
                             <td>
                                 <button class="w-[25px] h-[25px] flex-center"
                                     onclick="showPopup('#payment-card-{{ $i }}', '#modal-parent-{{ $i }}')">
@@ -67,6 +69,7 @@
             <table class="table-parent">
                 <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Nomor KK</th>
                         <th>Tgl Permintaan</th>
                         <th>No. Telepon</th>
@@ -79,9 +82,10 @@
                     @endphp
                     @foreach ($history as $data)
                         <tr>
+                            <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td>{{ $data->created_at }}</td>
-                            <td>{{ $data->admin->noHp }}</td>
+                            <td>{{ $data->akun->noHp }}</td>
                             <td class="font-semibold {{ $data->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
                                 {{ $data->status }}</td>
                         </tr>
