@@ -38,12 +38,12 @@ class ResidentPaymentService implements ResidentPaymentContract
 
           $deathFundData = DeathFundModel::where('nomor_kk', $penduduk->nomor_kk)
                                           ->whereYear('bulan', $currentYear)
-                                          ->with('penduduk')
+                                          ->with('penduduk', 'pembayaran.resident')
                                           ->get();
 
           $garbageFundData = GarbageFundModel::where('nomor_kk', $penduduk->nomor_kk)
                                               ->whereYear('bulan', $currentYear)
-                                              ->with('penduduk')
+                                              ->with('penduduk', 'pembayaran')
                                               ->get();
     
           return [
@@ -66,7 +66,7 @@ class ResidentPaymentService implements ResidentPaymentContract
       if ($user) {
         $penduduk = UserModel::find($user->id_penduduk);
         if ($penduduk) {
-          $history = PaymentModel::where('nomor_kk', $penduduk->nomor_kk)->with('penduduk', 'admin')->get();
+          $history = PaymentModel::where('nomor_kk', $penduduk->nomor_kk)->with('resident', 'penduduk')->get();
           return $history;
         } else {
           // Handle case where resident not found

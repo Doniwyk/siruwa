@@ -50,34 +50,15 @@
                         <tbody class="fund-body">
                             <tr>
                                 <td class="left-header border-b">Iuran Sampah</td>
-                                {{-- @forEach () --}}
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
+                                @forEach ($fundData['garbage_fund'] as $garbage)
+                                    <td>{{ $garbage->status }}</td>
+                                @endforeach
                             </tr>
                             <tr>
                                 <td class="left-header">Iuran Kematian</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
-                                <td>Lunas</td>
+                                @forEach ($fundData['death_fund'] as $death)
+                                    <td>{{ $death->status }}</td>
+                                @endforeach
                             </tr>
                         </tbody>
                     </table>
@@ -112,28 +93,22 @@
                             <th>Nama Pembayar</th>
                             <th>Tipe Pembayaran</th>
                             <th>Nominal</th>
+                            <th>Jumlah Bulan</th>
                             <th>Tgl. Pembayaran</th>
-                            <th>Bulan</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody class="history-body">
+                        @foreach($history as $payment)
                         <tr>
-                            <td>Daffa Maulana Satria</td>
-                            <td>Iuran Sampah</td>
-                            <td>Rp. 900.000</td>
-                            <td>Januari, 24 2024</td>
-                            <td>Januari</td>
-                            <td>Lunas</td>
+                            <td>{{ $payment->resident->nama }}</td>
+                            <td>{{ $payment->jenis }}</td>
+                            <td>{{ 'Rp. ' . number_format($payment->jumlah, 0, ',', '.') }}</td>
+                            <td>{{ $payment->jumlah / 10000 }}</td>
+                            <td>{{ \Carbon\Carbon::parse($payment->tanggal_pembayaran)->format('d, F Y') }}</td>
+                            <td>{{ $payment->status }}</td>
                         </tr>
-                        <tr>
-                            <td>Daffa Maulana Satria</td>
-                            <td>Iuran Sampah</td>
-                            <td>Rp. 900.000</td>
-                            <td>Januari, 24 2024</td>
-                            <td>Januari</td>
-                            <td>Lunas</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -170,7 +145,7 @@
                     <div class="flex flex-col mb-9">
                         <label class="text-secondary text-xl font-semibold mb-2">Nominal</label>
                         <input type="text" id="jumlah" name="jumlah" class="resident-input" inputmode="numeric" pattern="[0-9]*" placeholder="Masukkan Nominal" oninput="validateMultipleOfTenThousand(this);">
-                        {{-- <p id="nominal-error" class="text-red-500 text-sm mt-1 hidden">Nominal harus kelipatan 10,000.</p> --}}
+                        <p id="nominal-error" class="text-red-500 text-sm mt-1 hidden">Nominal harus kelipatan 10,000.</p>
                     </div>
                     <div class="flex items-center justify-center w-full">
                         <div id="dropzone" class="relative flex flex-col items-center justify-center w-full h-64 border-secondary border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-100">
