@@ -20,24 +20,19 @@
                 'link-option',
                 'link-option_active' => $typeDocument == 'riwayat',
             ])>
-            Pengajuan
-        </a>
-        <a href="{{ route('admin.data-penduduk.index', ['typeDocument' => 'riwayat']) }}" @class([ 'link-option' , 'link-option_active'=> $typeDocument == 'riwayat',
-            ])>
-            Riwayat
-        </a>
-    </div>
-    <div class="add-wrapper">
-        <a href="{{route('admin.data-penduduk.import')}}">
-        <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
-            <x-icon.import />
-            Import .csv
-        </button>
-        </a>
-        <a href="{{ route('admin.data-penduduk.add') }}">
-            <button class="flex-between gap-[10px] px-6 py-3 bg-main rounded-2xl font-semibold text-white">
-                <x-icon.add-circle />
-                Tambah Data
+                Riwayat
+            </a>
+        </div>
+        <div class="add-wrapper">
+            <a href="{{ route('admin.data-penduduk.export') }}">
+                <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
+                    <x-icon.import />
+                    Export .csv
+                </button>
+            </a>
+            <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
+                <x-icon.import />
+                Import .csv
             </button>
             <a href="{{ route('admin.data-penduduk.add') }}">
                 <button class="flex-between gap-[10px] px-6 py-3 bg-main rounded-2xl font-semibold text-white">

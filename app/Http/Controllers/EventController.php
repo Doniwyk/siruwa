@@ -8,10 +8,6 @@ use App\Http\Requests\EventRequest;
 use App\Models\EventModel;
 use App\Models\UserModel;
 use Auth;
-use App\Models\NewsModel;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class EventController extends Controller
 {
@@ -99,18 +95,6 @@ class EventController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menghapus agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
 
-        }
-    }
-
-    public function AgendaListPage()
-    {
-        try {
-            $news = NewsModel::paginate(5);
-            $event = EventModel::all();
-            $latestEvent = EventModel::orderBy('tanggal', 'desc')->take(2)->get();
-            return view('berita.list-berita', ['title' => 'Daftar Berita', 'event' => $event, 'latestEvent' => $latestEvent, 'news' => $news]);
-        } catch (\Exception $e) { 
-            return redirect()->back()->with('error', 'Data agenda tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 }

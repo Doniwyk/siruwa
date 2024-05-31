@@ -38,8 +38,6 @@ use App\Services\ResidentDocumentService;
 use App\Services\ResidentPaymentService;
 use App\Services\StatisticService;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-use App\Services\DSSService;
-use App\Services\DSSFuzzyService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -86,13 +84,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->singleton(DSSService::class, function ($app) {
-            return new DSSService();
-        });
-
-        $this->app->singleton(DSSFuzzyService::class, function ($app) {
-            return new DSSFuzzyService();
-        });
+        //
     }
 
     /**
