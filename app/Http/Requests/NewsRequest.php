@@ -23,7 +23,7 @@ class NewsRequest extends FormRequest
     {
         return [
             //
-            'id_admin' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'judul' => 'required',
             'isi' => 'required'
         ];

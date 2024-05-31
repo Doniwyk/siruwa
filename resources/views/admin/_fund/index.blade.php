@@ -1,77 +1,109 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="header-h1">Data Penduduk</h1>
+    <h1 class="h1-semibold">Data Penduduk</h1>
     <div class="summary-card_fund">
-        <x-card :label="'Dana Kematian'" :value="9000000"/>
-        <x-card :label="'Dana Sampah'" :value="9000000"/>
-        <x-card :label="'Tunggakan'" :type="'danger'" :value="9000000"/>
-
+        <x-card :label="'Dana Kematian'" :value="$fundData['deathFundTotal']" />
+        <x-card :label="'Dana Sampah'" :value="$fundData['garbageFundTotal']" />
+        <x-card :label="'Tunggakan'" :type="'danger'" :value="$fundData['tunggakan']" />
     </div>
-    <div class="button-option_parrent">
-        <button class="button-option button-option_active">Daftar Penduduk</button>
-        <button class="button-option ">Pengajuan</button>
-        <button class="button-option ">Riwayat</button>
-    </div>
+    <section id="tab-slider" class="flex">
+        <div class="link-option_parrent">
+            <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"
+                @class([
+                    'link-option',
+                    'link-option_active' => $typeDocument == 'pembayaran',
+                ])>Pembayaran</a>
+            <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'riwayat']) }}"
+                @class([
+                    'link-option',
+                    'link-option_active' => $typeDocument == 'riwayat',
+                ])>Riwayat</a>
+        </div>
+    </section>
     <x-filter />
-    <table class="table-parent">
-        <thead>
-            <tr>
-                <th>Nama Pengaju</th>
-                <th>NIK</th>
-                <th>Tgl Permintaan</th>
-                <th>No. Telepon</th>
-                <th>Detail</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Daffa Maulana Satria</td>
-                <td>12302019312039021903</td>
-                <td>Januari, 24 2024</td>
-                <td>083845734645</td>
-                <td>
-                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 7.75V14.5" stroke="#225157" stroke-width="2" stroke-linecap="round" />
-                        <circle cx="13" cy="17.875" r="1" fill="#51526C" stroke="#225157" stroke-width="0.25" />
-                        <path
-                            d="M24.0246 13.0001C24.0246 6.91116 19.0885 1.9751 12.9996 1.9751C6.91067 1.9751 1.97461 6.91116 1.97461 13.0001C1.97461 19.089 6.91067 24.0251 12.9996 24.0251C19.0885 24.0251 24.0246 19.089 24.0246 13.0001Z"
-                            stroke="#225157" stroke-width="2" stroke-miterlimit="10" />
-                    </svg>
-                </td>
-            </tr>
-            <tr>
-                <td>Daffa Maulana Satria</td>
-                <td>12302019312039021903</td>
-                <td>Januari, 24 2024</td>
-                <td>083845734645</td>
-                <td>
-                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 7.75V14.5" stroke="#225157" stroke-width="2" stroke-linecap="round" />
-                        <circle cx="13" cy="17.875" r="1" fill="#51526C" stroke="#225157" stroke-width="0.25" />
-                        <path
-                            d="M24.0246 13.0001C24.0246 6.91116 19.0885 1.9751 12.9996 1.9751C6.91067 1.9751 1.97461 6.91116 1.97461 13.0001C1.97461 19.089 6.91067 24.0251 12.9996 24.0251C19.0885 24.0251 24.0246 19.089 24.0246 13.0001Z"
-                            stroke="#225157" stroke-width="2" stroke-miterlimit="10" />
-                    </svg>
-                </td>
-            </tr>
-            <tr>
-                <td>Daffa Maulana Satria</td>
-                <td>12302019312039021903</td>
-                <td>Januari, 24 2024</td>
-                <td>083845734645</td>
-                <td>
-                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 7.75V14.5" stroke="#225157" stroke-width="2" stroke-linecap="round" />
-                        <circle cx="13" cy="17.875" r="1" fill="#51526C" stroke="#225157" stroke-width="0.25" />
-                        <path
-                            d="M24.0246 13.0001C24.0246 6.91116 19.0885 1.9751 12.9996 1.9751C6.91067 1.9751 1.97461 6.91116 1.97461 13.0001C1.97461 19.089 6.91067 24.0251 12.9996 24.0251C19.0885 24.0251 24.0246 19.089 24.0246 13.0001Z"
-                            stroke="#225157" stroke-width="2" stroke-miterlimit="10" />
-                    </svg>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    @switch($typeDocument)
+        @case('pembayaran')
+            <table class="table-parent">
+                <thead>
+                    <tr>
+                        <th>Nomor KK</th>
+                        <th>Tgl Permintaan</th>
+                        <th>No. Telepon</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($fundData['getSubmission'] as $data)
+                        <tr>
+                            <td>{{ $data->nomor_kk }}</td>
+                            <td>{{ $data->created_at }}</td>
+                            <td>{{ $data->admin->noHp }}</td>
+                            <td>
+                                <button class="w-[25px] h-[25px] flex-center"
+                                    onclick="showPopup('#payment-card-{{ $i }}', '#modal-parent-{{ $i }}')">
+                                    <x-icon.detail />
+                                </button>
+                            </td>
+                            <td class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden"
+                                id="modal-parent-{{ $i }}">
+                                <x-shared.confirmation-payment-card :formId="$i" :fundData="$data" />
+                            </td>
+                        </tr>
+                        @php
+                            $i++;
+                        @endphp
+                    @endforeach
+                </tbody>
+            </table>
+            <div>
+                {{ $fundData['getSubmission']->links() }}
+            </div>
+        @break
+
+        @case('riwayat')
+            <table class="table-parent">
+                <thead>
+                    <tr>
+                        <th>Nomor KK</th>
+                        <th>Tgl Permintaan</th>
+                        <th>No. Telepon</th>
+                        <th>Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($history as $data)
+                        <tr>
+                            <td>{{ $data->nomor_kk }}</td>
+                            <td>{{ $data->created_at }}</td>
+                            <td>{{ $data->admin->noHp }}</td>
+                            <td>
+                                <button class="w-[25px] h-[25px] flex-center"
+                                    onclick="showPopup('#payment-card-{{ $i }}', '#modal-parent-{{ $i }}')">
+                                    <x-icon.detail />
+                                </button>
+                            </td>
+                            <td class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden"
+                                id="modal-parent-{{ $i }}">
+                                <x-shared.confirmation-payment-card :formId="$i" :fundData="$data" />
+                            </td>
+                        </tr>
+                        @php
+                            $i++;
+                        @endphp
+                    @endforeach
+                </tbody>
+            </table>
+            <div>
+                {{ $history->links() }}
+            </div>
+        @break
+
+        @default
+    @endswitch
 @endsection

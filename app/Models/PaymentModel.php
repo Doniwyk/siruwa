@@ -14,7 +14,9 @@ class PaymentModel extends Model
     protected $table = 'pembayaran';
     protected $primaryKey = 'id_pembayaran';
 
-    protected $fillable = ['id_admin', 'nomor_kk' ,'jenis', 'metode', 'jumlah', 'urlBuktiBayar', 'status'];
+
+    protected $fillable = ['id_admin', 'nomor_kk' ,'jenis', 'metode', 'urlBuktiPembayaran', 'jumlah', 'status', 'keterangan_status'];
+
 
     public function admin(): BelongsTo
     {

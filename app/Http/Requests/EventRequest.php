@@ -23,7 +23,6 @@ class EventRequest extends FormRequest
     {
         return [
             //
-            'id_admin' => 'required',
             'judul' => 'required',
             'isi' => 'required',
             'tanggal' => 'required'

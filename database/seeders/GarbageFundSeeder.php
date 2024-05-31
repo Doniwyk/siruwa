@@ -14,6 +14,8 @@ class GarbageFundSeeder extends Seeder
     public function run(): void
     {
         GarbageFundModel::factory(10)->create();
+        GarbageFundModel::factory(5)->forEachKK();
+
 
     }
 }

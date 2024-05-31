@@ -11,9 +11,9 @@ class EventModel extends Model
     use HasFactory;
 
     protected $table = 'agenda';
-    protected $primaryKey = 'id_berita_acara';
+    protected $primaryKey = 'id_agenda';
 
-    protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'tanggal'];
+    protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'tanggal', 'image_public_id'];
 
     public function admin(): BelongsTo
     {

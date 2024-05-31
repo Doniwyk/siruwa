@@ -10,8 +10,74 @@
     margin: 0;
     padding: 0;
 }
-.flex-center{
-    @apply flex items-center justify-center
+@layer utilities {
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+
+    .flex-between {
+        @apply flex justify-between items-center;
+    }
+
+    .flex-start {
+        @apply flex justify-start items-center;
+    }
+    .flex-end {
+        @apply flex justify-end items-center;
+    }
+
+    .h1-semibold {
+        @apply text-3xl text-main font-semibold;
+    }
+    .h4-semibold{
+        @apply text-secondary font-semibold mb-5;
+    }
+    .text-label_light{
+        @apply text-base text-green-light font-medium;
+    }
+
+    .link-option_parrent {
+        @apply flex-start min-h-[3.5rem] gap-5 rounded-2xl py-2 px-4 font-semibold bg-white text-sm flex-shrink;
+    }
+    .link-option {
+        @apply flex-center rounded-2xl text-main font-medium transition-all ease-linear py-2 px-4 min-w-[9rem];
+    }
+    .link-option_active {
+        @apply bg-main  text-white font-semibold;
+    }
+    .invert-black {
+        @apply invert-[.6] transition font-bold;
+    }
+
+    .add-wrapper{
+        @apply flex gap-6;
+    }
+
+    .button-order_desc {
+        @apply flex-center rotate-180;
+    }
+
+    .form-group{
+        @apply flex flex-col flex-1 gap-2;
+    }
+    .form-control{
+        @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text 
+    }
+    .form-control-input{
+        @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
+    }
+    .button-action_accept{
+        @apply px-24 py-3 rounded-2xl bg-main;
+    }
+    .button-action_reject{
+        @apply px-24 py-3 rounded-2xl bg-red-600;
+    }
+    .dropzone{
+        @apply h-full w-full border-2 border-dashed border-main bg-white rounded-2xl;
+    }
+    .ck-editor__editable_inline{
+        @apply h-[20rem]
+    }
 }
 .bg_beranda {
     background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
@@ -23,76 +89,70 @@
     background-size: cover;
     background-attachment: scroll;
 }
-
 .bg_berita2 {
     background: url("/public/berita2.jpeg") no-repeat center fixed;
     background-size: cover;
     background-attachment: scroll;
 }
-.left-sidebar {
-    @apply min-h-full w-[330px] flex flex-col justify-between  px-4 py-6 bg-main text-[16px] font-medium text-white;
-}
-.topbar {
-    @apply h-[5.75rem] bg-secondary;
-}
-.content {
-    @apply px-9 py-16 w-full bg-main-bg flex flex-col gap-y-9;
-}
+@layer components {
+    .topbar {
+        @apply h-[5.75rem] w-full bg-secondary flex justify-between fixed z-10;
+    }
+    .left-sidebar {
+        @apply min-h-full w-[18rem] flex flex-col justify-between px-4 pb-6 pt-28 bg-main text-[16px] font-medium text-white fixed;
+    }
+    .left-sidebar a:hover img {
+        @apply invert-black;
+    }
+    .content {
+        @apply px-16 py-9 pl-[22rem] pt-32 h-screen w-full bg-main-bg flex flex-col gap-y-9 overflow-scroll;
+    }
+    
+    .content-landingpage {
+        @apply p-0;
+    }
+    .nav-menu {
+        @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
+    }
+    .nav-menu:hover {
+        @apply bg-white text-main font-bold;
+    }
+    .topbar {
+        @apply px-6 py-4;
+    }
+    
+    .filter_parent {
+        @apply min-h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden;
+    }
+    .search-option {
+        @apply basis-3/4 bg-white flex items-center  px-6 rounded-2xl;
+    }
+    .filter-option_parent {
+        @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between;
+    }
+    .table-parent {
+        @apply w-full rounded-2xl overflow-hidden bg-white table-fixed;
+    }
+    th,
+    td {
+        @apply p-3 text-left px-6;
+    }
+    thead th {
+        @apply text-lg font-bold text-white bg-main;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-main text-base font-medium;
+    }
 
-.content-landingpage {
-    @apply p-0;
-}
-.invert-black {
-    @apply invert-[.6] transition font-bold;
-}
-.nav-menu {
-    @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
-}
-.nav-menu:hover {
-    @apply bg-white text-main font-bold;
-}
-.topbar {
-    @apply px-6 py-4;
-}
-.header-h1 {
-    @apply text-3xl text-main font-semibold;
-}
-.button-option_parrent {
-    @apply flex max-w-[30.25rem] h-[3.5rem] rounded-2xl py-2 px-4 justify-between  font-semibold bg-white text-sm;
-}
-.button-option {
-    @apply flex-1 rounded-2xl text-main font-medium;
-}
-.button-option_active {
-    @apply bg-main  text-white font-semibold;
-}
-.filter_parent {
-    @apply h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden;
-}
-.search-option {
-    @apply basis-3/4 bg-white flex items-center  px-6 rounded-2xl;
-}
-.filter-option_parent {
-    @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between;
-}
-.table-parent {
-    @apply w-full rounded-2xl overflow-hidden bg-white;
-}
-th,
-td {
-    @apply p-3 text-left px-6;
-}
-thead th {
-    @apply text-lg font-bold text-white bg-main;
-}
-tbody td {
-    @apply text-main text-base font-medium;
 }
 .summary-card_fund {
     @apply flex h-28 gap-x-9;
 }
 .card {
-    @apply bg-third flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main;
+    @apply bg-third flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main h-[7rem];
 }
 .text-fund {
     @apply text-2xl font-bold;
@@ -101,40 +161,117 @@ tbody td {
     @apply bg-danger-bg text-danger;
 }
 .summary-card_news {
-    @apply h-[18rem] flex gap-9;
+    @apply  flex gap-9;
 }
 .summary-card {
-    @apply bg-white flex-1 p-4 rounded-2xl
+    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem];
 }
-.card-total{
-    @apply grid grid-rows-2 grid-cols-2
+.card-total {
+    @apply flex flex-auto;
 }
 .card-total > div {
-    @apply flex items-center justify-center flex-col text-base text-main gap-2
+    @apply flex items-center justify-center flex-col text-base text-main gap-2;
 }
 .card-total > div > label:first-child {
-    @apply text-main font-bold text-2xl
+    @apply text-main font-bold text-2xl;
 }
-.news{
-    @apply h-[5rem] flex justify-between items-center
+.news {
+    @apply h-[5rem] flex justify-start items-center;
 }
-.card-top .desc {
-    @apply text-xs text-gray-400
-}
-.desc-news{
-    @apply text-base text-main font-medium
+
+.news p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Jumlah maksimal baris */
+    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem];
 }
 .details {
-    @apply flex gap-2 items-center
+    @apply flex gap-2 items-center;
 }
 
 /* Profile Page */
-.profile_parent{
+.profile_parent {
     @apply flex p-9 bg-main rounded-2xl gap-9;
 }
-.profile-desc{
-    @apply flex flex-col text-white text-xl gap-2 font-normal
+.profile-desc {
+    @apply flex flex-col text-white text-xl gap-2 font-normal;
 }
-.input-form{
-    @apply outline-gray-400 rounded-2xl border-gray-400 px-6 py-2 border text-main
+.input-form {
+    @apply outline-gray-400 rounded-2xl border-gray-400 px-6 py-2 border text-main;
+}
+
+/* LANDINGPAGE STYLING */
+.menu {
+    @apply flex flex-col justify-center items-center gap-6 text-white text-2xl text-center font-bold;
+}
+.news-container-landing {
+    @apply rounded-2xl flex flex-col justify-end;
+}
+.news-landing {
+    @apply flex flex-col justify-end gap-2.5 bg-gradient-to-t from-black to-transparent rounded-2xl p-4;
+}
+
+/* USER STYLING */
+.content-user {
+    @apply px-16 py-9;
+}
+.resident-profile-subheader {
+    @apply block mb-6 text-2xl font-semibold text-secondary;
+}
+.btn-main {
+    @apply w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center items-center;
+}
+.btn-secondary{
+    @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
+}
+.resident-header {
+    @apply text-secondary text-4xl font-semibold mb-9;
+}
+.resident-tab-parent {
+    @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
+}
+.resident-tab {
+    @apply flex-1 py-2 px-4 rounded-xl text-secondary font-medium focus:font-semibold focus:outline-none w-[44rem];
+}
+.left-icon {
+    @apply absolute inset-y-0 left-4 h-5 w-5 my-auto;
+}
+.right-icon {
+    @apply absolute inset-y-0 right-4 h-5 w-5 my-auto;
+}
+.resident-select {
+    @apply py-2 px-12 rounded-2xl text-gray-400 font-medium appearance-none h-[3rem] w-full;
+}
+.resident-search {
+    @apply py-2 pl-12 pr-6 rounded-2xl placeholder:text-gray-400 font-medium h-[3rem] w-full;
+}
+.button-pay {
+    @apply px-11 py-3 bg-secondary font-semibold text-stone-50 rounded-2xl whitespace-nowrap;
+}
+.fund-header {
+    @apply text-white tracking-wider;
+}
+.left-header {
+    @apply font-medium text-white bg-secondary border-white border-r;
+}
+.fund-header tr th{
+    @apply bg-secondary font-medium text-base text-center py-5 min-w-[11rem];
+}
+.fund-body tr{
+    @apply border-none;
+}
+.fund-body tr td {
+    @apply text-center min-w-[0px] py-5;
+}
+.history-header tr th{
+    @apply bg-secondary py-3 px-6;
+}
+.history-body tr {
+    @apply border-none ;
+}
+.history-body tr td{
+    @apply bg-white py-3 px-6;
+}
+.resident-input {
+    @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
 }

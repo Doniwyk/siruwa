@@ -28,13 +28,16 @@ class AccountModelFactory extends Factory
      */
     public function definition()
     {
+        $resident =UserModel::factory()->create();
         return [
-            'id_penduduk' => UserModel::factory()->create()->id_penduduk,
-            'nama' => $this->faker->firstName,
-            'email' => $this->faker->unique()->safeEmail,
+            'id_penduduk' => $resident->id_penduduk,
+            'urlProfile' => fake()->imageUrl(),
+            'noHp' => fake()->phoneNumber(),
+            'username' => $resident->nomor_kk,
+            'email' => fake()->unique()->email(),
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),
-            'role' => $this->faker->randomElement(['admin', 'user']),
+            'role' => $this->faker->randomElement(['admin', 'resident']),
             'remember_token' => Str::random(10),
         ];
     }

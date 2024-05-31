@@ -37,10 +37,9 @@ class AuthenticationController extends Controller
                 // return view('welcome');
                 return redirect()->route('admin.statistic.index');
             } else {
-                return redirect()->route('penduduk.index');
+                return redirect()->route('resident.index');
             }
         } catch (\Exception $e) {
-            dd($e);
             return back()->withErrors([
                 'email' => 'Email or password is wrong',
             ])->onlyInput('email');

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<h1 class="header-h1">Data Penduduk</h1>
+<h1 class="h1-semibold">Data Penduduk</h1>
 <div class="profile_parent">
     <div class="profile_hero relative">
         <img src="{{ asset('assets/img/profile.png') }}" alt="logo" class=" rounded-full">
@@ -12,31 +12,34 @@
         </div>
     </div>
     <div class="profile-desc">
-        <h4 class="text-2xl font-bold">nadilaamaliaa</>
-            <h3 class="text-3xl font-bold tracking-wider pb-1">Nadila Amalia Pribadi</h3>
-            <label for="">123456789</label>
-            <label for="">nadila@gmail.com</label>
-            <label for="">123456789</label>
+        <h4 class="text-2xl font-bold">{{$account->username}}</h4>
+        <h3 class="text-3xl font-bold tracking-wider pb-1">{{ $detailAccount->nama }}</h3>
+        <label for="">{{ $detailAccount->nik }}</label>
+        <label for="">{{ $account->email }}</label>
+        <label for="">{{ $account->noHp }}</label>
     </div>
 </div>
 <div class="p-8 bg-white flex flex-col ">
-    <form class="user-information bg-white flex flex-col gap-5">
+    <form action="{{ route('admin.profil.update')}}" method="POST" class="user-information bg-white flex flex-col gap-5">
+        @csrf
+        @method('PUT')
         <h3 class="text-main font-bold text-2xl">Informasi Pengguna</h3>
         <div class="wrapper grid grid-rows-2 grid-cols-2 gap-x-9 gap-y-5">
-            <x-shared.input :label="'Username'" :type="'text'" :name="'username'" :id="'username'" :placeholder="'Username'" :value="'nadilaamalia'" />
-            <x-shared.input :label="'Email'" :type="'email'" :name="'email'" :id="'email'" :placeholder="'Email'" :value="'nadila@gmail.com'" />
-            <x-shared.input :label="'No. Hp'" :type="'number'" :name="'nohp'" :id="'nohp'" :placeholder="'No. Hp'" :value="'3456789'" />
+            <x-shared.input :label="'Username'" :type="'text'" :name="'username'" :id="'username'" :placeholder="'Username'" :value="$account->username" />
+            <x-shared.input :label="'Email'" :type="'email'" :name="'email'" :id="'email'" :placeholder="'Email'" :value="$account->email" />
+            <x-shared.input :label="'No. Hp'" :type="'text'" :name="'noHp'" :id="'noHp'" :placeholder="'No. Hp'" :value="$account->noHp" />
         </div>
         <div class="action flex justify-end">
             <button class="bg-main text-white py-3 px-[3.5rem] rounded-2xl font-semibold">Simpan Perubahan</button>
         </div>
     </form>
-    <form action="" class="user-information bg-white flex flex-col gap-5">
+    <form action="{{ route('admin.profil.changePassword') }}" method="POST" action="" class="user-information bg-white flex flex-col gap-5">
+        @csrf
         <h3 class="text-main font-bold text-2xl">Ganti Kata Sandi</h3>
         <div class="wrapper grid grid-rows-2 grid-cols-2 gap-x-9 gap-y-5">
-            <x-shared.input :label="'Kata Sandi Lama'" :type="'password'" :name="'old-password'" :id="'old-password'" :placeholder="'Kata Sandi Lama'" />
-            <x-shared.input :label="'Kata Sandi Baru'" :type="'password'" :name="'new-password'" :id="'new-password'" :placeholder="'Kata Sandi Baru'" />
-            <x-shared.input :label="'Konfirmasi Kata Sandi Baru'" :type="'password'" :name="'confirm-password'" :id="'confirm-password'" :placeholder="'Konfirmasi Kata Sandi Baru'" />
+            <x-shared.input :label="'Kata Sandi Lama'" :type="'password'" :name="'current_password'" :id="'current_password'" :placeholder="'Kata Sandi Lama'" />
+            <x-shared.input :label="'Kata Sandi Baru'" :type="'password'" :name="'new_password'" :id="'new_password'" :placeholder="'Kata Sandi Baru'" />
+            <x-shared.input :label="'Konfirmasi Kata Sandi Baru'" :type="'password'" :name="'new_password_confirmation'" :id="'new_password_confirmation'" :placeholder="'Konfirmasi Kata Sandi Baru'" />
         </div>
         <div class="action flex justify-end">
             <button class="bg-main text-white py-3 px-[3.5rem] rounded-2xl font-semibold">Simpan Perubahan</button>

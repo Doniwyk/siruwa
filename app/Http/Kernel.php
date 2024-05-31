@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Console\Commands\MigrateInOrder;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -21,6 +22,9 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        'revalidate' => \App\Http\Middleware\RevalidateBackHistory::class,
+
+        
     ];
 
     /**
@@ -66,5 +70,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isGuest' => \App\Http\Middleware\IsGuest::class,
         'isAuth' => \App\Http\Middleware\IsAuth::class,
+        'userAccess' => \App\Http\Middleware\UserAccess::class,
+        'revalidate' => \App\Http\Middleware\RevalidateBackHistory::class,
+
+    ];
+    protected $commands = [
+        MigrateInOrder::class,
     ];
 }

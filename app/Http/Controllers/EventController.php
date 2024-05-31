@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\EventContract;
+use App\Http\Requests\EditEventRequest;
 use App\Http\Requests\EventRequest;
 use App\Models\EventModel;
+use App\Models\UserModel;
+use Auth;
+use App\Models\NewsModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,50 +17,100 @@ class EventController extends Controller
 {
     //
     protected EventContract $eventContract;
+    private $pageName;
 
     public function __construct(EventContract $eventContract)
     {
         $this->eventContract = $eventContract;
+        $this->pageName = 'manajemen-acara';
     }
 
     public function index()
     {
-        $event = EventModel::all();
-        return view('admin._event.index', compact('event'));
-        //jangan lupa menyesuaikan nama view
+        try {
+            $page = $this->pageName;
+            $event = EventModel::all();
+            $title = 'Manajemen Agenda';
+            return view('admin._event.index', compact('event', 'page'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data agenda tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function add()
     {
-        return view('admin._event.add');
-        //jangan lupa menyesuaikan nama view
+        $page = $this->pageName;
+        $title = 'Tambah Agenda';
+        $userId = Auth::id();
+        $account = UserModel::findOrFail($userId);
+        return view('admin._event.create', compact('page', 'title', 'account'));
     }
 
-    public function storeNews(EventRequest $request): RedirectResponse
+    public function storeEvent(EventRequest $request)
     {
-        $validated = $request->validated();
-        $this->eventContract->storeEvent($validated);
+        try {
+            $image = $request->file('image');
+            $admin = Auth::id();
+    
+            $cloudinaryImage = $image->storeOnCloudinary('acara');
+            $url = $cloudinaryImage->getSecurePath();
+            $publicId = $cloudinaryImage->getPublicId();
 
-        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil ditambahkan.');
+            $imageUpload = EventModel::create([
+                'url_gambar' => $url,
+                'image_public_id' => $publicId,
+                'judul' => $request->input('judul'),
+                'id_admin' => $admin,
+                'isi' => $request->input('isi'),
+                'tanggal' => $request->input('tanggal'),
+            ]);
+            $imageUpload->save();
+            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            return dd($e);
+        }
     }
 
-    public function editNews(EventModel $news): View
+    public function editEvent(EventModel $event)
     {
-        return view('admin._event.edit', compact('news'));
+        $page = $this->pageName;
+        $title = 'Edit Agenda';
+        $userId = Auth::id();
+        $account = UserModel::findOrFail($userId);
+        return view('admin._event.edit', compact('title', 'page','event', 'account'));
     }
 
-    public function updateNews(EventRequest $request, EventModel $news): RedirectResponse
+    public function updateEvent(EditEventRequest $request, EventModel $event)
     {
-        $validated = $request->validated();
-        $this->eventContract->updateEvent($validated, $news);
-
-        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil diperbarui.');
+        try {
+            $validated = $request->validated();
+            $this->eventContract->updateEvent($validated, $event);
+            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mengubah agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
-    public function deleteNews(EventModel $news): RedirectResponse
+    public function deleteEvent(EventModel $event)
     {
-        $this->eventContract->deleteEvent($news);
+        try {
+            $this->eventContract->deleteEvent($event);
+            return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil di hapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
 
-        return redirect()->route('admin.manajemen-acara.index')->with('success', 'Berita berhasil di hapus.');
+        }
+    }
+
+    public function AgendaListPage()
+    {
+        try {
+            $news = NewsModel::paginate(5);
+            $event = EventModel::all();
+            $latestEvent = EventModel::orderBy('tanggal', 'desc')->take(2)->get();
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'event' => $event, 'latestEvent' => $latestEvent, 'news' => $news]);
+        } catch (\Exception $e) { 
+            return redirect()->back()->with('error', 'Data agenda tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 }

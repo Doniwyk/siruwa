@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserModel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,11 +23,16 @@ class DocumentController extends Controller
 
     // CONTROLLER DOKUMEN BUAT ADMIN
 
-    public function index(): View //Menampilkan daftar pengajuan dokumen diadmin
+    public function index(Request $request): View //Menampilkan daftar pengajuan dokumen diadmin
     {
-        $dokumen = DocumentModel::latest()->get();
+
+        $typeDocument = $request->query('typeDocument', 'pengajuan');
         $page = 'manajemen-dokumen';
-        return view('admin._document.index', ['pages' => 'Dokumen','dokument' => $dokumen]);
+        $title = 'Manajemen Dokumen';
+
+        // $documents = DocumentModel::find(1);
+        $documents = DocumentModel::latest()->get();
+        return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
     }
 
 

@@ -8,12 +8,19 @@ use Illuminate\View\Component;
 
 class Filter extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
-    {
-        //
+    public $typeDocument;
+    public $search;
+    public $order;
+
+
+    public function __construct(
+        $typeDocument = "daftar-penduduk",
+        $search = "",
+        $order = "asc"
+    ) {
+        $this->typeDocument = $typeDocument;
+        $this->search = $search;
+        $this->order = $order;
     }
 
     /**
