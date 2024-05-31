@@ -18,6 +18,8 @@ use App\Http\Controllers\ResidentPaymentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DSSController;
+use App\Http\Controllers\DSSFuzzyController;
 
 
 /*
@@ -33,11 +35,18 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// COBA LISST BERITA COYYYY
+// COBA LIST BERITA COYYYY
 
-Route::get('/list-berita', function () {
-    return view('/berita/list-berita');
-});
+Route::get('/berita/list-berita', [NewsController::class, 'NewsList'])->name('list-berita.index');
+Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
+Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
+
+Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
+
+// COBA BANUSOSU COYYYY
+Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
+Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
+Route::get('/banusosu2/export-pdf', [DSSFuzzyController::class, 'exportPdf'])->name('banusosu2.exportPdf');
 
 Route::get('/coba', [NewsController::class, 'coba'])->name('coba');
 
@@ -96,12 +105,11 @@ Route::group([
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
     Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
     //==================================ROUTE IMPORT DATA FOR ADMIN========================================
-    Route::post('/admin/import-resident', [AdminImportResidentController::class, 'importResident'])->name('admin.import.resident');
-    Route::get('/admin/resident-preview', [AdminImportResidentController::class, 'showPreview'])->name('admin.resident.preview');
-    Route::post('/admin/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('admin.save.imported.residents');
-    //==================================ROUTE EXPORT DATA FOR ADMIN========================================
-    Route::get('/generate-pdf', [ExportController::class, 'exportResidentData'])->name('export');
-    // Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('exportPayment');
+
+    Route::get('/import', [AdminImportResidentController::class, 'importForm'])->name('import');
+    Route::post('/import-file', [AdminImportResidentController::class, 'importFile'])->name('importFile');
+    Route::post('/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('saveImport');
+    Route::get('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
 });
 
 //==================================ROUTE RESIDENT DATA FOR RESIDENT========================================
