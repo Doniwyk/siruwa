@@ -17,12 +17,12 @@ class DSSFuzzyService
             $pajakBumi = $this->fuzzifyPajakBumi($recipient->pajak_bumi);
             $biayaListrik = $this->fuzzifyBiayaListrik($recipient->biaya_listrik);
             $biayaAir = $this->fuzzifyBiayaAir($recipient->biaya_air);
-            $jumlahMotor = $this->fuzzifyJumlahMotor($recipient->jumlah_kendaraan_bermotor);
+            $PajakKendaraan = $this->fuzzifyPajakKendaraan($recipient->jumlah_kendaraan_bermotor);
 
-            // dd(compact('gaji', 'pajakBumi', 'biayaListrik', 'biayaAir', 'jumlahMotor'));
+            // dd(compact('gaji', 'pajakBumi', 'biayaListrik', 'biayaAir', 'PajakKendaraan'));
 
             //Rule Evaluation
-            $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $jumlahMotor);
+            $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan);
 
             // Defuzzification
             $crispScore = $this->defuzzify($score);
@@ -68,9 +68,9 @@ class DSSFuzzyService
 
     private function fuzzifyGaji($gaji)
     {
-        $low = $this->hitungRentang($gaji, 0, 0, 2000, 4000);
-        $medium = $this->hitungRentang($gaji, 3000, 5000, 7000, 9000);
-        $high = $this->hitungRentang($gaji, 8000, 10000, 12000, 12000);
+        $low = $this->hitungRentang($gaji, 0, 0, 500000, 1000000);
+        $medium = $this->hitungRentang($gaji, 800000, 0, 0, 3500000);
+        $high = $this->hitungRentang($gaji, 300000, 0, 0, 7000000);
         
         return [
             'low' => $low,
@@ -81,9 +81,9 @@ class DSSFuzzyService
 
     private function fuzzifyPajakBumi($pajakBumi)
     {
-        $low = $this->hitungRentang($pajakBumi, 0, 0, 200, 400);
-        $medium = $this->hitungRentang($pajakBumi, 300, 500, 700, 900);
-        $high = $this->hitungRentang($pajakBumi, 800, 1000, 1200, 1200);
+        $low = $this->hitungRentang($pajakBumi, 0, 0, 0, 1000000);
+        $medium = $this->hitungRentang($pajakBumi, 70000, 500, 700, 500000);
+        $high = $this->hitungRentang($pajakBumi, 0, 0, 300000, 95000);
 
         return [
             'low' => $low,
@@ -94,9 +94,9 @@ class DSSFuzzyService
 
     private function fuzzifyBiayaListrik($biayaListrik)
     {
-        $low = $this->hitungRentang($biayaListrik, 0, 0, 100, 200);
-        $medium = $this->hitungRentang($biayaListrik, 150, 250, 350, 450);
-        $high = $this->hitungRentang($biayaListrik, 400, 500, 600, 600);
+        $low = $this->hitungRentang($biayaListrik, 0, 0, 100, 900);
+        $medium = $this->hitungRentang($biayaListrik, 150, 250, 350, 1300);
+        $high = $this->hitungRentang($biayaListrik, 400, 500, 600, 3500);
 
         return [
             'low' => $low,
@@ -118,11 +118,11 @@ class DSSFuzzyService
         ];
     }
 
-    private function fuzzifyJumlahMotor($jumlahMotor)
+    private function fuzzifyPajakKendaraan($PajakKendaraan)
     {
-        $low = $this->hitungRentang($jumlahMotor, 0, 0, 1, 2);
-        $medium = $this->hitungRentang($jumlahMotor, 1, 2, 3, 4);
-        $high = $this->hitungRentang($jumlahMotor, 3, 4, 5, 5);
+        $low = $this->hitungRentang($PajakKendaraan, 0, 0, 1, 1500000);
+        $medium = $this->hitungRentang($PajakKendaraan, 1, 2, 3, 5000000);
+        $high = $this->hitungRentang($PajakKendaraan, 5000000, 4, 5, 20000000);
 
         return [
             'low' => $low,
@@ -131,17 +131,17 @@ class DSSFuzzyService
         ];
     }
     
-    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $jumlahMotor)
+    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan)
     {
         // Evaluasi menggunakan min (tapi error jir embo)
-        // $lowPriority = min($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $jumlahMotor['low']);
-        // $mediumPriority = min($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $jumlahMotor['medium']);
-        // $highPriority = min($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $jumlahMotor['high']);
+        // $lowPriority = min($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']);
+        // $mediumPriority = min($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $PajakKendaraan['medium']);
+        // $highPriority = min($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $PajakKendaraan['high']);
 
         // Evaluasi
-        $lowPriority = ($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $jumlahMotor['low']) / 5;
-        $mediumPriority = ($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $jumlahMotor['medium']) / 5;
-        $highPriority = ($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $jumlahMotor['high']) / 5;
+        $lowPriority = ($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']) / 5;
+        $mediumPriority = ($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $PajakKendaraan['medium']) / 5;
+        $highPriority = ($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $PajakKendaraan['high']) / 5;
     
         // Gabungkan nilai fuzzy menjadi array dengan kunci yang sesuai untuk defuzzifikasi
         return [
