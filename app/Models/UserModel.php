@@ -21,7 +21,7 @@ class UserModel extends Authenticatable
                             'agama', 'alamat','pendidikan', 'pekerjaan', 'gaji',
                             'pajak_bumi', 'biaya_listrik', 'biaya_air', 'jumlah_kendaraan_bermotor', 'akseptor_kb',
                             'jenis_akseptor', 'aktif_posyandu', 'has_BKB','has_tabungan', 'ikut_kel_belajar',
-                            'jenis_kel_belajar', 'ikut_paud', 'ikut_koperasi'];
+                            'jenis_kel_belajar', 'ikut_paud', 'ikut_koperasi','jumlah_tanggungan'];
 
     // public function account(): BelongsTo
     // {

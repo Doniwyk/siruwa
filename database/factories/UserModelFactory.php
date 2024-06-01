@@ -16,36 +16,75 @@ class UserModelFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = UserModel::class;
-    public function definition(): array
+
+    public function definition()
     {
         return [
-            'tgl_lahir' => fake()->date(),
-            'nik' => fake()->unique()->regexify('[0-9]{16}'),
-            'nomor_kk' => fake()->regexify('[0-9]{16}'),
-            'nama' => fake()->name,
-            'tempat_lahir' => fake()->city,
-            'jenis_kelamin' => fake()->randomElement(['L', 'P']),
-            'rt' => fake()->numberBetween(1, 20),
-            'status_kawin' => fake()->randomElement(['Belum Menikah','Menikah', 'Cerai Hidup', 'Cerai Mati']),
-            'status_keluarga' => fake()->randomElement(['Kepala Keluarga','Istri','Anak']),
-            'agama' => fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu','Kepercayaan Lain']),
-            'alamat' => fake()->address,
-            'pendidikan' => fake()->randomElement(['Tidak tamat SD','SD','SMP','SMA','Diploma','Sarjana']),
-            'pekerjaan' => fake()->randomElement(['PNS', 'TNI/POLRI','Wirausaha','Wiraswasta','Pelajar/Mahasiswa','Tidak bekerja']),
-            'akseptor_kb' => fake()->boolean,
-            'jenis_akseptor' => fake()->randomElement(['IUD', 'Pil', 'Suntik']),
-            'aktif_posyandu' => fake()->boolean,
-            'has_BKB' => fake()->boolean,
-            'has_tabungan' => fake()->boolean,
-            'ikut_kel_belajar' => fake()->boolean,
-            'jenis_kel_belajar' => fake()->randomElement(['Sekolah Dasar', 'Sekolah Menengah', 'Perguruan Tinggi']),
-            'ikut_paud' => fake()->boolean,
-            'ikut_koperasi' => fake()->boolean,
-            'gaji' => fake()->randomFloat(2, 1000, 10000),
-            'pajak_bumi' => fake()->randomFloat(2, 100, 500),
-            'biaya_listrik' => fake()->randomFloat(2, 50, 200),
-            'biaya_air' => fake()->randomFloat(2, 20, 100),
-            'total_pajak_kendaraan' => fake()->randomFloat(2, 100, 500),
+            'tgl_lahir' => $this->faker->date(),
+            'nik' => $this->faker->unique()->regexify('[0-9]{16}'),
+            'nomor_kk' => $this->faker->regexify('[0-9]{16}'),
+            'nama' => $this->faker->name,
+            'tempat_lahir' => $this->faker->city,
+            'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
+            'rt' => $this->faker->numberBetween(1, 20),
+            'status_kawin' => fake()->randomElement(['Belum Menikah', 'Menikah', 'Cerai Hidup', 'Cerai Mati']),
+            'status_keluarga' => fake()->randomElement(['Kepala Keluarga', 'Istri', 'Anak']),
+            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']),
+            'alamat' => $this->faker->address,
+            'pendidikan' => fake()->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
+            'pekerjaan' => fake()->randomElement(['PNS', 'TNI/Polri', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa']),
+            'akseptor_kb' => $this->faker->boolean,
+            'jenis_akseptor' => $this->faker->randomElement(['IUD', 'Pil', 'Suntik']),
+            'aktif_posyandu' => $this->faker->boolean,
+            'has_BKB' => $this->faker->boolean,
+            'has_tabungan' => $this->faker->boolean,
+            'ikut_kel_belajar' => $this->faker->boolean,
+            'jenis_kel_belajar' => $this->faker->randomElement(['Sekolah Dasar', 'Sekolah Menengah', 'Perguruan Tinggi']),
+            'ikut_paud' => $this->faker->boolean,
+            'ikut_koperasi' => $this->faker->boolean,
+            'gaji' => $this->faker->randomFloat(2, 1000, 10000),
+            'pajak_bumi' => $this->faker->randomFloat(2, 100, 500),
+            'biaya_listrik' => $this->faker->randomFloat(2, 50, 200),
+            'biaya_air' => $this->faker->randomFloat(2, 20, 100),
+            'total_pajak_kendaraan' => $this->faker->randomFloat(2, 100, 500),
+            'jumlah_tanggungan' => $this->faker->numberBetween(1, 5),
+
         ];
+    }
+
+    public function kepalaKeluarga($agama)
+    {
+        return $this->state(function (array $attributes) use ($agama) {
+            return [
+                'jenis_kelamin' => 'L',
+                'status_keluarga' => 'kepala_keluarga',
+                'status_kawin' => 'M',
+                'agama' => $agama,
+            ];
+        });
+    }
+
+    public function istri($nomorKk, $agama)
+    {
+        return $this->state(function (array $attributes) use ($nomorKk, $agama) {
+            return [
+                'nomor_kk' => $nomorKk,
+                'status_keluarga' => 'istri',
+                'status_kawin' => 'M',
+                'agama' => $agama,
+            ];
+        });
+    }
+
+    public function anak($nomorKk, $agama)
+    {
+        return $this->state(function (array $attributes) use ($nomorKk, $agama) {
+            return [
+                'nomor_kk' => $nomorKk,
+                'status_keluarga' => 'anak',
+                'status_kawin' => 'BM',
+                'agama' => $agama,
+            ];
+        });
     }
 }
