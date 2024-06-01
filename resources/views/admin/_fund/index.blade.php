@@ -5,7 +5,7 @@
             <form class="flex flex-col gap-9" method="POST">
                 @csrf
                 @method('PUT')
-                <input type="text" class="hidden" value="{{$adminId}}" name="id_admin">
+                <input type="text" class="hidden" value="{{ $adminId }}" name="id_admin">
                 <h1 class="text-xl font-bold text-main text-center">Konfirmasi Pembayaran</h1>
                 <div id="image-preview" class="h-[11.75rem] flex-center">
                     <img src="" alt="Bukti Pembayaran" class="h-full bg-white">
@@ -50,23 +50,23 @@
                     'link-option',
                     'link-option_active' => $typeDocument == 'pembayaran',
                 ])>Pembayaran</a>
-            <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'riwayat']) }}"
+            <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'riwayatPembayaran']) }}"
                 @class([
                     'link-option',
-                    'link-option_active' => $typeDocument == 'riwayat',
+                    'link-option_active' => $typeDocument == 'riwayatPembayaran',
                 ])>Riwayat</a>
         </div>
     </section>
-    <x-filter />
+    <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
     @switch($typeDocument)
         @case('pembayaran')
-            <table class="table-parent">
+            <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
                         <th>Nama</th>
                         <th>Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
-                        <th >No. Telepon</th>
+                        <th>No. Telepon</th>
                         <th>Detail</th>
                     </tr>
                 </thead>
@@ -93,13 +93,13 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>
+            <div id="pagination">
                 {{ $fundData['getSubmission']->appends(request()->except('validatedPage'))->links() }}
             </div>
         @break
 
-        @case('riwayat')
-            <table class="table-parent">
+        @case('riwayatPembayaran')
+            <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
                         <th>Nama</th>
@@ -128,9 +128,84 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>
+            <div id="pagination">
                 {{ $history->appends(request()->except('submissionPage'))->links() }}
             </div>
         @break
     @endswitch
+@endsection
+@section('script')
+    <script>
+        function fetchPaymentData(typeDocument = '', search = '', order = 'asc', page = 1) {
+            $.ajax({
+                url: '{{ route('admin.data-pembayaran.index') }}',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    typeDocument: typeDocument,
+                    search: search,
+                    order: order,
+                    page: page
+                },
+                success: function(data) {
+                    const initialLocation =
+                        `${window.location.origin}/admin/data-pembayaran?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
+                    window.history.pushState({
+                        path: initialLocation
+                    }, '', initialLocation);
+
+                    const fundDatas = data.fundData
+                    console.log(fundDatas);
+
+                    $('#table-parent tbody').empty();
+                    $('#pagination').empty();
+
+                    if (!fundDatas.length) {
+                        $('#table-parent tbody').append(
+                            `<tr>
+                                <td colspan="5" class="text-center">No data found</td>
+                            </tr>`
+                        );
+                        return;
+                    }
+                    let index = 0;
+                    $.each(fundDatas, function(index, fundData) {
+                        const datetime = fundData.created_at;
+                        const dateString = datetime.slice(0, 10);
+                        index++;
+                        let lastColumn;
+                        switch (typeDocument) {
+                            case 'pembayaran':
+                                lastColumn = `<td class="flex-start">
+                                        <button class="w-[25px] h-[25px] flex-center" id="button-${index}"
+                                            onclick="getDataPembayaran(${fundData.id_pembayaran})">
+                                            <x-icon.detail />
+                                        </button>
+                                        </td>`
+                                break;
+                            case 'riwayatPembayaran':
+                                lastColumn =
+                                    `<td class="font-semibold ${ fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${fundData.status}</td>`
+                                break;
+                        }
+
+                        $('#table-parent tbody').append(
+                            `<tr>
+                                <td>${ fundData.resident.nama }</td>
+                                <td>${ fundData.nomor_kk }</td>
+                                <td class="sm:hidden lg:table-cell">${ dateString }</td>
+                                <td>${ fundData.admin.noHp }</td>
+                                ${lastColumn}
+                            </tr>`
+
+                        )
+                    })
+                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + status + " " + error);
+                }
+            });
+        }
+    </script>
 @endsection
