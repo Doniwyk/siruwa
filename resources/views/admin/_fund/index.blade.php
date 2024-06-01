@@ -63,6 +63,7 @@
             <table class="table-parent">
                 <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
                         <th >No. Telepon</th>
@@ -75,6 +76,7 @@
                     @endphp
                     @foreach ($fundData['getSubmission'] as $data)
                         <tr>
+                            <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
                             <td>{{ $data->admin->noHp }}</td>
@@ -100,6 +102,7 @@
             <table class="table-parent">
                 <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
                         <th>No. Telepon</th>
@@ -112,6 +115,7 @@
                     @endphp
                     @foreach ($history as $data)
                         <tr>
+                            <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
                             <td>{{ $data->admin->noHp }}</td>

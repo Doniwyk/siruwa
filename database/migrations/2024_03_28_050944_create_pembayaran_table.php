@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id('id_pembayaran');
             // $table->unsignedBigInteger('id_penduduk')->index();
             $table->unsignedBigInteger('id_admin')->index()->nullable();
+            $table->unsignedBigInteger('id_penduduk')->index();
             $table->string('nomor_kk')->index();
             $table->enum('jenis', ['Iuran Kematian', 'Iuran Sampah']);
             $table->enum('metode', ['Tunai', 'Transfer']);
             $table->string('urlBuktiPembayaran', 250);
+            $table->string('image_public_id', 255)->nullable();
             $table->float('jumlah')->nullable();
             $table->enum('status', ['Terverifikasi', 'Belum Terverifikasi', 'Ditolak'])->default('Belum Terverifikasi');
             $table->string('keterangan_status', 250)->nullable();
@@ -26,6 +28,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_admin')->references('id')->on('users');
+            $table->foreign('id_penduduk')->references('id_penduduk')->on('penduduk');
             $table->foreign('nomor_kk')->references('nomor_kk')->on('penduduk');
         });
     }

@@ -34,11 +34,6 @@ return new class extends Migration
             //PM -> Pelajar/Mahasiswa
             //TB -> Tidak bekerja
             $table->enum('pekerjaan',['PNS', 'TNI/POLRI','Wirausaha','Wiraswasta','PM','TB']);
-            $table->double('gaji');
-            $table->double('pajak_bumi');
-            $table->double('biaya_listrik');
-            $table->double('biaya_air');
-            $table->integer('jumlah_kendaraan_bermotor');
             $table->boolean('akseptor_kb');
             $table->string('jenis_akseptor', 100)->nullable();
             $table->boolean('aktif_posyandu');
@@ -48,6 +43,11 @@ return new class extends Migration
             $table->string('jenis_kel_belajar', 100)->nullable();
             $table->boolean('ikut_paud');
             $table->boolean('ikut_koperasi');
+            $table->double('gaji');
+            $table->double('pajak_bumi');
+            $table->double('biaya_listrik');
+            $table->double('biaya_air');
+            $table->integer('total_pajak_kendaraan');
             $table->timestamps();
         });
     }

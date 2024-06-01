@@ -24,6 +24,7 @@ class AccountSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),
             'role' => 'admin',
+            'image_public_id' => '1'
         ]);
 
         AccountModel::create([
@@ -35,6 +36,8 @@ class AccountSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),
             'role' => 'resident',
+            'image_public_id' => '2'
+
         ]);
 
         AccountModel::factory(5)->create();
