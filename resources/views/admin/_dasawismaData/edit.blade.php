@@ -20,7 +20,7 @@
             <div action="" class="grid grid-rows-2 grid-flow-col gap-x-9 gap-y-5">
                 <x-form.disabled-input :label="'Nama'" :prevName="'prevNama'" :reqName="'reqNama'" :prevValue="$resident->nama" :reqValue="$reqResident->nama" />
                 <x-form.disabled-input :label="'No. KTP/NIK'" :prevName="'prevKtp'" :reqName="'reqKtp'" :prevValue="$resident->nik" :reqValue="$reqResident->nik" />
-                <x-form.disabled-input :label="'No. Registrasi'" :prevName="'prevRegistrasi'" :reqName="'reqRegistrasi'" :prevValue="$resident->no_reg" :reqValue="$reqResident->no_reg" />
+                <x-form.disabled-input :label="'No. Registrasi'" :prevName="'prevRegistrasi'" :reqName="'reqRegistrasi'" :prevValue="$reqResident->id_temporary" :reqValue="$reqResident->id_temporary" />
                 <x-form.disabled-input :label="'Alamat Lengkap'" :prevName="'prevAlamat'" :reqName="'reqAlamat'" :prevValue="$resident->alamat" :reqValue="$reqResident->alamat" />
             </div>
         </fieldset>

@@ -45,7 +45,7 @@
 
     <div class="bg-white p-9 rounded-2xl mb-6">
         <span class="mb-6 block text-2xl font-semibold text-secondary">Ubah Password</span>
-        <form action="" method="post" id="update-password" class="flex md:flex-col gap-9">
+        <form action="" method="post" id="update-password" class="flex sm:flex-col gap-9">
             @csrf
             @method('PUT')
             <div class="grid lg:grid-cols-3 lg:grid-flow-row gap-x-9 gap-y-5">

@@ -1,12 +1,17 @@
 <div class="form-group">
+    {{$prevValue}}
     <label for="nama" class="text-label_light">{{ $label }}</label>
     <input type="text" name="{{ $prevName }}" id="{{ $prevName }}" class="form-control" disabled
         placeholder="{{ $label }}" 
         value=
-        @if (is_string($prevValue))
+        @if ($label == 'No. Registrasi')
             "{{ $prevValue }}"
         @else
-            "{{ $prevValue == 1 ? 'Iya' : 'Tidak' }}"
+            @if (is_string($prevValue))    
+                "{{ $prevValue }}"
+            @else
+                "{{ $prevValue == 1 ? 'Iya' : 'Tidak' }}"
+            @endif
         @endif
         >
 
