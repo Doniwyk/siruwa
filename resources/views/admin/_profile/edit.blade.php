@@ -3,19 +3,20 @@
     {{-- <div id="response-message"></div> --}}
     <div class="h1-semibold">{{ $title }}</div>
     <div class="bg-white p-9 rounded-2xl flex mb-6">
-        <form action="/your-endpoint" class="flex w-full gap-x-9" id="update-personal-data" enctype="multipart/form-data">
+        <form action="/your-endpoint" class="flex sm:flex-col lg:flex-row gap-9 w-full " id="update-personal-data"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <!-- Foto Profil -->
-            <fieldset class="shrink-0 flex flex-col" x-data="imageHandler()">
-                <span class="mb-6 block text-2xl font-semibold text-secondary">Foto Profil</span>
-                <div class="relative w-[21rem] cursor-pointer" @click="$refs.profileImageUpload.click()">
+            <fieldset class="shrink-0 h-[21rem] flex flex-col relative items-center " x-data="imageHandler()">
+                <span class="mb-6 block text-2xl font-semibold text-secondary w-full">Foto Profil</span>
+                <div class="relative w-[21rem] h-[16rem] cursor-pointer bg-black/50 object-contain" @click="$refs.profileImageUpload.click()">
                     <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*"
                         @change="loadFile($event)" name="urlProfile" id="urlProfile">
-                    <img id="profile-image" class="w-[21rem] h-[16rem] rounded-xl absolute object-contain"
+                    <img id="profile-image" class="w-full h-full rounded-xl absolute object-contain bg-black/50"
                         :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" />
-                    <span class="w-[21rem] h-[16rem] group  opacity-50 rounded-xl absolute"></span>
-                    <span class="w-[21rem] h-[16rem] group absolute flex flex-col justify-center items-center gap-2">
+                    <span class="w-full h-full group  opacity-50 rounded-xl absolute object-contain"></span>
+                    <span class="w-[21rem] h-[16rem] group absolute flex flex-col justify-center items-center gap-2 object-contain">
                         <img class="block w-12 opacity-100" src="{{ asset('assets/icons/upload-profile.svg') }}"
                             alt="Upload" />
                         <span class="text-white font-medium">Upload Foto Profil</span>
@@ -26,18 +27,16 @@
             <!-- Identitas Diri -->
             <fieldset class="w-full flex flex-col">
                 <span class="mb-6 block text-2xl font-semibold text-secondary">Identitas Diri</span>
-
-                <div class="grid grid-rows-3 grid-flow-col gap-x-9 gap-y-5 mb-6">
+                <div class="grid gap-x-9 gap-y-5 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
                     <x-form.show-input-form :label="'Nama Lengkap'" :name="'nama'" :value="$resident->nama" />
-                    <x-form.show-input-form :label="'Role'" :name="'role'" :value="$account->role" />
+                    <x-form.text-input-form label="Email" name="email" :value="$account->email" />
                     <x-form.show-input-form :label="'Alamat Lengkap'" :name="'alamat'" :value="$resident->alamat" />
                     <x-form.text-input-form label="Username" name="username" :value="$account->username" />
-                    <x-form.text-input-form label="Email" name="email" :value="$account->email" />
+                    <x-form.show-input-form :label="'Role'" :name="'role'" :value="$account->role" />
                     <x-form.text-input-form label="No. Telepon" name="noHp" :value="$account->noHp" />
                 </div>
-
                 <div class="flex justify-end">
-                    <button type="submit" class="btn-main">Simpan Perubahan</button>
+                    <button type="submit" class="btn-main button-hover mt-6">Simpan Perubahan</button>
                 </div>
             </fieldset>
         </form>
@@ -46,16 +45,16 @@
 
     <div class="bg-white p-9 rounded-2xl mb-6">
         <span class="mb-6 block text-2xl font-semibold text-secondary">Ubah Password</span>
-        <form action="" method="post" id="update-password">
+        <form action="" method="post" id="update-password" class="flex md:flex-col gap-9">
             @csrf
             @method('PUT')
-            <div class="grid grid-cols-3 grid-flow-row gap-x-9 gap-y-5 mb-6">
+            <div class="grid lg:grid-cols-3 lg:grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form type="password" label="Password Lama" name="current_password" />
                 <x-form.text-input-form type="password" label="Password Baru" name="new_password" />
                 <x-form.text-input-form type="password" label="Konfirmasi Password" name="new_password_confirmation" />
             </div>
             <div class="flex justify-end">
-                <button type="submit" class="btn-main">Simpan Perubahan</button>
+                <button type="submit" class="btn-main button-hover">Simpan Perubahan</button>
             </div>
         </form>
     </div>
@@ -123,12 +122,6 @@
                 let form = $('#update-personal-data')[0];
                 let formData = new FormData(form);
 
-                // console.log(formData);
-
-                // for (let [key, value] of formData.entries()) {
-                //     console.log(`${key}:`, value);
-                // }
-
                 $.ajax({
                     url: "{{ route('admin.profil.update') }}",
                     type: 'POST',
@@ -149,9 +142,8 @@
                         }, 1000);
 
                     },
-                    error: function(xhr) {
-                        $('#response-message').text(xhr.responseJSON.message).css('color',
-                            'red');
+                    error: function(response) {
+                        console.log(response);
                     }
                 });
             });
