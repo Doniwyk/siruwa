@@ -24,7 +24,7 @@ class AccountController extends Controller
         try {
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
-            $detailAccount = UserModel::findOrFail($userId);
+            $detailAccount = UserModel::findOrFail($account->id_penduduk);
             $page = 'profil';
             $title = 'Profil';
             $role = Auth::user()->role;

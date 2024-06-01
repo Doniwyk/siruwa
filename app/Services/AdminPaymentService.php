@@ -24,11 +24,13 @@ class AdminPaymentService implements AdminPaymentContract
         }
 
         $totalPayment = $validatedData['jumlah'];
+        //Nominal yang dibayarkan
         $monthsPaid = (int) ($totalPayment / self::$MONTHLY_PAYMENT);
 
         $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
         $no_kk = $payment->nomor_kk;
 
+        //Mencaari bulan yang belum lunas
         $monthsDue = $table::where('nomor_kk', $no_kk)
             ->where('status', 'Belum Lunas')
             ->orderBy('bulan', 'asc')
@@ -41,14 +43,17 @@ class AdminPaymentService implements AdminPaymentContract
             $payment->id_admin = Auth::user()->id;
             $payment->save();
 
+            //Menghitung jumlah bulan yang belum lunas
             $monthsDueCount = $monthsDue->count();
 
+            //Mengubah status lunas sejumlah dengan monts due count
             foreach ($monthsDue as $index => $currentMonth) {
                 $currentMonth->id_pembayaran = $payment->id_pembayaran;
                 $currentMonth->status = 'Lunas';
                 $currentMonth->save();
             }
 
+            
             if ($monthsPaid > $monthsDueCount) {
                 $lastPaidMonth = $table::where('nomor_kk', $no_kk)
                     ->where('status', 'Lunas')
