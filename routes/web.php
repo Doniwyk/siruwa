@@ -109,7 +109,7 @@ Route::group(
     [
         'prefix' => 'penduduk/data-dasawisma',
         'as' => 'resident.data-dasawisma.',
-        'middleware' => 'isAuth'
+        'middleware' => ['isAuth', 'userAccess:resident']
     ],
     function () {
         Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
@@ -123,7 +123,7 @@ Route::group(
 Route::group([
     'prefix' => 'penduduk/data-dokumen',
     'as' => 'resident.data-dokumen.',
-    'middleware' => 'isAuth'
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
     Route::post('/request', [ResidentDocumentController::class, 'requestDocument'])->name('request');
@@ -148,7 +148,7 @@ Route::group([
 Route::group([
     'prefix' => 'penduduk/data-pembayaran',
     'as' => 'resident.data-pembayaran.',
-    'middleware' => 'isAuth'
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
     Route::get('/add-pembayaran', [ResidentPaymentController::class, 'getAddPaymentForm'])->name('formPembayaran');
@@ -222,7 +222,7 @@ Route::group([
 Route::group([
     'prefix' => 'penduduk/profil',
     'as' => 'resident.profil.',
-    'middleware' => 'isAuth'
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
@@ -239,8 +239,7 @@ Route::group([
 Route::group([
     'prefix' => 'penduduk',
     'as' => 'resident.',
-    'middleware' => 'isAuth'
-
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 });
