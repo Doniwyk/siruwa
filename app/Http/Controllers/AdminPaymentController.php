@@ -6,6 +6,7 @@ use App\Contracts\AdminPaymentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
+use Auth;
 use Illuminate\Http\Request;
 
 class AdminPaymentController extends Controller
@@ -28,8 +29,9 @@ class AdminPaymentController extends Controller
         
         $fundData = $this->paymentService->getSubmission();
         $history = $this->paymentService->getValidatedPayment();
+        $adminId = Auth::id();
         
-        return view('admin._fund.index', compact('fundData', 'history', 'title','page','typeDocument','search','order'));
+        return view('admin._fund.index', compact('fundData', 'history', 'title','page','typeDocument','search','order', 'adminId'));
     }
     public function validatePayment(ValidatePaymentRequest $request, PaymentModel $payment){
         $action = $request->action;
@@ -45,5 +47,8 @@ class AdminPaymentController extends Controller
     public function validatedPayment(){ //riwayat
         $validatedPayment = $this->paymentService->getValidatedPayment();
         return $validatedPayment;
+    }
+    public function showBuktiPembayaran(PaymentModel $payment){
+        return response()->json($payment);
     }
 }
