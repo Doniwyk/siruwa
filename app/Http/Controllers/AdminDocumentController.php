@@ -95,7 +95,7 @@ class AdminDocumentController extends Controller
             report($e);
             return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat mengganti status.');
         }
-        return redirect()->route('admin.data-dokumen.index');
+        return redirect()->route('admin.data-dokumen.index', ['typeDocument' => 'ongoing']);
     }
     public function getProcessedData(Request $request) //get data dokumen dengan status proses
     {
