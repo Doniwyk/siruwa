@@ -20,9 +20,12 @@
             <x-shared.topbar />
         </header>
         <main class="grow flex">
+            @yield('modal')
             <x-shared.leftsidebar :page="$page" />
-            <div class="content">
-                @yield('content')
+            <div class="content ">
+                <div class="wrapper flex flex-col gap-y-5 h-full overflow-scroll bg-white p-11 rounded-2xl relative">
+                    @yield('content')
+                </div>
             </div>
         </main>
     </div>
