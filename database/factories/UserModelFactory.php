@@ -48,8 +48,4 @@ class UserModelFactory extends Factory
             'total_pajak_kendaraan' => fake()->randomFloat(2, 100, 500),
         ];
     }
-    public function umur()
-    {
-        return Carbon\Carbon::parse($this->tanggal_lahir)->age;
-    }
 }
