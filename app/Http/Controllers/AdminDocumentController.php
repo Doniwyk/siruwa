@@ -93,9 +93,17 @@ class AdminDocumentController extends Controller
             $this->documentService->changeStatus($validatedData, $document, $action);
         } catch (\Exception $e) {
             report($e);
-            return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat mengganti status.');
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Status updated error',
+                'errors' => $e,
+            ], 422);
         }
-        return redirect()->route('admin.data-dokumen.index');
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully',
+        ]);
     }
     public function getProcessedData(Request $request) //get data dokumen dengan status proses
     {
