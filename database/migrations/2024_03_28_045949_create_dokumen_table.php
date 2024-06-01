@@ -20,7 +20,8 @@ return new class extends Migration
             //BA = bisa diambil
             //DT = Ditolak
             //DB = Dibatalkan            
-            $table->enum('status',['MV','P','BA','DT','DB']);
+            //S = Selesai            
+            $table->enum('status',['MV','P','BA','DT','DB', 'S']);
             $table->text('keterangan_status')->nullable();
             $table->text('keperluan');
             $table->timestamps();
