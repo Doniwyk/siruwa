@@ -79,7 +79,7 @@
                             <td>{{ $data->resident->nama }}</td>
                             <td>{{ $data->nomor_kk }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
-                            <td>{{ $data->admin->noHp }}</td>
+                            <td>{{ $data->akun->noHp }}</td>
                             <td>
                                 <button class="w-[25px] h-[25px] flex-center" id="button-{{ $i }}"
                                     onclick="getDataPembayaran({{ $data->id_pembayaran }})">
