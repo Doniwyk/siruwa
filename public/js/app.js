@@ -23,14 +23,46 @@ function setActionAndSubmit(action) {
     form.submit();
 }
 
-function showPopup(formId, modalId) {
-    const sectionPopup = document.querySelector(modalId);
-    const popUp = document.querySelector(formId);
+async function getDataPembayaran(id_pembayaran) {
+    const url = `/admin/data-pembayaran/${id_pembayaran}/show`;
+    const response = await fetch(url);
+    const data = await response.json();
 
-    sectionPopup.classList.remove("hidden");
-    popUp.classList.remove("hidden");
+    console.log(url);
+
+    showPopupPembayaran(data, id_pembayaran);
 }
 
+function showPopupPembayaran(data, id_pembayaran) {
+    const routeForm = `/admin/data-pembayaran/${id_pembayaran}/validate`;
+    const modal = document.querySelector("#payment-modal_parent");
+    const form = document.querySelector("#payment-modal_parent form");
+    const img = document.querySelector("#payment-modal_parent form img");
+    const inputMetode = document.querySelector("#metode");
+    const inputMetodeDisplay = document.querySelector("#metode_display");
+    const inputJumlah = document.querySelector("#jumlah");
+    const inputJumlahDisplay = document.querySelector("#jumlah_display");
+
+    form.action = routeForm;
+    img.src = data.urlBuktiPembayaran;
+    inputMetode.value = data.metode;
+    inputMetodeDisplay.value = data.metode;
+    inputJumlah.value = data.jumlah;
+    inputJumlahDisplay.value = data.jumlah;
+
+    modal.classList.toggle("hidden");
+    modal.addEventListener("click", (event) => {
+        if (event.target == modal) {
+            closePopup("#payment-modal_parent");
+        }
+    });
+
+}
+
+function closePopup(id_modal) {
+    const modal = document.querySelector(id_modal);
+    modal.classList.add("hidden");
+}
 function closeForm(formId, modalId) {
     const sectionPopup = document.querySelector(modalId);
     const popUp = document.querySelector(formId);
@@ -39,33 +71,61 @@ function closeForm(formId, modalId) {
     sectionPopup.classList.add("hidden");
 }
 
+async function showPopupToContinueDocumentProccess(id_document, action) {
+    const routeForm = `/admin/data-dokumen/${id_document}/status`;
+    const modal = document.querySelector("#document-modal_parent");
+    const form = modal.querySelector("form");
+    const button = modal.querySelector("button");
+
+    form.action = routeForm;
+    button.value = action;
+
+    if (action == "batalkan") {
+        button.innerText = 'Batalkan'
+        button.classList.remove('bg-main')
+        button.classList.add('bg-red-600')
+    } else {
+        button.classList.remove('bg-red-600')
+        button.classList.add('bg-main')
+        button.innerText = 'Lanjutkan'
+    }
+
+    modal.classList.toggle("hidden");
+
+    modal.addEventListener("click", (event) => {
+        if (event.target == modal) {
+            closePopup("#document-modal_parent");
+            return;
+        }
+    });
+
+}
+
+
 const previewBeforeUpload = (id) => {
-    const input = document.querySelector('#' + id + ' input')
-    input.addEventListener('change', ({
-        target
-    }) => {
+    const input = document.querySelector("#" + id + " input");
+    input.addEventListener("change", ({ target }) => {
         let file, url, imagePreview;
-        const image = document.querySelector('#' + id + ' img')
+        const image = document.querySelector("#" + id + " img");
 
         file = target.files[0];
         if (image) {
             url = URL.createObjectURL(file);
             image.src = url;
-            return
+            return;
         }
 
         if (!target.files.length) {
-            return
+            return;
         }
 
         url = URL.createObjectURL(file);
 
         imagePreview = document.createElement("img");
         imagePreview.src = url;
-        imagePreview.classList.add('object-contain', 'h-full', 'w-full')
+        imagePreview.classList.add("object-contain", "h-full", "w-full");
 
-        document.querySelector('#' + id + ' div').innerHTML = '';
-        document.querySelector('#' + id + '-preview').appendChild(imagePreview)
-    })
-
-}
+        document.querySelector("#" + id + " div").innerHTML = "";
+        document.querySelector("#" + id + "-preview").appendChild(imagePreview);
+    });
+};

@@ -30,6 +30,10 @@ class AccountModel extends Authenticatable
     {
         return $this->hasMany(PaymentModel::class, 'id_admin');
     }
+    public function pembayar(): BelongsTo
+    {
+        return $this->belongsTo(PaymentModel::class, 'id_penduduk');
+    }
     public function berita(): HasMany
     {
         return $this->hasMany(EventModel::class, 'id_admin');

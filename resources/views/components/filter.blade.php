@@ -1,6 +1,6 @@
-<div class="filter_parent">
+<div class="filter_parent z-30">
     <div class="search-option">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute left-3">
             <path
                 d="M9.16602 16.6665C13.3082 16.6665 16.666 13.3086 16.666 9.1665C16.666 5.02437 13.3082 1.6665 9.16602 1.6665C5.02388 1.6665 1.66602 5.02437 1.66602 9.1665C1.66602 13.3086 5.02388 16.6665 9.16602 16.6665Z"
                 stroke="#97A7A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -8,8 +8,8 @@
                 d="M15.775 17.2413C16.2167 18.5747 17.225 18.708 18 17.5413C18.7084 16.4747 18.2417 15.5997 16.9584 15.5997C16.0084 15.5913 15.475 16.333 15.775 17.2413Z"
                 stroke="#97A7A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        <input type="text" name="typeDocument" id="typeDocument" value="{{ $typeDocument }}" @class(['hidden'])>
-        <input class="px-2 w-full outline-none" value="{{ $search }}" type="text" placeholder="Search Name" name="search" id="search-input">
+        <input type="text" name="typeDocument" id="typeDocument" value="{{ $typeDocument }}" class="hidden">
+        <input class="rounded-2xl px-11 w-full h-full outline-main" value="{{ $search }}" type="text" placeholder="Search Name" name="search" id="search-input">
     </div>
     <div class="filter-option_parent">
         <div class="filter flex">
@@ -21,7 +21,7 @@
                 <path d="M9.10833 1.75L5 8.33333" stroke="#97A7A8" stroke-width="2" stroke-miterlimit="10"
                     stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-            <label for="" class="ml-3 flex-center text-sm sm:text-xs">Filter Data</label>
+            <label for="" class="ml-3 flex-center text-sm sm:hidden lg:block">Urutkan</label>
         </div>
         <button name="order" id="order-select" value="{{ $order }}" class="transition-all ease-linear">
             <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">

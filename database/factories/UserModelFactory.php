@@ -48,6 +48,7 @@ class UserModelFactory extends Factory
             'biaya_air' => $this->faker->randomFloat(2, 20, 100),
             'total_pajak_kendaraan' => $this->faker->randomFloat(2, 100, 500),
             'jumlah_tanggungan' => $this->faker->numberBetween(1, 5),
+
         ];
     }
 
