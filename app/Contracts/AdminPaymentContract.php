@@ -10,7 +10,7 @@ interface AdminPaymentContract
 
     public function getFundData();
 
-    public function getValidatedPayment();
+    public function getValidatedPayment($search, $order);
 
-    public function getSubmission();
+    public function getSubmission($search, $order);
 }

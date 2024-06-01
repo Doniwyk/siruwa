@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,4 +56,9 @@ class UserModel extends Authenticatable
     {
         return $this->hasMany(GarbageFundModel::class, 'nomor_kk');
     }
+    public function umur()
+{
+    return Carbon::parse($this->tgl_lahir)->age;
+}
+
 }
