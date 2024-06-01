@@ -15,23 +15,23 @@
             $keteranganStatus = $validatedData['keterangan_status'];
             $document->keterangan_status = $keteranganStatus;
             $document->status = match ($action) {
-                'terima' => 'Proses',
-                'tolak' => 'Ditolak',
+                'terima' => 'P',
+                'tolak' => 'DT',
                 default => throw new Exception("Invalid action status")
             };
             $document->save();
         }
         public function getDocumentRequest() //Untuk di page index
         {
-            return DocumentModel::whereIn('status', ['Proses Verifikasi'])->with('penduduk')->get();
+            return DocumentModel::whereIn('status', ['MV'])->with('penduduk')->get();
         }
         public function getDocumentOngoing()
         {
-            return DocumentModel::whereIn('status', ['Proses'])->with('penduduk')->get();
+            return DocumentModel::whereIn('status', ['P'])->with('penduduk')->get();
         }
         public function getDocumentCanBeTaken()
         {
-            return DocumentModel::whereIn('status', ['Bisa Diambil'])->with('penduduk')->get();
+            return DocumentModel::whereIn('status', ['BA'])->with('penduduk')->get();
 
 //             $userId = Auth::id();
 //             $accountData = AccountModel::findOrFail($userId);
@@ -44,14 +44,14 @@
         }
         public function getValidateHistory() //Untuk di page riwayat
         {
-            return DocumentModel::whereIn('status', ['Selesai', 'Ditolak', 'Dibatalkan'])->with('penduduk')->get();
+            return DocumentModel::whereIn('status', ['S', 'DT', 'DB'])->with('penduduk')->get();
         }
 
         public function getProcessedDocument() //Untuk di page proses
         {
             $userId = Auth::id();
             $accountData = AccountModel::findOrFail($userId);
-            $documentData = DocumentModel::where('status', 'Proses')->with('penduduk')->get();
+            $documentData = DocumentModel::where('status', 'P')->with('penduduk')->get();
             return [
                 'accountData' => $accountData,
                 'documentData' => $documentData
@@ -61,8 +61,8 @@
             $keteranganStatus = $validatedData['keterangan_status'];
             $dokumen->keterangan_status = $keteranganStatus;
             $dokumen->status = match ($action) {
-                'lanjut' => 'Bisa Diambil',
-                'batalkan' => 'Dibatalkan',
+                'lanjut' => 'BA',
+                'batalkan' => 'DB',
                 default => throw new Exception("Invalid action status")
             };
             $dokumen->save();
@@ -72,14 +72,14 @@
         {
             $userId = Auth::id();
             $accountData = AccountModel::findOrFail($userId);
-            $documentData = DocumentModel::where('status', ['Bisa Diambil'])->with('penduduk')->get();
+            $documentData = DocumentModel::where('status', ['BA'])->with('penduduk')->get();
             return [
                 'accountData' => $accountData,
                 'documentData' => $documentData
             ];
         }
         public function changeIntoSelesai(DocumentModel $dokumen){ //Untuk di page bisa diambil
-            $dokumen->status = 'Selesai';
+            $dokumen->status = 'S';
             $dokumen->save();
         }
     }
