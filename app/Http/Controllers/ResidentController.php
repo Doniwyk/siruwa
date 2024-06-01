@@ -74,7 +74,6 @@ class ResidentController extends Controller
 
         try {
             $validated = $request->validated();
-
             $resident = $this->residentContract->storeUser($validated);
 
             $account = [
