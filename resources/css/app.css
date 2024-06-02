@@ -31,7 +31,7 @@
     }
 
     .h1-semibold {
-        @apply text-2xl text-main font-semibold;
+        @apply text-4xl text-main font-semibold;
     }
     .h4-semibold {
         @apply text-secondary font-semibold mb-5;
@@ -41,10 +41,10 @@
     }
 
     .link-option_parrent {
-        @apply flex-start  gap-5 rounded-2xl py-2 font-semibold  text-sm flex-shrink z-40;
+        @apply flex-start  gap-5  font-semibold  text-sm flex-shrink ;
     }
     .link-option {
-        @apply flex-center  text-main font-medium transition-all ease-linear py-2 relative text-base;
+        @apply flex-center  text-main font-medium transition-all ease-linear py-2 relative text-base ;
     }
     .link-option_active {
         @apply border-b-2 border-main block text-main font-semibold relative;
@@ -113,7 +113,7 @@
         @apply invert-black;
     }
     .content {
-        @apply px-16 py-9 pt-32 h-screen w-full bg-main-bg;
+        @apply px-16 py-9 pt-32 h-screen w-full bg-main-bg overflow-auto flex flex-col gap-9;
     }
 
     .content-landingpage {
@@ -139,28 +139,14 @@
         @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between border-2;
     }
     .table-parent {
-        @apply w-full rounded-2xl  bg-white table-fixed;
+        @apply w-full rounded-2xl  bg-white table-fixed overflow-hidden;
     }
     th,
     td {
         @apply p-3 text-left;
     }
-    thead {
-        @apply sticky top-3 z-20 ;
-    }
-    thead::before {
-        @apply h-[3.5rem] w-full bg-white absolute -top-[3.5rem];
-        content: "";
-    }
-    thead::after {
-        @apply h-1 w-full bg-main absolute bottom-0;
-        content: "";
-    }
-    tbody {
-        @apply relative;
-    }
     thead th {
-        @apply text-lg font-bold text-main bg-white;
+        @apply text-lg font-bold bg-main text-white;
     }
     tbody tr {
         @apply border-b-2;
