@@ -37,6 +37,9 @@ Route::get('/list-berita', function () {
     return view('/berita/list-berita');
 });
 
+Route::get('/dss-results', [DSSController::class, 'index']);
+
+
 Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
 

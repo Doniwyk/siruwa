@@ -17,11 +17,9 @@ class DSSFuzzyService
             $pajakBumi = $this->fuzzifyPajakBumi($recipient->pajak_bumi);
             $biayaListrik = $this->fuzzifyBiayaListrik($recipient->biaya_listrik);
             $biayaAir = $this->fuzzifyBiayaAir($recipient->biaya_air);
-            $PajakKendaraan = $this->fuzzifyPajakKendaraan($recipient->jumlah_kendaraan_bermotor);
+            $PajakKendaraan = $this->fuzzifyPajakKendaraan($recipient->total_pajak_kendaraan);
 
-            // dd(compact('gaji', 'pajakBumi', 'biayaListrik', 'biayaAir', 'PajakKendaraan'));
-
-            //Rule Evaluation
+            // Rule Evaluation
             $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan);
 
             // Defuzzification
@@ -34,7 +32,7 @@ class DSSFuzzyService
         }
 
         // Sorting
-         usort($results, function ($a, $b) {
+        usort($results, function ($a, $b) {
             return $b['score'] <=> $a['score'];
         });
 
@@ -54,9 +52,9 @@ class DSSFuzzyService
 
     private function hitungRentang($x, $a, $b, $c, $d)
     {
-        //Metode trapezoidal (dibagi 4 kriteria)
+        // Metode trapezoidal (dibagi 4 kriteria)
         if ($x <= $a || $x >= $d) {
-            return 0;
+            return 0;  
         } elseif ($x >= $b && $x <= $c) {
             return 1;
         } elseif ($x > $a && $x < $b) {
@@ -68,9 +66,9 @@ class DSSFuzzyService
 
     private function fuzzifyGaji($gaji)
     {
-        $low = $this->hitungRentang($gaji, 0, 0, 500000, 1000000);
-        $medium = $this->hitungRentang($gaji, 800000, 0, 0, 3500000);
-        $high = $this->hitungRentang($gaji, 300000, 0, 0, 7000000);
+        $low = $this->hitungRentang($gaji, 3000000, 3500000, 5000000, INF);
+        $medium = $this->hitungRentang($gaji, 1000000, 1500000, 2500000, 3000000);
+        $high = $this->hitungRentang($gaji, 0, 0, 1000000, 1500000);
         
         return [
             'low' => $low,
@@ -81,9 +79,9 @@ class DSSFuzzyService
 
     private function fuzzifyPajakBumi($pajakBumi)
     {
-        $low = $this->hitungRentang($pajakBumi, 0, 0, 0, 1000000);
-        $medium = $this->hitungRentang($pajakBumi, 70000, 500, 700, 500000);
-        $high = $this->hitungRentang($pajakBumi, 0, 0, 300000, 95000);
+        $low = $this->hitungRentang($pajakBumi, 500000, 600000, 1000000, INF);
+        $medium = $this->hitungRentang($pajakBumi, 75000, 125000, 300000, 500000);
+        $high = $this->hitungRentang($pajakBumi, 0, 0, 50000, 100000);
 
         return [
             'low' => $low,
@@ -94,9 +92,9 @@ class DSSFuzzyService
 
     private function fuzzifyBiayaListrik($biayaListrik)
     {
-        $low = $this->hitungRentang($biayaListrik, 0, 0, 100, 900);
-        $medium = $this->hitungRentang($biayaListrik, 150, 250, 350, 1300);
-        $high = $this->hitungRentang($biayaListrik, 400, 500, 600, 3500);
+        $low = $this->hitungRentang($biayaListrik, 600000, 800000, 1200000, INF);
+        $medium = $this->hitungRentang($biayaListrik, 150000, 250000, 450000, 600000);
+        $high = $this->hitungRentang($biayaListrik, 0, 0, 100000, 200000);
 
         return [
             'low' => $low,
@@ -107,9 +105,9 @@ class DSSFuzzyService
 
     private function fuzzifyBiayaAir($biayaAir)
     {
-        $low = $this->hitungRentang($biayaAir, 0, 0, 50, 100);
-        $medium = $this->hitungRentang($biayaAir, 80, 150, 200, 250);
-        $high = $this->hitungRentang($biayaAir, 200, 300, 400, 400);
+        $low = $this->hitungRentang($biayaAir, 200000, 250000, 300000, INF);
+        $medium = $this->hitungRentang($biayaAir, 40000, 60000, 150000, 200000);
+        $high = $this->hitungRentang($biayaAir, 0, 0, 20000, 50000);
 
         return [
             'low' => $low,
@@ -120,9 +118,9 @@ class DSSFuzzyService
 
     private function fuzzifyPajakKendaraan($PajakKendaraan)
     {
-        $low = $this->hitungRentang($PajakKendaraan, 0, 0, 1, 1500000);
-        $medium = $this->hitungRentang($PajakKendaraan, 1, 2, 3, 5000000);
-        $high = $this->hitungRentang($PajakKendaraan, 5000000, 4, 5, 20000000);
+        $low = $this->hitungRentang($PajakKendaraan, 1500000, 2000000, 3000000, INF);
+        $medium = $this->hitungRentang($PajakKendaraan, 400000, 600000, 1000000, 1500000);
+        $high = $this->hitungRentang($PajakKendaraan, 0, 0, 200000, 500000);
 
         return [
             'low' => $low,
@@ -130,20 +128,14 @@ class DSSFuzzyService
             'high' => $high,
         ];
     }
-    
+
     private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan)
     {
-        // Evaluasi menggunakan min (tapi error jir embo)
-        // $lowPriority = min($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']);
-        // $mediumPriority = min($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $PajakKendaraan['medium']);
-        // $highPriority = min($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $PajakKendaraan['high']);
-
         // Evaluasi
         $lowPriority = ($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']) / 5;
         $mediumPriority = ($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $PajakKendaraan['medium']) / 5;
         $highPriority = ($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $PajakKendaraan['high']) / 5;
     
-        // Gabungkan nilai fuzzy menjadi array dengan kunci yang sesuai untuk defuzzifikasi
         return [
             'low' => $lowPriority,
             'medium' => $mediumPriority,
@@ -153,14 +145,10 @@ class DSSFuzzyService
     
     private function defuzzify($scores)
     {
-
-        // $numerator = (min($scores['low'] * 1) + ($scores['medium'] * 2) + ($scores['high'] * 3))/(max($scores['low'] + $scores['medium'] + $scores['high']));
-        // $denominator = $numerator / (max($scores['low'] + $scores['medium'] + $scores['high']));
-
         // Gunakan metode Centroid untuk defuzzifikasi
         $numerator = ($scores['low'] * 1) + ($scores['medium'] * 2) + ($scores['high'] * 3);
         $denominator = $scores['low'] + $scores['medium'] + $scores['high'];
-    
+        
         return $denominator == 0 ? 0 : $numerator / $denominator;
     }
 }

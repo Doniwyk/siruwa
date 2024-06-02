@@ -28,6 +28,5 @@ class DSSFuzzyController extends Controller
         $datas = $this->datas;
         $downloadFile = FacadePdf::loadView('banusosu2', $datas);
         return $downloadFile->download('hasil_data.pdf');
- 
     }
 }
