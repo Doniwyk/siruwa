@@ -23,7 +23,7 @@
         }
         public function getDocumentRequest() //Untuk di page index
         {
-            return DocumentModel::whereIn('status', ['Menunggu Verifikasi'])->with('penduduk')->get();
+            return DocumentModel::whereIn('status', ['Proses Verifikasi'])->with('penduduk')->get();
         }
         public function getDocumentOngoing()
         {

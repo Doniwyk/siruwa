@@ -18,9 +18,8 @@ class ResidentPaymentController extends Controller
   public function index()
   {
     $fundData = $this->paymentContract->getFundData();
-    $history = $this->paymentContract->getHistory();
     $title = 'Iuran RW 2';
-    return view('resident._fund.index', compact('fundData', 'title', 'history'));
+    return view('resident._fund.index', compact('fundData', 'title'));
   }
 
   public function getAddPaymentForm()
@@ -41,6 +40,11 @@ class ResidentPaymentController extends Controller
     }
   }
 
+  public function getHistory()
+  {
+    $history = $this->paymentContract->getHistory();
+    return view('resident._fund.history', compact('history'));
+  }
   public function getFundByYear($year)
   {
     $fundData = $this->paymentContract->getFundDataByYear($year);

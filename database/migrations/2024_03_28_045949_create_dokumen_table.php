@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('dokumen', function (Blueprint $table) {
             $table->id('id_dokumen');
             $table->unsignedBigInteger('id_penduduk')->index();
-            $table->string('jenis', 100);       
-            $table->enum('status',['Menunggu Verifikasi','Proses','Bisa Diambil','Ditolak','Dibatalkan', 'Selesai']);
+            $table->string('jenis', 100);
+            //MV = Menunggu verivikasi
+            //P = Proses
+            //BA = bisa diambil
+            //DT = Ditolak
+            //DB = Dibatalkan            
+            $table->enum('status',['MV','P','BA','DT','DB']);
             $table->text('keterangan_status')->nullable();
             $table->text('keperluan');
             $table->timestamps();

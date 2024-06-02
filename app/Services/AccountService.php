@@ -19,12 +19,8 @@ class AccountService implements AccountContract
 
     public function updateAccount(array $validatedData, AccountModel $akun): void
     {
-        if(!array_key_exists('urlProfile', $validatedData)){
-            $akun->update($validatedData);
-            return;
-        }
         $image = $validatedData['urlProfile'];
-        
+
         $cloudinaryImage = $image->storeOnCloudinary('profil');
         $url = $cloudinaryImage->getSecurePath();
         $publicId = $cloudinaryImage->getPublicId();

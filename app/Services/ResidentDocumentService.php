@@ -17,7 +17,7 @@ class ResidentDocumentService implements ResidentDocumentContract
       } else {
           return redirect()->back()->with('error', 'Penduduk tidak ditemukan.');
       }
-      $validatedData['status'] = 'Menunggu Verifikasi';
+      $validatedData['status'] = 'Proses Verifikasi';
       DocumentModel::create($validatedData);
     }
     public function getData()

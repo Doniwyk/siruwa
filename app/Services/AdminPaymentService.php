@@ -24,13 +24,11 @@ class AdminPaymentService implements AdminPaymentContract
         }
 
         $totalPayment = $validatedData['jumlah'];
-        //Nominal yang dibayarkan
         $monthsPaid = (int) ($totalPayment / self::$MONTHLY_PAYMENT);
 
         $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
         $no_kk = $payment->nomor_kk;
 
-        //Mencaari bulan yang belum lunas
         $monthsDue = $table::where('nomor_kk', $no_kk)
             ->where('status', 'Belum Lunas')
             ->orderBy('bulan', 'asc')
@@ -43,17 +41,14 @@ class AdminPaymentService implements AdminPaymentContract
             $payment->id_admin = Auth::user()->id;
             $payment->save();
 
-            //Menghitung jumlah bulan yang belum lunas
             $monthsDueCount = $monthsDue->count();
 
-            //Mengubah status lunas sejumlah dengan monts due count
             foreach ($monthsDue as $index => $currentMonth) {
                 $currentMonth->id_pembayaran = $payment->id_pembayaran;
                 $currentMonth->status = 'Lunas';
                 $currentMonth->save();
             }
 
-            
             if ($monthsPaid > $monthsDueCount) {
                 $lastPaidMonth = $table::where('nomor_kk', $no_kk)
                     ->where('status', 'Lunas')
@@ -91,34 +86,20 @@ class AdminPaymentService implements AdminPaymentContract
         ];
     }
 
-    public function getValidatedPayment($search, $order)
+    public function getValidatedPayment()
     {
-        // $validatedPayments = PaymentModel::whereIn('status', ['Terverifikasi', 'Ditolak'])
-        //     ->with('resident', 'admin', 'akun')
-        //     ->paginate(10, ['*'], 'validatedPage');
-
-        $validatedPayments = PaymentModel::where('status', ['Terverifikasi', 'Ditolak'])
-            ->join('penduduk', 'pembayaran.id_penduduk', '=', 'penduduk.id_penduduk')
+        $validatedPayments = PaymentModel::whereIn('status', ['Terverifikasi', 'Ditolak'])
             ->with('resident', 'admin', 'akun')
-            ->when($search, function ($query, $search) {
-                $query->where('penduduk.nama', 'like', $search . '%');
-            })
-            ->orderBy('penduduk.nama', $order)
-            ->paginate(10, ['pembayaran.*'], 'validatedPage');
+            ->paginate(10, ['*'], 'validatedPage');
 
         return $validatedPayments;
     }
 
-    public function getSubmission($search, $order)
+    public function getSubmission()
     {
         $getSubmission = PaymentModel::where('status', 'Belum Terverifikasi')
-            ->join('penduduk', 'pembayaran.id_penduduk', '=', 'penduduk.id_penduduk')
             ->with('resident', 'admin', 'akun')
-            ->when($search, function ($query, $search) {
-                $query->where('penduduk.nama', 'like', $search . '%');
-            })
-            ->orderBy('penduduk.nama', $order)
-            ->paginate(10, ['pembayaran.*'], 'submissionPage');
+            ->paginate(10, ['*'], 'submissionPage');
 
         $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')->count() * 10000;
         $getGarbageFundAmount = GarbageFundModel::where('status', 'Lunas')->count() * 10000;

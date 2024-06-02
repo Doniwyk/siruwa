@@ -53,11 +53,11 @@
     <section id="informasi-keuangan-pribadi">
         <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
         <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <x-form.show-input-form :label="'Gaji Perbulan'"  :name="'gaji'" :value="$resident->gaji * 1000" />
-            <x-form.show-input-form :label="'Total Pajak Kendaraan'"  :name="'jumlah_kendaraan_bermotor'" :value="$resident->total_pajak_kendaraan * 1000" />
-            <x-form.show-input-form :label="'Biaya Pajak Bumi dan Bangunan'"  :name="'pajak_bumi'" :value="$resident->pajak_bumi * 1000" />
-            <x-form.show-input-form :label="'Biaya Listrik Perbulan'"  :name="'biaya_listrik'" :value="$resident->biaya_listrik * 1000" />
-            <x-form.show-input-form :label="'Biaya Air Perbulan'"  :name="'biaya_air'" :value="$resident->biaya_air * 1000" />
+            <x-form.show-input-form :label="'Gaji Perbulan'"  :name="'gaji'" :value="$resident->gaji" />
+            <x-form.show-input-form :label="'Jumlah Kendaraan'"  :name="'jumlah_kendaraan_bermotor'" :value="$resident->jumlah_kendaraan_bermotor" />
+            <x-form.show-input-form :label="'Biaya Pajak Bumi dan Bangunan'"  :name="'pajak_bumi'" :value="$resident->pajak_bumi" />
+            <x-form.show-input-form :label="'Biaya Listrik Perbulan'"  :name="'biaya_listrik'" :value="$resident->biaya_listrik" />
+            <x-form.show-input-form :label="'Biaya Air Perbulan'"  :name="'biaya_air'" :value="$resident->biaya_air" />
         </form>
     </section>
 </main>

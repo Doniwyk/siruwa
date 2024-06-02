@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_berita');
             $table->unsignedBigInteger('id_admin')->index();
             $table->string('url_gambar', 255);
-            $table->string('image_public_id')->nullable();
+            $table->integer('image_public_id');
             $table->string('judul', 100);
             $table->text('isi');
             $table->timestamps();

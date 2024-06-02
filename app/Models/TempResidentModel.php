@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,9 +23,5 @@ class TempResidentModel extends Model
     public function penduduk(): BelongsTo
     {
         return $this->belongsTo(UserModel::class, 'id_penduduk');
-    }
-    public function umur()
-    {
-        return Carbon::parse($this->tgl_lahir)->age;
     }
 }

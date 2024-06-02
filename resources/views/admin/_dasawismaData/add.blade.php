@@ -113,7 +113,7 @@
                     <option value="1">Ya</option>
                     <option value="0">Tidak</option>
                 </x-form.select-input-form>
-                <x-form.select-input-form label="Ikut Dalam Kelompok Belajar" name="ikut_kel_belajar">
+                <x-form.select-input-form label="Ikut Dalam Kelompok Belajar" name="ikut_koperasi">
                     <option value="">Ikut Dalam Kelompok Belajar</option>
                     <option value="1">Ya</option>
                     <option value="0">Tidak</option>
@@ -135,11 +135,10 @@
             <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
             <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form label="Gaji Perbulan" name="gaji" />
-                <x-form.text-input-form label="Total Pajak Kendaraan" name="total_pajak_kendaraan" />
+                <x-form.text-input-form label="Jumlah Kendaraan" name="jumlah_kendaraan_bermotor" />
                 <x-form.text-input-form label="Biaya Pajak Bumi dan Bangunan" name="pajak_bumi" />
                 <x-form.text-input-form label="Biaya Listrik Perbulan" name="biaya_listrik" />
                 <x-form.text-input-form label="Biaya Air Perbulan" name="biaya_air" />
-                <x-form.text-input-form label="Tanggungan" name="jumlah_tanggungan" />
             </div>
         </section>
         <section class="flex justify-end gap-x-6">

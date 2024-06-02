@@ -23,10 +23,10 @@ class StatisticService implements StatisticContract
                     ->where('pekerjaan','=', 'Wiraswasta')
                     ->count();
         $pm = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'Pelajar/Mahasiswa')
+                    ->where('pekerjaan','=', 'PM')
                     ->count();
         $tb = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'Tidak Bekerja')
+                    ->where('pekerjaan','=', 'TB')
                     ->count();
         return [
             'pns' => $pns,
@@ -42,7 +42,7 @@ class StatisticService implements StatisticContract
     public function countEducationData()
     {
         $tts = DB::table('penduduk')
-        ->where('pendidikan', '=', 'Tidak Tamat SD')
+        ->where('pendidikan', '=', 'TTS')
             ->count();
         $sd = DB::table('penduduk')
         ->where('pendidikan', '=', 'SD')
@@ -61,7 +61,7 @@ class StatisticService implements StatisticContract
             ->count();
 
         return[
-            'tts' => $tts,
+            'ttd' => $tts,
             'sd' => $sd,
             'smp' => $smp,
             'sma' => $sma,

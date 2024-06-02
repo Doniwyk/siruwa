@@ -24,12 +24,18 @@
             </a>
         </div>
         <div class="add-wrapper">
-            <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main button-hover">
+            <a href="{{ route('admin.data-penduduk.export') }}">
+                <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
+                    <x-icon.import />
+                    Export .csv
+                </button>
+            </a>
+            <button class="flex-between gap-[10px] px-6 py-3 bg-white rounded-2xl font-semibold text-main">
                 <x-icon.import />
                 Import .csv
             </button>
             <a href="{{ route('admin.data-penduduk.add') }}">
-                <button class="flex-between gap-[10px] px-6 py-3 bg-main rounded-2xl font-semibold text-white button-hover">
+                <button class="flex-between gap-[10px] px-6 py-3 bg-main rounded-2xl font-semibold text-white">
                     <x-icon.add-circle />
                     Tambah Data
                 </button>

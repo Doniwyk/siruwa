@@ -48,7 +48,6 @@ class UserRequest extends FormRequest
             'biaya_listrik' => 'required',
             'biaya_air' => 'required',
             'total_pajak_kendaraan' => 'required',
-            'jumlah_tanggungan' => 'required'
 
         ];
     }
@@ -81,10 +80,9 @@ class UserRequest extends FormRequest
             'ikut_koperasi.required' => 'Ikut Koperasi wajib diisi.',
             'biaya_listrik.required' => 'Biaya listrik wajib diisi.',
             'biaya_air.required' => 'Biaya listrik wajib diisi.',
+            'jumlah_kendaraan_bermotor.required' => 'Jumlah kendaraan bermotor wajib diisi.',
             'pajak_bumi.required' => 'Pajak bumi wajib diisi.',
-            'gaji.required' => 'Gaji wajib diisi',
-            'jumlah_tanggungan' => 'Jumlah tanggungan wajib diisi',
-            
+            'gaji.required' => 'Gaji wajib diisi'
             
         ];
     }
