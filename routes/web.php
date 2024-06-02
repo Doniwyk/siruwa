@@ -64,6 +64,8 @@ Route::group([
     'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('index');
+    Route::get('/job', [StatisticController::class, 'getJobData'])->name('getJobData');
+    Route::get('/lastStudied', [StatisticController::class, 'getLastStudiedData'])->name('getLastStudiedData');
 });
 
 //==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
