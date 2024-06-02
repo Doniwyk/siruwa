@@ -41,7 +41,7 @@ class AuthenticationController extends Controller
             }
         } catch (\Exception $e) {
             return back()->withErrors([
-                'email' => 'Email or password is wrong',
+                'email' => 'Username atau password salah!',
             ])->onlyInput('email');
         }
     }

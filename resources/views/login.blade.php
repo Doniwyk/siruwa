@@ -34,6 +34,12 @@
                 x-bind:src="showPassword ? '{{ asset('assets/icons/eye-slash.svg') }}' : '{{ asset('assets/icons/eye.svg') }}'">
         </div>
 
+        @if ($errors->any())
+            <div class="w-full md:w-3/4 text-[#D01C1C] font-medium px-4 py-3 relative" role="alert">
+                <span class="block sm:inline">{{ $errors->first() }}</span>
+            </div>
+        @endif
+
         <div class="flex flex-col items-center gap-5 w-full mt-9">
             <button type="submit" class="button-hover w-full md:w-3/4 bg-secondary rounded-2xl text-white px-6 py-3 text-base font-semibold">Masuk</button>
             <a href="#"><span class="text-slate-400 text-base font-medium">Lupa kata sandi?</span></a>
