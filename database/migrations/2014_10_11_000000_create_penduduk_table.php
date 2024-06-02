@@ -30,7 +30,7 @@ return new class extends Migration
             $table->text('alamat');
             //TTS -> Tidak tamat SD
             $table->enum('pendidikan', ['Tidak Tamat SD', 'SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']);
-            $table->enum('pekerjaan', ['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa']);
+            $table->enum('pekerjaan', ['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa','Tidak Bekerja']);
             $table->boolean('akseptor_kb');
             $table->string('jenis_akseptor', 100)->nullable();
             $table->boolean('aktif_posyandu');

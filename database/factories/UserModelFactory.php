@@ -32,7 +32,7 @@ class UserModelFactory extends Factory
             'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']),
             'alamat' => $this->faker->address,
             'pendidikan' => fake()->randomElement(['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']),
-            'pekerjaan' => fake()->randomElement(['PNS', 'TNI/Polri', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa']),
+            'pekerjaan' => fake()->randomElement(['PNS', 'TNI/Polri', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa', 'Tidak Bekerja']),
             'akseptor_kb' => $this->faker->boolean,
             'jenis_akseptor' => $this->faker->randomElement(['IUD', 'Pil', 'Suntik']),
             'aktif_posyandu' => $this->faker->boolean,
