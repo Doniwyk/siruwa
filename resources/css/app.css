@@ -10,6 +10,10 @@
     margin: 0;
     padding: 0;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
 @layer utilities {
     .flex-center {
         @apply flex justify-center items-center;
@@ -27,29 +31,30 @@
     }
 
     .h1-semibold {
-        @apply text-3xl text-main font-semibold;
+        @apply text-4xl text-main font-semibold;
     }
-    .h4-semibold{
+    .h4-semibold {
         @apply text-secondary font-semibold mb-5;
     }
-    .text-label_light{
+    .text-label_light {
         @apply text-base text-green-light font-medium;
     }
 
     .link-option_parrent {
-        @apply flex-start min-h-[3.5rem] gap-5 rounded-2xl py-2 px-4 font-semibold bg-white text-sm flex-shrink;
+        @apply flex-start  gap-5  font-semibold  text-sm flex-shrink ;
     }
     .link-option {
-        @apply flex-center rounded-2xl text-main font-medium transition-all ease-linear py-2 px-4 min-w-[9rem];
+        @apply flex-center  text-main font-medium transition-all ease-linear py-2 relative text-base ;
     }
     .link-option_active {
-        @apply bg-main  text-white font-semibold;
+        @apply border-b-2 border-main block text-main font-semibold relative;
+        z-index: 0;
     }
     .invert-black {
         @apply invert-[.6] transition font-bold;
     }
 
-    .add-wrapper{
+    .add-wrapper {
         @apply flex gap-6;
     }
 
@@ -57,26 +62,29 @@
         @apply flex-center rotate-180;
     }
 
-    .form-group{
+    .form-group {
         @apply flex flex-col flex-1 gap-2;
     }
-    .form-control{
-        @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text 
+    .form-control {
+        @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text;
     }
-    .form-control-input{
+    .form-control-input {
         @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
     }
-    .button-action_accept{
+    .button-action_accept {
         @apply px-24 py-3 rounded-2xl bg-main;
     }
-    .button-action_reject{
+    .button-action_reject {
         @apply px-24 py-3 rounded-2xl bg-red-600;
     }
-    .dropzone{
+    .dropzone {
         @apply h-full w-full border-2 border-dashed border-main bg-white rounded-2xl;
     }
-    .ck-editor__editable_inline{
-        @apply h-[20rem]
+    .ck-editor__editable_inline {
+        @apply h-[20rem];
+    }
+    .button-hover {
+        @apply hover:scale-95 transition-transform;
     }
 }
 .bg_beranda {
@@ -99,15 +107,15 @@
         @apply h-[5.75rem] w-full bg-secondary flex justify-between fixed z-10;
     }
     .left-sidebar {
-        @apply min-h-full w-[18rem] flex flex-col justify-between px-4 pb-6 pt-28 bg-main text-[16px] font-medium text-white fixed;
+        @apply min-h-full w-[20rem] flex flex-col justify-between px-4 pb-6 pt-28 bg-main text-[16px] font-medium text-white;
     }
     .left-sidebar a:hover img {
         @apply invert-black;
     }
     .content {
-        @apply px-16 py-9 pl-[22rem] pt-32 h-screen w-full bg-main-bg flex flex-col gap-y-9 overflow-scroll;
+        @apply px-16 py-9 pt-32 h-screen w-full bg-main-bg overflow-auto flex flex-col gap-9;
     }
-    
+
     .content-landingpage {
         @apply p-0;
     }
@@ -120,25 +128,25 @@
     .topbar {
         @apply px-6 py-4;
     }
-    
+
     .filter_parent {
         @apply min-h-[2.5rem] w-full flex gap-16 justify-between rounded-2xl overflow-hidden;
     }
     .search-option {
-        @apply basis-3/4 bg-white flex items-center  px-6 rounded-2xl;
+        @apply basis-3/4 bg-white flex items-center rounded-2xl border-2 relative;
     }
     .filter-option_parent {
-        @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between;
+        @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between border-2;
     }
     .table-parent {
-        @apply w-full rounded-2xl overflow-hidden bg-white table-fixed;
+        @apply w-full rounded-2xl  bg-white table-fixed overflow-hidden;
     }
     th,
     td {
-        @apply p-3 text-left px-6;
+        @apply p-3 text-left;
     }
     thead th {
-        @apply text-lg font-bold text-white bg-main;
+        @apply text-lg font-bold bg-main text-white;
     }
     tbody tr {
         @apply border-b-2;
@@ -146,25 +154,39 @@
     tbody td {
         @apply text-main text-base font-medium;
     }
+}
 
+#document-modal {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+#payment-modal {
+    animation: fadeInUp 0.25s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(20px);
+    }
 }
 .summary-card_fund {
-    @apply flex h-28 gap-x-9;
+    @apply flex sm:gap-5 lg:gap-9 sm:flex-col lg:flex-row;
 }
 .card {
-    @apply bg-white relative flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main h-[7rem];
+    @apply bg-white flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main;
 }
-.card::before{
-    @apply absolute h-full w-[1rem] bg-black left-0 top-0
-}
+
 .text-fund {
     @apply text-2xl font-bold;
 }
-.danger {
-    @apply bg-danger-bg text-danger;
-}
+
 .summary-card_news {
-    @apply  flex gap-9;
+    @apply flex sm:flex-col lg:flex-row sm:gap-5 lg:gap-9;
 }
 .summary-card {
     @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem];
@@ -182,7 +204,7 @@
     @apply h-[5rem] flex justify-start items-center;
 }
 
-.news p {
+.preview-paragraf {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2; /* Jumlah maksimal baris */
@@ -224,7 +246,7 @@
 .btn-main {
     @apply w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center items-center;
 }
-.btn-secondary{
+.btn-secondary {
     @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
 }
 .resident-header {
@@ -257,22 +279,22 @@
 .left-header {
     @apply font-medium text-white bg-secondary border-white border-r;
 }
-.fund-header tr th{
+.fund-header tr th {
     @apply bg-secondary font-medium text-base text-center py-5 min-w-[11rem];
 }
-.fund-body tr{
+.fund-body tr {
     @apply border-none;
 }
 .fund-body tr td {
     @apply text-center min-w-[0px] py-5;
 }
-.history-header tr th{
+.history-header tr th {
     @apply bg-secondary py-3 px-6;
 }
 .history-body tr {
-    @apply border-none ;
+    @apply border-none;
 }
-.history-body tr td{
+.history-body tr td {
     @apply bg-white py-3 px-6;
 }
 .resident-input {

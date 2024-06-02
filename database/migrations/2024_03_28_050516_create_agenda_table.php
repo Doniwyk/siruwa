@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_agenda');
             $table->unsignedBigInteger('id_admin')->index();
             $table->string('url_gambar', 255);
-            $table->string('image_public_id', 255);
+            $table->string('image_public_id', 255)->nullable();
             $table->string('judul', 100);
             $table->text('isi');
             $table->dateTime('tanggal');
