@@ -15,25 +15,29 @@ class DSSService
             'total_biaya_listrik' => 0.2,
             'total_biaya_air' => 0.2,
             'total_pajak_kendaraan' => 0.1,
-            'jumlah_tanggungan' => 0.1
+            // 'jumlah_tanggungan' => 0.1
         ];
 
-        // normalisasi max karena semua kriteria adalah benefit
+        // normalisasi max untuk benefit
         $maxGaji = $recipients->max('total_gaji');
         $maxPajak = $recipients->max('total_pajak_bumi');
         $maxListrik = $recipients->max('total_biaya_listrik');
         $maxAir = $recipients->max('total_biaya_air');
         $maxMotor = $recipients->max('total_pajak_kendaraan');
-        // $maxTanggungan = $recipients->max('jumlah_tanggungan');
+        
+        // normalisasi min untuk cost
+        // $minTanggungan = $recipients->min('jumlah_tanggungan');
 
         $results = [];
         foreach ($recipients as $recipient) {
             $normalizedGaji = $recipient->total_gaji / $maxGaji;
-            $normalizedPajak = $recipient->total_pajak / $maxPajak;
+            $normalizedPajak = $recipient->total_pajak_bumi / $maxPajak;
             $normalizedListrik = $recipient->total_biaya_listrik / $maxListrik;
             $normalizedAir = $recipient->total_biaya_air / $maxAir;
             $normalizedMotor = $recipient->total_pajak_kendaraan / $maxMotor;
-            // $normalizedTanggungan = $recipient->jumlah_tanggungan / $maxTanggungan;
+            
+            // Normalisasi cost
+            // $normalizedTanggungan = $minTanggungan / $recipient->jumlah_tanggungan;
 
             $score = ($normalizedGaji * $criteria['total_gaji']) +
                 ($normalizedPajak * $criteria['total_pajak_bumi']) +

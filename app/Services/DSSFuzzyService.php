@@ -142,7 +142,7 @@ class DSSFuzzyService
         ];
     }
 
-    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan) // , $jumlahTanggungan   )
+    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan) // , $jumlahTanggungan)
     {
         // Evaluasi
         $lowPriority = ($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']) / 5;
