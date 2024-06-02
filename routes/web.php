@@ -64,6 +64,8 @@ Route::group([
     'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [StatisticController::class, 'index'])->name('index');
+    Route::get('/job', [StatisticController::class, 'getJobData'])->name('getJobData');
+    Route::get('/lastStudied', [StatisticController::class, 'getLastStudiedData'])->name('getLastStudiedData');
 });
 
 //==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
@@ -73,7 +75,7 @@ Route::group([
     'as' => 'admin.dashboard.',
     'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
-    Route::get('/', [DashboardController::class, 'dataDashboard'])->name('index');
+    Route::get('/', [DashboardController::class, 'manajemenDashboard'])->name('index');
     Route::put('/{resident}', [DashboardController::class, 'updateDashboardData'])->name('update');
 
 });
@@ -109,7 +111,7 @@ Route::group(
     [
         'prefix' => 'penduduk/data-dasawisma',
         'as' => 'resident.data-dasawisma.',
-        'middleware' => 'isAuth'
+        'middleware' => ['isAuth', 'userAccess:resident']
     ],
     function () {
         Route::get('/', [ResidentController::class, 'indexResident'])->name('index');
@@ -123,7 +125,7 @@ Route::group(
 Route::group([
     'prefix' => 'penduduk/data-dokumen',
     'as' => 'resident.data-dokumen.',
-    'middleware' => 'isAuth'
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [ResidentDocumentController::class, 'index'])->name('index');
     Route::post('/request', [ResidentDocumentController::class, 'requestDocument'])->name('request');
@@ -148,7 +150,7 @@ Route::group([
 Route::group([
     'prefix' => 'penduduk/data-pembayaran',
     'as' => 'resident.data-pembayaran.',
-    'middleware' => 'isAuth'
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [ResidentPaymentController::class, 'index'])->name('index');
     Route::get('/add-pembayaran', [ResidentPaymentController::class, 'getAddPaymentForm'])->name('formPembayaran');
@@ -163,6 +165,7 @@ Route::group([
     'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [AdminPaymentController::class, 'index'])->name('index'); //mendapatkan halaman data pembayaran yang harus divalidasi
+    Route::get('/{payment}/show', [AdminPaymentController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
     Route::put('/{payment}/validate', [AdminPaymentController::class, 'validatePayment'])->name('validatePembayaran'); //proses validasi pembayaran
     Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
     Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('export');
@@ -221,7 +224,7 @@ Route::group([
 Route::group([
     'prefix' => 'penduduk/profil',
     'as' => 'resident.profil.',
-    'middleware' => 'isAuth'
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [AccountController::class, 'index'])->name('index');
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
@@ -238,8 +241,7 @@ Route::group([
 Route::group([
     'prefix' => 'penduduk',
     'as' => 'resident.',
-    'middleware' => 'isAuth'
-
+    'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
     Route::get('/', [NewsController::class, 'indexResident'])->name('index');
 });

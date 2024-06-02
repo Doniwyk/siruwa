@@ -1,4 +1,18 @@
 @extends('layouts.admin')
+@section('modal')
+    <div class="absolute min-h-full min-w-full flex-center bg-black/50 z-50 hidden" id="document-modal_parent">
+        <div class="absolute p-10 rounded-2xl  bg-white center" id="document-modal">
+            <form class="flex flex-col gap-7" method="POST">
+                @csrf
+                @method('PUT')
+                <h1 class="text-xl font-bold text-main">Catatan</h1>
+                <textarea name="keterangan_status" id="keterangan_status"
+                    class="h-[10rem] w-[22rem] border-2 p-2 border-outline outline-none rounded-2xl" required placeholder="Masukkan catatan"></textarea>
+                <button type="submit" class="text-white px-4 py-2 rounded-md font-semibold" type="submit" name="status" >Test</button>
+            </form>
+        </div>
+    </div>
+@endsection
 @section('content')
     <h1 class="h1-semibold">Manajemen Dokumen</h1>
     <section id="tab-slider" class="flex">
@@ -15,10 +29,11 @@
             ])>
                 Proses
             </a>
-            <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'canBeTaken']) }}" @class([
-                'link-option',
-                'link-option_active' => $typeDocument == 'canBeTaken',
-            ])>
+            <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'canBeTaken']) }}"
+                @class([
+                    'link-option',
+                    'link-option_active' => $typeDocument == 'canBeTaken',
+                ])>
                 Bisa Diambil
             </a>
             <a href="{{ route('admin.data-dokumen.index', ['typeDocument' => 'riwayat']) }}" @class([
@@ -95,15 +110,12 @@
                                 <td>{{ $document->created_at }}</td>
                                 <td>{{ $document->no_reg }}</td>
                                 <td class="flex-start">
-                                    <button class="w-10 h-10 bg-red-600"
-                                        onclick="showPopup('#cancel-description-{{ $i }}', '#modal-parent-{{ $i }}')"></button>
-                                    <button class="w-10 h-10 bg-main"
-                                        onclick="showPopup('#approve-description-{{ $i }}', '#modal-parent-{{ $i }}')"></button>
-                                </td>
-                                <td class="w-full h-full flex-center bg-black/50 absolute top-0 left-0 hidden"
-                                    id="modal-parent-{{ $i }}">
-                                    <x-shared.action-description-form :document=$document :formId="'cancel-description-'" :statusValue="'batalkan'" :idx=$i />
-                                    <x-shared.action-description-form :document=$document :formId="'approve-description-'" :statusValue="'lanjut'" :idx=$i />
+                                    <button class="mr-4" onclick="showPopupToContinueDocumentProccess({{$document->id_dokumen}}, 'batalkan')"">
+                                        <x-icon.cancel />
+                                    </button>
+                                    <button onclick="showPopupToContinueDocumentProccess({{$document->id_dokumen}}, 'lanjut')">
+                                        <x-icon.next />
+                                    </button>
                                 </td>
                             </tr>
                             @php
@@ -147,8 +159,8 @@
                                         @method('PUT')
                                         <input type="text" name="keterangan_status" class="hidden"
                                             value="{{ $document->keterangan_status }}">
-                                        <button type="input" class="w-10 h-10 bg-main" type="submit" name="status"
-                                            value="Selesai"></button>
+                                        <button type="input" class="px-8 py-2 bg-main rounded-3xl text-white" type="submit"
+                                            name="status" value="Selesai">Selesai</button>
                                     </form>
                                 </td>
                             </tr>

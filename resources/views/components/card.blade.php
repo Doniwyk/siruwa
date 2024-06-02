@@ -1,4 +1,4 @@
-<div @class(['card', 'danger' => $type == 'danger'])>
+<div class="card">
     <header class="flex gap-3">
         @switch($label)
             @case('Dana Kematian')

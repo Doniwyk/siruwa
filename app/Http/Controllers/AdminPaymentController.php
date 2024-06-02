@@ -6,6 +6,7 @@ use App\Contracts\AdminPaymentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
+use Auth;
 use Illuminate\Http\Request;
 
 class AdminPaymentController extends Controller
@@ -18,20 +19,49 @@ class AdminPaymentController extends Controller
         $this->paymentService = $paymentService;
         $this->pageName = 'data-pembayaran';
     }
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $typeDocument = $request->query('typeDocument', 'pembayaran');
         $search = $request->query('search', '');
         $order = $request->query('order', 'asc');
+        $adminId = Auth::id();
 
         $title = "Manajemen Dana";
         $page = $this->pageName;
-        
-        $fundData = $this->paymentService->getSubmission();
-        $history = $this->paymentService->getValidatedPayment();
-        
-        return view('admin._fund.index', compact('fundData', 'history', 'title','page','typeDocument','search','order'));
+
+        $fundData = $this->paymentService->getSubmission($search, $order);
+        $history = $this->paymentService->getValidatedPayment($search, $order);
+
+        switch ($typeDocument) {
+            case 'pembayaran':
+                $fundDataJson = $fundData['getSubmission']->items();
+                break;
+            case 'riwayatPembayaran':
+                $fundDataJson = $history->items();
+                break;
+        }
+
+        $paginationHtml = $fundData['getSubmission']->appends([
+            'typeDocument' => $typeDocument,
+            'search' => $search,
+            'order' => $order
+        ])->links()->toHtml();
+
+        // menangani jika request JSON
+        if ($request->wantsJson()) {
+            return response()->json([
+                'page' => $page,
+                'title' => $title,
+                'typeDocument' => $typeDocument,
+                'fundData' => $fundDataJson,
+                'paginationHtml' => $paginationHtml
+            ]);
+        }
+
+        return view('admin._fund.index', compact('fundData', 'history', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
     }
-    public function validatePayment(ValidatePaymentRequest $request, PaymentModel $payment){
+    public function validatePayment(ValidatePaymentRequest $request, PaymentModel $payment)
+    {
         $action = $request->action;
         try {
             $validatedData = $request->validated();
@@ -42,8 +72,13 @@ class AdminPaymentController extends Controller
         }
         return redirect()->route('admin.data-pembayaran.index');
     }
-    public function validatedPayment(){ //riwayat
+    public function validatedPayment()
+    { //riwayat
         $validatedPayment = $this->paymentService->getValidatedPayment();
         return $validatedPayment;
+    }
+    public function showBuktiPembayaran(PaymentModel $payment)
+    {
+        return response()->json($payment);
     }
 }
