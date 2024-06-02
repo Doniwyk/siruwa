@@ -34,8 +34,9 @@ class DashboardController extends Controller
 
     //To manajemen organixation structure for admin
     public function manajemenDashboard(){
-        
-        return view('admin._dashboard.index');
+        $title = 'Manajemen Dashboard';
+        $page = 'dashboard';
+        return view('admin._dashboard.index',compact('title', 'page'));
     }
 
     public function update(Request $request, DataDashboardModel $data){
@@ -48,7 +49,4 @@ class DashboardController extends Controller
         }
 
     }
-
-
-
 }
