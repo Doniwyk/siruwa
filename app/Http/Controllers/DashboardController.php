@@ -42,7 +42,6 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
     }
 
     public function update(Request $request, DataDashboardModel $data){
@@ -55,7 +54,4 @@ class DashboardController extends Controller
         }
 
     }
-
-
-
 }

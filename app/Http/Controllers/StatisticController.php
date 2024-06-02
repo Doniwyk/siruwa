@@ -17,8 +17,14 @@ class StatisticController extends Controller
     {
         $page = 'statistic';
         $title = 'Statistik';
+        return view('admin._statistics.index', compact('title', 'page'));
+    }
+    public function getJobData(){
         $jobData = $this->statisticContract->countJobData();
-        $educationData = $this->statisticContract->countEducationData();
-        return view('admin._statistics.index', ['title' => $title, 'page' => $page, 'jobData'=>$jobData, 'educationData'=>$educationData]);
+        return response()->json(['data'=>$jobData]);
+    }
+    public function getLastStudiedData(){
+        $studiedData = $this->statisticContract->countEducationData();
+        return response()->json(['data'=>$studiedData]);
     }
 }

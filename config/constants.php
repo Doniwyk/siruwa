@@ -26,6 +26,11 @@ return [
         "label" => "Manajemen Berita",
     ],
     [
+        "imgURL" => 'assets/icons/dashboard.svg',
+        "route" => ['dashboard', '',''],
+        "label" => "Manajemen Dashboard",
+    ],
+    [
         "imgURL" => 'assets/icons/edit-profil.svg',
         "route" => ['profil', '',''],
         "label" => "Ubah Profil",

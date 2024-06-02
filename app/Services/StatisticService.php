@@ -61,7 +61,7 @@ class StatisticService implements StatisticContract
             ->count();
 
         return[
-            'ttd' => $tts,
+            'tts' => $tts,
             'sd' => $sd,
             'smp' => $smp,
             'sma' => $sma,
