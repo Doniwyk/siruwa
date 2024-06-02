@@ -13,14 +13,14 @@ class DSSFuzzyService
 
         foreach ($recipients as $recipient) {
             // Fuzzification
-            $gaji = $this->fuzzifyGaji($recipient->gaji);
-            $pajakBumi = $this->fuzzifyPajakBumi($recipient->pajak_bumi);
-            $biayaListrik = $this->fuzzifyBiayaListrik($recipient->biaya_listrik);
-            $biayaAir = $this->fuzzifyBiayaAir($recipient->biaya_air);
+            $gaji = $this->fuzzifyGaji($recipient->total_gaji);
+            $pajakBumi = $this->fuzzifyPajakBumi($recipient->total_pajak_bumi);
+            $biayaListrik = $this->fuzzifyBiayaListrik($recipient->total_biaya_listrik);
+            $biayaAir = $this->fuzzifyBiayaAir($recipient->total_biaya_air);
             $PajakKendaraan = $this->fuzzifyPajakKendaraan($recipient->total_pajak_kendaraan);
-
+            // $jumlahTanggungan = $this->fuzzifyJumlahTanggungan($recipient->jumlah_tanggungan);
             // Rule Evaluation
-            $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan);
+            $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan); // , $jumlahTanggungan);
 
             // Defuzzification
             $crispScore = $this->defuzzify($score);
@@ -129,7 +129,20 @@ class DSSFuzzyService
         ];
     }
 
-    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan)
+    private function fuzzifyJumlahTanggungan($jumlahTanggungan)
+    {
+        $low = $this->hitungRentang($jumlahTanggungan, 0, 0, 3, 4);
+        $medium = $this->hitungRentang($jumlahTanggungan, 4, 5, 6, 7);
+        $high = $this->hitungRentang($jumlahTanggungan, 1, 2, 3, INF);
+
+        return [
+            'low' => $low,
+            'medium' => $medium,
+            'high' => $high,
+        ];
+    }
+
+    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan) // , $jumlahTanggungan   )
     {
         // Evaluasi
         $lowPriority = ($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']) / 5;

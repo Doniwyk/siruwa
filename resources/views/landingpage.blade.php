@@ -78,7 +78,7 @@
 
       <button class="px-8 py-3 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
         <div class="justify-start items-center gap-8 inline-flex">
-          <span class="text-white text-base font-semibold">Lebih Banyak ></span>
+        <span class="text-white text-base font-semibold cursor-pointer" onclick="window.location='{{ route('list-berita.index') }}'">Lebih Banyak ></span>
         </div>
       </button>
     </div>
