@@ -8,7 +8,7 @@ use App\Http\Requests\EditNewsRequest;
 use App\Models\EventModel;
 use App\Models\NewsModel;
 use App\Models\UserModel;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
