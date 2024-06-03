@@ -204,8 +204,14 @@
             startTime: "00:00",
             endTime: "24:00",
             text: "Mata Kuliah PSI"
-          }]
-        }
+          }],
+
+          3: [{
+            startTime: "00:00",
+            endTime: "24:00",
+            text: "Mata Kuliah PSI"
+          }],
+        } 
       }
     };
 

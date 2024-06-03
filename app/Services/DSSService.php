@@ -8,14 +8,14 @@ class DSSService
 {
     public function calculateScores()
     {
-        $recipients = DSSModel::all();
+        $recipients = DSSModel::limit(5)->get();
         $criteria = [
-            'total_gaji' => 0.4,
-            'total_pajak_bumi' => 0.2,
-            'total_biaya_listrik' => 0.2,
-            'total_biaya_air' => 0.2,
-            'total_pajak_kendaraan' => 0.1,
-            // 'jumlah_tanggungan' => 0.1
+            'total_gaji' => 0.3,
+            'total_pajak_bumi' => 0.15,
+            'total_biaya_listrik' => 0.05,
+            'total_biaya_air' => 0.05,
+            'total_pajak_kendaraan' => 0.2,
+            // 'jumlah_tanggungan' => 0.25
         ];
 
         // normalisasi max untuk benefit
@@ -47,7 +47,7 @@ class DSSService
                 // + ($normalizedTanggungan * $criteria['jumlah_tanggungan']);
 
             $results[] = [
-                'name' => $recipient->nama,
+                'name' => $recipient->nomor_kk,
                 'score' => $score
             ];
         }

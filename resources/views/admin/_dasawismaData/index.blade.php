@@ -46,7 +46,7 @@
     </section>
 
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
-
+    
     @switch($typeDocument)
         @case('daftar-penduduk')
             <table class="table-parent" id="table-parent">

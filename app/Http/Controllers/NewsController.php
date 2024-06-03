@@ -10,6 +10,7 @@ use App\Models\NewsModel;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -171,4 +172,25 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
+    public function listBerita()
+    {
+        try {
+            $news = NewsModel::all();
+            $event = EventModel::all();
+            $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
+            $latestEvent = EventModel::orderBy('created_at', 'desc')->take(3)->get();
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent'=>$latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+    public function showArtikel($id){
+        $artikel = DB::table('users')
+                ->join('berita', 'users.id', '=', 'berita.id_admin')
+                ->join('penduduk', 'users.id', '=', 'penduduk.id_penduduk')
+                ->select('berita.*', 'penduduk.nama')
+                ->where('berita.id_berita', $id)
+                ->first();
+        return view('berita.Artikel', compact('artikel'));
+    } 
 }

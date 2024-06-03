@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Services\DSSService;
+use App\Services\DSSFuzzyService;
 
 class CombinedDSSService
 {
@@ -9,14 +11,16 @@ class CombinedDSSService
     {
         // Menghitung skor dari DSSService
         $dssService = new DSSService();
-        $dssResults = $this->normalizeScores($dssService->calculateScores());
+        $dssResults = $dssService->calculateScores();
+        $normalizedDssResults = $this->normalizeScores($dssResults);
 
         // Menghitung skor dari DSSFuzzyService
         $dssFuzzyService = new DSSFuzzyService();
-        $fuzzyResults = $this->normalizeScores($dssFuzzyService->calculateScores());
+        $fuzzyResults = $dssFuzzyService->calculateScores();
+        $normalizedFuzzyResults = $this->normalizeScores($fuzzyResults);
 
         // Menggabungkan hasil
-        $combinedResults = $this->combineScores($dssResults, $fuzzyResults);
+        $combinedResults = $this->combineScores($normalizedDssResults, $normalizedFuzzyResults);
 
         // Sorting
         usort($combinedResults, function ($a, $b) {
@@ -29,10 +33,9 @@ class CombinedDSSService
     private function normalizeScores($results)
     {
         $maxScore = max(array_column($results, 'score'));
-        $minScore = min(array_column($results, 'score'));
 
         foreach ($results as &$result) {
-            $result['normalized_score'] = ($result['score'] - $minScore) / ($maxScore - $minScore);
+            $result['normalized_score'] = $result['score'] / $maxScore;
         }
 
         return $results;
@@ -53,7 +56,6 @@ class CombinedDSSService
                         'dss_score' => $dssResult['score'],
                         'fuzzy_score' => $fuzzyResult['score'],
                     ];
-
                     break;
                 }
             }

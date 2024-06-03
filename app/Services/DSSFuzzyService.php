@@ -8,7 +8,8 @@ class DSSFuzzyService
 {
     public function calculateScores()
     {
-        $recipients = DSSModel::all();
+        $recipients = DSSModel::limit(5)->get();
+
         $results = [];
 
         foreach ($recipients as $recipient) {
@@ -19,6 +20,7 @@ class DSSFuzzyService
             $biayaAir = $this->fuzzifyBiayaAir($recipient->total_biaya_air);
             $PajakKendaraan = $this->fuzzifyPajakKendaraan($recipient->total_pajak_kendaraan);
             // $jumlahTanggungan = $this->fuzzifyJumlahTanggungan($recipient->jumlah_tanggungan);
+
             // Rule Evaluation
             $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan); // , $jumlahTanggungan);
 
@@ -129,18 +131,18 @@ class DSSFuzzyService
         ];
     }
 
-    private function fuzzifyJumlahTanggungan($jumlahTanggungan)
-    {
-        $low = $this->hitungRentang($jumlahTanggungan, 0, 0, 3, 4);
-        $medium = $this->hitungRentang($jumlahTanggungan, 4, 5, 6, 7);
-        $high = $this->hitungRentang($jumlahTanggungan, 1, 2, 3, INF);
+    // private function fuzzifyJumlahTanggungan($jumlahTanggungan)
+    // {
+    //     $low = $this->hitungRentang($jumlahTanggungan, 0, 0, 3, 4);
+    //     $medium = $this->hitungRentang($jumlahTanggungan, 4, 5, 6, 7);
+    //     $high = $this->hitungRentang($jumlahTanggungan, 1, 2, 3, INF);
 
-        return [
-            'low' => $low,
-            'medium' => $medium,
-            'high' => $high,
-        ];
-    }
+    //     return [
+    //         'low' => $low,
+    //         'medium' => $medium,
+    //         'high' => $high,
+    //     ];
+    // }
 
     private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan) // , $jumlahTanggungan)
     {
