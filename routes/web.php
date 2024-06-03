@@ -20,6 +20,7 @@ use App\Http\Controllers\DSSFuzzyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ExportResidentController;
+use App\Http\Controllers\DSSCombinedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,15 +37,15 @@ use App\Http\Controllers\ExportResidentController;
 
 // COBA LIST BERITA COYYYY
 
-Route::get('/berita/list-berita', [NewsController::class, 'NewsList'])->name('list-berita.index');
-Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
-Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
+Route::get('/berita/list-berita', [NewsController::class, 'ListBerita'])->name('list-berita.index');
+// Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
+// Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
 
 Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
 
 // COBA BANUSOSU COYYYY
-Route::get('/dss-results', [DSSController::class, 'index']);
+// Route::get('/statistics', [DSSCombinedController::class, 'index'])->name('statistics.index');
 Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
 Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
 Route::get('/banusosu2/export-pdf', [DSSFuzzyController::class, 'exportPdf'])->name('banusosu2.exportPdf');

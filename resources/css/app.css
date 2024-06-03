@@ -150,13 +150,30 @@
         @apply p-3 text-left;
     }
     thead th {
-        @apply text-lg font-bold bg-main text-white;
+        @apply text-lg font-bold bg-secondary text-white;
     }
     tbody tr {
         @apply border-b-2;
     }
     tbody td {
-        @apply text-main text-base font-medium;
+        @apply text-secondary text-base font-medium;
+    }
+
+    .table-parent-spk-statistic {
+        @apply w-full rounded-3xl bg-white table-fixed overflow-hidden;
+    }
+    th,
+    td {
+        @apply p-3 pl-6 text-left;
+    }
+    thead th {
+        @apply text-sm font-bold bg-secondary text-white;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-secondary text-base font-medium;
     }
 }
 

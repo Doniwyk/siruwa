@@ -6,7 +6,7 @@ use App\Contracts\AdminPaymentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class AdminPaymentController extends Controller
@@ -72,11 +72,11 @@ class AdminPaymentController extends Controller
         }
         return redirect()->route('admin.data-pembayaran.index');
     }
-    public function validatedPayment()
-    { //riwayat
-        $validatedPayment = $this->paymentService->getValidatedPayment();
-        return $validatedPayment;
-    }
+    // public function validatedPayment()
+    // { //riwayat
+    //     $validatedPayment = $this->paymentService->getValidatedPayment();
+    //     return $validatedPayment;
+    // }
     public function showBuktiPembayaran(PaymentModel $payment)
     {
         return response()->json($payment);

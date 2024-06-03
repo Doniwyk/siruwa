@@ -11,12 +11,13 @@ class spkviews extends Migration
             CREATE VIEW spk AS
             SELECT
                 nomor_kk,
-                MAX(CASE WHEN status_keluarga = "kepala_keluarga" THEN nama ELSE NULL END) AS nama,
+                MAX(CASE WHEN status_keluarga = "Kepala Keluarga" THEN nama ELSE NULL END) AS nama,
                 SUM(gaji) AS total_gaji,
                 SUM(pajak_bumi) AS total_pajak_bumi,
                 SUM(biaya_listrik) AS total_biaya_listrik,
                 SUM(biaya_air) AS total_biaya_air,
-                SUM(total_pajak_kendaraan) AS total_pajak_kendaraan
+                SUM(total_pajak_kendaraan) AS total_pajak_kendaraan,
+                MAX(CASE WHEN status_keluarga = "Kepala Keluarga" THEN jumlah_tanggungan ELSE NULL END)  as jumlah_tanggungan
             FROM
                 penduduk
             GROUP BY
@@ -29,6 +30,6 @@ class spkviews extends Migration
      */
     public function down(): void
     {
-        DB::statement('DROP VIEW IF EXISTS penduduk_summary');
+        DB::statement('DROP VIEW IF EXISTS spk');
     }
 }

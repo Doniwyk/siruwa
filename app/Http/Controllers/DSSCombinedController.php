@@ -11,6 +11,6 @@ class DSSCombinedController extends Controller
         $dssService = new CombinedDSSService();
         $results = $dssService->calculateScores();
 
-        return view('dss', ['results' => $results]);
+        return view('admin._statistics.index', compact('results'));
     }
 }

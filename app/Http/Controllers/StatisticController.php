@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\StatisticContract;
+use App\Services\CombinedDSSService;
 use Illuminate\Http\Request;
 
 class StatisticController extends Controller
@@ -17,7 +18,9 @@ class StatisticController extends Controller
     {
         $page = 'statistic';
         $title = 'Statistik';
-        return view('admin._statistics.index', compact('title', 'page'));
+        $dssService = new CombinedDSSService();
+        $results = $dssService->calculateScores();
+        return view('admin._statistics.index', compact('title', 'page', 'results'));
     }
     public function getJobData(){
         $jobData = $this->statisticContract->countJobData();
