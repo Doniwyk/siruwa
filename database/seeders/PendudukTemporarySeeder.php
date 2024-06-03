@@ -32,7 +32,7 @@ class PendudukTemporarySeeder extends Seeder
             'pajak_bumi' => 100000,
             'biaya_listrik' => 200000,
             'biaya_air' => 150000,
-            'jumlah_kendaraan_bermotor' => 2,
+            'total_pajak_kendaraan' => 2,
             'akseptor_kb' => true,
             'jenis_akseptor' => 'IUD',
             'aktif_posyandu' => true,
@@ -42,6 +42,7 @@ class PendudukTemporarySeeder extends Seeder
             'jenis_kel_belajar' => 'Kursus Komputer',
             'ikut_paud' => false,
             'ikut_koperasi' => true,
+            'jumlah_tanggungan' => 2,
             'status' => 'Menunggu Verifikasi',
         ]);
         TempResidentModel::create([
@@ -63,7 +64,7 @@ class PendudukTemporarySeeder extends Seeder
             'pajak_bumi' => 100000,
             'biaya_listrik' => 200000,
             'biaya_air' => 150000,
-            'jumlah_kendaraan_bermotor' => 2,
+            'total_pajak_kendaraan' => 2,
             'akseptor_kb' => true,
             'jenis_akseptor' => 'IUD',
             'aktif_posyandu' => true,
@@ -73,6 +74,7 @@ class PendudukTemporarySeeder extends Seeder
             'jenis_kel_belajar' => 'Kursus Komputer',
             'ikut_paud' => false,
             'ikut_koperasi' => true,
+            'jumlah_tanggungan' => 2,
             'status' => 'Menunggu Verifikasi',
         ]);
         TempResidentModel::create([
@@ -94,7 +96,7 @@ class PendudukTemporarySeeder extends Seeder
             'pajak_bumi' => 100000,
             'biaya_listrik' => 200000,
             'biaya_air' => 150000,
-            'jumlah_kendaraan_bermotor' => 2,
+            'total_pajak_kendaraan' => 2,
             'akseptor_kb' => true,
             'jenis_akseptor' => 'IUD',
             'aktif_posyandu' => true,
@@ -105,6 +107,7 @@ class PendudukTemporarySeeder extends Seeder
             'ikut_paud' => false,
             'ikut_koperasi' => true,
             'status' => 'Ditolak',
+            'jumlah_tanggungan' => 2,
             'keterangan_status'=> 'Data kurang lengkap!'
         ]);
         TempResidentModel::create([
@@ -126,7 +129,7 @@ class PendudukTemporarySeeder extends Seeder
             'pajak_bumi' => 100000,
             'biaya_listrik' => 200000,
             'biaya_air' => 150000,
-            'jumlah_kendaraan_bermotor' => 2,
+            'total_pajak_kendaraan' => 2,
             'akseptor_kb' => true,
             'jenis_akseptor' => 'IUD',
             'aktif_posyandu' => true,
@@ -136,6 +139,7 @@ class PendudukTemporarySeeder extends Seeder
             'jenis_kel_belajar' => 'Kursus Komputer',
             'ikut_paud' => false,
             'ikut_koperasi' => true,
+            'jumlah_tanggungan' => 2,
             'status' => 'Diterima',
         ]);
     }
