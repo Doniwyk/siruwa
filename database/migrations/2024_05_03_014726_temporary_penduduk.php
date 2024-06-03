@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
-            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('rt');
             $table->enum('status_kawin', ['Belum Menikah', 'Menikah', 'Cerai Hidup', 'Cerai Mati']);
             $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
