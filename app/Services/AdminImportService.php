@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\AccountModel;
+use App\Models\DeathFundModel;
+use App\Models\GarbageFundModel;
 use App\Models\UserModel; // Import the UserModel class
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -60,7 +64,8 @@ class AdminImportService
                             'pajak_bumi' => 'required|numeric',
                             'biaya_listrik' => 'required|numeric',
                             'biaya_air' => 'required|numeric',
-                            'jumlah_kendaraan_bermotor' => 'required|numeric',
+                            'total_pajak_kendaraan' => 'required|numeric',
+                            'jumlah_tanggungan' => 'required|numeric',
                             'akseptor_kb' => 'required|boolean',
                             'jenis_akseptor' => 'nullable|string',
                             'aktif_posyandu' => 'required|boolean',
@@ -70,6 +75,8 @@ class AdminImportService
                             'jenis_kel_belajar' => 'nullable|string',
                             'ikut_paud' => 'required|boolean',
                             'ikut_koperasi' => 'required|boolean',
+                            'noHp' => 'required',
+                            'email' => 'required',
                         ]);
 
             if ($rowValidator->fails()) {
@@ -77,7 +84,7 @@ class AdminImportService
                 continue;
             }
             try {
-                UserModel::create([
+                $create = UserModel::create([
                     'tgl_lahir' => date('Y-m-d', strtotime($data['tgl_lahir'])),
                     'nik' => $data['nik'],
                     'nomor_kk' => $data['nomor_kk'],
@@ -95,7 +102,8 @@ class AdminImportService
                     'pajak_bumi' => $data['pajak_bumi'],
                     'biaya_listrik' => $data['biaya_listrik'],
                     'biaya_air' => $data['biaya_air'],
-                    'jumlah_kendaraan_bermotor' => $data['jumlah_kendaraan_bermotor'],
+                    'total_pajak_kendaraan' => $data['total_pajak_kendaraan'],
+                    'jumlah_tanggungan' => $data['jumlah_tanggungan'],
                     'akseptor_kb' => $data['akseptor_kb'],
                     'jenis_akseptor' => $data['jenis_akseptor'],
                     'aktif_posyandu' => $data['aktif_posyandu'],
@@ -105,8 +113,50 @@ class AdminImportService
                     'jenis_kel_belajar' => $data['jenis_kel_belajar'],
                     'ikut_paud' => $data['ikut_paud'],
                     'ikut_koperasi' => $data['ikut_koperasi'],
-                
                 ]);
+                
+                $account = [
+                    'id_penduduk' => $create->id_penduduk,
+                    'noHp' => $data['noHp'],
+                    'username' => $data['nomor_kk'],
+                    'email' => $data['email'],
+                    'password' => bcrypt($data['nik']),
+                    'role' => 'resident'
+                ];
+                AccountModel::create($account);
+                
+                $existingDeathFund = DeathFundModel::where('nomor_kk', $create['nomor_kk'])->exists();
+                // dd($existingDeathFund);
+                if (!$existingDeathFund) {
+                    $currentMonth = now()->month;
+                    $currentYear = now()->year;
+    
+                    for ($month = $currentMonth; $month <= 12; $month++) {
+                        $death_fund = [
+                            'nomor_kk' => $data['nomor_kk'],
+                            'bulan' => Carbon::create($currentYear, $month, 1)->format('Y-m-d'),
+                            'status' => 'Belum Lunas'
+                        ];
+    
+                        DeathFundModel::create($death_fund);
+                    }
+                }
+                $existingGarbageFund = GarbageFundModel::where('nomor_kk', $create['nomor_kk'])->exists();
+                // dd($existingDeathFund);
+                if (!$existingGarbageFund) {
+                    $currentMonth = now()->month;
+                    $currentYear = now()->year;
+    
+                    for ($month = $currentMonth; $month <= 12; $month++) {
+                        $garbage_fund = [
+                            'nomor_kk' => $data['nomor_kk'],
+                            'bulan' => Carbon::create($currentYear, $month, 1)->format('Y-m-d'),
+                            'status' => 'Belum Lunas'
+                        ];
+    
+                        GarbageFundModel::create($garbage_fund);
+                    }
+                }
                 Log::info('Berhasil.');
             } catch (\Exception $e) {
                 Log::error("Error saving data: " . $e->getMessage());
