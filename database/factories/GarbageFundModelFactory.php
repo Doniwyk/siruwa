@@ -19,25 +19,22 @@ class GarbageFundModelFactory extends Factory
     protected $model = GarbageFundModel::class;
     public function definition(): array
     {
-        $payment = PaymentModel::factory()->create();
-
         return [
-            'nomor_kk' => $payment->nomor_kk,
-            'id_pembayaran' => $payment->id_pembayaran,
+            'nomor_kk' => null,
+            'id_pembayaran' => null,
             'bulan' => $this->faker->date(),
             'status' => $this->faker->randomElement(['Lunas', 'Belum Lunas']),
         ];
     }
 
-    public function forEachKK(int $count = 12)
+    public function forEachKK(int $count, int $id_pembayaran, string $nomor_kk)
     {
-        $payment = PaymentModel::factory()->create();
         foreach (range(1, $count) as $month) {
-            $this->create([
-                'nomor_kk' => $payment->nomor_kk,
-                'id_pembayaran' => $payment->id_pembayaran,
+            GarbageFundModel::create([
+                'nomor_kk' => $nomor_kk,
+                'id_pembayaran' => $month <= 5 ? $id_pembayaran : null,
                 'bulan' => now()->startOfYear()->addMonths($month - 1)->format('Y-m-d'),
-                'status' => $this->faker->randomElement(['Lunas', 'Belum Lunas']),
+                'status' => $month <= 5 ? 'Lunas' : 'Belum Lunas',
             ]);
         }
     }
