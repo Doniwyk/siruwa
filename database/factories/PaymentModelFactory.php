@@ -31,8 +31,8 @@ class PaymentModelFactory extends Factory
             'jenis' => null,
             'metode' => $this->faker->randomElement(['Tunai', 'Transfer']),
             'urlBuktiPembayaran' => $this->faker->imageUrl(),
-            'jumlah' => $this->faker->randomElement([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]),
-            'status' => $this->faker->randomElement(['Terverifikasi', 'Belum Terverifikasi']),
+            'jumlah' => null,
+            'status' => 'Terverifikasi',
             'keterangan_status' => $this->faker->sentence,
         ];
     }

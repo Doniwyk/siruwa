@@ -17,10 +17,11 @@ class GarbageFundSeeder extends Seeder
         // DeathFundModel::factory(1)->create();
         //DeathFundModel::factory(1)->forEachKK();
         $id_pembayaran = 1;
-        foreach (range(1, 125) as $id) {
+        foreach (range(1,25) as $id) {
             $nomor_kk = DB::table('pembayaran')->where('id_pembayaran', $id_pembayaran)->value('nomor_kk');
+            $total = (DB::table('pembayaran')->where('id_pembayaran', $id_pembayaran)->value('jumlah')) / 10000;
             $deathFundFactory = GarbageFundModel::factory();
-            $deathFundFactory->forEachKK(12, ($id_pembayaran), $nomor_kk);
+            $deathFundFactory->forEachKK(12, ($id_pembayaran), $nomor_kk, $total);
             $id_pembayaran+=2;
         }
     }

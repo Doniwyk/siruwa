@@ -27,14 +27,14 @@ class GarbageFundModelFactory extends Factory
         ];
     }
 
-    public function forEachKK(int $count, int $id_pembayaran, string $nomor_kk)
+    public function forEachKK(int $count, int $id_pembayaran, string $nomor_kk, int $total)
     {
         foreach (range(1, $count) as $month) {
             GarbageFundModel::create([
                 'nomor_kk' => $nomor_kk,
-                'id_pembayaran' => $month <= 5 ? $id_pembayaran : null,
+                'id_pembayaran' => $month <= $total ? $id_pembayaran : null,
                 'bulan' => now()->startOfYear()->addMonths($month - 1)->format('Y-m-d'),
-                'status' => $month <= 5 ? 'Lunas' : 'Belum Lunas',
+                'status' => $month <= $total ? 'Lunas' : 'Belum Lunas',
             ]);
         }
     }
