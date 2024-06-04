@@ -8,7 +8,7 @@ class DSSService
 {
     public function calculateScores()
     {
-        $recipients = DSSModel::limit(5)->get();
+        $recipients = DSSModel::all();
         $criteria = [
             'total_gaji' => 0.3,
             'total_pajak_bumi' => 0.15,

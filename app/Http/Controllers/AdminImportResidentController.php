@@ -52,7 +52,6 @@ class AdminImportResidentController extends Controller
     {
         if ($request->hasFile('csv')) {
             $file = $request->file('csv');
-
             $csv = $this->importService->importResident($file);
             return response()->json($csv);
         } else {
@@ -61,6 +60,9 @@ class AdminImportResidentController extends Controller
                 'message' => 'No file uploaded'
             ]);
         }
+      
+        Log::info('Displaying data preview.');
+        return view('admin._dasawismaData.preview', compact('dataPreview', 'errors'));
     }
 
     public function saveImportedResidents(Request $request)

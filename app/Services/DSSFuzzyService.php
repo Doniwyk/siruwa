@@ -8,7 +8,7 @@ class DSSFuzzyService
 {
     public function calculateScores()
     {
-        $recipients = DSSModel::limit(5)->get();
+        $recipients = DSSModel::all();
 
         $results = [];
 

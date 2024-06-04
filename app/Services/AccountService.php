@@ -43,7 +43,7 @@ class AccountService implements AccountContract
     public function changePassword(AccountModel $akun, string $currentPassword, string $newPassword): void
     {
         if (!Hash::check($currentPassword, $akun->password)) {
-            throw ValidationException::withMessages(['current_password' => 'Current password is incorrect.']);
+            throw ValidationException::withMessages(['current_password' => 'Password Lama Salah']);
         }
 
         $akun->password = Hash::make($newPassword);

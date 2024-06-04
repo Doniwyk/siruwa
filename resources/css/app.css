@@ -110,19 +110,18 @@
     .hamburger {
         @apply h-[2.5px] w-8 bg-white rounded relative before:block before:absolute before:-top-2 before:w-full before:h-full before:bg-white before:rounded after:block after:absolute after:-bottom-2 after:w-full after:h-full after:bg-white after:rounded;
     }
-    .hamburger-open {
-        @apply before:origin-top-left before:rotate-45 after:origin-top-left after:-rotate-45;
-    }
     .form-input-login-page {
         @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
     }
 }
+
 input[type=file]::file-selector-button{
     @apply bg-main
 }
 input[type=file]::file-selector-button:hover{
     @apply bg-main
 }
+
 .bg_beranda {
     background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
     background-size: cover;
@@ -359,4 +358,5 @@ input[type=file]::file-selector-button:hover{
 }
 .resident-input {
     @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
+}
 }

@@ -91,7 +91,6 @@ class ResidentController extends Controller
             ];
             AccountModel::create($account);
             $existingDeathFund = DeathFundModel::where('nomor_kk', $request->nomor_kk)->exists();
-            // dd($existingDeathFund);
             if (!$existingDeathFund) {
                 $currentMonth = now()->month;
                 $currentYear = now()->year;

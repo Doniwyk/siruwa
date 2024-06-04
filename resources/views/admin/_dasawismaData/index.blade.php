@@ -17,15 +17,6 @@
             </a>
         </div>
 
-        {{-- <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
-            <button class="button-main">...</button>
-            <div class="absolute bg-white min-w-40 overflow-auto shadow-lg z-30 right-0 rounded-xl hidden" aria-labelledby="">
-                <a class="" href="#">Tambah Data</a>
-                <a class="" href="#">Import CSV</a>
-                <a class="" href="#">Export CSV</a>
-            </div>
-        </div> --}}
-
         <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
             <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="button-main" type="button"> ...
             </button>
@@ -50,13 +41,15 @@
         </div>
 
         <div class="md:web_add-wrapper sm:hidden">
-            <button class="button-white">
-                <x-icon.import />
-                <label for="" class="sm:hidden md:inline">
-                    Import .csv
-                </label>
-            </button>
-            <a href="{{route('admin.data-penduduk.import')}}">
+            <a href="{{ route('admin.data-penduduk.export') }}">
+                <button class="button-white">
+                    <x-icon.import />
+                    <label for="" class="sm:hidden md:inline">
+                        Export .csv
+                    </label>
+                </button>
+            </a>
+            <a href="{{ route('admin.data-penduduk.import') }}">
                 <button class="button-white">
                     <x-icon.import />
                     <label for="" class="sm:hidden md:inline">
@@ -64,7 +57,6 @@
                     </label>
                 </button>
             </a>
-
             <a href="{{ route('admin.data-penduduk.add') }}">
                 <button class="button-main">
                     <x-icon.add-circle />
