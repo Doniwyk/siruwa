@@ -13,25 +13,25 @@ return new class extends Migration
     {
         Schema::create('penduduk_temporary', function (Blueprint $table) {
             $table->id('id_temporary');
-            $table->unsignedBigInteger('id_penduduk')->index();
+            $table->unsignedBigInteger('id_penduduk');
             $table->date('tgl_lahir');
-            $table->string('nik');
+            $table->string('nik')->unique();
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
-            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('rt');
+            //BM -> Belum menikah
+            //M -> Menikah
+            //CH -> Cerai hidup
+            //CM -> Cerai mati
             $table->enum('status_kawin', ['Belum Menikah', 'Menikah', 'Cerai Hidup', 'Cerai Mati']);
             $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
             $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']);
             $table->text('alamat');
-            $table->enum('pendidikan', ['Tidak tamat SD', 'SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']);
-            $table->enum('pekerjaan', ['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa']);
-            $table->double('gaji');
-            $table->double('pajak_bumi');
-            $table->double('biaya_listrik');
-            $table->double('biaya_air');
-            $table->integer('jumlah_kendaraan_bermotor');
+            //TTS -> Tidak tamat SD
+            $table->enum('pendidikan', ['Tidak Tamat SD', 'SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']);
+            $table->enum('pekerjaan', ['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa', 'Tidak Bekerja']);
             $table->boolean('akseptor_kb');
             $table->string('jenis_akseptor', 100)->nullable();
             $table->boolean('aktif_posyandu');
@@ -41,6 +41,12 @@ return new class extends Migration
             $table->string('jenis_kel_belajar', 100)->nullable();
             $table->boolean('ikut_paud');
             $table->boolean('ikut_koperasi');
+            $table->double('gaji');
+            $table->double('pajak_bumi');
+            $table->double('biaya_listrik');
+            $table->double('biaya_air');
+            $table->double('total_pajak_kendaraan');
+            $table->integer('jumlah_tanggungan');
             $table->enum('status', ['Menunggu Verifikasi', 'Diterima', 'Ditolak'])->default('Menunggu Verifikasi');
             $table->string('keterangan_status')->nullable();
             $table->timestamps();

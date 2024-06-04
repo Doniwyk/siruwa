@@ -25,4 +25,5 @@ $type = $type ?? 'text';
                 x-bind:src="showPassword ? '{{ asset('assets/icons/eye-slash.svg') }}' : '{{ asset('assets/icons/eye.svg') }}'">
         @endif
     </div>
+    <div class="error-message text-red-500 text-sm mt-1" id="error-{{ $name }}"></div>
 </div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\ValidCurrentPassword;
 use Illuminate\Http\Request;
 use App\Contracts\AccountContract;
 use App\Models\AccountModel;
 use App\Models\UserModel;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AccountController extends Controller
 {
@@ -75,8 +77,18 @@ class AccountController extends Controller
     public function updatePassword(Request $request)
     {
         $request->validate([
-            'current_password' => 'required',
+            'current_password' => ['required', new ValidCurrentPassword],
             'new_password' => 'required|string|min:8|confirmed',
+            'new_password_confirmation' => 'required|string|min:8',
+        ], [
+            'current_password.required' => 'Form Tidak Boleh Kosong',
+            'new_password.required' => 'Form Tidak Boleh Kosong',
+            'new_password.string' => 'Password Harus Alphanumerik',
+            'new_password.min' => 'Password Minimal 8 Karakter',
+            'new_password.confirmed' => 'Password Lama dan Baru Tidak Sesuai',
+            'new_password_confirmation.required' => 'Form Tidak Boleh Kosong',
+            'new_password_confirmation.string' => 'Password Harus Alphanumerik',
+            'new_password_confirmation.min' => 'Password Minimal 8 Karakter',
         ]);
 
         $user = Auth::user();
@@ -84,6 +96,8 @@ class AccountController extends Controller
         try {
             $this->akunContract->changePassword($user, $request->input('current_password'), $request->input('new_password'));
             return response()->json(['message' => 'Password updated successfully.'], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 403);
         }

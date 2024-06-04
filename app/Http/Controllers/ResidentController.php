@@ -7,6 +7,7 @@ use App\Contracts\UserContract;
 use App\Http\Requests\UserRequest;
 use App\Models\AccountModel;
 use App\Models\DeathFundModel;
+use App\Models\GarbageFundModel;
 use App\Models\TempResidentModel;
 use App\Models\UserModel;
 use Carbon\Carbon;
@@ -90,7 +91,6 @@ class ResidentController extends Controller
             ];
             AccountModel::create($account);
             $existingDeathFund = DeathFundModel::where('nomor_kk', $request->nomor_kk)->exists();
-            // dd($existingDeathFund);
             if (!$existingDeathFund) {
                 $currentMonth = now()->month;
                 $currentYear = now()->year;
@@ -103,6 +103,22 @@ class ResidentController extends Controller
                     ];
 
                     DeathFundModel::create($death_fund);
+                }
+            }
+            $existingGarbageFund = GarbageFundModel::where('nomor_kk', $request->nomor_kk)->exists();
+            // dd($existingDeathFund);
+            if (!$existingGarbageFund) {
+                $currentMonth = now()->month;
+                $currentYear = now()->year;
+
+                for ($month = $currentMonth; $month <= 12; $month++) {
+                    $garbage_fund = [
+                        'nomor_kk' => $resident->nomor_kk,
+                        'bulan' => Carbon::create($currentYear, $month, 1)->format('Y-m-d'),
+                        'status' => 'Belum Lunas'
+                    ];
+
+                    GarbageFundModel::create($garbage_fund);
                 }
             }
             return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');

@@ -75,23 +75,28 @@ class UserService implements UserContract
     {
         $residents = TempResidentModel::with('penduduk')
             ->when($search, function ($query) use ($search) {
-                $query->where('nama', 'like', $search . '%');
+                $query->whereHas('penduduk', function ($query) use ($search) {
+                    $query->where('nama', 'like', $search . '%');
+                });
             })
             ->where('status', 'Menunggu Verifikasi')
             ->orderBy('nama', $order)
             ->paginate(15);
+
         return $residents;
     }
 
     public function getFilteredHistoryResidentData($search, $order)
     {
-        $residents = TempResidentModel::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', $search . '%');
+        $residents = TempResidentModel::with('penduduk')
+        ->when($search, function ($query) use ($search) {
+            $query->whereHas('penduduk', function ($query) use ($search) {
+                $query->where('nama', 'like', $search . '%');
+            });
         })
-            ->with('penduduk')
-            ->where('status', '!=', 'Menunggu Verifikasi')
-            ->orderBy('nama', $order)
-            ->paginate(15);
+        ->where('status','!=' ,'Menunggu Verifikasi')
+        ->orderBy('nama', $order)
+        ->paginate(15);
 
         return $residents;
     }

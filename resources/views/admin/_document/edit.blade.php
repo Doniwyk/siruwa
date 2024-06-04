@@ -12,8 +12,8 @@
         </a>
         <h1 class="h1-semibold">Verifikasi Dokumen</h1>
     </div>
-    <main class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
-        <form method="POST" action="{{ route('admin.data-dokumen.validateDocument', ['document' => $document->id_dokumen]) }}" class="grid grid-cols-2 grid-rows-4 gap-4">
+    <main class="bg-white sm:py-4 md:py-9 sm:px-6 md:px-24 rounded-2xl flex flex-col gap-9">
+        <form method="POST" action="{{ route('admin.data-dokumen.validateDocument', ['document' => $document->id_dokumen]) }}" class="grid grid-cols-2 grid-rows-4 sm:gap-3 md:gap-4">
             @csrf
             @method('PUT')
             <div class="form-group col-span-2">
@@ -37,11 +37,11 @@
             </div>
             <div class="form-group row-span-2">
                 <label for="nama" class="text-label_light">Catatan</label>
-                <textarea type="text" name="keterangan_status" id="keterangan_status" class="border-2 border-input-border outline-none rounded-2xl py-2 px-4 min-h-[10rem] text-left " required></textarea>
+                <textarea type="text" name="keterangan_status" id="keterangan_status" class="sm:text-sm md:text-base border-2 border-input-border outline-none rounded-2xl py-2 px-4 min-h-[10rem] text-left " required></textarea>
             </div>
-            <fieldset class="flex-end col-span-2 gap-6 text-white font-semibold">
-                <button type="submit" class="button-action_reject" name="action" value="tolak" onclick="setActionAndSubmit('tolak')">Tolak</button>
-                <button type="submit" class="button-action_accept" name="action" value="terima" onclick="setActionAndSubmit('terima')">Setuju</button>
+            <fieldset class="flex-end col-span-2 sm:gap-2 md:gap-6 text-white font-semibold">
+                <button type="submit" class="button-action bg-red-600" name="action" value="tolak" onclick="setActionAndSubmit('tolak')">Tolak</button>
+                <button type="submit" class="button-action bg-main" name="action" value="terima" onclick="setActionAndSubmit('terima')">Setuju</button>
             </fieldset>
         </form>
     </main>

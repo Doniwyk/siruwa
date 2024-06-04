@@ -50,6 +50,7 @@ class AdminImportResidentController extends Controller
     {
         Log::info('Started previewImport method.');
         $dataPreview = Session::get('dataPreview', []);
+        $errors = Session::get('importErrors', []);
 
         if (empty($dataPreview)) {
             Log::warning('No data to preview.');
@@ -57,7 +58,7 @@ class AdminImportResidentController extends Controller
         }
 
         Log::info('Displaying data preview.');
-        return view('admin._dasawismaData.preview', compact('dataPreview'));
+        return view('admin._dasawismaData.preview', compact('dataPreview', 'errors'));
     }
 
     public function saveImportedResidents()

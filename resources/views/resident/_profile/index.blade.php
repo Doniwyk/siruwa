@@ -2,17 +2,17 @@
 @section('content-user')
 
 <div class="resident-header">{{ $title }}</div>
-<div class="bg-white p-9 rounded-2xl flex flex-col mb-6">
-    <div class="flex space-x-9 w-full mb-6 ">
-        <!-- FOTO PROFIL -->
-        <section class="shrink-0 flex flex-col">
-            <span class="resident-profile-subheader">Foto Profil</span>
-            <img src="{{ $account->urlProfile }}" class="h-[16rem] w-[21rem] rounded-xl" alt="Profil">   
+<div class="bg-white rounded-2xl flex flex-col p-9 gap-6">
+    <div class="flex md:flex-col lg:flex-row md:gap-9 w-full">
+        <section class="shrink-0 h-[21rem] flex flex-col relative items-center">
+            <span class="resident-profile-subheader w-full">Foto Profil</span>
+            <div class="relative w-[21rem] h-[16rem] object-contain">
+                <img src="{{ $account->urlProfile }}" class="h-[16rem] lg:w-[21rem] md:w-full rounded-xl" alt="Profil">   
+            </div>
         </section>
-        <!-- IDENTITAS DIRI -->
         <section class="w-full flex flex-col">
-            <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
-            <form class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <span class="resident-profile-subheader">Identitas Diri</span>
+            <form class="grid gap-x-9 gap-y-5 md:grid-cols-1 md:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
                 <x-form.show-input-form :label="'Nama Lengkap'"  :name="'anu'" :value="$detailAccount->nama" />
                 <x-form.show-input-form :label="'Username'"  :name="'nama'" :value="$account->username" />
                 <x-form.show-input-form :label="'Role'"  :name="'reqRegistrasi'" :value="$account->role" />
@@ -22,8 +22,8 @@
             </form>
         </section>
     </div>
-    <div class="flex justify-end">
-        <a href="{{ route('resident.profil.edit') }}" class="btn-main">Edit Profil</a>
+    <div class="flex justify-end ">
+        <a href="{{ route('resident.profil.edit') }}" class="btn-main text-white button-hover">Edit Profil</a>
     </div>
 </div>
 @endsection
