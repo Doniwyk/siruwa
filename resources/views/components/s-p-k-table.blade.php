@@ -10,13 +10,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($results as $index => $result)
+                @for ($i = 0; $i < 5 && $i < count($results); $i++)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $result['name'] }}</td>
-                    <td>{{ $result['combined_score'] }}</td>
+                    <td>{{ $i + 1 }}</td>
+                    <td>{{ $results[$i]['name'] }}</td>
+                    <td>{{ $results[$i]['combined_score'] }}</td>
                 </tr>
-                @endforeach
+                @endfor
             </tbody>
         </table>
         <a href="{{ route('admin.statistic.bansos') }}">
