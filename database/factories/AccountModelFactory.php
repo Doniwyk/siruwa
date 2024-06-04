@@ -33,7 +33,7 @@ class AccountModelFactory extends Factory
             'id_penduduk' => $resident->id_penduduk,
             'urlProfile' => fake()->imageUrl(),
             'noHp' => fake()->phoneNumber(),
-            'username' => $resident->nomor_kk,
+            'username' => $resident->nik,
             'email' => fake()->unique()->email(),
             'email_verified_at' => now(),
             'password' => bcrypt('asdfasdf'),

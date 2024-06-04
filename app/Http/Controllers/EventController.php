@@ -7,7 +7,7 @@ use App\Http\Requests\EditEventRequest;
 use App\Http\Requests\EventRequest;
 use App\Models\EventModel;
 use App\Models\UserModel;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {

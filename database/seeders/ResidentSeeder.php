@@ -16,9 +16,9 @@ class ResidentSeeder extends Seeder
      */
     public function run()
     {
-        foreach (range(1, 50) as $familyNumber) {
+        foreach (range(1, 125) as $familyNumber) {
             $nomorKk = Str::random(16);
-            $religion = fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'KL']);
+            $religion = fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']);
             $rt = fake()->numberBetween(1,10);
             $address = fake()->address();
 
@@ -29,7 +29,7 @@ class ResidentSeeder extends Seeder
             ]);
 
             // Create istri
-            UserModel::factory()->istri($nomorKk, $religion)->create();
+            UserModel::factory()->istri($nomorKk, $religion,$rt)->create();
 
             // Create 2 anak
             UserModel::factory()->count(2)->anak($nomorKk, $religion)->create();

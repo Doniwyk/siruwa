@@ -5,11 +5,8 @@ use App\Http\Controllers\AdminDocumentController;
 use App\Http\Controllers\AdminImportResidentController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ExportController;
-use App\Http\Controllers\ExportResidentController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ResidentController;
@@ -18,7 +15,12 @@ use App\Http\Controllers\ResidentPaymentController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DSSController;
+use App\Http\Controllers\DSSFuzzyController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ExportResidentController;
+use App\Http\Controllers\DSSCombinedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,14 +35,20 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// COBA LISST BERITA COYYYY
+// COBA LIST BERITA COYYYY
 
-Route::get('/list-berita', function () {
-    return view('/berita/list-berita');
-});
+Route::get('/berita/list-berita', [NewsController::class, 'ListBerita'])->name('list-berita.index');
+// Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
+// Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
 
-Route::get('/coba', [NewsController::class, 'coba'])->name('coba');
+Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
+
+// COBA BANUSOSU COYYYY
+// Route::get('/statistics', [DSSCombinedController::class, 'index'])->name('statistics.index');
+Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
+Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
+Route::get('/banusosu2/export-pdf', [DSSFuzzyController::class, 'exportPdf'])->name('banusosu2.exportPdf');
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
@@ -81,7 +89,6 @@ Route::group([
 });
 
 
-
 //==================================ROUTE RESIDENT DATA FOR ADMIN========================================
 Route::group([
     'prefix' => 'admin/data-penduduk',
@@ -98,9 +105,11 @@ Route::group([
     Route::get('/pengajuan-perubahan', [ResidentController::class, 'indexRequest'])->name('request');
     Route::put('/validasi-pengajuan/{resident}', [ResidentController::class, 'validateEditRequest'])->name('validate');
     //==================================ROUTE IMPORT DATA FOR ADMIN========================================
-    Route::post('/admin/import-resident', [AdminImportResidentController::class, 'importResident'])->name('admin.import.resident');
-    Route::get('/admin/resident-preview', [AdminImportResidentController::class, 'showPreview'])->name('admin.resident.preview');
-    Route::post('/admin/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('admin.save.imported.residents');
+
+    Route::get('/import', [AdminImportResidentController::class, 'importForm'])->name('import');
+    Route::post('/import-file', [AdminImportResidentController::class, 'importFile'])->name('importFile');
+    Route::post('/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('saveImport');
+    Route::get('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
     //==================================ROUTE EXPORT DATA FOR ADMIN========================================
     Route::get('/generate-pdf', [ExportController::class, 'exportResidentData'])->name('export');
     // Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('exportPayment');
@@ -187,7 +196,6 @@ Route::group([
     Route::put('/{event}', [EventController::class, 'updateEvent'])->name('update');
     Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('delete');
 });
-
 //==================================ROUTE NEWS MANAGEMENT FOR ADMIN========================================
 
 Route::group([

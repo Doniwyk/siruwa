@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class SPKTable extends Component
 {
+    public $results;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($results)
     {
-        //
+        $this->results = $results;
     }
 
     /**
