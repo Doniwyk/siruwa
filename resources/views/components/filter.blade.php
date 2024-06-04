@@ -1,4 +1,4 @@
-<div class="filter_parent z-30">
+<div class="filter_parent">
     <div class="search-option">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute left-3">
             <path
