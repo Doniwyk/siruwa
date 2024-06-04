@@ -10,16 +10,18 @@ use App\Services\AdminImportService;
 class AdminImportResidentController extends Controller
 {
     protected $importService;
+    private $pageName;
 
     public function __construct(AdminImportService $importService)
     {
         $this->importService = $importService;
+        $this->pageName = 'data-penduduk';
     }
 
     public function importForm()
     {
         $title = 'Form Tambah Penduduk';
-        $page = 'tambah-data-penduduk';
+        $page = $this->pageName;
         Log::info('Displaying import form.');
         return view('admin._dasawismaData.import', compact('title', 'page'));
     }
@@ -46,21 +48,22 @@ class AdminImportResidentController extends Controller
         }
     }
 
-    public function previewImport()
+    public function previewImport(Request $request)
     {
-        Log::info('Started previewImport method.');
-        $dataPreview = Session::get('dataPreview', []);
+        if ($request->hasFile('csv')) {
+            $file = $request->file('csv');
 
-        if (empty($dataPreview)) {
-            Log::warning('No data to preview.');
-            return redirect()->route('admin.data-penduduk.import')->with('error', 'No data to preview.');
+            $csv = $this->importService->importResident($file);
+            return response()->json($csv);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'No file uploaded'
+            ]);
         }
-
-        Log::info('Displaying data preview.');
-        return view('admin._dasawismaData.preview', compact('dataPreview'));
     }
 
-    public function saveImportedResidents()
+    public function saveImportedResidents(Request $request)
     {
         Log::info('Started saveImportedResidents method.');
 
