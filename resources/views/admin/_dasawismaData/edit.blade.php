@@ -11,14 +11,14 @@
     </a>
     <h1 class="h1-semibold">Edit Data Penduduk</h1>
 </div>
-<main class="bg-white py-9 px-24 rounded-2xl ">
+<main class="bg-white sm:py-4 md:py-9 sm:px-6 md:px-24 rounded-2xl ">
     <form action="{{ route('admin.data-penduduk.validate', ['resident' => $reqResident->id_temporary]) }}" method="POST" class="flex flex-col gap-9">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="{{ $reqResident->id_temporary }}" />
         <fieldset id="identitas-kependudukan" class="">
             <h4 class="h4-semibold">Identitas Kependudukan</h4>
-            <div action="" class="grid grid-rows-2 grid-flow-col gap-x-9 gap-y-5">
+            <div action="" class="sm:flex sm:flex-col md:grid grid-rows-2 grid-flow-col gap-x-9 gap-y-5">
                 <x-form.disabled-input :label="'Nama'" :prevName="'prevNama'" :reqName="'reqNama'" :prevValue="$resident->nama" :reqValue="$reqResident->nama" />
                 <x-form.disabled-input :label="'No. KTP/NIK'" :prevName="'prevKtp'" :reqName="'reqKtp'" :prevValue="$resident->nik" :reqValue="$reqResident->nik" />
                 <x-form.disabled-input :label="'No. Registrasi'" :prevName="'prevRegistrasi'" :reqName="'reqRegistrasi'" :prevValue="$reqResident->id_temporary" :reqValue="$reqResident->id_temporary" />
@@ -27,7 +27,7 @@
         </fieldset>
         <fieldset id="identitas-lengkap">
             <h4 class="h4-semibold">Identitas Lengkap</h4>
-            <div action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <div action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.disabled-input :label="'Pekerjaan dan Jabatan'" :prevName="'prevPekerjaan'" :reqName="'reqPekerjaan'" :prevValue="$resident->pekerjaan" :reqValue="$reqResident->pekerjaan" />
                 <x-form.disabled-input :label="'Tempat Lahir / Umur'" :prevName="'prevTempatLahir'" :reqName="'reqTempatLahir'" :prevValue="$resident->tempat_lahir . ' / ' . $reqResident->umur()" :reqValue="$reqResident->tempat_lahir . ' / ' . $reqResident->umur()" />
                 <x-form.disabled-input :label="'Jenis Kelamin'" :prevName="'prevJenisKelamin'" :reqName="'reqJenisKelamin'" :prevValue="$resident->jenis_kelamin" :reqValue="$reqResident->jenis_kelamin" />
@@ -40,7 +40,7 @@
         </fieldset>
         <fieldset id="kegiatan-keorganisasian">
             <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
-            <div action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <div action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.disabled-input :label="'Aktif dalam Kegiatan'" :prevName="'prevAktifKegiatan'" :reqName="'reqAktifKegiatan'" :prevValue="(boolean) $resident->aktif_kegiatan" :reqValue="(boolean) $reqResident->aktif_kegiatan" />
                 <x-form.disabled-input :label="'Ikut dalam kegiatan Koperasi'" :prevName="'prevKoperasi'" :reqName="'reqKoperasi'" :prevValue="(boolean) $resident->ikut_koperasi" :reqValue="(boolean) $reqResident->ikut_koperasi" />
                 <x-form.disabled-input :label="'Mengikuti Kelompok Belajar Jenis'" :prevName="'prevKelompokBelajarJenis'" :reqName="'reqKelompokBelajarJenis'" :prevValue="(boolean) $resident->ikut_kel_belajar" :reqValue="(boolean) $reqResident->ikut_kel_belajar" />
@@ -50,7 +50,7 @@
         </fieldset>
         <section id="informasi-keuangan-pribadi">
             <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
-            <div action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <div action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.disabled-input :label="'Gaji Perbulan'"  :prevName="'prevGajiPerbulan'" :reqName="'reqGajiPerbulan'" :prevValue="(double) $resident->gaji * 1000" :reqValue="(double) $reqResident->gaji * 1000" />
                 <x-form.disabled-input :label="'Total Pajak Kendaraan'"  :prevName="'prevPajakKendaraan'" :reqName="'reqPajakKendaraan'" :prevValue="(double) $resident->total_pajak_kendaraan * 1000" :reqValue="(double) $reqResident->ikut_kel_belajar * 1000" />
                 <x-form.disabled-input :label="'Biaya Pajak Bumi dan Bangunan'"  :prevName="'prevBPB'" :reqName="'reqBPB'" :prevValue="(double) $resident->pajak_bumi * 1000" :reqValue="(double) $reqResident->pajak_bumi * 1000" />

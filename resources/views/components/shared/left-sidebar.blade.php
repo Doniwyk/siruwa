@@ -1,5 +1,5 @@
-<nav class="left-sidebar">
-    <ul class="flex flex-col justify-between gap-4 text-white">
+<nav class=" left-sidebar sm:mobile_left-sidebar md:web_left-sidebar" id="left-sidebar">
+    <ul class="flex flex-col justify-between sm:gap-1 md:gap-4 text-white">
         @foreach (config('constants') as $item)
             @php
                 $isActivePage = $page == $item['route'][0] || $page == $item['route'][1] || $page == $item['route'][2];

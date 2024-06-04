@@ -2,24 +2,24 @@
 @section('content')
     <h1 class="h1-semibold">Data Penduduk</h1>
     <div class="summary-card_news">
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main">
+        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4">
             <h4 class="text-xl text-main font-semibold mb-2">Acara terdekat</h4>
             @if (!$lastestEvent->isEmpty())
                 @foreach ($lastestEvent as $ln)
                     <x-highlight-card :newsData=$ln />
                 @endforeach
             @else
-                <span class="text-center font-semibold text-lg text-main">NOT FOUND</span>
+                <span class="text-center font-semibold text md text-main">NOT FOUND</span>
             @endif
         </div>
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main">
+        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4">
             <h4 class="text-xl text-main font-semibold mb-2">Berita terbaru</h4>
             @if (!$lastestNews->isEmpty())
                 @foreach ($lastestNews as $ln)
                     <x-highlight-card :newsData=$ln />
                 @endforeach
             @else
-                <span class="text-center font-semibold text-lg text-main">NOT FOUND</span>
+                <span class="text-center font-semibold text md text-main">NOT FOUND</span>
             @endif
         </div>
     </div>
@@ -55,35 +55,35 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th>Judul Berita</th>
-                        <th class="sm:hidden lg:table-cell">Detail Berita</th>
-                        <th>Aksi</th>
+                        <th class="sm:text-sm md:text-base">Judul Berita</th>
+                        <th class="sm:hidden md:table-cell">Detail Berita</th>
+                        <th class="sm:text-sm md:text-base">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-base font-medium">
                     @if ($news->isEmpty())
                         <tr>
-                            <td class="text-center sm:col-span-2 lg:col-span-3">No data found</td>
+                            <td class="text-center sm:col-span-2 md:col-span-3 ">No data found</td>
                         </tr>
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td>
-                                    <div class="flex gap-5 text-main sm:items-center lg:items-start">
+                                <td class="sm:text-sm md:text-base">
+                                    <div class="flex gap-5 text-main sm:items-center md:items-start">
                                         <img src="{{ $n->url_gambar }}" alt="logo"
-                                            class="w-[8.2rem] h-20 rounded-2xl  object-contain">
+                                            class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
                                         <p class="desc-news">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden lg:table-cell">
+                                <td class="sm:hidden md:table-cell">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="sm:text-sm md:text-base">
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-berita.edit', ['news' => $n->id_berita]) }}"
                                             class="hover">
@@ -113,9 +113,9 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th>Judul Acara</th>
-                        <th class="sm:hidden lg:table-cell">Detail Acara</th>
-                        <th>Aksi</th>
+                        <th class="sm:text-sm md:text-base">Judul Acara</th>
+                        <th class="sm:hidden md:table-cell">Detail Acara</th>
+                        <th class="sm:text-sm md:text-base">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-base font-medium">
@@ -125,23 +125,23 @@
                         </tr>
                     @else
                         @foreach ($news as $n)
-                            <tr>
-                                <td>
-                                    <div class="flex gap-5 text-main">
+                            <tr >
+                                <td class="sm:text-sm md:text-base">
+                                    <div class="flex gap-5 text-main sm:items-center md:items-start">
                                         <img src="{{ $n->url_gambar }}" alt="logo"
-                                            class="w-[8.2rem] h-20 rounded-2xl object-contain">
+                                            class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
                                         <p class="desc-news">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden lg:table-cell">
+                                <td class="sm:hidden md:table-cell">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="sm:text-sm md:text-base">
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-acara.edit', ['event' => $n->id_agenda]) }}"
                                             class="hover">

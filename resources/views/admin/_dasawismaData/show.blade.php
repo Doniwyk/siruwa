@@ -12,10 +12,10 @@
     </a>
     <h1 class="h1-semibold">Detail Data Penduduk</h1>
 </div>
-<main class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
+<main class="bg-white sm:py-4 md:py-9 sm:px-6 md:px-24 rounded-2xl flex flex-col gap-9">
     <section id="identitas-kependudukan" class="">
         <h4 class="h4-semibold">Identitas Kependudukan</h4>
-        <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+        <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
             <x-form.show-input-form :label="'Nama'"  :name="'reqNama'" :value="$resident->nama" />
             <x-form.show-input-form :label="'No. KK'"  :name="'reqRegistrasi'" :value="$resident->nomor_kk" />
             <x-form.show-input-form :label="'No. KTP/NIK'"  :name="'reqKtp'" :value="$resident->nik" />
@@ -25,7 +25,7 @@
     </section>
     <section id="identitas-lengkap">
         <h4 class="h4-semibold">Identitas Lengkap</h4>
-        <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+        <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
             <x-form.show-input-form :label="'Tempat Lahir'"  :name="'reqTempatLahir'" :value="$resident->tempat_lahir" />
             <x-form.show-input-form :label="'Tanggal Lahir'"  :name="'tanggalLahir'" :value="$resident->tgl_lahir" />
             <x-form.show-input-form :label="'Jenis Kelamin'"  :name="'reqJenisKelamin'" :value="$resident->jenis_kelamin" />
@@ -41,7 +41,7 @@
     </section>
     <section id="kegiatan-keorganisasian">
         <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
-        <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+        <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
             <x-form.show-input-form :label="'Aktif dalam Kegiatan Posyandu'"  :name="'reqAktifKegiatan'" :value="$resident->aktif_posyandu" :isBoolean="true" />
             <x-form.show-input-form :label="'Ikut dalam kegiatan Koperasi'"  :name="'reqKoperasi'" :value="$resident->ikut_koperasi" :isBoolean="true" />
             <x-form.show-input-form :label="'Mengikuti Kelompok Belajar'"  :name="'reqKelompokBelajarJenis'" :value="$resident->ikut_kel_belajar" :isBoolean="true" />
@@ -52,7 +52,7 @@
     </section>
     <section id="informasi-keuangan-pribadi">
         <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
-        <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+        <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
             <x-form.show-input-form :label="'Gaji Perbulan'"  :name="'gaji'" :value="$resident->gaji * 1000" />
             <x-form.show-input-form :label="'Total Pajak Kendaraan'"  :name="'jumlah_kendaraan_bermotor'" :value="$resident->total_pajak_kendaraan * 1000" />
             <x-form.show-input-form :label="'Biaya Pajak Bumi dan Bangunan'"  :name="'pajak_bumi'" :value="$resident->pajak_bumi * 1000" />
