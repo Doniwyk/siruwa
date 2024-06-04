@@ -3,7 +3,7 @@
     <h1 class="h1-semibold">Manajemen Dashboard</h1>
     <section class="flex flex-col gap-4">
         <div class="flex-between">
-            <h3 class="text-2xl font-semibold text-main">Statistik Desa</h3>
+            <h3 class="sm:text-xl md:text-2xl font-semibold text-main">Statistik Desa</h3>
             <div>
                 <button id="cancelEditDetailRw" class="hidden">
                     <x-icon.cancel/>
@@ -14,37 +14,38 @@
             </div>
         </div>
         <form class="flex flex-col items-end gap-9" id="rw-details" >
-            <div class="w-full bg-main rounded-2xl flex flex-col items-center py-6 px-[3.5rem] gap-9">
-                <h1 class="text-white font-semibold text-[32px]">Sumberjo dalam Angka</h1>
-                <fieldset action="" class="w-full flex h-full justify-between">
-                    <div class="h-full flex flex-col gap-5 items-center">
-                        <input type="text" id="penduduk_total" class=" input_profile-rw" value="{{ $residentTotal }}"
-                            disabled="disabled">
-                        <label for="penduduk_total" class="label_profile-rw">Penduduk</label>
+            <div class="w-full bg-main rounded-2xl flex flex-col items-center py-6 md:px-[3.5rem] sm:gap-5 md:gap-9">
+                <h1 class="text-white font-semibold sm:text-2xl md:text-[32px]">Sumberjo dalam Angka</h1>
+
+                <fieldset action="" class="w-full flex h-full  justify-center flex-wrap sm:gap-2 md:gap-10">
+                    <div class="sm:w-full flex sm:flex-row md:flex-col sm:gap-1 md:gap-5 items-center sm:basis-1/2">
+                        <span class="input_profile-rw" >{{ $residentTotal }}</span>
+                        <label for="penduduk_total" class="label_profile-rw sm:text-base">Penduduk</label>
                     </div>
-                    <div class="h-full flex flex-col gap-5 items-center">
+                    <div class="sm:w-full flex sm:flex-row md:flex-col sm:gap-1 md:gap-5 items-center sm:basis-1/2">
                         <input type="text" id="fasilitas-pendidikan_total" class="input_profile-rw"
                             value="{{ $rwData->fasilitas_pendidikan }}" disabled="disabled">
-                        <label for="fasilitas-pendidikan_total" class="label_profile-rw">Fasilitas Pendidikan</label>
+                        <label for="fasilitas-pendidikan_total" class="label_profile-rw sm:text-base">Fasilitas Pendidikan</label>
                     </div>
-                    <div class="h-full flex flex-col gap-5 items-center">
+                    <div class="sm:w-full flex sm:flex-row md:flex-col sm:gap-1 md:gap-5 items-center sm:basis-1/2">
                         <input type="text" id="fasilitas-kesehatan_total" class="input_profile-rw"
                             value="{{ $rwData->fasilitas_kesehatan }}" disabled="disabled">
-                        <label for="fasilitas-kesehatan_total"class="label_profile-rw">Fasilitas Kesehatan</label>
+                        <label for="fasilitas-kesehatan_total"class="label_profile-rw sm:text-base">Fasilitas Kesehatan</label>
                     </div>
-                    <div class="h-full flex flex-col gap-5 items-center">
+                    <div class="sm:w-full flex sm:flex-row md:flex-col sm:gap-1 md:gap-5 items-center sm:basis-1/2">
                         <input type="text" id="fasilitas-administrasi_total" class="input_profile-rw"
                             value="{{ $rwData->fasilitas_administrasi }}" disabled="disabled">
-                        <label for="fasilitas-administrasi_total"class="label_profile-rw">Fasilitas Administrasi</label>
+                        <label for="fasilitas-administrasi_total"class="label_profile-rw sm:text-base">Fasilitas Administrasi</label>
                     </div>
                 </fieldset>
+
             </div>
-            <button type="submit" class="bg-main text-white font-semibold rounded-2xl py-3 px-14">Simpan Perubahan</button>
+            <button type="submit" class="button-main sm:text-sm hidden" id="button-save-details-rw">Simpan Perubahan</button>
         </form>
     </section>
     <section>
         <div class="flex-between">
-            <h3 class="text-2xl font-semibold text-main">Gambar Struktur Organisasi</h3>
+            <h3 class="sm:text-xl md:text-2xl font-semibold text-main">Gambar Struktur Organisasi</h3>
             <div>
                 <button id="cancelEditImageRw" class="hidden">
                     <x-icon.cancel/>
@@ -80,6 +81,7 @@
                 .removeClass('enable-input_profile-rw');
             $(disableButtonId).addClass('hidden');
             $(enableButtonId).removeClass('hidden');
+            $('#button-save-details-rw').addClass('hidden')
         }
 
         function enableForm(formId, disableButtonId, enableButtonId) {
@@ -88,6 +90,7 @@
                 .addClass('enable-input_profile-rw');
             $(disableButtonId).removeClass('hidden');
             $(enableButtonId).addClass('hidden');
+            $('#button-save-details-rw').removeClass('hidden')
         }
 
         $('#cancelEditDetailRw').click(function() {

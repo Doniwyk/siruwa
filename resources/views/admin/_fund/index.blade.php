@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('modal')
     <div class="absolute min-h-full min-w-full flex-center bg-black/50 hidden z-50" id="payment-modal_parent">
-        <div class="p-10 rounded-2xl bg-white center z-50 overflow-hidden" id="payment-modal">
+        <div class="sm:w-[25rem] p-10 rounded-2xl bg-white center z-50 overflow-hidden" id="payment-modal">
             <form class="flex flex-col gap-9" method="POST">
                 @csrf
                 @method('PUT')
@@ -12,24 +12,24 @@
                 </div>
                 <fieldset>
                     <div class="flex gap-4 justify-between items-center">
-                        <label for="metode_display bg-main">Metode Pembayaran</label>
+                        <label for="metode_display" class="sm:text-sm">Metode Pembayaran</label>
                         <input type="text" name="metode" id="metode" value="" class="hidden">
                         <input type="text" name="metode_display" id="metode_display"
                             class="w-[17.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline" value=""
                             disabled>
                     </div>
                     <div class="flex gap-4 justify-between mt-4 items-center">
-                        <label for="jumlah_display ">Konfirmasi Nominal</label>
+                        <label for="jumlah_display" class="sm:text-sm">Konfirmasi Nominal</label>
                         <input type="text" name="jumlah" id="jumlah" value="" class="hidden">
                         <input type="text" name="jumlah_display" id="jumlah_display"
                             class="w-[17.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline" value=""
                             disabled>
                     </div>
                 </fieldset>
-                <div class="wrapper flex gap-5">
-                    <button class="mt-5 bg-red-600 text-white px-4 py-2 rounded-3xl flex-1" type="submit" name="action"
+                <div class="wrapper flex gap-2">
+                    <button class=" bg-red-600 text-white px-4 py-2 rounded-3xl flex-1" type="submit" name="action"
                         value="tolak"> Tolak</button>
-                    <button type="submit" class="mt-5 bg-main text-white px-4 py-2 rounded-3xl flex-1" name="action"
+                    <button type="submit" class=" bg-main text-white px-4 py-2 rounded-3xl flex-1" name="action"
                         value="terima"> Konfirmasi</button>
                 </div>
             </form>
@@ -37,7 +37,7 @@
     </div>
 @endsection
 @section('content')
-    <h1 class="h1-semibold">Data Penduduk</h1>
+    <h1 class="h1-semibold">Manajemen Dana</h1>
     <div class="summary-card_fund ">
         <x-card :label="'Dana Kematian'" :value="$fundData['deathFundTotal']" />
         <x-card :label="'Dana Sampah'" :value="$fundData['garbageFundTotal']" />
