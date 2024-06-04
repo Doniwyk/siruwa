@@ -14,25 +14,34 @@ class ResidentSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+    private static $nomor_kk = 3507010201082551;
     public function run()
     {
-        foreach (range(1, 125) as $familyNumber) {
-            $nomorKk = Str::random(16);
+
+        foreach (range(1, 25) as $familyNumber) {
+            $nmr_kk = self::$nomor_kk++;
+            $nomorKk = str_pad($nmr_kk, 16, '0', STR_PAD_LEFT);
             $religion = fake()->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']);
-            $rt = fake()->numberBetween(1,10);
-            $address = fake()->address();
+            $rt = fake()->numberBetween(1, 10);
+            $address = 'Desa Sumberejo, Kecamatan Batu, Kota Batu, Jawa Timur';
+
 
 
             // Create kepala keluarga
             UserModel::factory()->kepalaKeluarga($religion)->create([
                 'nomor_kk' => $nomorKk,
+                'agama' => $religion,
+                'alamat'=> $address,
+                'rt' => $rt
             ]);
 
             // Create istri
-            UserModel::factory()->istri($nomorKk, $religion,$rt)->create();
+            UserModel::factory()->wife($nomorKk, $religion, $rt, $address)->create();
 
             // Create 2 anak
-            UserModel::factory()->count(2)->anak($nomorKk, $religion)->create();
+            UserModel::factory()->count(2)->child($nomorKk, $religion,$rt, $address)->create();
         }
+
+
     }
 }

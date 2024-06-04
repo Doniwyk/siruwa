@@ -28,14 +28,14 @@ class DeathFundModelFactory extends Factory
         ];
     }
 
-    public function forEachKK(int $count, int $id_pembayaran, string $nomor_kk)
+    public function forEachKK(int $count, int $id_pembayaran, string $nomor_kk, int $jumlah)
     {
         foreach (range(1, $count) as $month) {
             DeathFundModel::create([
                 'nomor_kk' => $nomor_kk,
-                'id_pembayaran' => $month <= 5 ? $id_pembayaran : null,
+                'id_pembayaran' => $month <= $jumlah ? $id_pembayaran : null,
                 'bulan' => now()->startOfYear()->addMonths($month - 1)->format('Y-m-d'),
-                'status' => $month <= 7 ? 'Lunas' : 'Belum Lunas',
+                'status' => $month <= $jumlah ? 'Lunas' : 'Belum Lunas',
             ]);
         }
     }

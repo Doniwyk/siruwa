@@ -61,7 +61,6 @@ class AccountSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password' => bcrypt(' $resident->nik'),
                 'role' => 'resident',
-                'image_public_id' => '1'
             ]);
 
         }
