@@ -66,7 +66,7 @@
         @apply flex flex-col flex-1 gap-2;
     }
     .form-control {
-        @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-input-text;
+        @apply py-2 px-6 rounded-2xl bg-input-disabled text-base text-slate-500;
     }
     .form-control-input {
         @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
