@@ -4,7 +4,13 @@
     <div class="resident-header">{{ $title }}</div>
 
     <!-- TAB -->
-    <div x-data="{ openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1, showModal: false }">
+    <div x-data="{ 
+    openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1, 
+    showModal: false, 
+    currentStatus: '', 
+    currentKeterangan: '', 
+    showEditPopup: true 
+    }">
         <div class="resident-tab-parent">
             <button x-on:click="openTab = 1; localStorage.setItem('openTab', 1)" :class="{ 'bg-secondary text-white': openTab === 1 }"
                 class="resident-tab">Pengajuan</button>
@@ -56,19 +62,28 @@
                     <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
                     <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                         <x-form.show-input-form :label="'Gaji Perbulan'"  :name="'gaji'" :value="$resident->gaji" />
-                        <x-form.show-input-form :label="'Jumlah Kendaraan'"  :name="'jumlah_kendaraan_bermotor'" :value="$resident->jumlah_kendaraan_bermotor" />
+                        <x-form.show-input-form :label="'Total Pajak Kendaraan'"  :name="'total_pajak_kendaraan'" :value="$resident->total_pajak_kendaraan" />
                         <x-form.show-input-form :label="'Biaya Pajak Bumi dan Bangunan'"  :name="'pajak_bumi'" :value="$resident->pajak_bumi" />
                         <x-form.show-input-form :label="'Biaya Listrik Perbulan'"  :name="'biaya_listrik'" :value="$resident->biaya_listrik" />
                         <x-form.show-input-form :label="'Biaya Air Perbulan'"  :name="'biaya_air'" :value="$resident->biaya_air" />
                     </form>
                 </section>
                 <section class="flex justify-end">
-                    <a href="{{ route('resident.data-dasawisma.edit', $resident->id) }}" class="btn-main">Edit Data</a>
+                    <a href="#" 
+                       class="btn-main button-hover" 
+                       x-on:click.prevent=" 
+                           if('{{ $history->first()->status }}' === 'Menunggu Verifikasi') {
+                               showEditPopup = true;
+                           } else {
+                               window.location.href = '{{ route('resident.data-dasawisma.edit', $resident->id) }}';
+                           }">
+                       Edit Data
+                    </a>
                 </section>
             </div>
         </div>
 
-    <!-- TAB RIWAYAT -->
+        <!-- TAB RIWAYAT -->
         <div x-show="openTab === 2">
             <div class="overflow-x-auto rounded-xl">
                 <table class="w-full text-left table-fixed">
@@ -76,23 +91,94 @@
                         <tr>
                             <th>Nama Pembayar</th>
                             <th>Tgl. Pengajuan</th>
+                            <th>Pembaharuan Terakhir</th>
                             <th>Detail Status</th>
-                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody class="history-body">
-                        @foreach($history as $record)
+                        @if ($history->isEmpty())
                             <tr>
-                                <td>{{ $record->nama }}</td>
-                                <td>{{ $record->created_at->format('d F Y') }}</td>
-                                <td class="font-bold {{ $record->status == 'Ditolak' ? 'text-red-600' : ($record->status == 'Diterima' ? 'text-secondary' : ($record->status == 'Menunggu Verifikasi' ? 'text-input-disabled' : 'text-secondary')) }}">
-                                    {{ $record->status }}</td>
-                                <td>{{ $record->keterangan_status }}</td>
+                                <td colspan="4" class="text-center">Tidak Ada Data</td>
                             </tr>
-                        @endforeach
+                        @else
+                            @foreach($history as $record)
+                                <tr>
+                                    <td>{{ $record->nama }}</td>
+                                    <td>{{ $record->created_at->format('d F Y') }}</td>
+                                    <td>{{ $record->updated_at }}</td>
+                                    <td class="flex items-center">
+                                        <div class="font-bold w-1/2 {{ $record->status == 'Ditolak' ? 'text-red-600' : ($record->status == 'Diterima' ? 'text-secondary' : ($record->status == 'Menunggu Verifikasi' ? 'text-main/50' : 'text-secondary')) }}">
+                                            {{ $record->status }}
+                                        </div>
+                                        <button 
+                                            class="w-1/2 button-hover" 
+                                            x-on:click="showModal = true; 
+                                            currentStatus = '{{ $record->status }}'; 
+                                            currentKeterangan = '{{ $record->keterangan_status ? $record->keterangan_status : 'Tidak ada keterangan tambahan' }}';">
+                                            <x-icon.detail />
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
         </div>
+        
+        <!-- Modal -->
+        <div x-show="showModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+            <div class="w-[33rem] flex flex-col bg-white p-10 rounded-2xl gap-9 text-secondary">
+                <div class="flex flex-col items-center">
+                    <span class="text-xl font-bold mb-4">DETAIL STATUS VERIFIKASI</span>
+                    <div>
+                        <span class="text-xl font-semibold">Status:</span>
+                        <span x-text="currentStatus" :class="{'text-main/50': currentStatus === 'Menunggu Verifikasi', 'text-red-600': currentStatus === 'Ditolak', 'text-secondary': currentStatus === 'Diterima'}" class="text-xl font-semibold"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-xl font-semibold mb-3">Keterangan</div>
+                    <span id="mySpan" class="px-6 py-2 block w-full text-slate-500 overflow-hidden resize-none min-h-[40px] leading-[20px] bg-input-disabled border-none rounded-2xl pointer-events-none" role="textbox" contenteditable x-text="currentKeterangan"></span>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button 
+                        class="flex px-20 py-2 bg-secondary text-stone-50 rounded-2xl text-base font-semibold button-hover"
+                        x-on:click="showModal = false">
+                        Baik
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Popup -->
+        <div x-show="showEditPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+            <div class="flex flex-col bg-white p-10 rounded-2xl gap-9 text-secondary">
+                <div class="flex flex-col items-center justify-center gap-4">
+                    <svg width="54" height="55" viewBox="0 0 54 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M27 15.6875V30.875" stroke="#225157" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="27" cy="38.4688" r="1.53125" fill="#51526C" stroke="#225157" stroke-width="2"/>
+                        <path d="M51.8059 27.5001C51.8059 13.8 40.6997 2.69385 26.9996 2.69385C13.2995 2.69385 2.19336 13.8 2.19336 27.5001C2.19336 41.2002 13.2995 52.3064 26.9996 52.3064C40.6997 52.3064 51.8059 41.2002 51.8059 27.5001Z" stroke="#225157" stroke-width="4" stroke-miterlimit="10"/>
+                    </svg>
+                    <div class="flex flex-col text-center text-xl">
+                        <span class="font-semibold">Anda sudah mengajukan permintaan</span>
+                        <span>Harap tunggu verifikasi</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button 
+                        class="flex px-20 py-2 bg-secondary text-stone-50 rounded-2xl text-base font-semibold button-hover"
+                        x-on:click="showEditPopup = false">
+                        Baik
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+    <script>
+        function calcHeight(value) {
+            let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+            let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
+            return newHeight;
+        }
+    </script>
 @endsection
