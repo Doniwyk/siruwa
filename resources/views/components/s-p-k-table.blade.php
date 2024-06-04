@@ -19,6 +19,8 @@
                 @endforeach
             </tbody>
         </table>
-        <button type="submit" class="w-32 py-2 rounded-2xl bg-main font-semibold text-white" name="action">Detail</button>
+        <a href="{{ route('admin.statistic.bansos') }}">
+            <button type="submit" class="w-32 py-2 rounded-2xl bg-main font-semibold text-white" name="action">Detail</button>
+        </a>
     </div>
 </div>
