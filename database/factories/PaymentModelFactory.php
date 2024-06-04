@@ -21,14 +21,14 @@ class PaymentModelFactory extends Factory
     protected $model = PaymentModel::class;
     public function definition()
     {
-        $randomNumber = rand(1, 10);
+        
         return [
-            $id='id_penduduk' => $randomNumber,
+            'id_penduduk' => null,
             'id_admin' => $this->faker->randomElement([1, 2, 3, 4, 5]),  
             'nomor_kk' => DB::table('penduduk')
-            ->where('id_penduduk', $randomNumber)
+            ->where('id_penduduk', null)
             ->value('nomor_kk'),
-            'jenis' => $this->faker->randomElement(['Iuran Kematian', 'Iuran Sampah']),
+            'jenis' => null,
             'metode' => $this->faker->randomElement(['Tunai', 'Transfer']),
             'urlBuktiPembayaran' => $this->faker->imageUrl(),
             'jumlah' => $this->faker->randomElement([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]),
@@ -36,4 +36,18 @@ class PaymentModelFactory extends Factory
             'keterangan_status' => $this->faker->sentence,
         ];
     }
+
+
+
+    public function paymentVerivied($jenis)
+    {
+        return $this->state(function (array $attributes) use ($jenis) {
+            return [
+                'jenis' => $jenis,
+                'status' => 'Terverifikasi',
+                'jumlah' => 50000
+            ];
+        });
+    }
+
 }
