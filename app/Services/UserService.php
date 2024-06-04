@@ -42,8 +42,6 @@ class UserService implements UserContract
         if ($action === 'reject') {
             $tempResident->status = 'Ditolak';
             $tempResident->save();
-            dd($tempResident)->toArray();
-
         }
     }
 

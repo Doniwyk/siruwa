@@ -56,7 +56,7 @@
                 <thead>
                     <tr>
                         <th class="sm:text-sm md:text-base">Judul Berita</th>
-                        <th class="sm:hidden md:table-cell">Detail Berita</th>
+                        <th class="sm:hidden md:table-cell sm:text-sm md:text-base">Tanggal Upload</th>
                         <th class="sm:text-sm md:text-base">Aksi</th>
                     </tr>
                 </thead>
@@ -77,7 +77,7 @@
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell">
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>

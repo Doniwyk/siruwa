@@ -10,8 +10,8 @@
         class="flex flex-col gap-6 items-end" id="add_news_form">
         @csrf
         @method('POST')
-        <section class="grid grid-rows-2 grid-cols-4 gap-6 w-full">
-            <div class="row-span-2 col-span-1 relative " id="file-1">
+        <section class="sm:grid-rows-5 grid grid-rows-2 grid-cols-4 gap-6 w-full">
+            <div class="sm:row-span-3 md:row-span-2 sm:col-span-4 md:col-span-1  relative " id="file-1">
                 <input type="file" name="image" id="image" class="hidden">
                 <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
                     <div>
@@ -22,12 +22,12 @@
                     </div>
                 </label>
             </div>
-            <div class="form-group col-span-3">
+            <div class="form-group sm:col-span-4 md:col-span-3">
                 <label for="judul" class="text-main font-semibold">Judul Berita</label>
                 <input type="text" id ="judul" name ="judul" class="px-6 py-2 rounded-2xl outline-none"
                     placeholder="Tuliskan Judul Berita" />
             </div>
-            <div class="form-group col-span-3">
+            <div class="form-group sm:col-span-4 md:col-span-3">
                 <label for="penulis" class="text-main font-semibold">Penulis</label>
                 <input type="text" id ="penulis" name ="penulis" class="hidden" value="{{ $account->nama }}" />
                 <input type="text" id ="penulis" name ="penulis"

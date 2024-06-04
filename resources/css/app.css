@@ -41,13 +41,13 @@
     }
 
     .link-option_parrent {
-        @apply  font-semibold bg-white rounded-xl p-1 flex items-center
+        @apply font-semibold bg-white rounded-xl p-1 flex items-center;
     }
     .link-option {
-        @apply  text-center text-secondary font-medium transition-all ease-linear py-2 relative sm:text-sm md:text-base md:px-10 sm:px-6;
+        @apply text-center text-secondary font-medium transition-all ease-linear py-2 relative sm:text-sm md:text-base md:px-10 sm:px-6;
     }
     .link-option_active {
-        @apply  text-white font-semibold relative bg-main rounded-xl;
+        @apply text-white font-semibold relative bg-main rounded-xl;
     }
     .invert-black {
         @apply invert-[.6] transition font-bold;
@@ -56,12 +56,12 @@
     .web_add-wrapper {
         @apply sm:w-full md:w-auto md:min-w-[22rem] flex sm:justify-between sm:gap-2 md:gap-6;
     }
-    .mobile_add-wrapper{
-        @apply block
+    .mobile_add-wrapper {
+        @apply block;
     }
 
-    .mobile_add-wrapper a{
-        @apply block px-4 py-2
+    .mobile_add-wrapper a {
+        @apply block px-4 py-2;
     }
 
     .button-order_desc {
@@ -77,7 +77,7 @@
     .form-control-input {
         @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
     }
-    .button-action{
+    .button-action {
         @apply sm:px-16 md:px-24 sm:py-2 md:py-3 rounded-2xl sm:text-sm md:text-base;
     }
     .dropzone {
@@ -89,33 +89,37 @@
     .button-hover {
         @apply hover:scale-95 transition-transform;
     }
-    .button-main{
-        @apply flex-between gap-[10px] px-6 py-3 bg-main rounded-xl font-semibold text-white button-hover;
+    .button-main {
+        @apply flex-between gap-[10px] px-6 py-2 bg-main rounded-xl font-semibold text-white button-hover;
     }
-    .button-white{
+    .button-white {
         @apply flex-between gap-[10px] px-6 py-3 bg-white rounded-xl font-semibold text-main button-hover;
     }
-    .input_profile-rw{
-        @apply w-20 bg-transparent text-center text-2xl text-white font-bold pb-1;
+    .input_profile-rw {
+        @apply w-16 bg-transparent text-center text-2xl text-white font-bold ;
     }
-    .label_profile-rw{
+    .label_profile-rw {
         @apply text-2xl text-white font-bold;
     }
-    .enable-input_profile-rw{
-        @apply outline-none border-b-2 border-white pb-1;
+    .enable-input_profile-rw {
+        @apply outline-none border-b-2 border-white;
     }
-    .dropdown-content a{
-        @apply px-6 py-3 block 
+    .dropdown-content a {
+        @apply px-6 py-3 block;
     }
-    .hamburger{
-        @apply h-[2.5px] w-8 bg-white rounded relative before:block before:absolute before:-top-2 before:w-full before:h-full before:bg-white before:rounded after:block after:absolute after:-bottom-2 after:w-full after:h-full after:bg-white after:rounded
+    .hamburger {
+        @apply h-[2.5px] w-8 bg-white rounded relative before:block before:absolute before:-top-2 before:w-full before:h-full before:bg-white before:rounded after:block after:absolute after:-bottom-2 after:w-full after:h-full after:bg-white after:rounded;
     }
-    .hamburger-open{
-        @apply before:origin-top-left before:rotate-45 after:origin-top-left after:-rotate-45
-
     .form-input-login-page {
         @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
     }
+}
+
+input[type=file]::file-selector-button{
+    @apply bg-main
+}
+input[type=file]::file-selector-button:hover{
+    @apply bg-main
 }
 
 .bg_beranda {
@@ -137,17 +141,17 @@
     .topbar {
         @apply h-[5.75rem] w-full bg-secondary flex justify-between fixed z-50;
     }
-    .left-sidebar{
-        @apply min-h-full w-[20rem] flex flex-col justify-between font-medium text-white transition-left duration-300 ease-in-out
+    .left-sidebar {
+        @apply min-h-full w-[20rem] flex flex-col justify-between font-medium text-white transition-left duration-300 ease-in-out;
     }
     .web_left-sidebar {
-        @apply px-4 pb-6 pt-28 bg-main text-[16px] ;
+        @apply px-4 pb-6 pt-28 bg-main text-[16px];
     }
     .web_left-sidebar a:hover img {
         @apply invert-black;
     }
-    .mobile_left-sidebar{
-        @apply p-2 pr-20 pt-28 bg-main/90  absolute z-40 text-sm -left-[20rem]  
+    .mobile_left-sidebar {
+        @apply p-2 pr-20 pt-28 bg-main/90  absolute z-40 text-sm -left-[20rem];
     }
 
     .content {
@@ -177,7 +181,7 @@
         @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between border-2;
     }
     .table-parent {
-        @apply w-full rounded-2xl  bg-white md:table-fixed overflow-hidden;
+        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden whitespace-nowrap;
     }
     th,
     td {
@@ -194,7 +198,7 @@
     }
 
     .table-parent-spk-statistic {
-        @apply w-full rounded-3xl bg-white table-fixed overflow-hidden;
+        @apply w-full rounded-3xl bg-white table-fixed overflow-hidden border;
     }
     th,
     td {

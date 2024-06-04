@@ -103,7 +103,7 @@ Route::group([
     Route::get('/import', [AdminImportResidentController::class, 'importForm'])->name('import');
     Route::post('/import-file', [AdminImportResidentController::class, 'importFile'])->name('importFile');
     Route::post('/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('saveImport');
-    Route::get('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
+    Route::post('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
     //==================================ROUTE EXPORT DATA FOR ADMIN========================================
     Route::get('/generate-pdf', [ExportController::class, 'exportResidentData'])->name('export');
     // Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('exportPayment');

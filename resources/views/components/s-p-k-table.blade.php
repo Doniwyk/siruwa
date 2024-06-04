@@ -1,6 +1,6 @@
 <div class="flex flex-center relative flex-col gap-8">
     <h3 class="text-xl font-semibold text-main">Sistem Pendukung Keputusan Bantuan Sosial</h3>
-    <div class="flex flex-end flex-col gap-2">
+    <div class="flex flex-end flex-col gap-2 ">
         <table class="table-parent-spk-statistic">
             <thead>
                 <tr>
