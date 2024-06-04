@@ -44,7 +44,7 @@
         <x-card :label="'Tunggakan'" :type="'danger'" :value="$fundData['tunggakan']" />
     </div>
     <section id="tab-slider" class="flex">
-        <div class="link-option_parrent">
+        <div class="link-option_parrent sm:flex-between">
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"
                 @class([
                     'link-option',
@@ -63,11 +63,11 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>Nomor KK</th>
+                        <th class="sm:text-sm md:text-base">Nama</th>
+                        <th class="sm:hidden lg:table-cell">Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
-                        <th>No. Telepon</th>
-                        <th>Detail</th>
+                        <th class="sm:text-sm md:text-base">No. Telepon</th>
+                        <th class="sm:text-sm md:text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,11 +76,11 @@
                     @endphp
                     @foreach ($fundData['getSubmission'] as $data)
                         <tr>
-                            <td>{{ $data->resident->nama }}</td>
-                            <td>{{ $data->nomor_kk }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $data->resident->nama }}</td>
+                            <td class="sm:hidden lg:table-cell">{{ $data->nomor_kk }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
-                            <td>{{ $data->akun->noHp }}</td>
-                            <td>
+                            <td class="sm:text-sm md:text-base">{{ $data->akun->noHp }}</td>
+                            <td class="sm:text-sm md:text-base">
                                 <button class="w-[25px] h-[25px] flex-center" id="button-{{ $i }}"
                                     onclick="getDataPembayaran({{ $data->id_pembayaran }})">
                                     <x-icon.detail />
@@ -102,11 +102,11 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th>Nama</th>
-                        <th>Nomor KK</th>
+                        <th class="sm:text-sm md:text-base">Nama</th>
+                        <th class="sm:hidden lg:table-cell">Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
-                        <th>No. Telepon</th>
-                        <th>Detail</th>
+                        <th class="sm:text-sm md:text-base">No. Telepon</th>
+                        <th class="sm:text-sm md:text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,11 +115,11 @@
                     @endphp
                     @foreach ($history as $data)
                         <tr>
-                            <td>{{ $data->resident->nama }}</td>
-                            <td>{{ $data->nomor_kk }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $data->resident->nama }}</td>
+                            <td class="sm:hidden lg:table-cell">{{ $data->nomor_kk }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
-                            <td>{{ $data->admin->noHp }}</td>
-                            <td class="font-semibold {{ $data->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                            <td class="sm:text-sm md:text-base">{{ $data->admin->noHp }}</td>
+                            <td class="font-semibold sm:text-sm md:text-base {{ $data->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
                                 {{ $data->status }}</td>
                         </tr>
                         @php
@@ -192,7 +192,7 @@
                         $('#table-parent tbody').append(
                             `<tr>
                                 <td>${ fundData.resident.nama }</td>
-                                <td>${ fundData.nomor_kk }</td>
+                                <td class="sm:hidden lg:table-cell">${ fundData.nomor_kk }</td>
                                 <td class="sm:hidden lg:table-cell">${ dateString }</td>
                                 <td>${ fundData.admin.noHp }</td>
                                 ${lastColumn}

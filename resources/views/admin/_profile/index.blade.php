@@ -4,11 +4,11 @@
 <div class="h1-semibold">{{ $title }}</div>
 <div class="bg-white p-9 rounded-2xl flex flex-col gap-6">
     <div class="flex sm:flex-col lg:flex-row sm:gap-9 w-full">
-        <section class="max-w-[30rem] flex flex-col">
+        <section class="flex-grow flex flex-col">
             <span class="resident-profile-subheader ">Foto Profil</span>
             <img src="{{ $account->urlProfile }}" class="h-[16rem] lg:w-[21rem] sm:w-full rounded-xl object-contain" alt="Profil">   
         </section>
-        <section class="w-full flex flex-col">
+        <section class="basis-3/4 flex flex-col">
             <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
             <form class="grid gap-x-9 gap-y-5 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
                 <x-form.show-input-form :label="'Nama Lengkap'"  :name="'anu'" :value="$detailAccount->nama" />

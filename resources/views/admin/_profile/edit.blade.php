@@ -10,10 +10,10 @@
             <!-- Foto Profil -->
             <fieldset class="shrink-0 h-[21rem] flex flex-col relative items-center " x-data="imageHandler()">
                 <span class="mb-6 block text-2xl font-semibold text-secondary w-full">Foto Profil</span>
-                <div class="relative w-[21rem] h-[16rem] cursor-pointer bg-black/50 object-contain" @click="$refs.profileImageUpload.click()">
+                <div class="relative w-[21rem] h-[16rem] cursor-pointer object-contain" @click="$refs.profileImageUpload.click()">
                     <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*"
                         @change="loadFile($event)" name="urlProfile" id="urlProfile">
-                    <img id="profile-image" class="w-full h-full rounded-xl absolute object-contain bg-black/50"
+                    <img id="profile-image" class="w-full h-full rounded-xl absolute object-contain"
                         :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" />
                     <span class="w-full h-full group  opacity-50 rounded-xl absolute object-contain"></span>
                     <span class="w-[21rem] h-[16rem] group absolute flex flex-col justify-center items-center gap-2 object-contain">
