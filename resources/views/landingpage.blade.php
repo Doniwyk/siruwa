@@ -1,49 +1,84 @@
 @extends('layouts.landing')
 @section('content-landingpage')
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    <title>SIRUWA</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
   <!-- Beranda -->
-  <section id="beranda" class="h-screen bg_beranda flex flex-col justify-between">
-    <div class="text-white flex justify-between px-16 py-4 ">
-      <span class="flex justify-center"><img src="{{ asset('assets/icons/logo-white.svg') }}" alt=""></span>
-      <ul class="flex gap-10 justify-center h-[3.5rem] items-center">
-        <li><a href="#struktur">KEPENGURUSAN</a></li>
-        <li><a href="#agenda">AGENDA</a></li>
-        <li><a href="#berita">BERITA</a></li>
-        <li><a href="#menu">MENU</a></li>
-        <li><a href="#beranda">BERANDA</a></li>
-        @auth
-        <li>
-            <a href="{{ route('logout') }}">
-                <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
-                    <div class="text-secondary">Logout</div>
-                    <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}">
-                </span>
-            </a>
-        </li>
-        @else
-        <li>
-            <a href="{{ route('login') }}">
-                <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
-                    <div class="text-secondary">Login</div>
-                    <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}">
-                </span>
-            </a>
-        </li>
-        @endauth
-      </ul>
-    </div>
+  <section id="beranda" class="relative h-screen flex flex-col justify-between overflow-hidden">
+        <div class="text-white flex justify-between px-16 py-4 relative z-10">
+            <span class="flex justify-center"><img src="{{ asset('assets/icons/logo-white.svg') }}" alt=""></span>
+            <ul class="flex gap-10 justify-center h-[3.5rem] items-center">
+                <li><a href="#struktur">KEPENGURUSAN</a></li>
+                <li><a href="#agenda">AGENDA</a></li>
+                <li><a href="#berita">BERITA</a></li>
+                <li><a href="#menu">MENU</a></li>
+                <li><a href="#beranda">BERANDA</a></li>
+                @auth
+                <li>
+                    <a href="{{ route('logout') }}">
+                        <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
+                            <div class="text-secondary">Logout</div>
+                            <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}">
+                        </span>
+                    </a>
+                </li>
+                @else
+                <li>
+                    <a href="{{ route('login') }}">
+                        <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
+                            <div class="text-secondary">Login</div>
+                            <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}">
+                        </span>
+                    </a>
+                </li>
+                @endauth
+            </ul>
+        </div>
 
-    <div class="text-white">
-      <div class="text-center text-8xl font-extrabold">SIRUWA</div>
-      <div class="text-center text-4xl font-semibold mb-10">Sistem Informasi RW Dua</div>
-      <div class="text-center text-2xl font-medium">Selamat datang di SIRUWA, jelajahi aplikasi web mutakhir untuk
-        mengatur segala hal di dunia.</div>
-    </div>
+        <!-- Picture Div -->
+        <div x-data="slideshow()" x-init="init()" class="absolute inset-0 z-0">
+            <template x-for="(image, index) in images" :key="index">
+                <div x-show="currentIndex === index"
+                    class="absolute inset-0 bg-center bg-cover transition-opacity duration-500"
+                    :style="'background-image: url(' + image + ');'"
+                    x-transition:enter="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="opacity-100"
+                    x-transition:leave-end="opacity-0">
+                </div>
+            </template>
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+  
 
-    <a href="#menu" class="mb-2 flex flex-col text-center text-white">
-      <span>Mulai Jelajah !</span>
-      <span>↓</span>
-    </a>
-  </section>
+        <div class="relative z-10 text-white text-center mt-60">
+            <div class="text-8xl font-extrabold">SIRUWA</div>
+            <div class="text-4xl font-semibold mb-10">Sistem Informasi RW Dua</div>
+            <div class="text-2xl font-medium">Selamat datang di SIRUWA, jelajahi aplikasi web mutakhir untuk mengatur segala hal di dunia.</div>
+        </div>
+
+        <!-- Picture Button -->
+        <div class="relative z-10 flex justify-center mt-10">
+            <template x-for="(image, index) in images" :key="index">
+                <button @click="currentIndex = index" 
+                    :class="currentIndex === index ? 'bg-white' : 'bg-gray-400'" 
+                    class="w-4 h-4 rounded-full mx-1">
+                </button>
+            </template>
+        </div>
+        </div>
+
+        <a href="#menu" class="relative z-10 mb-2 flex flex-col text-center text-white">
+            <span>Mulai Jelajah !</span>
+            <span>↓</span>
+        </a>
+    </section>
 
   @auth
   <!-- Menu -->
@@ -78,7 +113,7 @@
 
       <button class="px-8 py-3 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
         <div class="justify-start items-center gap-8 inline-flex">
-          <span class="text-white text-base font-semibold">Lebih Banyak ></span>
+        <span class="text-white text-base font-semibold cursor-pointer" onclick="window.location='{{ route('list-berita.index') }}'">Lebih Banyak ></span>
         </div>
       </button>
     </div>
@@ -169,11 +204,34 @@
             startTime: "00:00",
             endTime: "24:00",
             text: "Mata Kuliah PSI"
-          }]
-        }
+          }],
+
+          3: [{
+            startTime: "00:00",
+            endTime: "24:00",
+            text: "Mata Kuliah PSI"
+          }],
+        } 
       }
     };
 
     var organizer = new Organizer("organizerContainer", calendar, data);
+
+    // Gambar Slideshow ofc dari GPT h3h3
+    function slideshow() {
+            return {
+                images: [
+                    "{{ asset('https://cdn.api.upstation.media/upstation_x/ac915e5166ffa9c578d1e40313c2b116be4753502b5331bb55050f58a68d85c74c1b97b50b32fd8d4ceb844f388faad447fff9957b5bd19f402995558a38958c') }}",
+                    "{{ asset('https://api.duniagames.co.id/api/content/upload/file/6182724481603360805.jpeg') }}",
+                    "{{ asset('https://upload-os-bbs.hoyolab.com/upload/2022/08/11/17136071/989ca1a56ed158e8e6f8386984f9c31c_1397685953817154726.jpeg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_80') }}"
+                ],
+                currentIndex: 0,
+                init() {
+                    setInterval(() => {
+                        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                    }, 3000);
+                }
+            }
+        }
   </script>
 @endsection

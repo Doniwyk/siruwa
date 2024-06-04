@@ -112,6 +112,10 @@
     }
     .hamburger-open{
         @apply before:origin-top-left before:rotate-45 after:origin-top-left after:-rotate-45
+
+
+    .form-input-login-page {
+        @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
     }
 }
 .bg_beranda {
@@ -180,13 +184,30 @@
         @apply p-3 text-left;
     }
     thead th {
-        @apply text-lg font-bold bg-main text-white;
+        @apply text-lg font-bold bg-secondary text-white;
     }
     tbody tr {
         @apply border-b-2;
     }
     tbody td {
-        @apply text-main text-base font-medium;
+        @apply text-secondary text-base font-medium;
+    }
+
+    .table-parent-spk-statistic {
+        @apply w-full rounded-3xl bg-white table-fixed overflow-hidden;
+    }
+    th,
+    td {
+        @apply p-3 pl-6 text-left;
+    }
+    thead th {
+        @apply text-sm font-bold bg-secondary text-white;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-secondary text-base font-medium;
     }
 }
 

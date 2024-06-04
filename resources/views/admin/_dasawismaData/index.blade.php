@@ -16,6 +16,7 @@
                 Riwayat
             </a>
         </div>
+
         <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
             <button class="button-main">...</button>
             <div class="absolute bg-white min-w-40 overflow-auto shadow-lg z-30 right-0 rounded-xl hidden" aria-labelledby="">
@@ -37,6 +38,7 @@
                     Import .csv
                 </label>
             </button>
+
             <a href="{{ route('admin.data-penduduk.add') }}">
                 <button class="button-main">
                     <x-icon.add-circle />
@@ -49,7 +51,7 @@
     </section>
 
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
-
+    
     @switch($typeDocument)
         @case('daftar-penduduk')
             <table class="table-parent" id="table-parent">

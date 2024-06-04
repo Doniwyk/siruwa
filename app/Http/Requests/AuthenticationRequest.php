@@ -26,4 +26,13 @@ class AuthenticationRequest extends FormRequest
             'password' => 'required|min:8',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'password.min' => 'Password harus 8 karakter.',
+            'username.required' => 'Username wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
+        ];
+    }
 }

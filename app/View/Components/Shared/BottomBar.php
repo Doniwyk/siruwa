@@ -1,20 +1,19 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Shared;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SPKTable extends Component
+class BottomBar extends Component
 {
-    public $results;
     /**
      * Create a new component instance.
      */
-    public function __construct($results)
+    public function __construct()
     {
-        $this->results = $results;
+        //
     }
 
     /**
@@ -22,6 +21,6 @@ class SPKTable extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.s-p-k-table');
+        return view('components..shared.bottom-bar');
     }
 }
