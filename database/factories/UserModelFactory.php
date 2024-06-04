@@ -16,12 +16,14 @@ class UserModelFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = UserModel::class;
-
+    private static $nikCounter = 3579011402040001;
+    
     public function definition()
     {
+        $nik = self::$nikCounter++;
         return [
             'tgl_lahir' => $this->faker->date(),
-            'nik' => $this->faker->unique()->regexify('[0-9]{16}'),
+            'nik' => str_pad($nik, 16, '0', STR_PAD_LEFT),
             'nomor_kk' => $this->faker->regexify('[0-9]{16}'),
             'nama' => $this->faker->name,
             'tempat_lahir' => $this->faker->city,
@@ -56,9 +58,10 @@ class UserModelFactory extends Factory
     {
         return $this->state(function (array $attributes) use ($agama) {
             return [
-                'jenis_kelamin' => 'L',
-                'status_keluarga' => 'kepala_keluarga',
-                'status_kawin' => 'M',
+                'tgl_lahir' => $this->faker->date('Y-m-d', '-40 years'),
+                'jenis_kelamin' => 'Laki-laki',
+                'status_keluarga' => 'Kepala Keluarga',
+                'status_kawin' => 'Menikah',
                 'agama' => $agama,
             ];
         });
@@ -69,9 +72,11 @@ class UserModelFactory extends Factory
         return $this->state(function (array $attributes) use ($nomorKk, $agama) {
             return [
                 'nomor_kk' => $nomorKk,
-                'status_keluarga' => 'istri',
-                'status_kawin' => 'M',
+                'tgl_lahir' => $this->faker->date('Y-m-d', '-35 years'),
+                'status_keluarga' => 'Istri',
+                'status_kawin' => 'Menikah',
                 'agama' => $agama,
+                'jenis_kelamin' => 'Perempuan',
             ];
         });
     }
@@ -81,8 +86,10 @@ class UserModelFactory extends Factory
         return $this->state(function (array $attributes) use ($nomorKk, $agama) {
             return [
                 'nomor_kk' => $nomorKk,
+                'tgl_lahir' => $this->faker->date('Y-m-d', '-15 years'),
+
                 'status_keluarga' => 'anak',
-                'status_kawin' => 'BM',
+                'status_kawin' => 'Belum Menikah',
                 'agama' => $agama,
             ];
         });

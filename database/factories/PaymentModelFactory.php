@@ -2,9 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\AccountModel;
 use App\Models\PaymentModel;
 use App\Models\UserModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PaymentModel>
@@ -17,20 +19,21 @@ class PaymentModelFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = PaymentModel::class;
-    public function definition(): array
+    public function definition()
     {
-return [
-            'id_penduduk' => $this->faker->randomElement([1, 2, 3, 4, 5]),
-            'id_admin' => $this->faker->randomElement([1, 2, 3, 4, 5]),
-            'nomor_kk' => function () {
-                return UserModel::factory()->create()->nomor_kk;
-            },
+        $randomNumber = rand(1, 10);
+        return [
+            $id='id_penduduk' => $randomNumber,
+            'id_admin' => $this->faker->randomElement([1, 2, 3, 4, 5]),  
+            'nomor_kk' => DB::table('penduduk')
+            ->where('id_penduduk', $randomNumber)
+            ->value('nomor_kk'),
             'jenis' => $this->faker->randomElement(['Iuran Kematian', 'Iuran Sampah']),
-            'metode' => $this->faker->randomElement(['Tunai','Transfer']),
+            'metode' => $this->faker->randomElement(['Tunai', 'Transfer']),
             'urlBuktiPembayaran' => $this->faker->imageUrl(),
-            'jumlah' => $this->faker->randomElement([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000 ]),
+            'jumlah' => $this->faker->randomElement([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]),
             'status' => $this->faker->randomElement(['Terverifikasi', 'Belum Terverifikasi']),
-            'keterangan_status'=> $this->faker->sentence,
+            'keterangan_status' => $this->faker->sentence,
         ];
     }
 }

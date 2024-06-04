@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\AccountModel;
+use App\Models\UserModel;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Database\Seeder;
 

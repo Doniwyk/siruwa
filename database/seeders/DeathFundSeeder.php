@@ -14,7 +14,7 @@ class DeathFundSeeder extends Seeder
     public function run(): void
     {
         DeathFundModel::factory(5)->create();
-        DeathFundModel::factory(5)->forEachKK();
+        // DeathFundModel::factory(5)->forEachKK();
 
     }
 }
