@@ -33,6 +33,6 @@ return [
     [
         "imgURL" => 'assets/icons/edit-profil.svg',
         "route" => ['profil', '',''],
-        "label" => "Ubah Profil",
+        "label" => "Profil",
     ]
 ];
