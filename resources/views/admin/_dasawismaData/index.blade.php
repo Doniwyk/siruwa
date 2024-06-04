@@ -17,14 +17,38 @@
             </a>
         </div>
 
-        <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
+        {{-- <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
             <button class="button-main">...</button>
             <div class="absolute bg-white min-w-40 overflow-auto shadow-lg z-30 right-0 rounded-xl hidden" aria-labelledby="">
                 <a class="" href="#">Tambah Data</a>
                 <a class="" href="#">Import CSV</a>
                 <a class="" href="#">Export CSV</a>
             </div>
+        </div> --}}
+
+        <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="button-main" type="button"> ...
+            </button>
         </div>
+
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="z-50 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                <li>
+                    <a href="{{route('admin.data-penduduk.add')}}"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tambah Penduduk</a>
+                </li>
+                <li>
+                    <a href="{{route('admin.data-penduduk.import')}}"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Import .CSV</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Export .CSV</a>
+                </li>
+            </ul>
+        </div>
+
         <div class="md:web_add-wrapper sm:hidden">
             <button class="button-white">
                 <x-icon.import />
@@ -32,12 +56,14 @@
                     Import .csv
                 </label>
             </button>
-            <button class="button-white">
-                <x-icon.import />
-                <label for="" class="sm:hidden md:inline">
-                    Import .csv
-                </label>
-            </button>
+            <a href="{{route('admin.data-penduduk.import')}}">
+                <button class="button-white">
+                    <x-icon.import />
+                    <label for="" class="sm:hidden md:inline">
+                        Import .csv
+                    </label>
+                </button>
+            </a>
 
             <a href="{{ route('admin.data-penduduk.add') }}">
                 <button class="button-main">
@@ -51,7 +77,7 @@
     </section>
 
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
-    
+
     @switch($typeDocument)
         @case('daftar-penduduk')
             <table class="table-parent" id="table-parent">
@@ -140,7 +166,8 @@
                             <td class="sm:text-sm md:text-base">{{ $resident->penduduk->nik }}</td>
                             <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->tgl_lahir }}</td>
                             <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->id_penduduk }}</td>
-                            <td class="font-bold sm:sm:text-sm md:text-base {{ $resident->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                            <td
+                                class="font-bold sm:sm:text-sm md:text-base {{ $resident->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
                                 {{ $resident->status }}
                             </td>
                         </tr>
@@ -191,18 +218,17 @@
                     }
 
                     $.each(residents, function(index, resident) {
-                        console.log(resident);
                         let lastColumn;
                         switch (typeDocument) {
                             case 'daftar-penduduk':
-                                lastColumn = `<td class="flex-start">
+                                lastColumn = `<td class="flex-start sm:text-sm md:text-base">
                                         <a class="flex-center" href=" data-penduduk/${resident.id_penduduk}/show">
                                             <x-icon.detail />
                                         </a>
                                         </td>`
                                 break;
                             case 'pengajuan':
-                                lastColumn = `<td>
+                                lastColumn = `<td class="sm:text-sm md:text-base">
                                     <a class="flex-start" href=" data-penduduk/${resident.id_penduduk}/edit">
                                         <x-icon.detail />
                                         </a>
@@ -210,16 +236,16 @@
                                 break;
                             case 'riwayat':
                                 lastColumn =
-                                    `<td class="font-bold ${resident.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${resident.status}</td>`
+                                    `<td class="font-bold sm:text-sm md:text-base ${resident.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${resident.status}</td>`
                                 break;
                         }
 
                         $('#table-parent tbody').append(
                             `<tr>
-                                <td>${resident.penduduk.nama}</td>
-                                <td>${resident.penduduk.nik}</td>
-                                <td>${resident.penduduk.tgl_lahir}</td>
-                                <td>${resident.penduduk.id_penduduk}</td>
+                                <td class="sm:text-sm md:text-base">${resident.penduduk?.nama || resident.nama}</td>
+                                <td class="sm:text-sm md:text-base">${resident.nik}</td>
+                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">${resident.tgl_lahir}</td>
+                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">${resident.id_penduduk}</td>
                                 ${lastColumn}
                             </tr>`
 
