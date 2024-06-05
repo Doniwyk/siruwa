@@ -10,7 +10,7 @@ interface DashboardContract
 {
 
 
-    public function updateDashboardData(Request $request, DataDashboardModel $dataDashboard): void;
+    public function updateDashboardData(Request $request, DataDashboardModel $dataDashboard);
 
     public function dataDashboard();
 }
