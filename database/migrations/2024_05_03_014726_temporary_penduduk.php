@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_temporary');
             $table->unsignedBigInteger('id_penduduk');
             $table->date('tgl_lahir');
-            $table->string('nik')->unique();
+            $table->string('nik');
             $table->string('nomor_kk')->index();
             $table->string('nama', 250);
             $table->string('tempat_lahir', 100);
