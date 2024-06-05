@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('data_dashboard',function(Blueprint $table){
+        Schema::create('data_dashboard', function (Blueprint $table) {
             $table->id('id_dataDashboard');
             $table->integer('total_penduduk')->default(0)->nullable();
             $table->integer('fasilitas_kesehatan')->default(0)->nullable();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('fasilitas_pendidikan')->default(0)->nullable();
             $table->string('image')->nullable();
             $table->string('image_public_id')->nullable();
-            
+            $table->timestamps();
         });
     }
 
@@ -31,6 +31,5 @@ return new class extends Migration
     {
         //
         Schema::dropIfExists('data_dashboard');
-
     }
 };
