@@ -62,7 +62,7 @@ class AdminImportService
                 'ikut_paud' => 'required|boolean',
                 'ikut_koperasi' => 'required|boolean',
                 'noHp' => 'required',
-                'email' => 'required',
+                'email' => 'required|unique:users,email',
             ]);
             if ($rowValidator->fails()) {
                 Log::error('Error validating data: ' . json_encode($rowValidator->errors()));
@@ -123,7 +123,7 @@ class AdminImportService
                             'ikut_paud' => 'required|boolean',
                             'ikut_koperasi' => 'required|boolean',
                             'noHp' => 'required',
-                            'email' => 'required',
+                            'email' => 'required|unique:users,email',
                         ]);
 
             if ($rowValidator->fails()) {
@@ -206,6 +206,7 @@ class AdminImportService
                 }
                 Log::info('Berhasil.');
             } catch (\Exception $e) {
+                dd($e);
                 Log::error("Error saving data: " . $e->getMessage());
             }
         }
