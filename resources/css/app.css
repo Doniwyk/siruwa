@@ -112,7 +112,7 @@
     }
     .form-input-login-page {
         @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
-    }}
+    }
 }
 
 input[type=file]::file-selector-button{
