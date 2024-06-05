@@ -19,6 +19,7 @@ class AdminPaymentService implements AdminPaymentContract
     {
         if ($action != 'terima') {
             $payment->status = 'Ditolak';
+            $payment->id_admin = Auth::user()->id;
             $payment->save();
             return;
         }
@@ -97,7 +98,7 @@ class AdminPaymentService implements AdminPaymentContract
         //     ->with('resident', 'admin', 'akun')
         //     ->paginate(10, ['*'], 'validatedPage');
 
-        $validatedPayments = PaymentModel::where('status', ['Terverifikasi', 'Ditolak'])
+        $validatedPayments = PaymentModel::whereIn('status', ['Terverifikasi', 'Ditolak'])
             ->join('penduduk', 'pembayaran.id_penduduk', '=', 'penduduk.id_penduduk')
             ->with('resident', 'admin', 'akun')
             ->when($search, function ($query, $search) {
