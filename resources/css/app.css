@@ -112,7 +112,7 @@
     }
     .form-input-login-page {
         @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
-    }
+    }}
 }
 
 input[type=file]::file-selector-button{
@@ -297,7 +297,7 @@ input[type=file]::file-selector-button:hover{
 
 /* USER STYLING */
 .content-user {
-    @apply px-16 py-9;
+    @apply flex flex-col px-16 py-9 sm:p-4 md:gap-9 sm:gap-6;
 }
 .resident-profile-subheader {
     @apply block mb-6 text-2xl font-semibold text-secondary;
@@ -309,7 +309,7 @@ input[type=file]::file-selector-button:hover{
     @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
 }
 .resident-header {
-    @apply text-secondary text-4xl font-semibold mb-9;
+    @apply sm:text-2xl md:text-4xl text-secondary font-semibold;
 }
 .resident-tab-parent {
     @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
@@ -358,4 +358,8 @@ input[type=file]::file-selector-button:hover{
 }
 .resident-input {
     @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
+}
+
+[x-cloak] {
+    display: hidden !important;
 }
