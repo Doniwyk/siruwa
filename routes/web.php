@@ -172,6 +172,7 @@ Route::group([
     Route::put('/{payment}/validate', [AdminPaymentController::class, 'validatePayment'])->name('validatePembayaran'); //proses validasi pembayaran
     Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
     Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('export');
+    Route::get('/tunggakan', [AdminPaymentController::class, 'getDataTunggakan'])->name('tunggakan');
 
 });
 

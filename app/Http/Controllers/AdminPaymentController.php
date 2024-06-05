@@ -89,4 +89,22 @@ class AdminPaymentController extends Controller
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
     }
     }
+    public function getDataTunggakan(Request $request)
+    {
+        try{
+            $typeDocument = $request->query('typeDocument', 'pembayaran');
+            $search = $request->query('search', '');
+            $order = $request->query('order', 'asc');
+            $adminId = Auth::id();
+    
+            $title = "Data Tunggakan Iuran";
+            $page = $this->pageName;
+
+            $dataTunggakan = $this->paymentService->getDataTunggakan($search, $order);
+            // dd($dataTunggakan);
+            return view('admin._fund.tunggakan', compact('dataTunggakan', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
 }
