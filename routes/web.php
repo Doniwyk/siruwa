@@ -234,12 +234,13 @@ Route::group([
     'as' => 'resident.profil.',
     'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
-    Route::get('/', [AccountController::class, 'index'])->name('index');
+    Route::get('/', [AccountController::class, 'index'])->name('index');;
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     // Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-profil}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
 });
+Route::get('/profile/info', [AccountController::class, 'getUserProfile']);
 
 //==================================ROUTE PENDUDUK========================================
 
