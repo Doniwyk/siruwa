@@ -125,7 +125,7 @@
     <!-- TAB RIWAYAT -->
     <div x-show="openTab === 2">
         <div class="overflow-x-auto rounded-xl">
-            <table class="table-parent">
+            <table class="table-resident">
                 <thead>
                     <tr>
                         <th>Nama Pengaju</th>
