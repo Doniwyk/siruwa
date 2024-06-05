@@ -118,7 +118,7 @@
                             <td class="sm:text-sm md:text-base">{{ $data->resident->nama }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->nomor_kk }}</td>
                             <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $data->admin->noHp }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $data->akun->noHp }}</td>
                             <td class="font-semibold sm:text-sm md:text-base {{ $data->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
                                 {{ $data->status }}</td>
                         </tr>
