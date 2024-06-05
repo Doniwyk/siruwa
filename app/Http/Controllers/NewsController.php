@@ -168,6 +168,7 @@ class NewsController extends Controller
     }
     public function getLastestNews($search, $order, $count)
     {
+
         try {
             $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
             return $news;

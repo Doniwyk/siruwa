@@ -96,7 +96,7 @@
         @apply flex-between gap-[10px] px-6 py-3 bg-white rounded-xl font-semibold text-main button-hover;
     }
     .input_profile-rw {
-        @apply w-16 bg-transparent text-center text-2xl text-white font-bold ;
+        @apply w-16 text-center text-2xl text-white font-bold bg-transparent outline-none border-none;
     }
     .label_profile-rw {
         @apply text-2xl text-white font-bold;
