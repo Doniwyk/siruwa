@@ -21,6 +21,13 @@ class DSSController extends Controller
 
     public function index(Request $request)
     {
+        try {
+            $results = $this->dssService->calculateScores();
+            return view('banusosu', compact('results'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+
         $typeDocument = $request->query('typeDocument', 'fuzzy');
         $title = 'Sistem Pendukung Keputusan Bansos';
         $page = 'SPK Bansos';

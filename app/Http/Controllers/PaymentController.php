@@ -24,18 +24,23 @@ class PaymentController extends Controller
 
     public function index()
     {
-        $payment = PaymentModel::all();
-        $page = 'data-pembayaran';
-        $title = 'Manajemen Dana';
-        return view('admin._fund.index', ['title' => $title, 'page' => $page]);
-        // return view('payment.index',compact('payment'));
-        //jangan lupa menyesuaikan nama view
+        try {
+            $payment = PaymentModel::all();
+            $page = 'data-pembayaran';
+            $title = 'Manajemen Dana';
+            return view('admin._fund.index', ['title' => $title, 'page' => $page]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data pembayaran tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function add()
     {
-        return view('admin._fund.add');
-        //jangan lupa menyesuaikan nama view
+        try {
+            return view('admin._fund.add');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Tidak dapat memuat form tambah berita ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function storePayment(PaymentRequest $request): RedirectResponse
@@ -99,7 +104,7 @@ class PaymentController extends Controller
                 'bulan' => $bulan,
                 'status' => 'Lunas'
             ]);
-    
+
             // Ubah bulan untuk perulangan berikutnya
             $bulan = date('Y-m', strtotime("$bulan +1 month"));
         }

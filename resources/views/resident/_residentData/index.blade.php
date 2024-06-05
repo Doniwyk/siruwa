@@ -9,7 +9,7 @@
     showModal: false, 
     currentStatus: '', 
     currentKeterangan: '', 
-    showEditPopup: true 
+    showEditPopup: false 
     }">
         <div class="resident-tab-parent">
             <button x-on:click="openTab = 1; localStorage.setItem('openTab', 1)" :class="{ 'bg-secondary text-white': openTab === 1 }"
@@ -20,10 +20,13 @@
 
         <!-- TAB PENGAJUAN -->
         <div x-show="openTab === 1">
-            <div class="bg-white py-9 px-16 rounded-2xl flex flex-col gap-9">
+            <div class="bg-white sm:py-4 md:py-9 sm:px-6 md:px-24 rounded-2xl flex flex-col gap-9">
                 <section id="identitas-kependudukan" class="">
-                    <h4 class="h4-semibold">Identitas Kependudukan</h4>
-                    <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+                    <h4 class="h4-semibold flex items-center">
+                        Identitas Kependudukan
+                        <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+                    </h4>
+                    <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-4">
                         <x-form.show-input-form :label="'No. KTP/NIK'"  :name="'reqKtp'" :value="$resident->nik" />
                         <x-form.show-input-form :label="'No. KK'"  :name="'reqRegistrasi'" :value="$resident->nomor_kk" />
                         <x-form.show-input-form :label="'Nama'"  :name="'reqNama'" :value="$resident->nama" />
@@ -32,8 +35,11 @@
                     </form>
                 </section>
                 <section id="identitas-lengkap">
-                    <h4 class="h4-semibold">Identitas Lengkap</h4>
-                    <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+                    <h4 class="h4-semibold flex items-center">
+                        Identitas Lengkap
+                        <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+                    </h4>
+                    <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-4">
                         <x-form.show-input-form :label="'Tempat Lahir'"  :name="'reqTempatLahir'" :value="$resident->tempat_lahir" />
                         <x-form.show-input-form :label="'Tanggal Lahir'"  :name="'tanggalLahir'" :value="$resident->tgl_lahir" />
                         <x-form.show-input-form :label="'Jenis Kelamin'"  :name="'reqJenisKelamin'" :value="$resident->jenis_kelamin" />
@@ -48,8 +54,11 @@
                     </form>
                 </section>
                 <section id="kegiatan-keorganisasian">
-                    <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
-                    <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+                    <h4 class="h4-semibold flex items-center">
+                        Kegiatan Keorganisasian
+                        <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+                    </h4>
+                    <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-4">
                         <x-form.show-input-form :label="'Aktif dalam Kegiatan Posyandu'"  :name="'reqAktifKegiatan'" :value="$resident->aktif_posyandu" :isBoolean="true" />
                         <x-form.show-input-form :label="'Ikut dalam kegiatan Koperasi'"  :name="'reqKoperasi'" :value="$resident->ikut_koperasi" :isBoolean="true" />
                         <x-form.show-input-form :label="'Mengikuti Kelompok Belajar'"  :name="'reqKelompokBelajarJenis'" :value="$resident->ikut_kel_belajar" :isBoolean="true" />
@@ -59,22 +68,30 @@
                     </form>
                 </section>
                 <section id="informasi-keuangan-pribadi">
-                    <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
-                    <form action="" class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+                    <h4 class="h4-semibold flex items-center">
+                        Informasi Keuangan Pribadi
+                        <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+                    </h4>
+                    <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-4">
                         <x-form.show-input-form :label="'Gaji Perbulan'"  :name="'gaji'" :value="$resident->gaji" />
+                        <x-form.show-input-form :label="'Jumlah Tanggungan'"  :name="'jumlah_tanggungan'" :value="$resident->jumlah_tanggungan" />
                         <x-form.show-input-form :label="'Total Pajak Kendaraan'"  :name="'total_pajak_kendaraan'" :value="$resident->total_pajak_kendaraan" />
                         <x-form.show-input-form :label="'Biaya Pajak Bumi dan Bangunan'"  :name="'pajak_bumi'" :value="$resident->pajak_bumi" />
                         <x-form.show-input-form :label="'Biaya Listrik Perbulan'"  :name="'biaya_listrik'" :value="$resident->biaya_listrik" />
                         <x-form.show-input-form :label="'Biaya Air Perbulan'"  :name="'biaya_air'" :value="$resident->biaya_air" />
                     </form>
                 </section>
+                
                 <section class="flex justify-end">
                     <a href="#" 
                        class="btn-main button-hover" 
-                       x-on:click.prevent=" 
-                           if('{{ $history->first()->status }}' === 'Menunggu Verifikasi') {
+                       x-on:click.prevent="
+                           console.log('Clicked Edit Data');
+                           if (historyNotEmpty && anyPendingVerification) {
+                               console.log('Condition met: Showing popup');
                                showEditPopup = true;
                            } else {
+                               console.log('Redirecting to edit page');
                                window.location.href = '{{ route('resident.data-dasawisma.edit', $resident->id) }}';
                            }">
                        Edit Data
@@ -86,16 +103,16 @@
         <!-- TAB RIWAYAT -->
         <div x-show="openTab === 2">
             <div class="overflow-x-auto rounded-xl">
-                <table class="w-full text-left table-fixed">
-                    <thead class="history-header">
+                <table class="table-parent">
+                    <thead class="">
                         <tr>
-                            <th>Nama Pembayar</th>
-                            <th>Tgl. Pengajuan</th>
+                            <th class="sm:hidden">Nama Pembayar</th>
+                            <th>Tanggal Pengajuan</th>
                             <th>Pembaharuan Terakhir</th>
                             <th>Detail Status</th>
                         </tr>
                     </thead>
-                    <tbody class="history-body">
+                    <tbody class="">
                         @if ($history->isEmpty())
                             <tr>
                                 <td colspan="4" class="text-center">Tidak Ada Data</td>
@@ -103,11 +120,12 @@
                         @else
                             @foreach($history as $record)
                                 <tr>
-                                    <td>{{ $record->nama }}</td>
+                                    <td class="sm:hidden">{{ $record->nama }}</td>
                                     <td>{{ $record->created_at->format('d F Y') }}</td>
                                     <td>{{ $record->updated_at }}</td>
-                                    <td class="flex items-center">
-                                        <div class="font-bold w-1/2 {{ $record->status == 'Ditolak' ? 'text-red-600' : ($record->status == 'Diterima' ? 'text-secondary' : ($record->status == 'Menunggu Verifikasi' ? 'text-main/50' : 'text-secondary')) }}">
+                                    <td class="flex">
+                                        <div class="font-bold w-1/2 sm:hidden {{ 
+                                            $record->status == 'Ditolak' ? 'text-red-600' : ($record->status == 'Diterima' ? 'text-secondary' : ($record->status == 'Menunggu Verifikasi' ? 'text-main/50' : 'text-secondary')) }}">
                                             {{ $record->status }}
                                         </div>
                                         <button 
@@ -152,7 +170,7 @@
 
         <!-- Edit Popup -->
         <div x-show="showEditPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
-            <div class="flex flex-col bg-white p-10 rounded-2xl gap-9 text-secondary">
+            <div class="flex flex-col bg-white md:p-10 sm:p-5 rounded-2xl gap-9 text-secondary">
                 <div class="flex flex-col items-center justify-center gap-4">
                     <svg width="54" height="55" viewBox="0 0 54 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M27 15.6875V30.875" stroke="#225157" stroke-width="4" stroke-linecap="round"/>
@@ -180,5 +198,12 @@
             let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
             return newHeight;
         }
+    </script>
+    <script>
+        // Initialize JavaScript variables from PHP
+        let historyNotEmpty = @json($history->isNotEmpty());
+        let anyPendingVerification = @json($history->contains(function ($value, $key) {
+            return $value->status === 'Menunggu Verifikasi';
+        }));
     </script>
 @endsection

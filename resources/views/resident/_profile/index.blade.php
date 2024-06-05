@@ -3,16 +3,17 @@
 
 <div class="resident-header">{{ $title }}</div>
 <div class="bg-white rounded-2xl flex flex-col p-9 gap-6">
-    <div class="flex md:flex-col lg:flex-row md:gap-9 w-full">
+    <div class="flex sm:flex-col lg:flex-row md:gap-9 w-full">
         <section class="shrink-0 h-[21rem] flex flex-col relative items-center">
             <span class="resident-profile-subheader w-full">Foto Profil</span>
-            <div class="relative w-[21rem] h-[16rem] object-contain">
-                <img src="{{ $account->urlProfile }}" class="h-[16rem] lg:w-[21rem] md:w-full rounded-xl" alt="Profil">   
-            </div>
+            <span class="rounded-2xl">
+                <img src="{{ $account->urlProfile }}" class="h-[16rem] lg:w-[21rem] sm:w-full md:rounded-xl sm:rounded-xl object-contain" alt="Profil">   
+
+            </span>
         </section>
-        <section class="w-full flex flex-col">
-            <span class="resident-profile-subheader">Identitas Diri</span>
-            <form class="grid gap-x-9 gap-y-5 md:grid-cols-1 md:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
+        <section class="basis-3/4 flex flex-col">
+            <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
+            <form class="grid gap-x-9 gap-y-5 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
                 <x-form.show-input-form :label="'Nama Lengkap'"  :name="'anu'" :value="$detailAccount->nama" />
                 <x-form.show-input-form :label="'Username'"  :name="'nama'" :value="$account->username" />
                 <x-form.show-input-form :label="'Role'"  :name="'reqRegistrasi'" :value="$account->role" />

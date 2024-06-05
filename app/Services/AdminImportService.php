@@ -62,7 +62,7 @@ class AdminImportService
                 'ikut_paud' => 'required|boolean',
                 'ikut_koperasi' => 'required|boolean',
                 'noHp' => 'required',
-                'email' => 'required',
+                'email' => 'required|unique:users,email',
             ]);
             if ($rowValidator->fails()) {
                 Log::error('Error validating data: ' . json_encode($rowValidator->errors()));
@@ -73,7 +73,6 @@ class AdminImportService
 
         if (count($errors) > 0) {
             Session::put('importErrors', $errors); 
-            // return redirect()->back()->withErrors($errors); 
         }
 
         // Save data preview to session
@@ -124,7 +123,7 @@ class AdminImportService
                             'ikut_paud' => 'required|boolean',
                             'ikut_koperasi' => 'required|boolean',
                             'noHp' => 'required',
-                            'email' => 'required',
+                            'email' => 'required|unique:users,email',
                         ]);
 
             if ($rowValidator->fails()) {
@@ -207,12 +206,14 @@ class AdminImportService
                 }
                 Log::info('Berhasil.');
             } catch (\Exception $e) {
+                dd($e);
                 Log::error("Error saving data: " . $e->getMessage());
             }
         }
 
         // Clear session after saving
         Session::forget('dataPreview');
+        Session::forget('importErrors');
         Log::info('Data saved successfully, session cleared.');
     }
 }
