@@ -103,7 +103,7 @@
         <!-- TAB RIWAYAT -->
         <div x-show="openTab === 2">
             <div class="overflow-x-auto rounded-xl">
-                <table class="table-parent">
+                <table class="table-resident">
                     <thead class="">
                         <tr>
                             <th class="sm:hidden">Nama Pembayar</th>
@@ -198,9 +198,7 @@
             let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
             return newHeight;
         }
-    </script>
-    <script>
-        // Initialize JavaScript variables from PHP
+
         let historyNotEmpty = @json($history->isNotEmpty());
         let anyPendingVerification = @json($history->contains(function ($value, $key) {
             return $value->status === 'Menunggu Verifikasi';

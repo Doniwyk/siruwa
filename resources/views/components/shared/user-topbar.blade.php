@@ -27,11 +27,13 @@
         
         <!-- MENU -->
         <div class="sm:overflow-hidden sm:max-h-0 transition-[max-height] duration-500 ease-in-out md:items-center sm:hidden md:flex sm:flex sm:flex-col-reverse sm:gap-3 gap-3 navigation-menu">
-            <a href="{{ route('index') }}#struktur" class="text-white hover:text-gray-100 text-right sm:pb-3">KEPENGURUSAN</a>
+            <a href="{{ route('logout') }}" class="text-white hover:text-gray-100 text-right md:hidden sm:pb-3">LOGOUT</a>
+            <a href="{{ route('index') }}#struktur" class="text-white hover:text-gray-100 text-right">KEPENGURUSAN</a>
             <a href="{{ route('index') }}#agenda" class="text-white hover:text-gray-100 text-right">AGENDA</a>
             <a href="{{ route('index') }}#berita" class="text-white hover:text-gray-100 text-right">BERITA</a>
             <a href="{{ route('index') }}#menu" class="text-white hover:text-gray-100 text-right">MENU</a>
             <a href="{{ route('index') }}#beranda" class="text-white hover:text-gray-100 text-right">BERANDA</a>
+            <a href="{{ route('logout') }}" class="text-white hover:text-gray-100 text-right sm:hidden sm:pb-3">LOGOUT</a>
             <a href="#" class="sm:hidden profile-link">
                 <span class="flex justify-center items-center bg-white rounded-2xl px-8 py-2 gap-3">
                     <div class="text-secondary username"></div>
