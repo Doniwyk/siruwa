@@ -65,13 +65,13 @@
 
         <!-- Picture Button -->
         <div class="relative z-10 flex justify-center mt-10">
-            <template x-for="(image, index) in images" :key="index">
-                <button @click="currentIndex = index" 
-                    :class="currentIndex === index ? 'bg-white' : 'bg-gray-400'" 
-                    class="w-4 h-4 rounded-full mx-1">
-                </button>
-            </template>
-        </div>
+    <template x-for="(image, index) in images" :key="index">
+        <button @click="currentIndex = index" 
+            :class="currentIndex === index ? 'bg-white' : 'bg-gray-400'" 
+            class="w-4 h-4 rounded-full mx-1">
+        </button>
+    </template>
+</div>
         </div>
 
         <a href="#menu" class="relative z-10 mb-2 flex flex-col text-center text-white">
@@ -221,7 +221,7 @@
                 images: [
                     "{{ asset('https://cdn.api.upstation.media/upstation_x/ac915e5166ffa9c578d1e40313c2b116be4753502b5331bb55050f58a68d85c74c1b97b50b32fd8d4ceb844f388faad447fff9957b5bd19f402995558a38958c') }}",
                     "{{ asset('https://api.duniagames.co.id/api/content/upload/file/6182724481603360805.jpeg') }}",
-                    "{{ asset('https://upload-os-bbs.hoyolab.com/upload/2022/08/11/17136071/989ca1a56ed158e8e6f8386984f9c31c_1397685953817154726.jpeg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_80') }}"
+                    "{{ asset('https://upload-os-bbs.hoyolab.com/upload/2022/08/11/17136071/989ca1a56ed158e8e6f8386984f9c31c_1397685953817154726.jpeg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_80') }}",
                 ],
                 currentIndex: 0,
                 init() {
