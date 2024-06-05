@@ -43,6 +43,7 @@
         <x-card :label="'Dana Sampah'" :value="$fundData['garbageFundTotal']" />
         <x-card :label="'Tunggakan'" :type="'danger'" :value="$fundData['tunggakan']" />
     </div>
+     <a href="{{route('admin.data-pembayaran.tunggakan')}}">Tunggakan</a> <!--Buat coba ajaaa -->
     <section id="tab-slider" class="flex">
         <div class="link-option_parrent sm:flex-between">
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"
@@ -74,15 +75,15 @@
                     @php
                         $i = 1;
                     @endphp
-                    @foreach ($fundData['getSubmission'] as $data)
+                    @foreach ($fundData['getSubmission'] as $dataPembayaran)
                         <tr>
-                            <td class="sm:text-sm md:text-base">{{ $data->resident->nama }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $data->nomor_kk }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $data->akun->noHp }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $dataPembayaran->resident->nama }}</td>
+                            <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->nomor_kk }}</td>
+                            <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->created_at }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $dataPembayaran->akun->noHp }}</td>
                             <td class="sm:text-sm md:text-base">
                                 <button class="w-[25px] h-[25px] flex-center" id="button-{{ $i }}"
-                                    onclick="getDataPembayaran({{ $data->id_pembayaran }})">
+                                    onclick="getDataPembayaran({{ $dataPembayaran->id_pembayaran }})">
                                     <x-icon.detail />
                                 </button>
                             </td>
@@ -113,14 +114,14 @@
                     @php
                         $i = 1;
                     @endphp
-                    @foreach ($history as $data)
+                    @foreach ($history as $dataRiwayat)
                         <tr>
-                            <td class="sm:text-sm md:text-base">{{ $data->resident->nama }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $data->nomor_kk }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $data->created_at }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $data->akun->noHp }}</td>
-                            <td class="font-semibold sm:text-sm md:text-base {{ $data->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
-                                {{ $data->status }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $dataRiwayat->resident->nama }}</td>
+                            <td class="sm:hidden lg:table-cell">{{ $dataRiwayat->nomor_kk }}</td>
+                            <td class="sm:hidden lg:table-cell">{{ $dataRiwayat->created_at }}</td>
+                            <td class="sm:text-sm md:text-base">{{ $dataRiwayat->admin->noHp }}</td>
+                            <td class="font-semibold sm:text-sm md:text-base {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                                {{ $dataRiwayat->status }}</td>
                         </tr>
                         @php
                             $i++;

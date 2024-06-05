@@ -1,15 +1,15 @@
 @extends('layouts.user')
 @section('content-user')
 
-<div class="header-edit flex-start gap-19">
-    <a href="{{ route('resident.data-dasawisma.index') }}" class="mb-9">
+<div class="flex items-center gap-1">
+    <a href="{{ route('resident.data-dasawisma.index') }}">
         <span>
             <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.6672 23.0165L17.9505 26.2999L23.3005 31.6499C24.4339 32.7665 26.3672 31.9665 26.3672 30.3665L26.3672 19.9832L26.3672 10.6332C26.3672 9.03321 24.4339 8.23321 23.3005 9.36654L14.6672 17.9999C13.2839 19.3665 13.2839 21.6332 14.6672 23.0165Z" fill="#225157" />
             </svg>
         </span>
     </a>
-    <h1 class="resident-header">{{ $title }}</h1>
+    <span class="resident-header">{{ $title }}</span>
 </div>
 
 <main x-data="{ showModal: false }">
@@ -23,12 +23,15 @@
     </div>
     @endif
     
-    <form id="residentForm" action="{{ route('resident.data-dasawisma.store', ['resident' => $resident->id_penduduk]) }}" method="POST" class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
+    <form id="residentForm" action="{{ route('resident.data-dasawisma.store', ['resident' => $resident->id_penduduk]) }}" method="POST" class="bg-white sm:py-4 md:py-9 sm:px-6 md:px-24 rounded-2xl flex flex-col gap-9">
         @csrf
         @method('POST')
         <section id="identitas-kependudukan" class="">
-            <h4 class="h4-semibold">Identitas Kependudukan</h4>
-            <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <h4 class="h4-semibold flex items-center">
+                Identitas Kependudukan
+                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+            </h4>
+            <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.show-input-form :label="'No. KTP/NIK'"  :name="'reqKtp'" :value="$resident->nik" />
                 <x-form.show-input-form :label="'No. KK'"  :name="'reqRegistrasi'" :value="$resident->nomor_kk" />
                 <x-form.text-input-form label="Nama" name="nama"  value="{{ $resident->nama }}" />
@@ -37,8 +40,11 @@
             </div>
         </section>
         <section id="identitas-lengkap">
-            <h4 class="h4-semibold">Identitas Lengkap</h4>
-            <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <h4 class="h4-semibold flex items-center">
+                Identitas Lengkap
+                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+            </h4>
+            <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form label="Tempat Lahir" name="tempat_lahir" value="{{ $resident->tempat_lahir }}" />
                 <x-form.text-input-form type="date" label="Tanggal Lahir" name="tgl_lahir" value="{{ $resident->tgl_lahir }}" />
                 <x-form.select-input-form label="Jenis Kelamin" name="jenis_kelamin">
@@ -101,8 +107,11 @@
             </div>
         </section>
         <section id="kegiatan-keorganisasian">
-            <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
-            <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <h4 class="h4-semibold flex items-center">
+                Kegiatan Keorganisasian
+                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+            </h4>
+            <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.select-input-form label="Keaktifan dalam Kegiatan Posyandu" name="aktif_posyandu">
                     <option value="">Keaktifan dalam Kegiatan Posyandu</option>
                     <option value="1" {{ $resident->aktif_posyandu == '1' ? 'selected' : '' }}>Ya</option>
@@ -132,9 +141,13 @@
             </div>
         </section>
         <section id="informasi-keuangan-pribadi">
-            <h4 class="h4-semibold">Informasi Keuangan Pribadi</h4>
-            <div class="grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
+            <h4 class="h4-semibold flex items-center">
+                Informasi Keuangan Pribadi
+                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
+            </h4>
+            <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form label="Gaji Perbulan" name="gaji" value="{{ $resident->gaji }}" />
+                <x-form.text-input-form label="Jumlah Tanggungan" name="jumlah_tanggungan" value="{{ $resident->jumlah_tanggungan }}" />
                 <x-form.text-input-form label="Total Pajak Kendaraan" name="total_pajak_kendaraan" value="{{ $resident->total_pajak_kendaraan }}" />
                 <x-form.text-input-form label="Biaya Pajak Bumi dan Bangunan" name="pajak_bumi" value="{{ $resident->pajak_bumi }}" />
                 <x-form.text-input-form label="Biaya Listrik Perbulan" name="biaya_listrik" value="{{ $resident->biaya_listrik }}" />

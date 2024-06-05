@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\ResidentDocumentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDocumentRequest;
+use App\Models\AccountModel;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,8 @@ class ResidentDocumentController extends Controller
   {
     try {
       $userId = Auth::id();
-      $detailAccount = UserModel::findOrFail($userId);
+      $account = AccountModel::findOrFail($userId);
+      $detailAccount = UserModel::findOrFail($account->id_penduduk);
       $title = 'Pengajuan Dokumen';
       $resident = UserModel::findOrFail(Auth::id());
       $documentData = $this->documentContract->getData();

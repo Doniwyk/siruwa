@@ -78,7 +78,7 @@ Route::group([
     'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [DashboardController::class, 'manajemenDashboard'])->name('index');
-    Route::put('/{resident}', [DashboardController::class, 'updateDashboardData'])->name('update');
+    Route::put('/{data}', [DashboardController::class, 'updateDashboardData'])->name('update');
 
 });
 
@@ -172,6 +172,7 @@ Route::group([
     Route::put('/{payment}/validate', [AdminPaymentController::class, 'validatePayment'])->name('validatePembayaran'); //proses validasi pembayaran
     Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
     Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('export');
+    Route::get('/tunggakan', [AdminPaymentController::class, 'getDataTunggakan'])->name('tunggakan');
 
 });
 
@@ -228,12 +229,13 @@ Route::group([
     'as' => 'resident.profil.',
     'middleware' => ['isAuth', 'userAccess:resident']
 ], function () {
-    Route::get('/', [AccountController::class, 'index'])->name('index');
+    Route::get('/', [AccountController::class, 'index'])->name('index');;
     Route::get('/edit', [AccountController::class, 'editAccount'])->name('edit');
     // Route::put('/{account}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-profil}', [AccountController::class, 'updateAccount'])->name('update');
     Route::put('/update-password', [AccountController::class, 'updatePassword'])->name('changePassword');
 });
+Route::get('/profile/info', [AccountController::class, 'getUserProfile']);
 
 //==================================ROUTE PENDUDUK========================================
 

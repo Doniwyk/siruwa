@@ -102,4 +102,20 @@ class AccountController extends Controller
             return response()->json(['message' => $e->getMessage()], 403);
         }
     }
+
+    public function getUserProfile()
+    {
+        try {
+            $userId = Auth::id();
+            $account = AccountModel::findOrFail($userId);
+            $username = $account->username;
+            $urlProfile = $account->urlProfile;
+            return response()->json([
+                'username' => $username,
+                'urlProfile' => $urlProfile
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Data not found.'], 404);
+        }
+    }
 }

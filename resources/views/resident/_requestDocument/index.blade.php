@@ -24,6 +24,7 @@
 <div x-data="{ 
         openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1, 
         showModal: false, 
+        currentType: '',
         currentStatus: '', 
         currentKeterangan: '', 
         selectedDocument: '', 
@@ -41,13 +42,13 @@
 
     <!-- TAB PENGAJUAN -->
     <div x-show="openTab === 1">
-        <form action="{{ route('resident.data-dokumen.request') }}" method="post" class="bg-white rounded-2xl py-9 px-16" id="residentForm">
+        <form action="{{ route('resident.data-dokumen.request') }}" method="post" class="flex flex-col bg-white rounded-2xl md:py-9 md:px-16 sm:py-5 sm:px-5 gap-5" id="residentForm">
             @csrf
             @method('POST')
+            <div class="text-secondary text-xl font-bold">Jenis Dokumen</div>
             <section>
-                <div class="text-secondary text-xl font-bold mb-5">Jenis Dokumen</div>
                 <div class="grid gap-x-9 grid-cols-2">
-                    <div class="col-span-1">
+                    <div class="col-span-1 sm:col-span-2">
                         <div class="relative">
                             <select x-model="selectedDocument" name="jenis" id="jenis_dokumen" class="form-control-input appearance-none cursor-pointer w-full">
                                 <option value="">Pilih Jenis Dokumen</option>
@@ -62,31 +63,35 @@
             </section>
 
             <template x-if="selectedDocument">
-                <section class="mb-5 mt-9">
+                <section>
                     <span class="text-secondary text-base font-bold" x-text="documents[selectedDocument].label"></span>
                     <span class="text-secondary text-base font-medium" x-text="documents[selectedDocument].desc"></span>
                 </section>
             </template>
 
-            <section id="form-reason" x-show="selectedDocument !== ''">
-                <hr class="h-1 mx-auto bg-secondary border-0 rounded mb-9">
+            <section x-show="selectedDocument !== ''">
+                <hr class="h-1 mx-auto bg-secondary border-0 rounded">
+            </section>
+
+            <section x-show="selectedDocument !== ''">
                 <div class="text-secondary text-base font-medium mb-5">Silahkan isi formulir dibawah ini!</div>
 
-                <div class="grid gap-x-9 gap-y-5 grid-cols-2">
-                    <x-form.show-input-form :label="'Nama Lengkap'"  :name="'anu'" :value="$resident->nama" />
-                    <div class="form-group">
-                        <label class="text-label_light">Tanggal Pengajuan</label>
-                        <input type="date" name="tglPengajuan" id="tglPengajuan" class="form-control" value="{{ date('Y-m-d') }}" readonly>
+                <div class="flex flex-col gap-5">
+                    <div class="flex gap-5 sm:flex-col">
+                        <x-form.show-input-form :label="'Nama Lengkap'"  :name="'anu'" :value="$resident->nama" />
+                        <div class="form-group sm:col-span-2">
+                            <label class="text-label_light">Tanggal Pengajuan</label>
+                            <input type="date" name="tglPengajuan" id="tglPengajuan" class="form-control appearance-none sm:col-span-2" value="{{ date('Y-m-d') }}" readonly>
+                        </div>
                     </div>
-            
-                    <div class="form-group col-span-2">
+                    <div class="form-group gap-5">
                         <label for="nomor_hp" class="block text-base font-medium leading-6 text-secondary">Alasan Pengajuan</label>
                         <textarea name="keperluan" id="keperluan" cols="30" rows="10" class="resident-input" placeholder="Alasan Pengajuan"></textarea>
                     </div>
                 </div>
             </section>
 
-            <section class="flex justify-end mt-9" x-show="selectedDocument !== ''">
+            <section class="flex justify-end mt-4" x-show="selectedDocument !== ''">
                 <button type="button" class="btn-main" x-on:click="showConfirmationModal = true">Simpan Data</button>
             </section>
         </form>
@@ -120,16 +125,16 @@
     <!-- TAB RIWAYAT -->
     <div x-show="openTab === 2">
         <div class="overflow-x-auto rounded-xl">
-            <table class="w-full text-left table-fixed">
-                <thead class="history-header">
+            <table class="table-parent">
+                <thead>
                     <tr>
                         <th>Nama Pengaju</th>
-                        <th>Tipe Berkas</th>
+                        <th class="sm:hidden">Tipe Berkas</th>
                         <th>Tanggal Pengajuan</th>
                         <th>Detail Status</th>
                     </tr>
                 </thead>
-                <tbody class="history-body">
+                <tbody>
                     @if ($documentData['document']->isEmpty())
                     <tr>
                         <td colspan="4" class="text-center">Tidak Ada Data</td>
@@ -138,14 +143,18 @@
                         @foreach($documentData['document'] as $record)
                             <tr>
                                 <td>{{ $detailAccount->nama }}</td>
-                                <td>{{ $record->jenis }}</td>
-                                <td>{{ $record->created_at }}</td>
+                                <td class="sm:hidden">{{ $record->jenis }}</td>
+                                <td>{{ $record->created_at->format('d F Y') }}</td>
                                 <td class="flex items-center">
-                                    <div class="w-1/2">
+                                    <div class="font-bold w-1/2 sm:hidden {{ 
+                                        $record->status === 'Ditolak' || $record->status === 'Dibatalkan' ? 'text-red-600' : 
+                                        ($record->status === 'Diterima' || $record->status === 'Bisa Diambil' ? 'text-secondary' : 
+                                        ($record->status === 'Menunggu Verifikasi' || $record->status === 'Proses' ? 'text-main/50' : 'text-secondary')) }}">
                                         {{ $record->status }}
                                     </div>
                                     <button class="w-1/2 button-hover"
                                         x-on:click="showModal = true; 
+                                        currentType = '{{ $record->jenis }}'
                                         currentStatus = '{{ $record->status }}';
                                         currentKeterangan = '{{ $record->keterangan_status ? $record->keterangan_status : 'Tidak ada keterangan tambahan' }}';">
                                         <x-icon.detail />
@@ -166,12 +175,22 @@
                 <span class="text-xl font-bold mb-4">DETAIL STATUS VERIFIKASI</span>
                 <div>
                     <span class="text-xl font-semibold">Status:</span>
-                    <span x-text="currentStatus" :class="{'text-main/50': currentStatus === 'Menunggu Verifikasi', 'text-red-600': currentStatus === 'Ditolak', 'text-secondary': currentStatus === 'Diterima'}" class="text-xl font-semibold"></span>
+                    <span x-text="currentStatus" :class="{
+                        'text-main/50': currentStatus === 'Menunggu Verifikasi' || currentStatus === 'Proses', 
+                        'text-red-600': currentStatus === 'Ditolak' || currentStatus === 'Dibatalkan', 
+                        'text-secondary': currentStatus === 'Bisa Diambil' || currentStatus === 'Selesai'}" 
+                        class="text-xl font-semibold"></span>
                 </div>
             </div>
-            <div>
-                <div class="text-xl font-semibold mb-3">Keterangan</div>
-                <span id="mySpan" class="px-6 py-2 block w-full text-slate-500 overflow-hidden resize-none min-h-[40px] leading-[20px] bg-input-disabled border-none rounded-2xl pointer-events-none" role="textbox" contenteditable x-text="currentKeterangan"></span>
+            <div class="flex flex-col gap-4">
+                <div>
+                    <div class="text-xl font-semibold mb-3">Tipe Berkas</div>
+                    <span id="mySpan" class="flex items-center px-6 py-2 block w-full text-slate-500 overflow-hidden resize-none min-h-[40px] leading-[20px] bg-input-disabled border-none rounded-2xl pointer-events-none" role="textbox" contenteditable x-text="currentType"></span>
+                </div>
+                <div>
+                    <div class="text-xl font-semibold mb-3">Keterangan</div>
+                    <span id="mySpan" class="px-6 py-2 block w-full text-slate-500 overflow-hidden resize-none min-h-[40px] leading-[20px] bg-input-disabled border-none rounded-2xl pointer-events-none" role="textbox" contenteditable x-text="currentKeterangan"></span>
+                </div>
             </div>
             <div class="flex items-center justify-center">
                 <button 

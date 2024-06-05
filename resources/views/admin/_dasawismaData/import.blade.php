@@ -104,10 +104,11 @@
                 };
                 const file = fileInput.files[0];
                 const resultData = [];
-
+                
                 if (file) {
                     const formData = new FormData();
-                    formData.append('csv', file); // Use append to add the file to FormData
+                    formData.append('csv', file);
+                    // formData.csv = file;
 
                     $.ajax({
                         url: "{{ route('admin.data-penduduk.preview') }}",
@@ -119,6 +120,7 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
+                            console.log(response);
                             if (!response.length) {
                                 $('#table-parent tbody').append(
                                     `<tr>

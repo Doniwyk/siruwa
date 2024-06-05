@@ -125,6 +125,8 @@ const previewBeforeUpload = (id) => {
         imagePreview.src = url;
         imagePreview.classList.add("object-contain", "h-full", "w-full");
 
+        console.log("#" + id + "-preview");
+
         document.querySelector("#" + id + " div").innerHTML = "";
         document.querySelector("#" + id + "-preview").appendChild(imagePreview);
     });
