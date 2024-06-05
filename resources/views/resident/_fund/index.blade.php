@@ -112,9 +112,12 @@
                 </div>
                 <div class="whitespace-nowrap flex items-center">
                     <div class="relative w-[180px]">
-                        <select name="" id="" class="resident-select cursor-pointer appearance-none">
-                            <option value="">Filter Data</option>
-                            <option value="P">Anu</option>
+                        <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
+                            <option value="default">Urutkan</option>
+                            <option value="newest">Terbaru</option>
+                            <option value="oldest">Terlama</option>
+                            <option value="alphabetical">A-Z</option>
+                            <option value="reverse_alphabetical">Z-A</option>
                         </select>
                         <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
                         <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
@@ -141,7 +144,7 @@
                             <td>{{ $payment->jenis }}</td>
                             <td class="sm:hidden">{{ 'Rp. ' . number_format($payment->jumlah, 0, ',', '.') }}</td>
                             <td class="sm:hidden">{{ $payment->jumlah / 10000 }}</td>
-                            <td class="sm:hidden">{{ \Carbon\Carbon::parse($payment->tanggal_pembayaran)->format('d F Y') }}</td>
+                            <td class="sm:hidden">{{ \Carbon\Carbon::parse($payment->created_at)->format('d F Y') }}</td>
                             <td>
                                 <div class="sm:hidden">{{ $payment->status }}</div>
                                 <button 
@@ -150,7 +153,7 @@
                                         showKeterangan = true;
                                         currentStatus = '{{ $payment->status }}';
                                         currentNominal = '{{ $payment->jumlah ?? '' }}';
-                                        currentDate = '{{ \Carbon\Carbon::parse($payment->tanggal_pembayaran)->format('d F Y') }}'
+                                        currentDate = '{{ \Carbon\Carbon::parse($payment->created_at)->format('d F Y') }}'
                                     ">
                                     <x-icon.detail />
                                 </button>
@@ -297,5 +300,59 @@
                 errorElement.classList.add('hidden');
             }
         }
+        
     </script>  
+    <script>
+        function sortHistory(option) {
+            const tbody = document.querySelector('.history-body');
+            let rows = Array.from(tbody.querySelectorAll('tr'));
+
+            switch(option) {
+                case 'newest':
+                    rows.sort((a, b) => new Date(getCellValue(b, 4)) - new Date(getCellValue(a, 4)));
+                    break;
+                case 'oldest':
+                    rows.sort((a, b) => new Date(getCellValue(a, 4)) - new Date(getCellValue(b, 4)));
+                    break;
+                case 'alphabetical':
+                    rows.sort((a, b) => getCellValue(a, 0).localeCompare(getCellValue(b, 0)));
+                    break;
+                case 'reverse_alphabetical': 
+                    rows.sort((a, b) => getCellValue(b, 0).localeCompare(getCellValue(a, 0)));
+                    break;
+                default:
+                    break;
+            }
+
+            tbody.innerHTML = '';
+            rows.forEach(row => {
+                tbody.appendChild(row);
+            });
+        }
+
+        function getCellValue(row, index) {
+            return row.children[index].textContent.trim();
+        }
+
+        function searchName() {
+            const input = document.querySelector('.resident-search');
+            const filter = input.value.toUpperCase();
+            const rows = document.querySelectorAll('.history-body tr');
+
+            rows.forEach(row => {
+                const nameCell = row.children[0];
+                if (nameCell) {
+                    const txtValue = nameCell.textContent || nameCell.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        document.querySelector('.resident-search').addEventListener('input', searchName);
+    </script>
+    
 @endsection
