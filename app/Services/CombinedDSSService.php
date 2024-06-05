@@ -24,7 +24,7 @@ class CombinedDSSService
 
         // Sorting
         usort($combinedResults, function ($a, $b) {
-            return $b['combined_score'] <=> $a['combined_score'];
+            return $b['score'] <=> $a['score'];
         });
 
         return $combinedResults;
@@ -52,7 +52,8 @@ class CombinedDSSService
 
                     $combinedResults[] = [
                         'name' => $dssResult['name'],
-                        'combined_score' => $combinedScore,
+                        'score' => $combinedScore,
+                        'nomor_hp' => $dssResult['nomor_hp'],
                         'dss_score' => $dssResult['score'],
                         'fuzzy_score' => $fuzzyResult['score'],
                     ];

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<div class="header-edit flex-start gap-1">
+<div id="1" class="header-edit flex-start gap-1">
     <a href="{{ route('admin.statistic.index') }}">
         <span>
             <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,72 +11,70 @@
     <h1 class="h1-semibold">{{ $title }}</h1>
 </div> 
 
-<div class="link-option_parrent">
-    <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'fuzzy']) }}" @class([
+<div class="link-option_parrent w-max">
+    <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'fuzzy', 'limit' => $limit]) }}" @class([
         'link-option',
         'link-option_active' => $typeDocument == 'fuzzy',
     ])>
         Metode Fuzzy
     </a>
-    <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'saw']) }}" @class([
+    <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'saw', 'limit' => $limit]) }}" @class([
         'link-option',
         'link-option_active' => $typeDocument == 'saw',
     ])>
         Metode SAW
     </a>
+    <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'combined', 'limit' => $limit]) }}" @class([
+        'link-option',
+        'link-option_active' => $typeDocument == 'combined',
+    ])>
+        Metode SAW + Fuzzy
+    </a>
 </div>
-
-<div class="flex">
-    <span class="text-main text-2xl font-semibold">Hasil Perhitungan</span>
+<div class="flex flex-row justify-between">
+    <div class="flex flex-row gap-4">
+        <span class="text-2xl font-semibold text-main">Hasil Perhitungan</span>
+        <a href="">
+            <x-icon.detail />
+        </a>
+    </div>
+    <form method="GET" action="{{ route('admin.statistic.bansos', ['typeDocument' => $typeDocument]) }}" id="limitForm">
+        <label class="text-sm font-medium text-main" for="limit">Data yang ditampilkan</label>
+        <select class="custom-select" name="limit" id="limit" onchange="document.getElementById('limitForm').submit()">
+            <option value="5" @if($limit == 5) selected @endif>5</option>
+            <option value="15" @if($limit == 15) selected @endif>15</option>
+            <option value="30" @if($limit == 20) selected @endif>30</option>
+            <option value="-1" @if($limit == -1) selected @endif>Tampilkan Semua</option>
+        </select>
+    </form>    
 </div>
 
 @switch($typeDocument)
     @case('fuzzy')
-        <table class="table-parent">
-            <thead>
-            <tr>
-                    <th>Prioritas</th>
-                    <th>Nama</th>
-                    <th>No HP</th>
-                    <th>Skor</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($results as $index => $data)
-                    <tr class="hover:bg-fourth transition-all ease-linear">
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $data['name'] }}</td>
-                        <td>No HP</td>
-                        <td>{{ $data['score'] }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @break
-
     @case('saw')
+    @case('combined')
         <table class="table-parent">
             <thead>
-                <tr class="hover:bg-fourth transition-all ease-linear">
+                <tr>
                     <th>Prioritas</th>
                     <th>Nama</th>
-                    <th>No HP</th>
+                    <th>No Hp</th>
                     <th>Skor</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($results as $index => $data)
+                @foreach ($limitedResults as $index => $result)
                     <tr class="hover:bg-fourth transition-all ease-linear">
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $data['name'] }}</td>
-                        <td>No HP</td>
-                        <td>{{ $data['score'] }}</td>
+                        <td>{{ $result['name'] }}</td>
+                        <td>{{ $result['nomor_hp'] }}</td>
+                        <td>{{ $result['score'] }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    @break
-
+        @break
     @default
+        <p>Type document tidak valid</p>
 @endswitch
 @endsection

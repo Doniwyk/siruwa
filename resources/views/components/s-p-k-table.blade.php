@@ -11,10 +11,10 @@
             </thead>
             <tbody>
                 @for ($i = 0; $i < 5 && $i < count($results); $i++)
-                <tr>
+                <tr class="hover:bg-fourth transition-all ease-linear">
                     <td>{{ $i + 1 }}</td>
                     <td>{{ $results[$i]['name'] }}</td>
-                    <td>{{ $results[$i]['combined_score'] }}</td>
+                    <td>{{ $results[$i]['score'] }}</td>
                 </tr>
                 @endfor
             </tbody>
