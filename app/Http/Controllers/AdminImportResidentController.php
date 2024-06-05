@@ -60,9 +60,6 @@ class AdminImportResidentController extends Controller
                 'message' => 'No file uploaded'
             ]);
         }
-      
-        Log::info('Displaying data preview.');
-        return view('admin._dasawismaData.preview', compact('dataPreview', 'errors'));
     }
 
     public function saveImportedResidents(Request $request)

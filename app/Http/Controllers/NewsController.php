@@ -150,12 +150,18 @@ class NewsController extends Controller
     }
     public function getLastestNews($search, $order, $count)
     {
-        $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
+        $news = NewsModel::orderBy('created_at', 'desc') 
+        ->orderBy('judul', $order)
+        ->take($count)
+        ->get();
         return $news;
     }
     public function getLastestEvent($search, $order, $count)
     {
-        $event = EventModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
+        $event = EventModel::orderBy('created_at', 'desc')
+        ->orderBy('judul', $order)
+        ->take($count)
+        ->get();
         return $event;
     }
 
