@@ -14,6 +14,12 @@
     <title>{{ $title }}</title>
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
+    {{-- @stack('css') --}}
+    <style>
+        select:not([size]) {
+            background-image: unset;
+        }
+    </style>
 </head>
 
 <body>
