@@ -3,63 +3,87 @@
     <div class="resident-header">Iuran RW</div>
 
     <!-- TAB -->
-    <div x-data="{ openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1, showModal: false }">
-        <div class="resident-tab-parent">
-            <button x-on:click="openTab = 1; localStorage.setItem('openTab', 1)" :class="{ 'bg-secondary text-white': openTab === 1 }"
-                class="resident-tab">Pembayaran</button>
-            <button x-on:click="openTab = 2; localStorage.setItem('openTab', 2)" :class="{ 'bg-secondary text-white': openTab === 2 }"
-                class="resident-tab">Riwayat</button>
+    <div x-data="{ 
+        openTab: localStorage.getItem('openTab') ? parseInt(localStorage.getItem('openTab')) : 1,
+        showModal: false,
+        showKeterangan: false,
+        currentStatus: '',
+        currentNominal: '',
+        currentDate: ''
+    }">
+        <div class="flex justify-between mb-9">
+            <div class="flex bg-white max-w-72 p-2 rounded-2xl space-x-4">
+                <button x-on:click="openTab = 1; localStorage.setItem('openTab', 1)" :class="{ 'bg-secondary text-white': openTab === 1 }"
+                    class="resident-tab">Pembayaran</button>
+                <button x-on:click="openTab = 2; localStorage.setItem('openTab', 2)" :class="{ 'bg-secondary text-white': openTab === 2 }"
+                    class="resident-tab">Riwayat</button>
+            </div>
+            <button class="px-11 py-3 bg-secondary font-semibold text-stone-50 rounded-2xl whitespace-nowrap button-hover sm:hidden" @click="showModal = true">Lakukan Pembayaran</button>
+            <button class="px-4 py-3 bg-secondary font-semibold text-stone-50 rounded-2xl whitespace-nowrap md:hidden" @click="showModal = true">
+                <img src="{{ asset('assets/icons/manajemen-dana.svg')}}" alt="">
+            </button>
         </div>
 
         <!-- TAB PEMBAYARAN -->
         <div x-show="openTab === 1">
-            <div class="flex justify-between mb-9">
-                <!-- FILTER -->
-                <div class="relative w-[330px] mr-9">
-                    <select name="" id="" class="resident-select">
-                        <option value="">Filter Tahun</option>
-                        <option value="P">Anu</option>
-                    </select>
-                    <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon">
-                    <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon">
-                </div>
-                <!-- BUTTON PAYMENT -->
-                <button class="button-pay" @click="showModal = true">Lakukan Pembayaran</button>
+            <!-- FILTER -->
+            <div class="relative w-[330px] mb-9">
+                <select name="" id="" class="resident-select">
+                    <option value="">Filter Tahun</option>
+                    <option value="P">Anu</option>
+                </select>
+                <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon">
+                <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon">
             </div>
             <!-- TABLE -->
-            <div class="bg-white rounded-2xl p-3">
+            <div class="bg-white rounded-2xl md:p-3 ">
                 <div class="overflow-x-auto rounded-xl">
-                    <table>
+                    <table class="sm:hidden">
                         <thead class="fund-header">
                             <tr>
                                 <th class="border-white border-r border-b">Bulan</th>
-                                <th>Januari</th>
-                                <th>Februari</th>
-                                <th>Maret</th>
-                                <th>April</th>
-                                <th>Mei</th>
-                                <th>Juni</th>
-                                <th>Juli</th>
-                                <th>Agustus</th>
-                                <th>September</th>
-                                <th>Oktober</th>
-                                <th>November</th>
-                                <th>Desember</th>
+                                @php
+                                    $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                                @endphp
+                                @foreach ($months as $month)
+                                    <th>{{ $month }}</th>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody class="fund-body">
                             <tr>
                                 <td class="left-header border-b">Iuran Sampah</td>
-                                @forEach ($fundData['garbage_fund'] as $garbage)
-                                    <td>{{ $garbage->status }}</td>
+                                @foreach ($fundData['garbage_fund'] as $garbage)
+                                    <td>{{ $garbage->status ?: 'belum lunas' }}</td>
                                 @endforeach
                             </tr>
                             <tr>
                                 <td class="left-header">Iuran Kematian</td>
-                                @forEach ($fundData['death_fund'] as $death)
-                                    <td>{{ $death->status }}</td>
+                                @foreach ($fundData['death_fund'] as $death)
+                                    <td>{{ $death->status ?: 'belum lunas' }}</td>
                                 @endforeach
                             </tr>
+                        </tbody>
+                    </table>
+                    <table class="md:hidden table-fund">
+                        <thead class="">
+                            <tr>
+                                <th>Bulan</th>
+                                <th>Iuran Sampah</th>
+                                <th>Iuran Kematian</th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            @php
+                                $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                            @endphp
+                            @foreach ($months as $index => $month)
+                                <tr class="">
+                                    <td class="bg-secondary text-white">{{ $month }}</td>
+                                    <td>{{ $fundData['garbage_fund'][$index]->status ?? 'Belum Lunas' }}</td>
+                                    <td>{{ $fundData['death_fund'][$index]->status ?? 'Belum Lunas' }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -74,15 +98,14 @@
                     <img src="{{ asset('assets/icons/search.svg') }}" alt="Search Icon" class="left-icon">
                 </div>
                 <div class="whitespace-nowrap flex items-center">
-                    <div class="relative w-[180px] mr-9">
-                        <select name="" id="" class="resident-select cursor-pointer">
+                    <div class="relative w-[180px]">
+                        <select name="" id="" class="resident-select cursor-pointer appearance-none">
                             <option value="">Filter Data</option>
                             <option value="P">Anu</option>
                         </select>
                         <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
                         <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
                     </div>
-                    <button class="button-pay" @click="showModal = true">Lakukan Pembayaran</button>
                 </div>
             </div>
 
@@ -91,10 +114,10 @@
                     <thead class="history-header">
                         <tr>
                             <th>Nama Pembayar</th>
-                            <th>Tipe Pembayaran</th>
-                            <th>Nominal</th>
-                            <th>Jumlah Bulan</th>
-                            <th>Tgl. Pembayaran</th>
+                            <th>Tipe</th>
+                            <th class="sm:hidden">Nominal</th>
+                            <th class="sm:hidden">Jumlah Bulan</th>
+                            <th class="sm:hidden">Tanggal Pembayaran</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -103,10 +126,22 @@
                         <tr>
                             <td>{{ $payment->resident->nama }}</td>
                             <td>{{ $payment->jenis }}</td>
-                            <td>{{ 'Rp. ' . number_format($payment->jumlah, 0, ',', '.') }}</td>
-                            <td>{{ $payment->jumlah / 10000 }}</td>
-                            <td>{{ \Carbon\Carbon::parse($payment->tanggal_pembayaran)->format('d, F Y') }}</td>
-                            <td>{{ $payment->status }}</td>
+                            <td class="sm:hidden">{{ 'Rp. ' . number_format($payment->jumlah, 0, ',', '.') }}</td>
+                            <td class="sm:hidden">{{ $payment->jumlah / 10000 }}</td>
+                            <td class="sm:hidden">{{ \Carbon\Carbon::parse($payment->tanggal_pembayaran)->format('d F Y') }}</td>
+                            <td>
+                                <div class="sm:hidden">{{ $payment->status }}</div>
+                                <button 
+                                    class="md:hidden"
+                                    x-on:click="
+                                        showKeterangan = true;
+                                        currentStatus = '{{ $payment->status }}';
+                                        currentNominal = '{{ $payment->jumlah ?? '' }}';
+                                        currentDate = '{{ \Carbon\Carbon::parse($payment->tanggal_pembayaran)->format('d F Y') }}'
+                                    ">
+                                    <x-icon.detail />
+                                </button>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -114,7 +149,36 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        
+        <!-- Modal Keterangan -->
+        <div x-show="showKeterangan" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+            <div class="w-[33rem] flex flex-col bg-white p-10 rounded-2xl gap-9 text-secondary">
+                <div class="flex flex-col items-center">
+                    <span class="text-xl font-bold mb-4">DETAIL STATUS VERIFIKASI</span>
+                    <div>
+                        <span class="text-xl font-semibold">Status:</span>
+                        <span x-text="currentStatus" :class="{'text-main/50': currentStatus === 'Menunggu Verifikasi', 'text-red-600': currentStatus === 'Ditolak', 'text-secondary': currentStatus === 'Diterima'}" class="text-xl font-semibold"></span>
+                    </div>
+                </div>
+                <div>
+                    <div class="text-xl font-semibold mb-3">Nominal</div>
+                    <span id="mySpan" class="flex items-center px-6 py-2 block w-full text-slate-500 overflow-hidden resize-none min-h-[40px] leading-[20px] bg-input-disabled border-none rounded-2xl pointer-events-none" role="textbox" contenteditable x-text="currentNominal"></span>
+                </div>
+                <div>
+                    <div class="text-xl font-semibold mb-3">Tanggal Pembayaran</div>
+                    <span id="mySpan" class="flex items-center px-6 py-2 block w-full text-slate-500 overflow-hidden resize-none min-h-[40px] leading-[20px] bg-input-disabled border-none rounded-2xl pointer-events-none" role="textbox" contenteditable x-text="currentDate"></span>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button 
+                        class="flex px-20 py-2 bg-secondary text-stone-50 rounded-2xl text-base font-semibold button-hover"
+                        x-on:click="showKeterangan = false">
+                        Baik
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pembayaran -->
         <div x-show="showModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" style="display: none;">
             <div class="bg-white rounded-2xl p-10 w-[33rem]">
                 <form action="{{ route('resident.data-pembayaran.store') }}" method="post" enctype="multipart/form-data">
