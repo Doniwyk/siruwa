@@ -27,44 +27,57 @@
         <!-- TAB PEMBAYARAN -->
         <div x-show="openTab === 1">
             <!-- FILTER -->
-            <div class="relative w-[330px] mb-9">
-                <select name="" id="" class="resident-select">
-                    <option value="">Filter Tahun</option>
-                    <option value="P">Anu</option>
-                </select>
-                <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon">
-                <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon">
+            <div class="relative mb-9 md:w-1/4">
+                <form method="GET" action="{{ route('resident.fund.index') }}">
+                    <select name="year" id="year" class="resident-select" onchange="this.form.submit()">
+                        <option value="">Filter Tahun</option>
+                        @php
+                            $currentYear = date('Y');
+                            for ($i = 0; $i < 5; $i++) {
+                                $year = $currentYear - $i;
+                                echo "<option value='$year'" . (request('year') == $year ? ' selected' : '') . ">$year</option>";
+                            }
+                        @endphp
+                    </select>
+                    <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon">
+                    <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon">
+                </form>
             </div>
             <!-- TABLE -->
             <div class="bg-white rounded-2xl md:p-3 ">
                 <div class="overflow-x-auto rounded-xl">
                     <table class="sm:hidden">
-                        <thead class="fund-header">
-                            <tr>
-                                <th class="border-white border-r border-b">Bulan</th>
-                                @php
-                                    $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                                @endphp
-                                @foreach ($months as $month)
-                                    <th>{{ $month }}</th>
-                                @endforeach
-                            </tr>
-                        </thead>
-                        <tbody class="fund-body">
-                            <tr>
-                                <td class="left-header border-b">Iuran Sampah</td>
-                                @foreach ($fundData['garbage_fund'] as $garbage)
-                                    <td>{{ $garbage->status ?: 'belum lunas' }}</td>
-                                @endforeach
-                            </tr>
-                            <tr>
-                                <td class="left-header">Iuran Kematian</td>
-                                @foreach ($fundData['death_fund'] as $death)
-                                    <td>{{ $death->status ?: 'belum lunas' }}</td>
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table class="sm:hidden">
+                            <thead class="fund-header">
+                                <tr>
+                                    <th class="border-white border-r border-b">Bulan</th>
+                                    @php
+                                        $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                                    @endphp
+                                    @foreach ($months as $month)
+                                        <th>{{ $month }}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody class="fund-body">
+                                <tr>
+                                    <td class="left-header border-b">Iuran Sampah</td>
+                                    @foreach ($months as $index => $month)
+                                        <td>
+                                            {{ isset($fundData['garbage_fund'][$index]) ? $fundData['garbage_fund'][$index]->status : 'Belum Lunas' }}
+                                        </td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <td class="left-header">Iuran Kematian</td>
+                                    @foreach ($months as $index => $month)
+                                        <td>
+                                            {{ isset($fundData['death_fund'][$index]) ? $fundData['death_fund'][$index]->status : 'Belum Lunas' }}
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            </tbody>
+                        </table>
                     <table class="md:hidden table-fund">
                         <thead class="">
                             <tr>
