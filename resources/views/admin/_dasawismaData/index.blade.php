@@ -84,7 +84,7 @@
                 </thead>
                 <tbody>
                     @foreach ($residents as $resident)
-                        <tr class="hover:bg-fourth transition-all ease-linear cursor-pointer">
+                        <tr class="hover:bg-fourth transition-all ease-linear">
                             <td class="hidden">{{ $resident->id_penduduk }}</td>
                             <td class="sm:text-sm md:text-base">{{ $resident->nama }}</td>
                             <td class="sm:text-sm md:text-base">{{ $resident->nik }}</td>

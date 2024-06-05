@@ -63,7 +63,7 @@
                         </tr>
                     @else
                         @foreach ($documents as $document)
-                            <tr class="hover:bg-fourth transition-all ease-linear cursor-pointer">
+                            <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
@@ -103,7 +103,7 @@
                             $i = 1;
                         @endphp
                         @foreach ($documents as $document)
-                            <tr class="hover:bg-fourth transition-all ease-linear cursor-pointer">
+                            <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
                                 <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->jenis }}</td>
@@ -145,7 +145,7 @@
                         </tr>
                     @else
                         @foreach ($documents as $document)
-                            <tr class="hover:bg-fourth transition-all ease-linear cursor-pointer">
+                            <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
@@ -189,7 +189,7 @@
                         </tr>
                     @else
                         @foreach ($documents as $document)
-                            <tr>
+                            <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>

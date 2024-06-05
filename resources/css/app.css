@@ -113,6 +113,13 @@
     .form-input-login-page {
         @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
     }
+    .custom-select {
+        @apply appearance-none rounded-2xl text-secondary focus:ring-1 focus:ring-secondary transition-all duration-150 opacity-70 font-semibold outline-none px-6 py-2 bg-white;
+        background-repeat: no-repeat;
+        -webkit-appearance: none; /* Safari */
+        -moz-appearance: none; /* Firefox */
+        appearance: none; /* Default */
+    }
 }
 
 input[type=file]::file-selector-button{

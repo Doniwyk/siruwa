@@ -17,7 +17,8 @@ class spkviews extends Migration
             SUM(p.pajak_bumi) AS total_pajak_bumi,
             SUM(p.biaya_listrik) AS total_biaya_listrik,
             SUM(p.biaya_air) AS total_biaya_air,
-            SUM(p.total_pajak_kendaraan) AS total_pajak_kendaraan
+            SUM(p.total_pajak_kendaraan) AS total_pajak_kendaraan,
+            SUM(p.jumlah_tanggungan) AS jumlah_tanggungan
             FROM
                 penduduk p
             LEFT JOIN

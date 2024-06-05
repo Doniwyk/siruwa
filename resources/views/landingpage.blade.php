@@ -59,7 +59,7 @@
 
         <div class="relative z-10 text-white text-center mt-60">
             <div class="text-8xl font-extrabold">SIRUWA</div>
-            <div class="text-4xl font-semibold mb-10">Sistem Informasi RW Dua</div>
+            <div class="text-4xl font-semibold mb-10">Sistem Informasi RW 02</div>
             <div class="text-2xl font-medium">Selamat datang di SIRUWA, jelajahi aplikasi web mutakhir untuk mengatur segala hal di dunia.</div>
         </div>
 
@@ -193,8 +193,6 @@
     var calendar = new Calendar("calendarContainer", "medium",
       ["Monday", 3],
       ["#ffffff", "#225157", "#225157", "#ffffff"], {
-        indicator: true,
-        indicator_type: 1,
       });
 
     var data = {

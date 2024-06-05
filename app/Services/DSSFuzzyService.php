@@ -19,16 +19,17 @@ class DSSFuzzyService
             $biayaListrik = $this->fuzzifyBiayaListrik($recipient->total_biaya_listrik);
             $biayaAir = $this->fuzzifyBiayaAir($recipient->total_biaya_air);
             $PajakKendaraan = $this->fuzzifyPajakKendaraan($recipient->total_pajak_kendaraan);
-            // $jumlahTanggungan = $this->fuzzifyJumlahTanggungan($recipient->jumlah_tanggungan);
+            $jumlahTanggungan = $this->fuzzifyJumlahTanggungan($recipient->jumlah_tanggungan);
 
             // Rule Evaluation
-            $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan); // , $jumlahTanggungan);
+            $score = $this->evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan, $jumlahTanggungan);
 
             // Defuzzification
             $crispScore = $this->defuzzify($score);
 
             $results[] = [
-                'name' => $recipient->nomor_kk,
+                'nomor_hp' => $recipient->nomor_hp_kepala_keluarga,
+                'name' => $recipient->nama_kepala_keluarga,
                 'score' => $crispScore
             ];
         }
@@ -131,26 +132,40 @@ class DSSFuzzyService
         ];
     }
 
-    // private function fuzzifyJumlahTanggungan($jumlahTanggungan)
-    // {
-    //     $low = $this->hitungRentang($jumlahTanggungan, 0, 0, 3, 4);
-    //     $medium = $this->hitungRentang($jumlahTanggungan, 4, 5, 6, 7);
-    //     $high = $this->hitungRentang($jumlahTanggungan, 1, 2, 3, INF);
-
-    //     return [
-    //         'low' => $low,
-    //         'medium' => $medium,
-    //         'high' => $high,
-    //     ];
-    // }
-
-    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan) // , $jumlahTanggungan)
+    private function fuzzifyJumlahTanggungan($jumlahTanggungan)
     {
-        // Evaluasi
-        $lowPriority = ($gaji['low'] + $pajakBumi['low'] + $biayaListrik['low'] + $biayaAir['low'] + $PajakKendaraan['low']) / 5;
-        $mediumPriority = ($gaji['medium'] + $pajakBumi['medium'] + $biayaListrik['medium'] + $biayaAir['medium'] + $PajakKendaraan['medium']) / 5;
-        $highPriority = ($gaji['high'] + $pajakBumi['high'] + $biayaListrik['high'] + $biayaAir['high'] + $PajakKendaraan['high']) / 5;
-    
+        $low = $this->hitungRentang($jumlahTanggungan, 0, 0, 3, 4);
+        $medium = $this->hitungRentang($jumlahTanggungan, 4, 5, 6, 7);
+        $high = $this->hitungRentang($jumlahTanggungan, 1, 2, 3, INF);
+
+        return [
+            'low' => $low,
+            'medium' => $medium,
+            'high' => $high,
+        ];
+    }
+
+    function minExcludeZero(...$values)
+    {
+        // Filter out zero values
+        $filteredValues = array_filter($values, function($value) {
+            return $value !== 0;
+        });
+
+        // If all values are zero, we return the smallest non-zero value to avoid empty array issues
+        if (empty($filteredValues)) {
+            return 0;
+        }
+
+        return min($filteredValues);
+    }
+
+    private function evaluateRules($gaji, $pajakBumi, $biayaListrik, $biayaAir, $PajakKendaraan, $jumlahTanggungan)
+    {
+        $lowPriority = $this->minExcludeZero($gaji['low'], $pajakBumi['low'], $biayaListrik['low'], $biayaAir['low'], $PajakKendaraan['low'], $jumlahTanggungan['low']);
+        $mediumPriority = $this->minExcludeZero($gaji['medium'], $pajakBumi['medium'], $biayaListrik['medium'], $biayaAir['medium'], $PajakKendaraan['medium'], $jumlahTanggungan['medium']);
+        $highPriority = $this->minExcludeZero($gaji['high'], $pajakBumi['high'], $biayaListrik['high'], $biayaAir['high'], $PajakKendaraan['high'], $jumlahTanggungan['high']);
+        
         return [
             'low' => $lowPriority,
             'medium' => $mediumPriority,
