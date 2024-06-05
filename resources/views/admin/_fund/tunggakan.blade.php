@@ -15,9 +15,6 @@
 </div>
 
 <main>
-    <select name="" id="" class="appearance-none">
-        <option value="">asdf</option>
-    </select>
     <table class="table-resident">
         <thead>
             <tr>
