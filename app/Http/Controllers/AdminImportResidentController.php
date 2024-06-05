@@ -20,10 +20,14 @@ class AdminImportResidentController extends Controller
 
     public function importForm()
     {
+      try {
         $title = 'Form Tambah Penduduk';
         $page = $this->pageName;
         Log::info('Displaying import form.');
         return view('admin._dasawismaData.import', compact('title', 'page'));
+      } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+      }
     }
 
     public function importFile(Request $request)
@@ -50,19 +54,23 @@ class AdminImportResidentController extends Controller
 
     public function previewImport(Request $request)
     {
-        if ($request->hasFile('csv')) {
-            $file = $request->file('csv');
-            $csv = $this->importService->importResident($file);
-            return response()->json($csv);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'No file uploaded'
-            ]);
-        }
-      
-        Log::info('Displaying data preview.');
-        return view('admin._dasawismaData.preview', compact('dataPreview', 'errors'));
+      try{
+          if ($request->hasFile('csv')) {
+              $file = $request->file('csv');
+              $csv = $this->importService->importResident($file);
+              return response()->json($csv);
+          } else {
+              return response()->json([
+                  'success' => false,
+                  'message' => 'No file uploaded'
+              ]);
+          }
+
+          Log::info('Displaying data preview.');
+          return view('admin._dasawismaData.preview', compact('dataPreview', 'errors'));
+       } catch (\Exception $e) {
+          return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+       }
     }
 
     public function saveImportedResidents(Request $request)

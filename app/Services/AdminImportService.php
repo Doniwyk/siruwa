@@ -33,7 +33,7 @@ class AdminImportService
 
         foreach ($csv as $data) {
             $rowValidator = Validator::make($data, [
-                'tgl_lahir' => 'required|date',
+                'tgl_lahir' => 'required',
                 'nik' => 'required|numeric|digits:16|unique:penduduk,nik',
                 'nomor_kk' => 'required|numeric|digits:16',
                 'nama' => 'required|string',
@@ -62,7 +62,7 @@ class AdminImportService
                 'ikut_paud' => 'required|boolean',
                 'ikut_koperasi' => 'required|boolean',
                 'noHp' => 'required',
-                'email' => 'required',
+                'email' => 'required|unique:users,email',
             ]);
             if ($rowValidator->fails()) {
                 Log::error('Error validating data: ' . json_encode($rowValidator->errors()));
@@ -73,7 +73,6 @@ class AdminImportService
 
         if (count($errors) > 0) {
             Session::put('importErrors', $errors); 
-            return redirect()->back()->withErrors($errors); 
         }
 
         // Save data preview to session
@@ -95,7 +94,7 @@ class AdminImportService
         foreach ($dataPreview as $data) {
                         // Custom validation for each row
                         $rowValidator = Validator::make($data, [
-                            'tgl_lahir' => 'required|date',
+                            'tgl_lahir' => 'required',
                             'nik' => 'required|numeric|digits:16|unique:penduduk,nik',
                             'nomor_kk' => 'required|numeric|digits:16',
                             'nama' => 'required|string',
@@ -124,7 +123,7 @@ class AdminImportService
                             'ikut_paud' => 'required|boolean',
                             'ikut_koperasi' => 'required|boolean',
                             'noHp' => 'required',
-                            'email' => 'required',
+                            'email' => 'required|unique:users,email',
                         ]);
 
             if ($rowValidator->fails()) {
@@ -207,12 +206,14 @@ class AdminImportService
                 }
                 Log::info('Berhasil.');
             } catch (\Exception $e) {
+                dd($e);
                 Log::error("Error saving data: " . $e->getMessage());
             }
         }
 
         // Clear session after saving
         Session::forget('dataPreview');
+        Session::forget('importErrors');
         Log::info('Data saved successfully, session cleared.');
     }
 }
