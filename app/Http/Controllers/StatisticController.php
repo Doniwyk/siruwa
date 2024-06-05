@@ -10,24 +10,39 @@ class StatisticController extends Controller
 {
     //
     protected StatisticContract $statisticContract;
-    public function __construct(StatisticContract $statisticContract ) {
+    public function __construct(StatisticContract $statisticContract)
+    {
         $this->statisticContract = $statisticContract;
     }
 
     public function index()
     {
-        $page = 'statistic';
-        $title = 'Statistik';
-        $dssService = new CombinedDSSService();
-        $results = $dssService->calculateScores();
-        return view('admin._statistics.index', compact('title', 'page', 'results'));
+        try {
+            $page = 'statistic';
+            $title = 'Statistik';
+            $dssService = new CombinedDSSService();
+            $results = $dssService->calculateScores();
+            return view('admin._statistics.index', compact('title', 'page', 'results'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
-    public function getJobData(){
-        $jobData = $this->statisticContract->countJobData();
-        return response()->json(['data'=>$jobData]);
+    public function getJobData()
+    {
+        try {
+            $jobData = $this->statisticContract->countJobData();
+            return response()->json(['data' => $jobData]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data pekerjaan tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
-    public function getLastStudiedData(){
-        $studiedData = $this->statisticContract->countEducationData();
-        return response()->json(['data'=>$studiedData]);
+    public function getLastStudiedData()
+    {
+        try {
+            $studiedData = $this->statisticContract->countEducationData();
+            return response()->json(['data' => $studiedData]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data pendidikan tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 }
