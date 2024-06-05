@@ -43,7 +43,7 @@
         <x-card :label="'Dana Sampah'" :value="$fundData['garbageFundTotal']" />
         <x-card :label="'Tunggakan'" :type="'danger'" :value="$fundData['tunggakan']" />
     </div>
-     <a href="{{route('admin.data-pembayaran.tunggakan')}}">Tunggakan</a> <!--Buat coba ajaaa -->
+
     <section id="tab-slider" class="flex">
         <div class="link-option_parrent sm:flex-between">
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"

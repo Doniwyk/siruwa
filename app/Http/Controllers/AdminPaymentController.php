@@ -101,7 +101,6 @@ class AdminPaymentController extends Controller
             $page = $this->pageName;
 
             $dataTunggakan = $this->paymentService->getDataTunggakan($search, $order);
-            // dd($dataTunggakan);
             return view('admin._fund.tunggakan', compact('dataTunggakan', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
         } catch(\Exception $e){
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
