@@ -28,9 +28,56 @@ class AdminImportService
         array_shift($csv); // Remove the first row (headers)
 
         Log::info('CSV file parsed successfully.');
+
+        $errors = [];
+
+        foreach ($csv as $data) {
+            $rowValidator = Validator::make($data, [
+                'tgl_lahir' => 'required',
+                'nik' => 'required|numeric|digits:16|unique:penduduk,nik',
+                'nomor_kk' => 'required|numeric|digits:16',
+                'nama' => 'required|string',
+                'tempat_lahir' => 'required|string',
+                'jenis_kelamin' => 'required|string',
+                'rt' => 'required|string',
+                'status_kawin' => 'required|string',
+                'status_keluarga' => 'required|string',
+                'agama' => 'required|string',
+                'alamat' => 'required|string',
+                'pendidikan' => 'required|string',
+                'pekerjaan' => 'required|string',
+                'gaji' => 'required|numeric',
+                'pajak_bumi' => 'required|numeric',
+                'biaya_listrik' => 'required|numeric',
+                'biaya_air' => 'required|numeric',
+                'total_pajak_kendaraan' => 'required|numeric',
+                'jumlah_tanggungan' => 'required|numeric',
+                'akseptor_kb' => 'required|boolean',
+                'jenis_akseptor' => 'nullable|string',
+                'aktif_posyandu' => 'required|boolean',
+                'has_BKB' => 'required|boolean',
+                'has_tabungan' => 'required|boolean',
+                'ikut_kel_belajar' => 'required|boolean',
+                'jenis_kel_belajar' => 'nullable|string',
+                'ikut_paud' => 'required|boolean',
+                'ikut_koperasi' => 'required|boolean',
+                'noHp' => 'required',
+                'email' => 'required',
+            ]);
+            if ($rowValidator->fails()) {
+                Log::error('Error validating data: ' . json_encode($rowValidator->errors()));
+                $errors[] = 'Data penduduk ' . ($data['nama']) . ' tidak lengkap atau invalid ';
+                // continue;
+            }
+        }
+
+        if (count($errors) > 0) {
+            Session::put('importErrors', $errors); 
+        }
+
         // Save data preview to session
         Session::put('dataPreview', $csv);
-        Log::info('Data preview stored in session successfully.');
+        // Log::info('Data preview stored in session successfully.');
         return $csv;
     }
 
@@ -47,7 +94,7 @@ class AdminImportService
         foreach ($dataPreview as $data) {
                         // Custom validation for each row
                         $rowValidator = Validator::make($data, [
-                            'tgl_lahir' => 'required|date',
+                            'tgl_lahir' => 'required',
                             'nik' => 'required|numeric|digits:16|unique:penduduk,nik',
                             'nomor_kk' => 'required|numeric|digits:16',
                             'nama' => 'required|string',
@@ -165,6 +212,7 @@ class AdminImportService
 
         // Clear session after saving
         Session::forget('dataPreview');
+        Session::forget('importErrors');
         Log::info('Data saved successfully, session cleared.');
     }
 }

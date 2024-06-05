@@ -43,13 +43,6 @@ Route::get('/berita/list-berita', [NewsController::class, 'ListBerita'])->name('
 
 Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
-
-// COBA BANUSOSU COYYYY
-// Route::get('/statistics', [DSSCombinedController::class, 'index'])->name('statistics.index');
-Route::get('/banusosu', [DSSController::class, 'index'])->name('banusosu.index');
-Route::get('/banusosu2', [DSSFuzzyController::class, 'index'])->name('banusosu2.index');
-Route::get('/banusosu2/export-pdf', [DSSFuzzyController::class, 'exportPdf'])->name('banusosu2.exportPdf');
-
 //==================================ROUTE LOGIN & LOGOUT========================================
 
 Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
@@ -74,6 +67,7 @@ Route::group([
     Route::get('/', [StatisticController::class, 'index'])->name('index');
     Route::get('/job', [StatisticController::class, 'getJobData'])->name('getJobData');
     Route::get('/lastStudied', [StatisticController::class, 'getLastStudiedData'])->name('getLastStudiedData');
+    Route::get('/bansos', [DSSController::class, 'index'])->name('bansos');
 });
 
 //==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
@@ -109,7 +103,7 @@ Route::group([
     Route::get('/import', [AdminImportResidentController::class, 'importForm'])->name('import');
     Route::post('/import-file', [AdminImportResidentController::class, 'importFile'])->name('importFile');
     Route::post('/save-imported-residents', [AdminImportResidentController::class, 'saveImportedResidents'])->name('saveImport');
-    Route::get('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
+    Route::post('/import/preview', [AdminImportResidentController::class, 'previewImport'])->name('preview');   
     //==================================ROUTE EXPORT DATA FOR ADMIN========================================
     Route::get('/generate-pdf', [ExportController::class, 'exportResidentData'])->name('export');
     // Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('exportPayment');

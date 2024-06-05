@@ -8,20 +8,22 @@ class spkviews extends Migration
     public function up(): void
     {
         DB::statement('
-            CREATE VIEW spk AS
+            create view spk as 
             SELECT
-                nomor_kk,
-                MAX(CASE WHEN status_keluarga = "Kepala Keluarga" THEN nama ELSE NULL END) AS nama,
-                SUM(gaji) AS total_gaji,
-                SUM(pajak_bumi) AS total_pajak_bumi,
-                SUM(biaya_listrik) AS total_biaya_listrik,
-                SUM(biaya_air) AS total_biaya_air,
-                SUM(total_pajak_kendaraan) AS total_pajak_kendaraan,
-                MAX(CASE WHEN status_keluarga = "Kepala Keluarga" THEN jumlah_tanggungan ELSE NULL END)  as jumlah_tanggungan
+            p.nomor_kk,
+            MAX(CASE WHEN p.status_keluarga = "Kepala Keluarga" THEN p.nama ELSE NULL END) AS nama_kepala_keluarga,
+            MAX(CASE WHEN p.status_keluarga = "Kepala Keluarga" THEN u.noHp ELSE NULL END) AS nomor_hp_kepala_keluarga,
+            SUM(p.gaji) AS total_gaji,
+            SUM(p.pajak_bumi) AS total_pajak_bumi,
+            SUM(p.biaya_listrik) AS total_biaya_listrik,
+            SUM(p.biaya_air) AS total_biaya_air,
+            SUM(p.total_pajak_kendaraan) AS total_pajak_kendaraan
             FROM
-                penduduk
+                penduduk p
+            LEFT JOIN
+                users u ON p.id_penduduk = u.id_penduduk
             GROUP BY
-                nomor_kk
+                p.nomor_kk;
         ');
     }
 

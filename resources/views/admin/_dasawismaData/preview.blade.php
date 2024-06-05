@@ -36,6 +36,9 @@
             @endforeach
         </tbody>
     </table>
+    @foreach($errors as $row)
+                <p>{{ $row }}</p>
+    @endforeach
     <form action="{{ route('admin.data-penduduk.saveImport') }}" method="POST">
         @csrf
         <button type="submit">Save Imported Data</button>

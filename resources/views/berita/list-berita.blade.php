@@ -2,7 +2,7 @@
 @section('content-landingpage')
 
 <div class="px-16 py-9 flex flex-col gap-16">
-    <span class="text-secondary text-4xl font-semibold">Daftar Berita</span>
+    <span class="text-secondary text-4xl font-semibold">{{ $title }}</span>
     <div class="flex flex-row gap-16">
         <!-- Daftar Berita -->
         <div class="flex flex-col">
