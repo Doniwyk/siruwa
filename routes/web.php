@@ -160,6 +160,7 @@ Route::group([
     Route::post('/add-pembayaran', [ResidentPaymentController::class, 'storePayment'])->name('store');
     Route::get('/riwayat', [ResidentPaymentController::class, 'getHistory'])->name('history');
 });
+Route::get('/resident/fund', [ResidentPaymentController::class, 'getFundByYear'])->name('resident.fund.index');
 
 //==================================ROUTE PAYMENT FOR ADMIN========================================
 Route::group([
