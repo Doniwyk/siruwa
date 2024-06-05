@@ -135,5 +135,40 @@ class AdminPaymentService implements AdminPaymentContract
             'tunggakan' => $getTunggakan
         ];
     }
-
+    public function getDataTunggakan($search, $order) {
+            // Query for tunggakan kematian
+            $tunggakanKematian = DB::table('iuran_kematian as df')
+                ->select(
+                    'df.nomor_kk',
+                    DB::raw('(SELECT p.nama 
+                              FROM penduduk p 
+                              WHERE p.nomor_kk = df.nomor_kk 
+                                AND p.status_keluarga = "Kepala Keluarga" 
+                              LIMIT 1) as head_of_family'),
+                    DB::raw('COUNT(df.id_iuran_kematian) as total_tunggakan')
+                )
+                ->where('df.status', 'Belum Lunas')
+                ->groupBy('df.nomor_kk')
+                ->get();
+        
+            // Query for tunggakan sampah
+            $tunggakanSampah = DB::table('iuran_sampah as gf')
+                ->select(
+                    'gf.nomor_kk',
+                    DB::raw('(SELECT p.nama 
+                              FROM penduduk p 
+                              WHERE p.nomor_kk = gf.nomor_kk 
+                                AND p.status_keluarga = "Kepala Keluarga" 
+                              LIMIT 1) as head_of_family'),
+                    DB::raw('COUNT(gf.id_iuran_sampah) as total_tunggakan')
+                )
+                ->where('gf.status', 'Belum Lunas')
+                ->groupBy('gf.nomor_kk')
+                ->get();
+        
+            return [
+                'kematian' => $tunggakanKematian,
+                'sampah' => $tunggakanSampah
+            ];
+    }        
 }
