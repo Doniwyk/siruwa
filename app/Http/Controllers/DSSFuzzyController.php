@@ -19,14 +19,22 @@ class DSSFuzzyController extends Controller
 
     public function index()
     {
+        try{
         $datas = $this->datas;
         return view('banusosu2', compact('datas'));
+    } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function exportPdf()
     {
+        try{
         $datas = $this->datas;
         $downloadFile = FacadePdf::loadView('banusosu2', $datas);
         return $downloadFile->download('hasil_data.pdf');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Tidak dapat export dokumen' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 }

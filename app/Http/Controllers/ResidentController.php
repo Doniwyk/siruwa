@@ -32,50 +32,58 @@ class ResidentController extends Controller
 
     public function indexAdmin(Request $request)
     {
-        // menangkap req yang dikirim dan juga menset nilai default agar berjaga-jaga user tidak mengisinya
-        $typeDocument = $request->query('typeDocument', 'daftar-penduduk');
-        $search = $request->query('search', '');
-        $order = $request->query('order', 'asc');
+        try {
+            // menangkap req yang dikirim dan juga menset nilai default agar berjaga-jaga user tidak mengisinya
+            $typeDocument = $request->query('typeDocument', 'daftar-penduduk');
+            $search = $request->query('search', '');
+            $order = $request->query('order', 'asc');
 
-        // mengambil residents (penduduk)
-        $residents = $this->getDataRequest($typeDocument, $search, $order);
+            // mengambil residents (penduduk)
+            $residents = $this->getDataRequest($typeDocument, $search, $order);
 
-        // mengambil fungsi paginasi dari laravel sehingga dapat digunakan JS dan blade
-        $paginationHtml = $residents->appends([
-            'typeDocument' => $typeDocument,
-            'search' => $search,
-            'order' => $order
-        ])->links()->toHtml();
-
-        $page = 'data-penduduk';
-        $title = 'Data Penduduk';
-
-        // menangani jika request JSON
-        if ($request->wantsJson()) {
-            return response()->json([
-                'page' => $page,
-                'title' => $title,
+            // mengambil fungsi paginasi dari laravel sehingga dapat digunakan JS dan blade
+            $paginationHtml = $residents->appends([
                 'typeDocument' => $typeDocument,
-                'residents' => $residents->items(),
-                'paginationHtml' => $paginationHtml
-            ]);
-        }
+                'search' => $search,
+                'order' => $order
+            ])->links()->toHtml();
 
-        return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
+            $page = 'data-penduduk';
+            $title = 'Data Penduduk';
+
+            // menangani jika request JSON
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'page' => $page,
+                    'title' => $title,
+                    'typeDocument' => $typeDocument,
+                    'residents' => $residents->items(),
+                    'paginationHtml' => $paginationHtml
+                ]);
+            }
+
+            return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data pembayaran tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function add()
     {
-        $title = 'Form Tambah Penduduk';
-        $page = 'tambah-data-penduduk';
-        return view('admin._dasawismaData.add', compact('title', 'page'));
+        try {
+            $title = 'Form Tambah Penduduk';
+            $page = 'tambah-data-penduduk';
+            return view('admin._dasawismaData.add', compact('title', 'page'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Tidak dapat memuat formulir tambah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     //To store resident data in database
     public function storeResident(UserRequest $request): RedirectResponse
     {
 
-        try {
+        try {                                                                                                                                                                                                                                                                          
             $validated = $request->validated();
             $resident = $this->residentContract->storeUser($validated);
 
@@ -143,13 +151,17 @@ class ResidentController extends Controller
     //For display  resident data selected for editing
     public function editResident(UserModel $resident): View
     {
-        $page = 'edit-data-penduduk';
-        $title = 'Edit Data Penduduk';
-        //Data on residents who submitted data changes
-        $resident = UserModel::findOrFail($resident->id_penduduk);
-        // Data that  want to change
-        $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->orderBy('created_at', 'desc')->first();
-        return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
+        try {
+            $page = 'edit-data-penduduk';
+            $title = 'Edit Data Penduduk';
+            //Data on residents who submitted data changes
+            $resident = UserModel::findOrFail($resident->id_penduduk);
+            // Data that  want to change
+            $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->orderBy('created_at', 'desc')->first();
+            return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Tidak dapat memuat data' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     //To update resident data which has been edited by admin
@@ -203,26 +215,34 @@ class ResidentController extends Controller
 
     public function getDataRequest($typeDocument, $search, $order)
     {
-        switch ($typeDocument) {
-            case 'daftar-penduduk':
-                $residents = $this->residentContract->getFilteredResidentData($search, $order);
-                break;
-            case 'pengajuan':
-                $residents = $this->residentContract->getFilteredRequestResidentData($search, $order);
-                break;
-            case 'riwayat':
-                $residents = $this->residentContract->getFilteredHistoryResidentData($search, $order);
-                break;
+        try {
+            switch ($typeDocument) {
+                case 'daftar-penduduk':
+                    $residents = $this->residentContract->getFilteredResidentData($search, $order);
+                    break;
+                case 'pengajuan':
+                    $residents = $this->residentContract->getFilteredRequestResidentData($search, $order);
+                    break;
+                case 'riwayat':
+                    $residents = $this->residentContract->getFilteredHistoryResidentData($search, $order);
+                    break;
+            }
+            return $residents;
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data penduduk tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-        return $residents;
     }
 
     public function showDetailResident(UserModel $resident)
     {
-        $page = 'edit-data-penduduk';
-        $title = 'Edit Data Penduduk';
-        $resident = UserModel::find($resident->id_penduduk);
-        return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
+        try {
+            $page = 'edit-data-penduduk';
+            $title = 'Edit Data Penduduk';
+            $resident = UserModel::find($resident->id_penduduk);
+            return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data penduduk tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
 
@@ -234,10 +254,14 @@ class ResidentController extends Controller
     //For display resident data on the page "Resident->Data Penduduk"
     public function indexResident()
     {
-        $userId = Auth::id();
-        $resident = UserModel::findOrFail($userId);
-        $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
-        return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident, 'history' => $history]);
+        try {
+            $userId = Auth::id();
+            $resident = UserModel::findOrFail($userId);
+            $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
+            return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident, 'history' => $history]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
 
@@ -245,10 +269,14 @@ class ResidentController extends Controller
 
     public function editForm()
     {
-        $userId = Auth::id();
-        $resident = UserModel::findOrFail($userId);
-        $title = 'Pengajuan Perubahan Data Penduduk';
-        return view('resident._residentData.edit', compact('resident', 'title'));
+        try {
+            $userId = Auth::id();
+            $resident = UserModel::findOrFail($userId);
+            $title = 'Pengajuan Perubahan Data Penduduk';
+            return view('resident._residentData.edit', compact('resident', 'title'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Tidak dapat memuat formulir edit penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     //To store change data in database(temp penduduk)
@@ -265,5 +293,4 @@ class ResidentController extends Controller
             return redirect()->back()->with('error', 'Gagal mengajukan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-
 }

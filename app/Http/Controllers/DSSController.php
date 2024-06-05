@@ -16,7 +16,11 @@ class DSSController extends Controller
 
     public function index()
     {
-        $results = $this->dssService->calculateScores();
-        return view('banusosu', compact('results'));
+        try {
+            $results = $this->dssService->calculateScores();
+            return view('banusosu', compact('results'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 }

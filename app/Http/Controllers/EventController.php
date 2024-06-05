@@ -35,11 +35,15 @@ class EventController extends Controller
 
     public function add()
     {
+        try{
         $page = $this->pageName;
         $title = 'Tambah Agenda';
         $userId = Auth::id();
         $account = UserModel::findOrFail($userId);
         return view('admin._event.create', compact('page', 'title', 'account'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Tidak dapat memuat form tambah agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function storeEvent(EventRequest $request)
@@ -63,17 +67,21 @@ class EventController extends Controller
             $imageUpload->save();
             return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return dd($e);
+            return redirect()->back()->with('error', 'Tidak dapat menambahkan agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
     public function editEvent(EventModel $event)
     {
+        try{
         $page = $this->pageName;
         $title = 'Edit Agenda';
         $userId = Auth::id();
         $account = UserModel::findOrFail($userId);
         return view('admin._event.edit', compact('title', 'page','event', 'account'));
+        } catch(\Exception $e){
+            return redirect()->back()->with('error', 'Tidak dapat memuat data agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function updateEvent(EditEventRequest $request, EventModel $event)

@@ -18,10 +18,14 @@ class AdminImportResidentController extends Controller
 
     public function importForm()
     {
-        $title = 'Form Tambah Penduduk';
-        $page = 'tambah-data-penduduk';
-        Log::info('Displaying import form.');
-        return view('admin._dasawismaData.import', compact('title', 'page'));
+        try {
+            $title = 'Form Tambah Penduduk';
+            $page = 'tambah-data-penduduk';
+            Log::info('Displaying import form.');
+            return view('admin._dasawismaData.import', compact('title', 'page'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
     }
 
     public function importFile(Request $request)
@@ -48,16 +52,20 @@ class AdminImportResidentController extends Controller
 
     public function previewImport()
     {
-        Log::info('Started previewImport method.');
-        $dataPreview = Session::get('dataPreview', []);
+        try {
+            Log::info('Started previewImport method.');
+            $dataPreview = Session::get('dataPreview', []);
 
-        if (empty($dataPreview)) {
-            Log::warning('No data to preview.');
-            return redirect()->route('admin.data-penduduk.import')->with('error', 'No data to preview.');
+            if (empty($dataPreview)) {
+                Log::warning('No data to preview.');
+                return redirect()->route('admin.data-penduduk.import')->with('error', 'No data to preview.');
+            }
+
+            Log::info('Displaying data preview.');
+            return view('admin._dasawismaData.preview', compact('dataPreview'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
-        Log::info('Displaying data preview.');
-        return view('admin._dasawismaData.preview', compact('dataPreview'));
     }
 
     public function saveImportedResidents()

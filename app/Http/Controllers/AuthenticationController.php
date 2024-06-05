@@ -48,9 +48,13 @@ class AuthenticationController extends Controller
 
     public function doLogout(Request $request): RedirectResponse
     {
+        try{
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }catch(\Exception $e){
+            return redirect()->back()->with('error', 'Tidak dapat logout, terjadi kesalahan');
+        }
     }
 }

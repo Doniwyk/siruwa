@@ -17,33 +17,45 @@ class ResidentPaymentController extends Controller
 
   public function index()
   {
-    $fundData = $this->paymentContract->getFundData();
-    $history = $this->paymentContract->getHistory();
-    $title = 'Iuran RW 2';
-    return view('resident._fund.index', compact('fundData', 'title', 'history'));
+    try {
+      $fundData = $this->paymentContract->getFundData();
+      $history = $this->paymentContract->getHistory();
+      $title = 'Iuran RW 2';
+      return view('resident._fund.index', compact('fundData', 'title', 'history'));
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', 'Data pembayaran tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+    }
   }
 
   public function getAddPaymentForm()
   {
-    return view('resident._fund.add');
+    try {
+      return view('resident._fund.add');
+    } catch (\Exception $e) {
+      return redirect()->back()->with('error', 'Tidak dapat memuat formulir pembayaran' . $e->getMessage())->withErrors([$e->getMessage()]);
+    }
   }
 
 
-  public function storePayment(StorePaymentRequest $request) 
+  public function storePayment(StorePaymentRequest $request)
   {
-    $validatedData = $request->validated(); 
+    $validatedData = $request->validated();
 
     try {
-        $this->paymentContract->storePayment($validatedData);
-        return redirect()->route('resident.data-pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
+      $this->paymentContract->storePayment($validatedData);
+      return redirect()->route('resident.data-pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
     } catch (\Exception $e) {
-        return redirect()->route('resident.data-pembayaran.index')->with('error', 'Terjadi kesalahan saat menyimpan pembayaran.');
+      return redirect()->route('resident.data-pembayaran.index')->with('error', 'Terjadi kesalahan saat menyimpan pembayaran.');
     }
   }
 
   public function getFundByYear($year)
   {
+    try{
     $fundData = $this->paymentContract->getFundDataByYear($year);
     return view('resident._fund.index', compact('fundData'));
+    } catch(\Exception $e){
+      return redirect()->back()->with('error', 'Tidak dapat memuat data' . $e->getMessage())->withErrors([$e->getMessage()]);
+    }
   }
 }
