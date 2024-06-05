@@ -37,7 +37,7 @@ class DashboardController extends Controller
         try{
             $title = 'Manajemen Dashboard';
             $page='dashboard';
-            $dataDashboard = $this->dashboardContract->dataDashboard();
+            $dataDashboard = $this->dashboardContract->dataDashboard(); 
             $residentTotal = $dataDashboard['resident'];
             $rwData = $dataDashboard['data'][0];
             return view('admin._dashboard.index', compact('title', 'page', 'residentTotal', 'rwData'));
@@ -46,8 +46,7 @@ class DashboardController extends Controller
         }
     }
 
-    public function update(Request $request, DataDashboardModel $data){
-
+    public function updateDashboardData(Request $request, DataDashboardModel $data){
         try {
             $this->dashboardContract->updateDashboardData($request, $data);
             return redirect()->route('admin.manajemen-dashboard.index')->with('success', 'Berita berhasil diperbarui.');

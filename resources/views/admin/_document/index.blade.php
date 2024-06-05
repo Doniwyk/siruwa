@@ -195,7 +195,7 @@
                                 <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
                                 <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
                                 <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
-                                <td class="sm:text-sm md:text-base  font-bold {{ $document->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                                <td class="sm:text-sm md:text-base  font-bold {{ $document->status == 'Dibatalkan' ? 'text-red-600' : 'text-main' }}">
                                     {{ $document->status }}</td>
                             </tr>
                         @endforeach

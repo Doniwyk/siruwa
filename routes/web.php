@@ -78,7 +78,7 @@ Route::group([
     'middleware' =>  ['isAuth', 'userAccess:admin']
 ], function () {
     Route::get('/', [DashboardController::class, 'manajemenDashboard'])->name('index');
-    Route::put('/{resident}', [DashboardController::class, 'updateDashboardData'])->name('update');
+    Route::put('/{data}', [DashboardController::class, 'updateDashboardData'])->name('update');
 
 });
 
