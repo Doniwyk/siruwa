@@ -7,7 +7,7 @@
                 <span class="text-2xl font-semibold sm:hidden">SIRUWA</span>
             </a>
             <!-- MENU ICON -->
-            <div class="md:hidden md:flex items-center">
+            <div class="md:hidden items-center">
                 <button type="button" class="mobile-menu-button flex items-center">
                     <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
 

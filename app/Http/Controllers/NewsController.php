@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\DashboardContract;
 use App\Contracts\EventContract;
 use App\Contracts\NewsContract;
 use App\Http\Requests\EditNewsRequest;
@@ -18,12 +19,14 @@ class NewsController extends Controller
     protected NewsContract $newsContract;
     protected EventContract $eventContract;
     private $pageName;
+    protected DashboardContract $dashboardContract;
 
-    public function __construct(NewsContract $newsContract, EventContract $eventContract)
+    public function __construct(NewsContract $newsContract, EventContract $eventContract, DashboardContract $dashboardContract)
     {
         $this->newsContract = $newsContract;
         $this->eventContract = $eventContract;
         $this->pageName = 'manajemen-berita';
+        $this->dashboardContract = $dashboardContract;
     }
 
     //===========================FOR ADMIN============================
@@ -205,7 +208,8 @@ class NewsController extends Controller
             $event = EventModel::where('status', 'Uploaded')->get();
             $latestNews = NewsModel::where('status', 'Uploaded')
                         ->orderBy('created_at', 'desc')->take(3)->get();
-            return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews]);
+            $dataDashboard = $this->dashboardContract->dataDashboard();
+            return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard' => $dataDashboard]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

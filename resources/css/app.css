@@ -309,7 +309,7 @@ input[type=file]::file-selector-button:hover{
 
 /* LANDINGPAGE STYLING */
 .menu {
-    @apply flex flex-col justify-center items-center gap-6 text-white text-2xl text-center font-bold;
+    @apply flex flex-col justify-center items-center gap-4 sm:gap-2 text-white text-2xl sm:text-xl text-center font-bold;
 }
 .news-container-landing {
     @apply rounded-2xl flex flex-col justify-end;
