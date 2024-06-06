@@ -14,17 +14,19 @@ class AdminDocumentController extends Controller
 {
 
     protected AdminDocumentContract $documentService;
+    private $page;
 
     public function __construct(AdminDocumentContract $documentService)
     {
         $this->documentService = $documentService;
+        $this->page = 'data-dokumen';
     }
 
     public function index(Request $request)
     {
         try {
+            $page = $this->page;
             $typeDocument = $request->query('typeDocument', 'pengajuan');
-            $page = 'data-dokumen';
             $title = 'Manajemen Dokumen';
             switch ($typeDocument) {
                 case 'pengajuan':
@@ -65,7 +67,7 @@ class AdminDocumentController extends Controller
     {
         try{
             $typeDocument = $request->query('typeDocument', 'riwayat');
-            $page = 'data-dokumen';
+            $page = $this->page;
             $title = 'Manajemen Dokumen';
             $documentHistory = $this->documentService->getValidateHistory();
             return view('admin._document.history', compact('documentHistory'));
@@ -79,7 +81,7 @@ class AdminDocumentController extends Controller
     public function getEditPage(DocumentModel $document)
     {
         try{
-            $page = 'edit-data-dokumen';
+            $page = $this->page;
             $title = 'Manajemen Dokumen';
             $document = $document->findOrFail($document->id_dokumen);
             return view('admin._document.edit', compact('page', 'title', 'document'));
@@ -108,7 +110,7 @@ class AdminDocumentController extends Controller
     {
         try{
             $typeDocument = $request->query('typeDocument', 'proses');
-            $page = 'data-dokumen';
+            $page = $this->page;
             $title = 'Manajemen Dokumen';
             $documents = $this->documentService->getProcessedDocument();
             return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
@@ -122,7 +124,7 @@ class AdminDocumentController extends Controller
     {
         try{
             $typeDocument = $request->query('typeDocument', 'bisa diambil');
-            $page = 'data-dokumen';
+            $page = $this->page;
             $title = 'Manajemen Dokumen';
             $documents = $this->documentService->getCanBeTakenDocument();
             return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));

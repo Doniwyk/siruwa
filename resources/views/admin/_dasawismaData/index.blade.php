@@ -35,7 +35,7 @@
                 </li>
                 <li>
                     <a href="#"
-                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Export .CSV</a>
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Export .Pdf</a>
                 </li>
             </ul>
         </div>
@@ -45,7 +45,7 @@
                 <button class="button-white">
                     <x-icon.import />
                     <label for="" class="sm:hidden md:inline">
-                        Export .csv
+                        Export .Pdf
                     </label>
                 </button>
             </a>
@@ -125,7 +125,7 @@
                             <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->tgl_lahir }}</td>
                             <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->id_penduduk }}</td>
                             <td>
-                                <a class="flex-start"
+                                <a class="flex-start buton-hover"
                                     href="{{ route('admin.data-penduduk.edit', ['resident' => $resident['id_penduduk']]) }}">
                                     <x-icon.detail />
                                 </a>

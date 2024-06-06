@@ -1,7 +1,7 @@
 @if($label === 'Tunggakan')
     <a href="{{ route('admin.data-pembayaran.tunggakan') }}" class="card button-hover">
 @else
-    <div class="card">
+    <div class="card drop-shadow-xl">
 @endif
     <header class="flex gap-3">
         @switch($label)

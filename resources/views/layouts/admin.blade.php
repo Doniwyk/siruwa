@@ -44,42 +44,47 @@
 @yield('sidebar')
 <script>
     $(document).ready(function() {
-        // Event handler untuk input search
-        $('#search-input').on('keyup', function() {
-            var search = $(this).val();
-            var order = $('#order-select').val();
-            var typeDocument = $('#typeDocument').val();
-            fetchData(typeDocument, search, order);
-        });
+        var debounceTimer;
+$('#search-input').on('keyup', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function() {
+        var search = $('#search-input').val();
+        var order = $('#order-select').val();
+        var typeDocument = $('#typeDocument').val();
+        fetchData(typeDocument, search, order);
+    }, 300);
+});
 
-        // Event handler untuk select order
-        $('#order-select').on('click', function() {
-            const order = this.value == 'asc' ? 'desc' : 'asc';
-            $(this).toggleClass('button-order_desc');
-            var search = $('#search-input').val();
-            var typeDocument = $('#typeDocument').val();
-            fetchData(typeDocument, search, order);
-            this.value = order;
-        });
+$('#order-select').on('click', function() {
+    const order = this.value == 'asc' ? 'desc' : 'asc';
+    $(this).toggleClass('button-order_desc');
+    var search = $('#search-input').val();
+    var typeDocument = $('#typeDocument').val();
+    fetchData(typeDocument, search, order);
+    this.value = order;
+});
 
-        $('#typeDocument').on('keyup', function() {
-            var typeDocument = $(this).val();
-            var search = $('#search-input').val();
-            var order = $('#order-select').val();
-            fetchData(typeDocument, search, order);
-        });
+$('#typeDocument').on('keyup', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function() {
+        var typeDocument = $('#typeDocument').val();
+        var search = $('#search-input').val();
+        var order = $('#order-select').val();
+        fetchData(typeDocument, search, order);
+    }, 300);
+});
 
-        function fetchData(typeDocument, search, order) {
-            if (typeDocument == "berita") {
-                fetchNewsData(typeDocument, search, order);
-            } else if (typeDocument == "acara") {
-                fetchEventData(typeDocument, search, order);
-            } else if (typeDocument == "pembayaran" || typeDocument == "riwayatPembayaran") {
-                fetchPaymentData(typeDocument, search, order);
-            } else {
-                fetchResidentData(typeDocument, search, order);
-            }
-        }
+function fetchData(typeDocument, search, order) {
+    if (typeDocument == "berita") {
+        fetchNewsData(typeDocument, search, order);
+    } else if (typeDocument == "acara") {
+        fetchEventData(typeDocument, search, order);
+    } else if (typeDocument == "pembayaran" || typeDocument == "riwayatPembayaran") {
+        fetchPaymentData(typeDocument, search, order);
+    } else {
+        fetchResidentData(typeDocument, search, order);
+    }
+}
 
     });
 </script>

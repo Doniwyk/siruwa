@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="h1-semibold">Data Penduduk</h1>
+    <h1 class="h1-semibold">Manajemen Berita & Acara</h1>
     <div class="summary-card_news">
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4">
+        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
             <h4 class="text-xl text-main font-semibold mb-2">Acara terdekat</h4>
             @if (!$lastestEvent->isEmpty())
                 @foreach ($lastestEvent as $ln)
@@ -12,7 +12,7 @@
                 <span class="text-center font-semibold text md text-main">NOT FOUND</span>
             @endif
         </div>
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4">
+        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
             <h4 class="text-xl text-main font-semibold mb-2">Berita terbaru</h4>
             @if (!$lastestNews->isEmpty())
                 @foreach ($lastestNews as $ln)
