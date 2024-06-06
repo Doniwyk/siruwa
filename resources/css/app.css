@@ -72,7 +72,7 @@
         @apply flex flex-col flex-1 gap-2;
     }
     .form-control {
-        @apply py-2 px-6 rounded-2xl bg-input-disabled sm:text-sm md:text-base text-input-text;
+        @apply py-2 px-6 rounded-2xl bg-input-disabled sm:text-sm md:text-base text-input-text border-none;
     }
     .form-control-input {
         @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
@@ -189,6 +189,18 @@ input[type=file]::file-selector-button:hover{
     }
     .table-parent {
         @apply rounded-2xl  bg-white md:table-fixed overflow-hidden whitespace-nowrap;
+    }
+    .table-resident {
+        @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
+    }
+    .table-fund {
+        @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
+    }
+    .table-fund thead tr th{
+        @apply border-r border-white;
+    }
+    .table-fund tbody tr{
+        @apply border-t border-white border-b-0;
     }
     th,
     td {

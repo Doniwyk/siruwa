@@ -11,6 +11,11 @@
     @vite('resources/css/output.css')
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        select:not([size]) {
+            background-image: unset;
+        }
+    </style>
 </head>
 
 <body class="bg-[#F1F0E9] flex flex-col min-h-screen">
