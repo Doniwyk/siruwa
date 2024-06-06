@@ -21,6 +21,7 @@
     <footer class="mt-auto">
         <x-shared.user-footer/>
     </footer>
+    
 </body>
 
 </html>
