@@ -1,7 +1,4 @@
 @extends('layouts.admin')
-
-
-
 @section('content')
 <div class="header-edit flex-start gap-1">
     <a href="{{ route('admin.data-penduduk.index') }}">
@@ -18,44 +15,22 @@
     <table class="table-resident">
         <thead>
             <tr>
-                <th class="sm:hidden">Nomor KK</th>
-                <th>Nama Kepala Keluarga</th>
-                <th>Total Tunggakan Kematian</th>
-                <th>Total Tunggakan Sampah</th>
+                <th class="sm:hidden md:table-cell sm:text-sm md:text-base">Nomor KK</th>
+                <th class="sm:text-sm md:text-base">Nama Kepala Keluarga</th>
+                <th class="sm:text-sm md:text-base">Total Tunggakan Kematian</th>
+                <th class="sm:text-sm md:text-base">Total Tunggakan Sampah</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($dataTunggakan as $tunggakan)
                 <tr>
-                    <td class="sm:hidden">{{ $tunggakan->nomor_kk }}</td>
-                    <td>{{ $tunggakan->head_of_family }}</td>
-                    <td>{{ $tunggakan->total_tunggakan_kematian}}</td>
-                    <td>{{ $tunggakan->total_tunggakan_sampah }}</td>
+                    <td class="sm:hidden md:table-cell sm:text-sm md:text-base">{{ $tunggakan->nomor_kk }}</td>
+                    <td class="sm:text-sm md:text-base">{{ $tunggakan->head_of_family }}</td>
+                    <td class="sm:text-sm md:text-base">Rp. {{ number_format($tunggakan->total_tunggakan_kematian * 10000, 0, ',', '.') }}</td>
+                    <td class="sm:text-sm md:text-base">Rp. {{ number_format($tunggakan->total_tunggakan_sampah * 10000, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
-    {{-- <h2>Tunggakan Sampah</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nomor KK</th>
-                <th>Nama Kepala Keluarga</th>
-                <th>Total Tunggakan Kematian</th>
-                <th>total Tunggakan Sampah</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($dataTunggakan['sampah'] as $tunggakan)
-                <tr>
-                    <td>{{ $tunggakan->nomor_kk }}</td>
-                    <td>{{ $tunggakan->head_of_family }}</td>
-                    <td>{{ $tunggakan->total_tunggakan_kematian }}</td>
-                    <td>{{ $tunggakan->total_tunggakan_sampah }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table> --}}
 </main>
 @endsection
