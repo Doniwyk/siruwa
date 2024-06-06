@@ -170,7 +170,9 @@ class NewsController extends Controller
     {
 
         try {
-            $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
+            $news = NewsModel::orderBy('created_at', 'desc')
+            ->take($count)
+            ->get();
             return $news;
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat menemukan data' . $e->getMessage())->withErrors([$e->getMessage()]);

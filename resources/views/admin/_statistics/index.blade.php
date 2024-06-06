@@ -5,7 +5,7 @@
         <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl">
             <x-s-p-k-table :results="$results"/>
         </div>
-        <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl">
+        <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl]">
             <x-chart.resident-total-line-chart/>
         </div>
         <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl">
