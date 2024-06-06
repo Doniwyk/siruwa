@@ -201,9 +201,10 @@ class ResidentController extends Controller
         $request->validate([
             'id' => 'required',
             'action' => 'required|in:accept,reject',
+            'keterangan_status' => 'nullable'
         ]);
         try {
-            $this->residentContract->validateEditRequest($request->action, $request->id);
+            $this->residentContract->validateEditRequest($request->action, $request->id, $request->keterangan_status);
             if ($request->action === 'accept') {
                 return redirect()->route('admin.data-penduduk.index')->with('success', 'Data berhasil disetujui.');
             } elseif ($request->action === 'reject') {
