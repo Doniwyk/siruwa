@@ -20,48 +20,54 @@ class AdminPaymentController extends Controller
         $this->pageName = 'data-pembayaran';
     }
     public function index(Request $request)
-    { 
-        try{
-        $typeDocument = $request->query('typeDocument', 'pembayaran');
-        $search = $request->query('search', '');
-        $order = $request->query('order', 'asc');
-        $adminId = Auth::id();
+    {
+        try {
+            $typeDocument = $request->query('typeDocument', 'pembayaran');
+            $search = $request->query('search', '');
+            $order = $request->query('order', 'asc');
+            $adminId = Auth::id();
 
-        $title = "Manajemen Dana";
-        $page = $this->pageName;
+            $title = "Manajemen Dana";
+            $page = $this->pageName;
 
-        $fundData = $this->paymentService->getSubmission($search, $order);
-        $history = $this->paymentService->getValidatedPayment($search, $order);
+            $fundData = $this->paymentService->getSubmission($search, $order);
+            $history = $this->paymentService->getValidatedPayment($search, $order);
+            $financialData = $this->paymentService->getFinancialData();
+            // try {
+            //     $financialData = $this->paymentService->getFinancialData();
+            //     dd($financialData);
+            // } catch (\Exception $e) {
+            //     dd($e);
+            // }
 
-        switch ($typeDocument) {
-            case 'pembayaran':
-                $fundDataJson = $fundData['getSubmission']->items();
-                break;
-            case 'riwayatPembayaran':
-                $fundDataJson = $history->items();
-                break;
-        }
+            switch ($typeDocument) {
+                case 'pembayaran':
+                    $fundDataJson = $fundData['getSubmission']->items();
+                    break;
+                case 'riwayatPembayaran':
+                    $fundDataJson = $history->items();
+                    break;
+            }
 
-        $paginationHtml = $fundData['getSubmission']->appends([
-            'typeDocument' => $typeDocument,
-            'search' => $search,
-            'order' => $order
-        ])->links()->toHtml();
-
-        // menangani jika request JSON
-        if ($request->wantsJson()) {
-            return response()->json([
-                'page' => $page,
-                'title' => $title,
+            $paginationHtml = $fundData['getSubmission']->appends([
                 'typeDocument' => $typeDocument,
-                'fundData' => $fundDataJson,
-                'paginationHtml' => $paginationHtml
-            ]);
-        }
-        return view('admin._fund.index', compact('fundData', 'history', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
+                'search' => $search,
+                'order' => $order
+            ])->links()->toHtml();
+
+            // menangani jika request JSON
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'page' => $page,
+                    'title' => $title,
+                    'typeDocument' => $typeDocument,
+                    'fundData' => $fundDataJson,
+                    'paginationHtml' => $paginationHtml
+                ]);
+            }
+            return view('admin._fund.index', compact('fundData', 'history', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId','financialData'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
-
         }
     }
     public function validatePayment(ValidatePaymentRequest $request, PaymentModel $payment)
@@ -83,27 +89,45 @@ class AdminPaymentController extends Controller
     // }
     public function showBuktiPembayaran(PaymentModel $payment)
     {
-        try{
-        return response()->json($payment);
-    } catch(\Exception $e){
+        try {
+            return response()->json($payment);
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
-    }
+        }
     }
     public function getDataTunggakan(Request $request)
     {
-        try{
+        try {
             $typeDocument = $request->query('typeDocument', 'pembayaran');
             $search = $request->query('search', '');
             $order = $request->query('order', 'asc');
             $adminId = Auth::id();
-    
+
             $title = "Data Tunggakan Iuran";
             $page = $this->pageName;
 
             $dataTunggakan = $this->paymentService->getDataTunggakan($search, $order);
             return view('admin._fund.tunggakan', compact('dataTunggakan', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+
+    public function addExpense(){
+        return  view('admin._fund.add');
+    }
+    public function storeExpense(Request $request)
+    {
+
+        try {
+            $validated = $request->validate([
+                'jumlah_pengeluaran' => 'required',
+                'jenis_pengeluaran' => 'required'
+            ]);
+
+            $this->paymentService->storeExpense($validated);
+        } catch (\Exception $e) {
+            dd($e);
         }
     }
 }

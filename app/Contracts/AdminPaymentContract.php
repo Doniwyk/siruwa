@@ -15,4 +15,9 @@ interface AdminPaymentContract
     public function getSubmission($search, $order);
 
     public function getDataTunggakan($search, $order);
+
+    public function getFinancialData();
+
+    public function storeExpense(array $validatedData);
+
 }
