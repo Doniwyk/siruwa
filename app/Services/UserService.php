@@ -26,7 +26,7 @@ class UserService implements UserContract
 
     public function deleteUser(UserModel $penduduk): void
     {
-        $penduduk->status=0;
+        $penduduk->status_penduduk=0;
         $penduduk->save();
     }
 
@@ -63,7 +63,7 @@ class UserService implements UserContract
 
     public function getFilteredResidentData($search, $order)
     {
-        $residents = UserModel::where('status', 1)
+        $residents = UserModel::where('status_penduduk', 1)
         ->when($search, function ($query) use ($search) {
             return $query->where('nama', 'like', $search . '%');
         })->orderBy('nama', $order)

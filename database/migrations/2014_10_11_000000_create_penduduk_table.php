@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum('status_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
             $table->enum('agama', ['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu', 'Kepercayaan Lain']);
             $table->text('alamat');
-            $table->boolean('status')->default(1);
+            $table->boolean('status_penduduk')->default(1);
             //TTS -> Tidak tamat SD
             $table->enum('pendidikan', ['Tidak Tamat SD', 'SD', 'SMP', 'SMA', 'Diploma', 'Sarjana']);
             $table->enum('pekerjaan', ['PNS', 'TNI/POLRI', 'Wirausaha', 'Wiraswasta', 'Pelajar/Mahasiswa','Tidak Bekerja']);
