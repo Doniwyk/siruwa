@@ -238,7 +238,8 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Data artikel tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-    public function changeStatus($action, NewsModel $news){
+    public function changeStatus(Request $request, NewsModel $news){
+        $action = $request->action;
         try {
             if($action == 'upload'){
                 $news->status = 'Uploaded';
@@ -246,7 +247,7 @@ class NewsController extends Controller
             }else{
                 $news->status = 'Draft';
                 $news->save();
-            }
+            };
             return redirect()->route('admin.manajemen-acara.index')->with('success', 'Update berhasil.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal update agenda' . $e->getMessage())->withErrors([$e->getMessage()]);

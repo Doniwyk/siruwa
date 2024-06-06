@@ -146,17 +146,18 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {
             let image = $('.animate-pulse img');
             let imageUrl = image.attr('src');
             let hasLoaded = localStorage.getItem('imageLoaded');
 
             if (!hasLoaded) {
                 image.on('load', function() {
-                    $('.animate-pulse').removeClass('animate-pulse');
+                    $('.animate-pulse').addClass('bg-white');
                     localStorage.setItem('imageLoaded', true);
+                    $('.animate-pulse').addClass('bg-white');
                 });
             } else {
+                $('.animate-pulse').removeClass('animate-pulse');
                 $('.animate-pulse').removeClass('animate-pulse');
             }
 
@@ -231,6 +232,5 @@
                     }
                 });
             }
-        })
     </script>
 @endsection

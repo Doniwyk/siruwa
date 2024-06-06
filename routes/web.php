@@ -189,6 +189,7 @@ Route::group([
     Route::get('/add', [EventController::class, 'add'])->name('add');
     Route::post('/store', [EventController::class, 'storeEvent'])->name('store');
     Route::get('/{event}/edit', [EventController::class, 'editEvent'])->name('edit');
+    Route::put('/{event}/edit-status', [EventController::class, 'changeStatus'])->name('edit-status');
     Route::put('/{event}', [EventController::class, 'updateEvent'])->name('update');
     Route::delete('/{event}/delete', [EventController::class, 'deleteEvent'])->name('delete');
 });
@@ -203,6 +204,7 @@ Route::group([
     Route::get('/add', [NewsController::class, 'add'])->name('add');
     Route::post('/store', [NewsController::class, 'storeNews'])->name('store');
     Route::get('/{news}/edit', [NewsController::class, 'editNews'])->name('edit');
+    Route::put('/{news}/edit-status', [NewsController::class, 'changeStatus'])->name('edit-status');
     Route::put('/{news}', [NewsController::class, 'updateNews'])->name('update');
     Route::delete('/{news}/delete', [NewsController::class, 'deleteNews'])->name('delete');
 });

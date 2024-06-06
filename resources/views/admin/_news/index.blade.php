@@ -101,6 +101,24 @@
                                                 <x-icon.delete />
                                             </button>
                                         </form>
+                                        <form action="{{ route('admin.manajemen-berita.edit-status', ['news' => $n->id_berita]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            @switch($n->status)
+                                                @case('Uploaded')
+                                                    <button type="submit" name="action" value="draft">
+                                                        <x-icon.draft-icon />
+                                                    </button>
+                                                @break
+
+                                                @case('Draft')
+                                                    <button type="submit" name="action" value="upload">
+                                                        <x-icon.publish-icon />
+                                                    </button>
+                                                @break
+                                            @endswitch
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -145,7 +163,7 @@
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base">
+                                <td class="sm:text-sm md:text-base flex-center">
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-acara.edit', ['event' => $n->id_agenda]) }}"
                                             class="hover">
@@ -158,6 +176,24 @@
                                             <button type="submit">
                                                 <x-icon.delete />
                                             </button>
+                                        </form>
+                                        <form action="{{ route('admin.manajemen-acara.edit-status', ['event' => $n->id_agenda]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            @switch($n->status)
+                                                @case('Uploaded')
+                                                    <button type="submit" name="action" value="draft">
+                                                        <x-icon.draft-icon />
+                                                    </button>
+                                                @break
+
+                                                @case('Draft')
+                                                    <button type="submit" name="action" value="upload">
+                                                        <x-icon.publish-icon />
+                                                    </button>
+                                                @break
+                                            @endswitch
                                         </form>
                                     </div>
                                 </td>
@@ -175,6 +211,157 @@
 
 @section('script')
     <script>
+        function fetchNewsData(typeDocument = '', search = '', order = 'asc', page = 1) {
+            $.ajax({
+                url: '{{ route('admin.manajemen-berita.index') }}',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    typeDocument: typeDocument,
+                    search: search,
+                    order: order,
+                    page: page
+                },
+                success: function(data) {
+                    const tableBody = document.getElementById('table-parent tbody');
+                    console.log(tableBody);
+
+                    $('#table-parent tbody').empty();
+                    $('#pagination').empty();
+
+                    const initialLocation =
+                        `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
+                    window.history.pushState({
+                        path: initialLocation
+                    }, '', initialLocation);
+
+                    const news = data.news;
+
+                    if (!news.length) {
+                        $('#table-parent tbody').append(
+                            `<tr>
+                                <td colspan="5" class="text-center">No data found</td>
+                            </tr>`
+                        );
+                        return;
+                    }
+                    $.each(news, function(index, news) {
+                        let dateString = news.created_at;
+
+                        let dateTime = luxon.DateTime.fromISO(dateString);
+
+                        let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+                        $('#table-parent tbody').append(
+                            `
+                            <tr>
+                                <td>
+                                    <div class="flex gap-5 text-main">
+                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
+                                        <p class="desc-news">
+                                            ${news.judul}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="details">
+                                    <x-icon.uploaded />
+                                    <label for="">${formattedDate}</label>
+                                </div>
+                                </td>
+                                <td>
+                                    <div class="action flex gap-6">
+                                        <x-icon.edit />
+                                        <x-icon.delete />
+                                    </div>
+                                </td>
+                             </tr>
+                            `
+                        );
+                    });
+
+                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + status + " " + error);
+                }
+            });
+        }
+
+        function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
+            $.ajax({
+                url: '{{ route('admin.manajemen-berita.index') }}',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    typeDocument: typeDocument,
+                    search: search,
+                    order: order,
+                    page: page
+                },
+                success: function(data) {
+                    const tableBody = document.getElementById('table-parent tbody');
+                    console.log(tableBody);
+
+                    $('#table-parent tbody').empty();
+                    $('#pagination').empty();
+
+                    const initialLocation =
+                        `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
+                    window.history.pushState({
+                        path: initialLocation
+                    }, '', initialLocation);
+
+                    const news = data.news;
+
+                    if (!news.length) {
+                        $('#table-parent tbody').append(
+                            `<tr>
+                                <td colspan="5" class="text-center">No data found</td>
+                            </tr>`
+                        );
+                        return;
+                    }
+                    $.each(news, function(index, news) {
+                        let dateString = news.tanggal;
+
+                        let dateTime = luxon.DateTime.fromISO(dateString);
+
+                        let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+                        $('#table-parent tbody').append(
+                            `
+                            <tr>
+                                <td>
+                                    <div class="flex gap-5 text-main">
+                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
+                                        <p class="desc-news">
+                                            ${news.judul}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="details">
+                                    <x-icon.uploaded />
+                                    <label for="">${formattedDate}</label>
+                                </div>
+                                </td>
+                                <td>
+                                    <div class="action flex gap-6">
+                                        <x-icon.edit />
+                                        <x-icon.delete />
+                                    </div>
+                                </td>
+                             </tr>
+                            `
+                        );
+                    });
+
+                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error: " + status + " " + error);
+                }
+            });
+        }
         $(document).ready(function() {
             let image = $('.animate-pulse img');
             let imageUrl = image.attr('src');
@@ -182,165 +369,14 @@
 
             if (!hasLoaded) {
                 image.on('load', function() {
+                    $('.animate-pulse').addClass('bg-white');
                     $('.animate-pulse').removeClass('animate-pulse');
                     localStorage.setItem('imageLoaded', true);
                 });
             } else {
+                $('.animate-pulse').addClass('bg-white');
                 $('.animate-pulse').removeClass('animate-pulse');
             }
-
-            function fetchNewsData(typeDocument = '', search = '', order = 'asc', page = 1) {
-                $.ajax({
-                    url: '{{ route('admin.manajemen-berita.index') }}',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {
-                        typeDocument: typeDocument,
-                        search: search,
-                        order: order,
-                        page: page
-                    },
-                    success: function(data) {
-                        const tableBody = document.getElementById('table-parent tbody');
-                        console.log(tableBody);
-
-                        $('#table-parent tbody').empty();
-                        $('#pagination').empty();
-
-                        const initialLocation =
-                            `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                        window.history.pushState({
-                            path: initialLocation
-                        }, '', initialLocation);
-
-                        const news = data.news;
-
-                        if (!news.length) {
-                            $('#table-parent tbody').append(
-                                `<tr>
-                                <td colspan="5" class="text-center">No data found</td>
-                            </tr>`
-                            );
-                            return;
-                        }
-                        $.each(news, function(index, news) {
-                            let dateString = news.created_at;
-
-                            let dateTime = luxon.DateTime.fromISO(dateString);
-
-                            let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
-                            $('#table-parent tbody').append(
-                                `
-                            <tr>
-                                <td>
-                                    <div class="flex gap-5 text-main">
-                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
-                                        <p class="desc-news">
-                                            ${news.judul}
-                                        </p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="details">
-                                    <x-icon.uploaded />
-                                    <label for="">${formattedDate}</label>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="action flex gap-6">
-                                        <x-icon.edit />
-                                        <x-icon.delete />
-                                    </div>
-                                </td>
-                             </tr>
-                            `
-                            );
-                        });
-
-                        $('#pagination').append(data.paginationHtml); // Update HTML paginasi
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error: " + status + " " + error);
-                    }
-                });
-            }
-
-            function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
-                $.ajax({
-                    url: '{{ route('admin.manajemen-berita.index') }}',
-                    type: 'GET',
-                    dataType: 'json',
-                    data: {
-                        typeDocument: typeDocument,
-                        search: search,
-                        order: order,
-                        page: page
-                    },
-                    success: function(data) {
-                        const tableBody = document.getElementById('table-parent tbody');
-                        console.log(tableBody);
-
-                        $('#table-parent tbody').empty();
-                        $('#pagination').empty();
-
-                        const initialLocation =
-                            `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                        window.history.pushState({
-                            path: initialLocation
-                        }, '', initialLocation);
-
-                        const news = data.news;
-
-                        if (!news.length) {
-                            $('#table-parent tbody').append(
-                                `<tr>
-                                <td colspan="5" class="text-center">No data found</td>
-                            </tr>`
-                            );
-                            return;
-                        }
-                        $.each(news, function(index, news) {
-                            let dateString = news.tanggal;
-
-                            let dateTime = luxon.DateTime.fromISO(dateString);
-
-                            let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
-                            $('#table-parent tbody').append(
-                                `
-                            <tr>
-                                <td>
-                                    <div class="flex gap-5 text-main">
-                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
-                                        <p class="desc-news">
-                                            ${news.judul}
-                                        </p>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="details">
-                                    <x-icon.uploaded />
-                                    <label for="">${formattedDate}</label>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="action flex gap-6">
-                                        <x-icon.edit />
-                                        <x-icon.delete />
-                                    </div>
-                                </td>
-                             </tr>
-                            `
-                            );
-                        });
-
-                        $('#pagination').append(data.paginationHtml); // Update HTML paginasi
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error: " + status + " " + error);
-                    }
-                });
-            }
-
         })
     </script>
 @endsection

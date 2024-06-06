@@ -15,9 +15,9 @@
             id="file_input-csv" type="file" accept=".csv" name="dataPreviewed" required>
         <button type="submit" class="button-main"">Import</button>
     </form>
-    <section id="preview-csv-data">
+    <section id="preview-csv-data" class="hidden">
         <h1 class="text-xl font-semibold text-main p-3">Hasil Preview</h1>
-        <div id="preview-csv-data" class="w-full bg-white overflow-scroll rounded-2xl">
+        <div class="w-full bg-white overflow-scroll rounded-2xl">
             <table class="table-parent">
                 <thead>
                     <tr>
@@ -173,7 +173,7 @@
                                 </tr>`
                                 )
                             })
-                            console.log(resultData);
+                            previewData.classList.remove('hidden')
 
 
                         },
