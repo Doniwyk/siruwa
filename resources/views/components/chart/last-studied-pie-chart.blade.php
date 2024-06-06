@@ -1,6 +1,6 @@
 <div class="flex-center relative flex-col">
     <h3 class="text-xl font-semibold text-main top-0">Rasio Pendidikan Terakhir Penduduk</h3>
-    <canvas id="pendidikan_terakhir" class="h-[22rem] object-contain"></canvas>
+    <canvas id="pendidikan_terakhir" class="sm:max-w-full object-contain"></canvas>
 </div>
 @section('lastStudiedChartScript')
     <script>

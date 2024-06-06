@@ -47,16 +47,10 @@
     <section id="tab-slider" class="flex">
         <div class="link-option_parrent sm:flex-between">
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"
-                @class([
-                    'link-option',
-                    'link-option_active' => $typeDocument == 'pembayaran',
-                ])>Pembayaran</a>
+                class="link-option {{ $typeDocument == 'pembayaran' ? 'link-option_active' : '' }}">Pembayaran</a>
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'riwayatPembayaran']) }}"
-                @class([
-                    'link-option',
-                    'link-option_active' => $typeDocument == 'riwayatPembayaran',
-                ])>Riwayat</a>
-        </div>
+                class="link-option {{ $typeDocument == 'riwayatPembayaran' ? 'link-option_active' : '' }}">Riwayat</a>
+        </div>        
     </section>
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
     @switch($typeDocument)
@@ -72,6 +66,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($fundData['getSubmission']->isEmpty())
+                        <tr>
+                            <td colspan="5" class="text-center">No data found</td>
+                        </tr>
+                    @else
+                        
                     @php
                         $i = 1;
                     @endphp
@@ -92,6 +92,7 @@
                             $i++;
                         @endphp
                     @endforeach
+                    @endif
                 </tbody>
             </table>
             <div id="pagination">
@@ -111,6 +112,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if ($history->isEmpty())
+                    <tr>
+                        <td colspan="5" class="text-center">No data found</td>
+                    </tr>
+                    @else
                     @php
                         $i = 1;
                     @endphp
@@ -127,6 +133,7 @@
                             $i++;
                         @endphp
                     @endforeach
+                    @endif
                 </tbody>
             </table>
             <div id="pagination">

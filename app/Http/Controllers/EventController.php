@@ -18,7 +18,7 @@ class EventController extends Controller
     public function __construct(EventContract $eventContract)
     {
         $this->eventContract = $eventContract;
-        $this->pageName = 'manajemen-acara';
+        $this->pageName = 'manajemen-berita';
     }
 
     public function index()

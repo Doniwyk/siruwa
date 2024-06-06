@@ -28,8 +28,7 @@ class DashboardService implements DashboardContract
         if (!array_key_exists('image', $validatedData->toArray())) {
 
             $orStructure = DataDashboardModel::find($orStructure->id_dataDashboard);
-            $orStructure->total_penduduk = 2;
-            $orStructure->fasilitas_kesehatan = 2;
+            $orStructure->fasilitas_kesehatan = $validatedData['fasilitas_kesehatan'];
             $orStructure->fasilitas_administrasi = $validatedData['fasilitas_administrasi'];
             $orStructure->fasilitas_pendidikan = $validatedData['fasilitas_pendidikan'];
             try {

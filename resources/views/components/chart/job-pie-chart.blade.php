@@ -1,6 +1,6 @@
 <div class="flex-center relative flex-col">
     <h3 class="text-xl font-semibold text-main top-0">Rasio Pekerjaan Penduduk</h3>
-    <canvas id="rasio_pekerjaan" class="h-[22rem] object-contain"></canvas>
+    <canvas id="rasio_pekerjaan" class="sm:max-w-full object-contain" ></canvas>
 </div>
 @section('jobChartScript')
     <script>

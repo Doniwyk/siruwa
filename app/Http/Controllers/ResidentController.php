@@ -21,11 +21,13 @@ class ResidentController extends Controller
 {
     protected UserContract $residentContract;
     protected AccountContract $accountContract;
+    private $page;
 
 
     public function __construct(UserContract $residentContract)
     {
         $this->residentContract = $residentContract;
+        $this->page = 'data-penduduk';
     }
 
     //========================FOR ADMIN========================
@@ -48,7 +50,7 @@ class ResidentController extends Controller
                 'order' => $order
             ])->links()->toHtml();
 
-            $page = 'data-penduduk';
+            $page = $this->page;
             $title = 'Data Penduduk';
 
             // menangani jika request JSON
@@ -71,8 +73,8 @@ class ResidentController extends Controller
     public function add()
     {
         try {
+            $page = $this->page;
             $title = 'Form Tambah Penduduk';
-            $page = 'tambah-data-penduduk';
             return view('admin._dasawismaData.add', compact('title', 'page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat formulir tambah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -152,7 +154,7 @@ class ResidentController extends Controller
     public function editResident(UserModel $resident): View
     {
         try {
-            $page = 'edit-data-penduduk';
+            $page = $this->page;
             $title = 'Edit Data Penduduk';
             //Data on residents who submitted data changes
             $resident = UserModel::findOrFail($resident->id_penduduk);
@@ -236,7 +238,7 @@ class ResidentController extends Controller
     public function showDetailResident(UserModel $resident)
     {
         try {
-            $page = 'edit-data-penduduk';
+            $page = $this->page;
             $title = 'Edit Data Penduduk';
             $resident = UserModel::find($resident->id_penduduk);
             return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));

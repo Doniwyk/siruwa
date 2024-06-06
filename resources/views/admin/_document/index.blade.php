@@ -7,8 +7,10 @@
                 @method('PUT')
                 <h1 class="text-xl font-bold text-main">Catatan</h1>
                 <textarea name="keterangan_status" id="keterangan_status"
-                    class="h-[10rem] w-[22rem] border-2 p-2 border-outline outline-none rounded-2xl" required placeholder="Masukkan catatan"></textarea>
-                <button type="submit" class="text-white px-4 py-2 rounded-md font-semibold" type="submit" name="status" >Test</button>
+                    class="h-[10rem] w-[22rem] border-2 p-2 border-outline outline-none rounded-2xl" required
+                    placeholder="Masukkan catatan"></textarea>
+                <button type="submit" class="text-white px-4 py-2 rounded-md font-semibold" type="submit"
+                    name="status">Test</button>
             </form>
         </div>
     </div>
@@ -110,10 +112,11 @@
                                 <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $document->id_dokumen }}</td>
                                 <td class="flex-start">
-                                    <button class="mr-4" onclick="showPopupToContinueDocumentProccess({{$document->id_dokumen}}, 'batalkan')"">
+                                    <button class="mr-4"
+                                        onclick="showPopupToContinueDocumentProccess({{ $document->id_dokumen }}, 'batalkan')"">
                                         <x-icon.cancel />
                                     </button>
-                                    <button onclick="showPopupToContinueDocumentProccess({{$document->id_dokumen}}, 'lanjut')">
+                                    <button onclick="showPopupToContinueDocumentProccess({{ $document->id_dokumen }}, 'lanjut')">
                                         <x-icon.next />
                                     </button>
                                 </td>
@@ -159,8 +162,9 @@
                                         @method('PUT')
                                         <input type="text" name="keterangan_status" class="hidden"
                                             value="{{ $document->keterangan_status }}">
-                                        <button type="input" class="sm:px-5 sm:py-1 sm:text-sm md:text-base sm:font-base md:px-8 md:py-2 bg-main rounded-3xl text-white" type="submit"
-                                            name="status" value="Selesai">Selesai</button>
+                                        <button type="input"
+                                            class="button-hover sm:px-5 sm:py-1 sm:text-sm md:text-base sm:font-base md:px-8 md:py-2 bg-main rounded-3xl text-white"
+                                            type="submit" name="status" value="Selesai">Selesai</button>
                                     </form>
                                 </td>
                             </tr>
@@ -195,7 +199,8 @@
                                 <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
                                 <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
                                 <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
-                                <td class="sm:text-sm md:text-base  font-bold {{ $document->status == 'Dibatalkan' ? 'text-red-600' : 'text-main' }}">
+                                <td
+                                    class="sm:text-sm md:text-base  font-bold {{ $document->status == 'Dibatalkan' ? 'text-red-600' : 'text-main' }}">
                                     {{ $document->status }}</td>
                             </tr>
                         @endforeach

@@ -10,6 +10,9 @@
     margin: 0;
     padding: 0;
 }
+a:hover{
+    @apply text-inherit
+}
 
 ::-webkit-scrollbar {
     display: none;
@@ -120,6 +123,9 @@
         -moz-appearance: none; /* Firefox */
         appearance: none; /* Default */
     }
+    .statistic-card{
+        @apply bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl drop-shadow-xl;
+    }
 }
 
 input[type=file]::file-selector-button{
@@ -152,7 +158,10 @@ input[type=file]::file-selector-button:hover{
         @apply min-h-full w-[20rem] flex flex-col justify-between font-medium text-white transition-left duration-300 ease-in-out;
     }
     .web_left-sidebar {
-        @apply px-4 pb-6 pt-28 bg-main text-[16px];
+        @apply px-4 pb-6 pt-28 bg-main text-[16px] w-[30rem];
+    }
+    .web_left-sidebar a{
+        @apply whitespace-nowrap
     }
     .web_left-sidebar a:hover img {
         @apply invert-black;
@@ -179,7 +188,7 @@ input[type=file]::file-selector-button:hover{
     }
 
     .filter_parent {
-        @apply min-h-[2.5rem] w-full flex sm:gap-1 md:gap-16 justify-between rounded-2xl overflow-hidden z-10;
+        @apply min-h-[3rem] w-full flex sm:gap-1 md:gap-16 justify-between rounded-2xl overflow-hidden z-10;
     }
     .search-option {
         @apply basis-3/4 bg-white flex items-center rounded-2xl border-2 relative;
