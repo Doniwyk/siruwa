@@ -89,9 +89,16 @@ class NewsController extends Controller
         }
     }
 
-    public function storeNews(Request $request)
+    public function storeNews(Request $request, $action)
     {
         try {
+
+            if($action == 'upload'){
+                $status = 'Uploaded';
+            }else{
+                $status = 'Draft';
+            }
+
             $image = $request->file('image');
             $admin = Auth::id();
 
@@ -104,7 +111,8 @@ class NewsController extends Controller
                 'image_public_id' => $publicId,
                 'judul' => $request->input('judul'),
                 'id_admin' => $admin,
-                'isi' => $request->input('editor')
+                'isi' => $request->input('editor'),
+                'status' =>  $request->$status
             ]);
             $imageUpload->save();
             return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
@@ -173,7 +181,9 @@ class NewsController extends Controller
     {
 
         try {
-            $news = NewsModel::where('judul', 'like', $search . '%')->orderBy('judul', $order)->take($count)->get();
+            $news = NewsModel::orderBy('created_at', 'desc')
+            ->take($count)
+            ->get();
             return $news;
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat menemukan data' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -194,22 +204,25 @@ class NewsController extends Controller
     public function indexResident()
     {
         try {
-            $news = NewsModel::all();
-            $event = EventModel::all();
-            $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
+            $news = NewsModel::where('status', 'Uploaded')->get();
+            $event = EventModel::where('status', 'Uploaded')->get();
+            $latestNews = NewsModel::where('status', 'Uploaded')
+                        ->orderBy('created_at', 'desc')->take(3)->get();
             $dataDashboard = $this->dashboardContract->dataDashboard();
             return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard' => $dataDashboard]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-    public function listBerita()
+    public function listBerita() //Untuk Penduduk
     {
         try {
-            $news = NewsModel::all();
-            $event = EventModel::all();
-            $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
-            $latestEvent = EventModel::orderBy('created_at', 'desc')->take(3)->get();
+            $news = NewsModel::where('status', 'Uploaded')->get();
+            $event = EventModel::where('status', 'Uploaded')->get();
+            $latestNews = NewsModel::where('status', 'Uploaded')
+                        ->orderBy('created_at', 'desc')->take(3)->get();
+            $latestEvent = EventModel::where('status', 'Uploaded')
+                        ->orderBy('created_at', 'desc')->take(3)->get();
             return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -227,6 +240,21 @@ class NewsController extends Controller
             return view('berita.Artikel', compact('artikel'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data artikel tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+    public function changeStatus(Request $request, NewsModel $news){
+        $action = $request->action;
+        try {
+            if($action == 'upload'){
+                $news->status = 'Uploaded';
+                $news->save();
+            }else{
+                $news->status = 'Draft';
+                $news->save();
+            };
+            return redirect()->route('admin.manajemen-acara.index')->with('success', 'Update berhasil.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal update agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 }

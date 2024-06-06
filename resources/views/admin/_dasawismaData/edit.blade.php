@@ -58,6 +58,10 @@
                 <x-form.disabled-input :label="'Biaya Air Perbulan'"  :prevName="'prevBiayaAir'" :reqName="'reqBiayaAir'" :prevValue="(double) $resident->biaya_air * 1000" :reqValue="(double) $reqResident->biaya_air * 1000" />
             </div>
         </section>
+        <section>
+            <label for="keterangan_status" class="font-semibold text-main">Masukkan Keterangan</label>
+            <textarea name="keterangan_status" id="keterangan_status" class="min-h-[15rem] w-full mt-2 px-6 py-2 border-2 border-main rounded-2xl"></textarea>
+        </section>
 
         <fieldset class="flex-end col-span-2 gap-6 text-white font-semibold">
             <button type="submit" class="px-24 py-3 rounded-2xl bg-red-600" name="action" value="reject">Tolak</button>

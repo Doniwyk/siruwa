@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image_public_id', 255)->nullable();
             $table->string('judul', 100);
             $table->text('isi');
+            $table->enum('status', ['Uploaded', 'Draft'])->default('Uploaded');
             $table->dateTime('tanggal');
             $table->timestamps();
 

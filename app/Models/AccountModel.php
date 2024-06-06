@@ -24,7 +24,7 @@ class AccountModel extends Authenticatable
 
     public function penduduk(): BelongsTo
     {
-        return $this->belongsTo(UserModel::class);
+        return $this->belongsTo(UserModel::class, 'id_penduduk');
     }
     public function pembayaran(): HasMany
     {

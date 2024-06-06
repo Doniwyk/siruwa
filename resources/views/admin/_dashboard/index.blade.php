@@ -62,8 +62,8 @@
                 </button>
             </div>
         </div>
-        <div class="w-full relative mt-4">
-            <img src="{{ $rwData->image }}" alt="image" class="w-full h-[22rem] object-contain"
+        <div class="w-full relative mt-4 flex-center">
+            <img src="{{ $rwData->image }}" alt="image" class="animate-pulse bg-slate-700 w-[35rem] rounded-xl h-[22rem] object-contain"
                 id="previewImageRwStructure">
             <form action="{{ route('admin.dashboard.update', ['data' => $rwData->id_dataDashboard]) }}" class="hidden w-full h-[22rem]"
                 id="formimageRwStructure" enctype="multipart/form-data" method="POST">
@@ -106,6 +106,23 @@
             $(enableButtonId).addClass('hidden');
             $('#button-save-details-rw').removeClass('hidden')
         }
+
+        $(document).ready(()=>{
+            let image = $('.animate-pulse');
+            let imageUrl = image.attr('src');
+            let hasLoaded = localStorage.getItem('imageLoaded');
+
+            if (!hasLoaded) {
+                image.on('load', function() {
+                    $('.animate-pulse').addClass('bg-white');
+                    $('.animate-pulse').removeClass('animate-pulse');
+                    localStorage.setItem('imageLoaded', true);
+                });
+            } else {
+                $('.animate-pulse').addClass('bg-white');
+                $('.animate-pulse').removeClass('animate-pulse');
+            }
+        })
 
         $('#cancelEditDetailRw').click(function() {
             disableForm('#rw-details', '#cancelEditDetailRw', '#editDetailRw');
