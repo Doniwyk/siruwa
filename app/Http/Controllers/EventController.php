@@ -46,9 +46,16 @@ class EventController extends Controller
         }
     }
 
-    public function storeEvent(EventRequest $request)
+    public function storeEvent(EventRequest $request, $action)
     {
         try {
+
+            if($action == 'upload'){
+                $status = 'Uploaded';
+            }else{
+                $status = 'Draft';
+            }
+
             $image = $request->file('image');
             $admin = Auth::id();
     
@@ -63,6 +70,7 @@ class EventController extends Controller
                 'id_admin' => $admin,
                 'isi' => $request->input('isi'),
                 'tanggal' => $request->input('tanggal'),
+                'status' =>  $request->$status
             ]);
             $imageUpload->save();
             return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
@@ -103,6 +111,21 @@ class EventController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menghapus agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
 
+        }
+    }
+
+    public function changeStatus($action, EventModel $event){
+        try {
+            if($action == 'upload'){
+                $event->status = 'Uploaded';
+                $event->save();
+            }else{
+                $event->status = 'Draft';
+                $event->save();
+            }
+            return redirect()->route('admin.manajemen-acara.index')->with('success', 'Update berhasil.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal update agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 }
