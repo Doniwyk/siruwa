@@ -136,6 +136,8 @@ class AdminPaymentService implements AdminPaymentContract
         ];
     }
     public function getDataTunggakan($search, $order) {
+        $currentYear = date('Y');
+        $currentMonth = date('m');
         // Query for tunggakan kematian
         $combinedTunggakan = DB::table(DB::raw('
             (
@@ -150,6 +152,8 @@ class AdminPaymentService implements AdminPaymentContract
                     0 as total_tunggakan_sampah
                 FROM iuran_kematian df
                 WHERE df.status = "Belum Lunas"
+                AND YEAR(df.bulan) = ' . $currentYear . '
+                AND MONTH(df.bulan) <= ' . $currentMonth . '
                 GROUP BY df.nomor_kk
     
                 UNION ALL
@@ -165,6 +169,8 @@ class AdminPaymentService implements AdminPaymentContract
                     COUNT(gf.id_iuran_sampah) as total_tunggakan_sampah
                 FROM iuran_sampah gf
                 WHERE gf.status = "Belum Lunas"
+                AND YEAR(gf.bulan) = ' . $currentYear . '
+                AND MONTH(gf.bulan) <= ' . $currentMonth . '
                 GROUP BY gf.nomor_kk
             ) as combined
         '))
@@ -178,6 +184,5 @@ class AdminPaymentService implements AdminPaymentContract
         ->get();
         
         return $combinedTunggakan;
-    }
-        
+    }  
 }
