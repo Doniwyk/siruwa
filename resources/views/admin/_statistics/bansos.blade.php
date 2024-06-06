@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('content')
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" defer></script>
 <div id="1" class="header-edit flex-start gap-1">
     <a href="{{ route('admin.statistic.index') }}">
         <span>
@@ -10,6 +12,11 @@
     </a>
     <h1 class="h1-semibold">{{ $title }}</h1>
 </div> 
+
+
+
+
+
 
 <div class="link-option_parrent w-max">
     <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'fuzzy', 'limit' => $limit]) }}" @class([
@@ -31,22 +38,38 @@
         Metode SAW + Fuzzy
     </a>
 </div>
-<div class="flex flex-row justify-between">
-    <div class="flex flex-row gap-4">
+<div class="flex flex-row justify-between" x-data="{ showPopup: false }">
+    <div class="flex flex-row gap-4 items-center">
         <span class="text-2xl font-semibold text-main">Hasil Perhitungan</span>
-        <a href="">
+        <button @click="showPopup = true">
             <x-icon.detail />
-        </a>
+        </button>
     </div>
     <form method="GET" action="{{ route('admin.statistic.bansos', ['typeDocument' => $typeDocument]) }}" id="limitForm">
         <label class="text-sm font-medium text-main" for="limit">Data yang ditampilkan</label>
         <select class="custom-select" name="limit" id="limit" onchange="document.getElementById('limitForm').submit()">
             <option value="5" @if($limit == 5) selected @endif>5</option>
             <option value="15" @if($limit == 15) selected @endif>15</option>
-            <option value="30" @if($limit == 20) selected @endif>30</option>
+            <option value="30" @if($limit == 30) selected @endif>30</option>
             <option value="-1" @if($limit == -1) selected @endif>Tampilkan Semua</option>
         </select>
     </form>    
+
+    <!-- Popup -->
+    <div x-show="showPopup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" x-cloak>
+        <div class="bg-white p-8 rounded-lg shadow-lg relative" id="document-modal">
+            <h2 class="text-center text-xl font-semibold mb-4">Detail Perhitungan</h2>
+            <div class="max-w-96">
+                <p>Kriteria</p>
+                <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi asperiores quas magni maxime fugiat voluptate delectus aliquid id impedit odit velit, amet natus beatae harum porro error quis neque voluptatum.</sp>
+            </div>
+            <div class="flex-center mt-4">
+                <button @click="showPopup = false" class="button-main text-white">
+                    Wakatta
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @switch($typeDocument)
