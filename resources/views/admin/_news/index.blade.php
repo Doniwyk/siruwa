@@ -1,8 +1,9 @@
 @extends('layouts.admin')
 @section('content')
-    <h1 class="h1-semibold">Data Penduduk</h1>
+    <h1 class="h1-semibold">Manajemen Berita & Acara</h1>
     <div class="summary-card_news">
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4">
+        <div
+            class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
             <h4 class="text-xl text-main font-semibold mb-2">Acara terdekat</h4>
             @if (!$lastestEvent->isEmpty())
                 @foreach ($lastestEvent as $ln)
@@ -12,7 +13,8 @@
                 <span class="text-center font-semibold text md text-main">NOT FOUND</span>
             @endif
         </div>
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4">
+        <div
+            class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
             <h4 class="text-xl text-main font-semibold mb-2">Berita terbaru</h4>
             @if (!$lastestNews->isEmpty())
                 @foreach ($lastestNews as $ln)
@@ -68,11 +70,13 @@
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td class="sm:text-sm md:text-base">
+                                <td class="sm:text-sm md:text-base relative">
                                     <div class="flex gap-5 text-main sm:items-center md:items-start">
-                                        <img src="{{ $n->url_gambar }}" alt="logo"
-                                            class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
-                                        <p class="desc-news">
+                                        <div class="animate-pulse min-w-[8.2rem] h-20 bg-slate-500 rounded-2xl">
+                                            <img src="{{ $n->url_gambar }}" alt="logo"
+                                                class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
+                                        </div>
+                                        <p class="desc-news text-wrap">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
@@ -96,6 +100,24 @@
                                             <button type="submit">
                                                 <x-icon.delete />
                                             </button>
+                                        </form>
+                                        <form action="{{ route('admin.manajemen-berita.edit-status', ['news' => $n->id_berita]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            @switch($n->status)
+                                                @case('Uploaded')
+                                                    <button type="submit" name="action" value="draft">
+                                                        <x-icon.draft-icon />
+                                                    </button>
+                                                @break
+
+                                                @case('Draft')
+                                                    <button type="submit" name="action" value="upload">
+                                                        <x-icon.publish-icon />
+                                                    </button>
+                                                @break
+                                            @endswitch
                                         </form>
                                     </div>
                                 </td>
@@ -125,12 +147,12 @@
                         </tr>
                     @else
                         @foreach ($news as $n)
-                            <tr >
+                            <tr>
                                 <td class="sm:text-sm md:text-base">
                                     <div class="flex gap-5 text-main sm:items-center md:items-start">
                                         <img src="{{ $n->url_gambar }}" alt="logo"
                                             class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
-                                        <p class="desc-news">
+                                        <p class="desc-news text-wrap">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
@@ -141,7 +163,7 @@
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base">
+                                <td class="sm:text-sm md:text-base flex-center">
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-acara.edit', ['event' => $n->id_agenda]) }}"
                                             class="hover">
@@ -154,6 +176,24 @@
                                             <button type="submit">
                                                 <x-icon.delete />
                                             </button>
+                                        </form>
+                                        <form action="{{ route('admin.manajemen-acara.edit-status', ['event' => $n->id_agenda]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            @switch($n->status)
+                                                @case('Uploaded')
+                                                    <button type="submit" name="action" value="draft">
+                                                        <x-icon.draft-icon />
+                                                    </button>
+                                                @break
+
+                                                @case('Draft')
+                                                    <button type="submit" name="action" value="upload">
+                                                        <x-icon.publish-icon />
+                                                    </button>
+                                                @break
+                                            @endswitch
                                         </form>
                                     </div>
                                 </td>
@@ -206,11 +246,11 @@
                         return;
                     }
                     $.each(news, function(index, news) {
-                        var dateString = news.created_at;
+                        let dateString = news.created_at;
 
-                        var dateTime = luxon.DateTime.fromISO(dateString);
+                        let dateTime = luxon.DateTime.fromISO(dateString);
 
-                        var formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+                        let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
                         $('#table-parent tbody').append(
                             `
                             <tr>
@@ -246,6 +286,7 @@
                 }
             });
         }
+
         function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
             $.ajax({
                 url: '{{ route('admin.manajemen-berita.index') }}',
@@ -281,11 +322,11 @@
                         return;
                     }
                     $.each(news, function(index, news) {
-                        var dateString = news.tanggal;
+                        let dateString = news.tanggal;
 
-                        var dateTime = luxon.DateTime.fromISO(dateString);
+                        let dateTime = luxon.DateTime.fromISO(dateString);
 
-                        var formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+                        let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
                         $('#table-parent tbody').append(
                             `
                             <tr>
@@ -321,5 +362,21 @@
                 }
             });
         }
+        $(document).ready(function() {
+            let image = $('.animate-pulse img');
+            let imageUrl = image.attr('src');
+            let hasLoaded = localStorage.getItem('imageLoaded');
+
+            if (!hasLoaded) {
+                image.on('load', function() {
+                    $('.animate-pulse').addClass('bg-white');
+                    $('.animate-pulse').removeClass('animate-pulse');
+                    localStorage.setItem('imageLoaded', true);
+                });
+            } else {
+                $('.animate-pulse').addClass('bg-white');
+                $('.animate-pulse').removeClass('animate-pulse');
+            }
+        })
     </script>
 @endsection

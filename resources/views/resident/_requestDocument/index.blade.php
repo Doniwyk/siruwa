@@ -124,8 +124,25 @@
 
     <!-- TAB RIWAYAT -->
     <div x-show="openTab === 2">
+        <div class="flex justify-between mb-9">
+            <div class="relative w-[630px] mr-9">
+                <input type="text" placeholder="Cari Nama" class="resident-search">
+                <img src="{{ asset('assets/icons/search.svg') }}" alt="Search Icon" class="left-icon">
+            </div>
+            <div class="whitespace-nowrap flex items-center">
+                <div class="relative w-[180px]">
+                    <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
+                        <option value="default">Urutkan</option>
+                        <option value="newest">Terbaru</option>
+                        <option value="oldest">Terlama</option>
+                    </select>
+                    <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
+                    <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
+                </div>
+            </div>
+        </div>
         <div class="overflow-x-auto rounded-xl">
-            <table class="table-parent">
+            <table class="table-resident">
                 <thead>
                     <tr>
                         <th>Nama Pengaju</th>
@@ -202,4 +219,49 @@
         </div>
     </div>
 </div>
+
+<script>
+    function sortHistory(option) {
+        const tbody = document.querySelector('.table-resident tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        switch(option) {
+            case 'newest':
+                rows.sort((a, b) => new Date(getCellValue(b, 2)) - new Date(getCellValue(a, 2)));
+                break;
+            case 'oldest':
+                rows.sort((a, b) => new Date(getCellValue(a, 2)) - new Date(getCellValue(b, 2)));
+                break;
+            default:
+                break;
+        }
+
+        tbody.innerHTML = ''; // Clear the existing table rows
+        rows.forEach(row => tbody.appendChild(row)); // Append sorted rows to tbody
+    }
+
+    function getCellValue(row, index) {
+        return row.children[index].textContent.trim();
+    }
+
+    function searchName() {
+        const input = document.querySelector('.resident-search');
+        const filter = input.value.toUpperCase();
+        const rows = document.querySelectorAll('.table-resident tbody tr');
+
+        rows.forEach(row => {
+            const nameCell = row.children[0];
+            if (nameCell) {
+                const txtValue = nameCell.textContent || nameCell.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    document.querySelector('.resident-search').addEventListener('input', searchName);
+</script>
 @endsection

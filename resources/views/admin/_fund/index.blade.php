@@ -8,7 +8,9 @@
                 <input type="text" class="hidden" value="{{ $adminId }}" name="id_admin">
                 <h1 class="text-xl font-bold text-main text-center">Konfirmasi Pembayaran</h1>
                 <div id="image-preview" class="h-[11.75rem] flex-center">
-                    <img src="" alt="Bukti Pembayaran" class="h-full bg-white">
+                    <div class="animate-pulse min-w-[16rem] h-full bg-slate-500 rounded-2xl">
+                        <img src="" alt="Bukti Pembayaran" class="h-full w-full bg-white">
+                    </div>
                 </div>
                 <fieldset>
                     <div class="flex gap-4 justify-between items-center">
@@ -43,19 +45,13 @@
         <x-card :label="'Dana Sampah'" :value="$fundData['garbageFundTotal']" />
         <x-card :label="'Tunggakan'" :type="'danger'" :value="$fundData['tunggakan']" />
     </div>
-     <a href="{{route('admin.data-pembayaran.tunggakan')}}">Tunggakan</a> <!--Buat coba ajaaa -->
+
     <section id="tab-slider" class="flex">
         <div class="link-option_parrent sm:flex-between">
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'pembayaran']) }}"
-                @class([
-                    'link-option',
-                    'link-option_active' => $typeDocument == 'pembayaran',
-                ])>Pembayaran</a>
+                class="link-option {{ $typeDocument == 'pembayaran' ? 'link-option_active' : '' }}">Pembayaran</a>
             <a href="{{ route('admin.data-pembayaran.index', ['typeDocument' => 'riwayatPembayaran']) }}"
-                @class([
-                    'link-option',
-                    'link-option_active' => $typeDocument == 'riwayatPembayaran',
-                ])>Riwayat</a>
+                class="link-option {{ $typeDocument == 'riwayatPembayaran' ? 'link-option_active' : '' }}">Riwayat</a>
         </div>
     </section>
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
@@ -72,26 +68,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $i = 1;
-                    @endphp
-                    @foreach ($fundData['getSubmission'] as $dataPembayaran)
+                    @if ($fundData['getSubmission']->isEmpty())
                         <tr>
-                            <td class="sm:text-sm md:text-base">{{ $dataPembayaran->resident->nama }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->nomor_kk }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->created_at }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $dataPembayaran->akun->noHp }}</td>
-                            <td class="sm:text-sm md:text-base">
-                                <button class="w-[25px] h-[25px] flex-center" id="button-{{ $i }}"
-                                    onclick="getDataPembayaran({{ $dataPembayaran->id_pembayaran }})">
-                                    <x-icon.detail />
-                                </button>
-                            </td>
+                            <td colspan="5" class="text-center">No data found</td>
                         </tr>
+                    @else
                         @php
-                            $i++;
+                            $i = 1;
                         @endphp
-                    @endforeach
+                        @foreach ($fundData['getSubmission'] as $dataPembayaran)
+                            <tr>
+                                <td class="sm:text-sm md:text-base">{{ $dataPembayaran->resident->nama }}</td>
+                                <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->nomor_kk }}</td>
+                                <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->created_at }}</td>
+                                <td class="sm:text-sm md:text-base">{{ $dataPembayaran->akun->noHp }}</td>
+                                <td class="sm:text-sm md:text-base">
+                                    <button class="w-[25px] h-[25px] flex-center" id="button-{{ $i }}"
+                                        onclick="getDataPembayaran({{ $dataPembayaran->id_pembayaran }})">
+                                        <x-icon.detail />
+                                    </button>
+                                </td>
+                            </tr>
+                            @php
+                                $i++;
+                            @endphp
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
             <div id="pagination">
@@ -111,22 +113,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $i = 1;
-                    @endphp
-                    @foreach ($history as $dataRiwayat)
+                    @if ($history->isEmpty())
                         <tr>
-                            <td class="sm:text-sm md:text-base">{{ $dataRiwayat->resident->nama }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $dataRiwayat->nomor_kk }}</td>
-                            <td class="sm:hidden lg:table-cell">{{ $dataRiwayat->created_at }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $dataRiwayat->admin->noHp }}</td>
-                            <td class="font-semibold sm:text-sm md:text-base {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
-                                {{ $dataRiwayat->status }}</td>
+                            <td colspan="5" class="text-center">No data found</td>
                         </tr>
+                    @else
                         @php
-                            $i++;
+                            $i = 1;
                         @endphp
-                    @endforeach
+                        @foreach ($history as $dataRiwayat)
+                            <tr>
+                                <td class="sm:text-sm md:text-base">{{ $dataRiwayat->resident->nama }}</td>
+                                <td class="sm:hidden lg:table-cell">{{ $dataRiwayat->nomor_kk }}</td>
+                                <td class="sm:hidden lg:table-cell">{{ $dataRiwayat->created_at }}</td>
+                                <td class="sm:text-sm md:text-base">{{ $dataRiwayat->admin->noHp }}</td>
+                                <td
+                                    class="font-semibold sm:text-sm md:text-base {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                                    {{ $dataRiwayat->status }}</td>
+                            </tr>
+                            @php
+                                $i++;
+                            @endphp
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
             <div id="pagination">
@@ -137,61 +146,76 @@
 @endsection
 @section('script')
     <script>
-        function fetchPaymentData(typeDocument = '', search = '', order = 'asc', page = 1) {
-            $.ajax({
-                url: '{{ route('admin.data-pembayaran.index') }}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    typeDocument: typeDocument,
-                    search: search,
-                    order: order,
-                    page: page
-                },
-                success: function(data) {
-                    const initialLocation =
-                        `${window.location.origin}/admin/data-pembayaran?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                    window.history.pushState({
-                        path: initialLocation
-                    }, '', initialLocation);
+            let image = $('.animate-pulse img');
+            let imageUrl = image.attr('src');
+            let hasLoaded = localStorage.getItem('imageLoaded');
 
-                    const fundDatas = data.fundData
-                    console.log(fundDatas);
+            if (!hasLoaded) {
+                image.on('load', function() {
+                    $('.animate-pulse').addClass('bg-white');
+                    localStorage.setItem('imageLoaded', true);
+                    $('.animate-pulse').addClass('bg-white');
+                });
+            } else {
+                $('.animate-pulse').removeClass('animate-pulse');
+                $('.animate-pulse').removeClass('animate-pulse');
+            }
 
-                    $('#table-parent tbody').empty();
-                    $('#pagination').empty();
+            function fetchPaymentData(typeDocument = '', search = '', order = 'asc', page = 1) {
+                $.ajax({
+                    url: '{{ route('admin.data-pembayaran.index') }}',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        typeDocument: typeDocument,
+                        search: search,
+                        order: order,
+                        page: page
+                    },
+                    success: function(data) {
+                        const initialLocation =
+                            `${window.location.origin}/admin/data-pembayaran?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
+                        window.history.pushState({
+                            path: initialLocation
+                        }, '', initialLocation);
 
-                    if (!fundDatas.length) {
-                        $('#table-parent tbody').append(
-                            `<tr>
+                        const fundDatas = data.fundData
+                        console.log(fundDatas);
+
+                        $('#table-parent tbody').empty();
+                        $('#pagination').empty();
+
+                        if (!fundDatas.length) {
+                            $('#table-parent tbody').append(
+                                `<tr>
                                 <td colspan="5" class="text-center">No data found</td>
                             </tr>`
-                        );
-                        return;
-                    }
-                    let index = 0;
-                    $.each(fundDatas, function(index, fundData) {
-                        const datetime = fundData.created_at;
-                        const dateString = datetime.slice(0, 10);
-                        index++;
-                        let lastColumn;
-                        switch (typeDocument) {
-                            case 'pembayaran':
-                                lastColumn = `<td class="flex-start">
+                            );
+                            return;
+                        }
+                        let index = 0;
+                        $.each(fundDatas, function(index, fundData) {
+                            const datetime = fundData.created_at;
+                            const dateString = datetime.slice(0, 10);
+                            index++;
+                            let lastColumn;
+                            switch (typeDocument) {
+                                case 'pembayaran':
+                                    lastColumn = `<td class="flex-start">
                                         <button class="w-[25px] h-[25px] flex-center" id="button-${index}"
                                             onclick="getDataPembayaran(${fundData.id_pembayaran})">
                                             <x-icon.detail />
                                         </button>
                                         </td>`
-                                break;
-                            case 'riwayatPembayaran':
-                                lastColumn =
-                                    `<td class="font-semibold ${ fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${fundData.status}</td>`
-                                break;
-                        }
+                                    break;
+                                case 'riwayatPembayaran':
+                                    lastColumn =
+                                        `<td class="font-semibold ${ fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${fundData.status}</td>`
+                                    break;
+                            }
 
-                        $('#table-parent tbody').append(
-                            `<tr>
+                            $('#table-parent tbody').append(
+                                `<tr>
                                 <td>${ fundData.resident.nama }</td>
                                 <td class="sm:hidden lg:table-cell">${ fundData.nomor_kk }</td>
                                 <td class="sm:hidden lg:table-cell">${ dateString }</td>
@@ -199,14 +223,14 @@
                                 ${lastColumn}
                             </tr>`
 
-                        )
-                    })
-                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error: " + status + " " + error);
-                }
-            });
-        }
+                            )
+                        })
+                        $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + status + " " + error);
+                    }
+                });
+            }
     </script>
 @endsection

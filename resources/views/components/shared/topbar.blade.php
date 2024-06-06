@@ -1,4 +1,6 @@
+{{-- @dd($account) --}}
 <div class="topbar">
+
     <div class="main-logo flex-center ">
         <div class="sm:hidden md:block">
             <div class="text-white text-2xl font-bold flex-center gap-9">
@@ -36,10 +38,12 @@
             </svg>
         </div>
     </div>
-    <div class="h-full bg-white px-4 py-2  flex-center rounded-2xl gap-6 ]">
-        <label for="">nadilaamalia</label>
-        <img src="{{asset('assets\img\profile.png')}}" alt="" class="rounded h-[2.75rem]">
-    </div>
+    <a href="{{route('admin.profil.index')}}">
+    <div class="h-full bg-white px-4 py-2  flex-center rounded-2xl gap-6">
+            <label for="" class="font-semibold text-main">{{$account->penduduk->nama}}</label>
+            <img src="{{$account->urlProfile}}" alt="profile" class="rounded-full h-[2.75rem] object-contain">
+        </div>
+    </a>
 </div>
 @section('sidebar')
     <script>

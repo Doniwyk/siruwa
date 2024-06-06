@@ -10,11 +10,15 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>{{ $title }}</title>
     @vite('resources/css/app.css')
     @vite('resources/css/output.css')
+    {{-- @stack('css') --}}
     <style>
+        select:not([size]) {
+            background-image: unset;
+        }
+
         [x-cloak] { display: none; }
     </style>
 </head>
@@ -28,7 +32,7 @@
             @yield('modal')
             <x-shared.leftsidebar :page="$page" />
             <div class="content" id="content">
-                    @yield('content')
+                @yield('content')
             </div>
         </main>
     </div>
@@ -36,20 +40,21 @@
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 @yield('script')
 @yield('sidebar')
 <script>
     $(document).ready(function() {
-        // Event handler untuk input search
+        var debounceTimer;
         $('#search-input').on('keyup', function() {
-            var search = $(this).val();
-            var order = $('#order-select').val();
-            var typeDocument = $('#typeDocument').val();
-            fetchData(typeDocument, search, order);
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function() {
+                var search = $('#search-input').val();
+                var order = $('#order-select').val();
+                var typeDocument = $('#typeDocument').val();
+                fetchData(typeDocument, search, order);
+            }, 300);
         });
 
-        // Event handler untuk select order
         $('#order-select').on('click', function() {
             const order = this.value == 'asc' ? 'desc' : 'asc';
             $(this).toggleClass('button-order_desc');
@@ -60,10 +65,13 @@
         });
 
         $('#typeDocument').on('keyup', function() {
-            var typeDocument = $(this).val();
-            var search = $('#search-input').val();
-            var order = $('#order-select').val();
-            fetchData(typeDocument, search, order);
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(function() {
+                var typeDocument = $('#typeDocument').val();
+                var search = $('#search-input').val();
+                var order = $('#order-select').val();
+                fetchData(typeDocument, search, order);
+            }, 300);
         });
 
         function fetchData(typeDocument, search, order) {
@@ -80,4 +88,5 @@
 
     });
 </script>
+
 </html>

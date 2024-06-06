@@ -80,33 +80,32 @@ class ResidentPaymentService implements ResidentPaymentContract
 
     public function getFundDataByYear($year)
     {
-      
-      $user = Auth::user();
-      if ($user) {
-        $penduduk = UserModel::find($user->id_penduduk); // Find resident based on user's foreign key
-        if ($penduduk) {
-          $deathFundData = DeathFundModel::where('nomor_kk', $penduduk->nomor_kk)
-                                          ->whereYear('bulan', $year)
-                                          ->with('penduduk')
-                                          ->get();
-
-          $garbageFundData = GarbageFundModel::where('nomor_kk', $penduduk->nomor_kk)
-                                              ->whereYear('bulan', $year)
-                                              ->with('penduduk')
-                                              ->get();
+        $user = Auth::user();
+        if ($user) {
+            $penduduk = UserModel::find($user->id_penduduk); // Find resident based on user's foreign key
+            if ($penduduk) {
+                $deathFundData = DeathFundModel::where('nomor_kk', $penduduk->nomor_kk)
+                                                ->whereYear('bulan', $year)
+                                                ->with('penduduk')
+                                                ->get();
     
-          return [
-            'death_fund' => $deathFundData,
-            'garbage_fund' => $garbageFundData,
-          ];
+                $garbageFundData = GarbageFundModel::where('nomor_kk', $penduduk->nomor_kk)
+                                                    ->whereYear('bulan', $year)
+                                                    ->with('penduduk')
+                                                    ->get();
+    
+                return [
+                    'death_fund' => $deathFundData,
+                    'garbage_fund' => $garbageFundData,
+                ];
+            } else {
+                // Handle case where resident not found
+                return [];
+            }
         } else {
-          // Handle case where resident not found
-          return [];
+            // Handle case where user is not authenticated
+            return [];
         }
-      } else {
-        // Handle case where user is not authenticated
-        return [];
-      }
-    }
+    }    
 }
 

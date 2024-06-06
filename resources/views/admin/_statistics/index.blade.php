@@ -11,13 +11,13 @@
             </a>
         </div>
         </div>
-        <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl">
+        <div class="statistic-card">
             <x-chart.resident-total-line-chart/>
         </div>
-        <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl">
+        <div class="statistic-card">
             <x-chart.job-pie-chart/>
         </div>
-        <div class="bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl ">
+        <div class="statistic-card ">
             <x-chart.last-studied-pie-chart/>
         </div>
     </section>

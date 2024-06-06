@@ -2,13 +2,10 @@
 
 namespace App\Services;
 
-use App\Contracts\PendudukContract;
 use App\Contracts\UserContract;
-use App\Models\PendudukModel;
 use App\Models\TempResidentModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class UserService implements UserContract
 {
@@ -26,10 +23,11 @@ class UserService implements UserContract
 
     public function deleteUser(UserModel $penduduk): void
     {
-        $penduduk->delete();
+        $penduduk->status_penduduk=0;
+        $penduduk->save();
     }
 
-    public function validateEditRequest(string $action, $id)
+    public function validateEditRequest(string $action, $id, $keterangan_status = '')
     {
         $tempResident = TempResidentModel::where('id_temporary', $id)->first();
 
@@ -37,10 +35,12 @@ class UserService implements UserContract
         if ($action === 'accept') {
             $resident->update($tempResident->toArray());
             $tempResident->status = 'Diterima';
+            $tempResident->keterangan_status = $keterangan_status;
             $tempResident->save();
         }
         if ($action === 'reject') {
             $tempResident->status = 'Ditolak';
+            $tempResident->keterangan_status = $keterangan_status;
             $tempResident->save();
         }
     }
@@ -62,7 +62,8 @@ class UserService implements UserContract
 
     public function getFilteredResidentData($search, $order)
     {
-        $residents = UserModel::when($search, function ($query) use ($search) {
+        $residents = UserModel::where('status_penduduk', 1)
+        ->when($search, function ($query) use ($search) {
             return $query->where('nama', 'like', $search . '%');
         })->orderBy('nama', $order)
             ->paginate(15);
@@ -87,14 +88,14 @@ class UserService implements UserContract
     public function getFilteredHistoryResidentData($search, $order)
     {
         $residents = TempResidentModel::with('penduduk')
-        ->when($search, function ($query) use ($search) {
-            $query->whereHas('penduduk', function ($query) use ($search) {
-                $query->where('nama', 'like', $search . '%');
-            });
-        })
-        ->where('status','!=' ,'Menunggu Verifikasi')
-        ->orderBy('nama', $order)
-        ->paginate(15);
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('penduduk', function ($query) use ($search) {
+                    $query->where('nama', 'like', $search . '%');
+                });
+            })
+            ->where('status', '!=', 'Menunggu Verifikasi')
+            ->orderBy('nama', $order)
+            ->paginate(15);
 
         return $residents;
     }

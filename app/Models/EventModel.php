@@ -13,7 +13,7 @@ class EventModel extends Model
     protected $table = 'agenda';
     protected $primaryKey = 'id_agenda';
 
-    protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'tanggal', 'image_public_id'];
+    protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'status', 'tanggal', 'image_public_id'];
 
     public function admin(): BelongsTo
     {

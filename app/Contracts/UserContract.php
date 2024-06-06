@@ -13,7 +13,7 @@ interface UserContract
 
     public function deleteUser(UserModel $penduduk);
 
-    public function validateEditRequest(string $action, $id);
+    public function validateEditRequest(string $action, $id, );
 
     public function editRequest(Request $request, UserModel $resident);
 

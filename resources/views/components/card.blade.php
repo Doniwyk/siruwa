@@ -1,4 +1,8 @@
-<div class="card">
+@if($label === 'Tunggakan')
+    <a href="{{ route('admin.data-pembayaran.tunggakan') }}" class="card button-hover">
+@else
+    <div class="card drop-shadow-xl">
+@endif
     <header class="flex gap-3">
         @switch($label)
             @case('Dana Kematian')
@@ -14,5 +18,9 @@
         @endswitch
         <h4>{{ $label }}</h4>
     </header>
-    <label class="text-fund">Rp {{ number_format($value, 0, ',', '.') }}</label>
-</div>
+    <span class="text-fund">Rp {{ number_format($value, 0, ',', '.') }}</span>
+@if($label === 'Tunggakan')
+    </a>
+@else
+    </div>
+@endif

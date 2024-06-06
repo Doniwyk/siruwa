@@ -13,7 +13,7 @@ class NewsModel extends Model
     protected $table = 'berita';
     protected $primaryKey = 'id_berita';
 
-    protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'image_public_id'];
+    protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'status', 'image_public_id'];
 
     public function admin(): BelongsTo
     {

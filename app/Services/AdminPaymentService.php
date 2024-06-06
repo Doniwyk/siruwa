@@ -136,39 +136,53 @@ class AdminPaymentService implements AdminPaymentContract
         ];
     }
     public function getDataTunggakan($search, $order) {
-            // Query for tunggakan kematian
-            $tunggakanKematian = DB::table('iuran_kematian as df')
-                ->select(
-                    'df.nomor_kk',
-                    DB::raw('(SELECT p.nama 
-                              FROM penduduk p 
-                              WHERE p.nomor_kk = df.nomor_kk 
-                                AND p.status_keluarga = "Kepala Keluarga" 
-                              LIMIT 1) as head_of_family'),
-                    DB::raw('COUNT(df.id_iuran_kematian) as total_tunggakan')
-                )
-                ->where('df.status', 'Belum Lunas')
-                ->groupBy('df.nomor_kk')
-                ->get();
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+        // Query for tunggakan kematian
+        $combinedTunggakan = DB::table(DB::raw('
+            (
+                SELECT 
+                    df.nomor_kk, 
+                    (SELECT p.nama 
+                     FROM penduduk p 
+                     WHERE p.nomor_kk = df.nomor_kk 
+                     AND p.status_keluarga = "Kepala Keluarga" 
+                     LIMIT 1) as head_of_family, 
+                    COUNT(df.id_iuran_kematian) as total_tunggakan_kematian, 
+                    0 as total_tunggakan_sampah
+                FROM iuran_kematian df
+                WHERE df.status = "Belum Lunas"
+                AND YEAR(df.bulan) = ' . $currentYear . '
+                AND MONTH(df.bulan) <= ' . $currentMonth . '
+                GROUP BY df.nomor_kk
+    
+                UNION ALL
+    
+                SELECT 
+                    gf.nomor_kk, 
+                    (SELECT p.nama 
+                     FROM penduduk p 
+                     WHERE p.nomor_kk = gf.nomor_kk 
+                     AND p.status_keluarga = "Kepala Keluarga" 
+                     LIMIT 1) as head_of_family, 
+                    0 as total_tunggakan_kematian, 
+                    COUNT(gf.id_iuran_sampah) as total_tunggakan_sampah
+                FROM iuran_sampah gf
+                WHERE gf.status = "Belum Lunas"
+                AND YEAR(gf.bulan) = ' . $currentYear . '
+                AND MONTH(gf.bulan) <= ' . $currentMonth . '
+                GROUP BY gf.nomor_kk
+            ) as combined
+        '))
+        ->select(
+            'combined.nomor_kk',
+            'combined.head_of_family',
+            DB::raw('SUM(combined.total_tunggakan_kematian) as total_tunggakan_kematian'),
+            DB::raw('SUM(combined.total_tunggakan_sampah) as total_tunggakan_sampah')
+        )
+        ->groupBy('combined.nomor_kk', 'combined.head_of_family')
+        ->get();
         
-            // Query for tunggakan sampah
-            $tunggakanSampah = DB::table('iuran_sampah as gf')
-                ->select(
-                    'gf.nomor_kk',
-                    DB::raw('(SELECT p.nama 
-                              FROM penduduk p 
-                              WHERE p.nomor_kk = gf.nomor_kk 
-                                AND p.status_keluarga = "Kepala Keluarga" 
-                              LIMIT 1) as head_of_family'),
-                    DB::raw('COUNT(gf.id_iuran_sampah) as total_tunggakan')
-                )
-                ->where('gf.status', 'Belum Lunas')
-                ->groupBy('gf.nomor_kk')
-                ->get();
-        
-            return [
-                'kematian' => $tunggakanKematian,
-                'sampah' => $tunggakanSampah
-            ];
-    }        
+        return $combinedTunggakan;
+    }  
 }

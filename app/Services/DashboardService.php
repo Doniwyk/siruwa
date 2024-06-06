@@ -24,13 +24,22 @@ class DashboardService implements DashboardContract
 
     public function updateDashboardData(Request $validatedData, DataDashboardModel $orStructure)
     {
+        // dd($orStructure);
         if (!array_key_exists('image', $validatedData->toArray())) {
-            $orStructure->total_penduduk = $validatedData['total_penduduk'];
+
+            $orStructure = DataDashboardModel::find($orStructure->id_dataDashboard);
             $orStructure->fasilitas_kesehatan = $validatedData['fasilitas_kesehatan'];
             $orStructure->fasilitas_administrasi = $validatedData['fasilitas_administrasi'];
             $orStructure->fasilitas_pendidikan = $validatedData['fasilitas_pendidikan'];
-            dd($orStructure->fasilitas_pendidikan,$orStructure);
-            $orStructure->save();
+            try {
+                $orStructure = $orStructure->update([
+                    'total_pendudukk' => 2
+                ]);
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Tidak dapat memuat data' . $e->getMessage())->withErrors([$e->getMessage()]);
+            }
+
+            $orStructure = DataDashboardModel::find($orStructure->id_dataDashboard);
             return;
         }
 
@@ -41,11 +50,10 @@ class DashboardService implements DashboardContract
             $url = $cloudinaryImage->getSecurePath();
             $publicId = $cloudinaryImage->getPublicId();
 
-            
+
             $orStructure->image = $url;
             $orStructure->image_public_id = $publicId;
-            
-            dd($orStructure->image,$orStructure->image_public_id,$orStructure);
+
             $orStructure->save();
             return;
         }
@@ -67,7 +75,9 @@ class DashboardService implements DashboardContract
 
     public function dataDashboard()
     {
-        $resident = DB::table('penduduk')->count();
+        $resident = DB::table('penduduk')
+        ->where('status_penduduk', 1)
+        ->count();
         $data = DB::table('data_dashboard')->get();
         return [
             'resident' => $resident,
