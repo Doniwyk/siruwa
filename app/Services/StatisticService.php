@@ -12,27 +12,27 @@ class StatisticService implements StatisticContract
     public function countJobData()
     {
         $pns = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pekerjaan', '=', 'PNS')
             ->count();
         $tni_polri = DB::table(('penduduk'))
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pekerjaan', '=', 'TNI/POLRI')
             ->count();
         $wirausaha = DB::table(('penduduk'))
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pekerjaan', '=', 'Wirausaha')
             ->count();
         $wiraswasta = DB::table(('penduduk'))
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pekerjaan', '=', 'Wiraswasta')
             ->count();
         $pm = DB::table(('penduduk'))
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pekerjaan', '=', 'Pelajar/Mahasiswa')
             ->count();
         $tb = DB::table(('penduduk'))
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pekerjaan', '=', 'Tidak Bekerja')
             ->count();
         return [
@@ -48,27 +48,27 @@ class StatisticService implements StatisticContract
     public function countEducationData()
     {
         $tts = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pendidikan', '=', 'Tidak Tamat SD')
             ->count();
         $sd = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pendidikan', '=', 'SD')
             ->count();
         $smp = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pendidikan', '=', 'SMP')
             ->count();
         $sma = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pendidikan', '=', 'SMA')
             ->count();
         $diploma = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pendidikan', '=', 'Diploma')
             ->count();
         $sarjana = DB::table('penduduk')
-            ->where('status', 1)
+            ->where('status_penduduk', 1)
             ->where('pendidikan', '=', 'Sarjana')
             ->count();
 
