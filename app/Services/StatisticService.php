@@ -9,58 +9,70 @@ use Illuminate\Support\Facades\DB;
 class StatisticService implements StatisticContract
 {
 
-    public function countJobData(){
+    public function countJobData()
+    {
         $pns = DB::table('penduduk')
-                ->where('pekerjaan','=','PNS')
-                ->count();
+            ->where('status', 1)
+            ->where('pekerjaan', '=', 'PNS')
+            ->count();
         $tni_polri = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'TNI/POLRI')
-                    ->count();
+            ->where('status', 1)
+            ->where('pekerjaan', '=', 'TNI/POLRI')
+            ->count();
         $wirausaha = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'Wirausaha')
-                    ->count();
+            ->where('status', 1)
+            ->where('pekerjaan', '=', 'Wirausaha')
+            ->count();
         $wiraswasta = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'Wiraswasta')
-                    ->count();
+            ->where('status', 1)
+            ->where('pekerjaan', '=', 'Wiraswasta')
+            ->count();
         $pm = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'Pelajar/Mahasiswa')
-                    ->count();
+            ->where('status', 1)
+            ->where('pekerjaan', '=', 'Pelajar/Mahasiswa')
+            ->count();
         $tb = DB::table(('penduduk'))
-                    ->where('pekerjaan','=', 'Tidak Bekerja')
-                    ->count();
+            ->where('status', 1)
+            ->where('pekerjaan', '=', 'Tidak Bekerja')
+            ->count();
         return [
             'pns' => $pns,
             'tni_polri' => $tni_polri,
             'wirausaha' => $wirausaha,
             'wiraswasta' => $wiraswasta,
-            'pm' =>$pm,
+            'pm' => $pm,
             'tb' => $tb
         ];
-
     }
 
     public function countEducationData()
     {
         $tts = DB::table('penduduk')
-        ->where('pendidikan', '=', 'Tidak Tamat SD')
+            ->where('status', 1)
+            ->where('pendidikan', '=', 'Tidak Tamat SD')
             ->count();
         $sd = DB::table('penduduk')
-        ->where('pendidikan', '=', 'SD')
+            ->where('status', 1)
+            ->where('pendidikan', '=', 'SD')
             ->count();
         $smp = DB::table('penduduk')
-        ->where('pendidikan', '=', 'SMP')
+            ->where('status', 1)
+            ->where('pendidikan', '=', 'SMP')
             ->count();
         $sma = DB::table('penduduk')
-        ->where('pendidikan', '=', 'SMA')
+            ->where('status', 1)
+            ->where('pendidikan', '=', 'SMA')
             ->count();
         $diploma = DB::table('penduduk')
-        ->where('pendidikan', '=', 'Diploma')
+            ->where('status', 1)
+            ->where('pendidikan', '=', 'Diploma')
             ->count();
         $sarjana = DB::table('penduduk')
-        ->where('pendidikan', '=', 'Sarjana')
+            ->where('status', 1)
+            ->where('pendidikan', '=', 'Sarjana')
             ->count();
 
-        return[
+        return [
             'tts' => $tts,
             'sd' => $sd,
             'smp' => $smp,
@@ -70,5 +82,4 @@ class StatisticService implements StatisticContract
 
         ];
     }
-
 }

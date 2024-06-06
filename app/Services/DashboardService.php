@@ -75,7 +75,9 @@ class DashboardService implements DashboardContract
 
     public function dataDashboard()
     {
-        $resident = DB::table('penduduk')->count();
+        $resident = DB::table('penduduk')
+        ->where('status', 1)
+        ->count();
         $data = DB::table('data_dashboard')->get();
         return [
             'resident' => $resident,
