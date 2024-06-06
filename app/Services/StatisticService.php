@@ -79,7 +79,6 @@ class StatisticService implements StatisticContract
             'sma' => $sma,
             'diploma' => $diploma,
             'sarjana' => $sarjana
-
         ];
     }
 }
