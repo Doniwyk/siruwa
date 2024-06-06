@@ -55,7 +55,7 @@ class DSSFuzzyService
 
     private function hitungRentang($x, $a, $b, $c, $d)
     {
-        // Metode trapezoidal (dibagi 4 kriteria)
+        // Metode trapezoidal (dibagi 4 kriteria keanggotaan)
         if ($x <= $a || $x >= $d) {
             return 0;  
         } elseif ($x >= $b && $x <= $c) {

@@ -13,11 +13,6 @@
     <h1 class="h1-semibold">{{ $title }}</h1>
 </div> 
 
-
-
-
-
-
 <div class="link-option_parrent w-max">
     <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'fuzzy', 'limit' => $limit]) }}" @class([
         'link-option',
@@ -38,10 +33,12 @@
         Metode SAW + Fuzzy
     </a>
 </div>
-<div class="flex flex-row justify-between" x-data="{ showPopup: false }">
+
+<!-- hasil perhitungan dan sorting -->
+<div class="flex flex-row justify-between" x-data="popupData()">
     <div class="flex flex-row gap-4 items-center">
         <span class="text-2xl font-semibold text-main">Hasil Perhitungan</span>
-        <button @click="showPopup = true">
+        <button @click="showPopup = true; setPopupContent('{{ $typeDocument }}')">
             <x-icon.detail />
         </button>
     </div>
@@ -58,14 +55,15 @@
     <!-- Popup -->
     <div x-show="showPopup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" x-cloak>
         <div class="bg-white p-8 rounded-lg shadow-lg relative" id="document-modal">
-            <h2 class="text-center text-xl font-semibold mb-4">Detail Perhitungan</h2>
+            <h2 class="text-center text-xl font-semibold mb-4 text-main" x-text="popupTitle"></h2>
             <div class="max-w-96">
-                <p>Kriteria</p>
-                <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi asperiores quas magni maxime fugiat voluptate delectus aliquid id impedit odit velit, amet natus beatae harum porro error quis neque voluptatum.</sp>
+                <span class="text-base text-main" x-text="popupContent"></span>
+                <br></br>
+                <p class="text-base text-main">Kriteria : Gaji, pajak bumi, biaya listrik, biaya air, pajak kendaraan, dan jumlah tanggungan</p>
             </div>
             <div class="flex-center mt-4">
                 <button @click="showPopup = false" class="button-main text-white">
-                    Wakatta
+                    Tutup
                 </button>
             </div>
         </div>
@@ -101,3 +99,33 @@
         <p>Type document tidak valid</p>
 @endswitch
 @endsection
+
+<script>
+function popupData() {
+    return {
+        showPopup: false,
+        popupTitle: '',
+        popupContent: '',
+        setPopupContent(typeDocument) {
+            switch (typeDocument) {
+                case 'fuzzy':
+                    this.popupTitle = 'Metode Fuzzy';
+                    this.popupContent = 'Fuzzy adalah logika kabur yang digunakan untuk menentukan suatu nilai berdasarkan himpunan fuzzy.';
+                    break;
+                case 'saw':
+                    this.popupTitle = 'Metode SAW';
+                    this.popupContent = 'SAW adalah perhitungan sederhana yang digunakan untuk menentukan suatu nilai berdasarkan bobot dan kriteria tertentu.';
+                    break;
+                case 'combined':
+                    this.popupTitle = 'Metode SAW + Fuzzy';
+                    this.popupContent = 'Metode SAW + Fuzzy menggabungkan perhitungan sederhana dari SAW dengan logika kabur dari Fuzzy untuk menentukan suatu nilai.';
+                    break;
+                default:
+                    this.popupTitle = 'Detail Perhitungan';
+                    this.popupContent = 'Informasi tidak tersedia.';
+                    break;
+            }
+        }
+    };
+}
+</script>

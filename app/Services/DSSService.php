@@ -15,6 +15,7 @@ class DSSService
             'total_biaya_listrik' => 0.05,
             'total_biaya_air' => 0.05,
             'total_pajak_kendaraan' => 0.2,
+            
             'jumlah_tanggungan' => 0.25
         ];
 
