@@ -2,7 +2,8 @@
 @section('content')
     <h1 class="h1-semibold">Manajemen Berita & Acara</h1>
     <div class="summary-card_news">
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
+        <div
+            class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
             <h4 class="text-xl text-main font-semibold mb-2">Acara terdekat</h4>
             @if (!$lastestEvent->isEmpty())
                 @foreach ($lastestEvent as $ln)
@@ -12,7 +13,8 @@
                 <span class="text-center font-semibold text md text-main">NOT FOUND</span>
             @endif
         </div>
-        <div class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
+        <div
+            class="summary-card card-top flex flex-col border-y border-r border-l-8 border-main sm:gap-1 md:gap-4 drop-shadow-xl">
             <h4 class="text-xl text-main font-semibold mb-2">Berita terbaru</h4>
             @if (!$lastestNews->isEmpty())
                 @foreach ($lastestNews as $ln)
@@ -68,11 +70,13 @@
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td class="sm:text-sm md:text-base">
+                                <td class="sm:text-sm md:text-base relative">
                                     <div class="flex gap-5 text-main sm:items-center md:items-start">
-                                        <img src="{{ $n->url_gambar }}" alt="logo"
-                                            class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
-                                        <p class="desc-news">
+                                        <div class="animate-pulse min-w-[8.2rem] h-20 bg-slate-500 rounded-2xl">
+                                            <img src="{{ $n->url_gambar }}" alt="logo"
+                                                class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
+                                        </div>
+                                        <p class="desc-news text-wrap">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
@@ -125,12 +129,12 @@
                         </tr>
                     @else
                         @foreach ($news as $n)
-                            <tr >
+                            <tr>
                                 <td class="sm:text-sm md:text-base">
                                     <div class="flex gap-5 text-main sm:items-center md:items-start">
                                         <img src="{{ $n->url_gambar }}" alt="logo"
                                             class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
-                                        <p class="desc-news">
+                                        <p class="desc-news text-wrap">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
@@ -171,48 +175,62 @@
 
 @section('script')
     <script>
-        function fetchNewsData(typeDocument = '', search = '', order = 'asc', page = 1) {
-            $.ajax({
-                url: '{{ route('admin.manajemen-berita.index') }}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    typeDocument: typeDocument,
-                    search: search,
-                    order: order,
-                    page: page
-                },
-                success: function(data) {
-                    const tableBody = document.getElementById('table-parent tbody');
-                    console.log(tableBody);
+        $(document).ready(function() {
+            let image = $('.animate-pulse img');
+            let imageUrl = image.attr('src');
+            let hasLoaded = localStorage.getItem('imageLoaded');
 
-                    $('#table-parent tbody').empty();
-                    $('#pagination').empty();
+            if (!hasLoaded) {
+                image.on('load', function() {
+                    $('.animate-pulse').removeClass('animate-pulse');
+                    localStorage.setItem('imageLoaded', true);
+                });
+            } else {
+                $('.animate-pulse').removeClass('animate-pulse');
+            }
 
-                    const initialLocation =
-                        `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                    window.history.pushState({
-                        path: initialLocation
-                    }, '', initialLocation);
+            function fetchNewsData(typeDocument = '', search = '', order = 'asc', page = 1) {
+                $.ajax({
+                    url: '{{ route('admin.manajemen-berita.index') }}',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        typeDocument: typeDocument,
+                        search: search,
+                        order: order,
+                        page: page
+                    },
+                    success: function(data) {
+                        const tableBody = document.getElementById('table-parent tbody');
+                        console.log(tableBody);
 
-                    const news = data.news;
+                        $('#table-parent tbody').empty();
+                        $('#pagination').empty();
 
-                    if (!news.length) {
-                        $('#table-parent tbody').append(
-                            `<tr>
+                        const initialLocation =
+                            `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
+                        window.history.pushState({
+                            path: initialLocation
+                        }, '', initialLocation);
+
+                        const news = data.news;
+
+                        if (!news.length) {
+                            $('#table-parent tbody').append(
+                                `<tr>
                                 <td colspan="5" class="text-center">No data found</td>
                             </tr>`
-                        );
-                        return;
-                    }
-                    $.each(news, function(index, news) {
-                        var dateString = news.created_at;
+                            );
+                            return;
+                        }
+                        $.each(news, function(index, news) {
+                            let dateString = news.created_at;
 
-                        var dateTime = luxon.DateTime.fromISO(dateString);
+                            let dateTime = luxon.DateTime.fromISO(dateString);
 
-                        var formattedDate = dateTime.toFormat('MMMM, dd yyyy');
-                        $('#table-parent tbody').append(
-                            `
+                            let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+                            $('#table-parent tbody').append(
+                                `
                             <tr>
                                 <td>
                                     <div class="flex gap-5 text-main">
@@ -236,58 +254,59 @@
                                 </td>
                              </tr>
                             `
-                        );
-                    });
+                            );
+                        });
 
-                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error: " + status + " " + error);
-                }
-            });
-        }
-        function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
-            $.ajax({
-                url: '{{ route('admin.manajemen-berita.index') }}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    typeDocument: typeDocument,
-                    search: search,
-                    order: order,
-                    page: page
-                },
-                success: function(data) {
-                    const tableBody = document.getElementById('table-parent tbody');
-                    console.log(tableBody);
+                        $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + status + " " + error);
+                    }
+                });
+            }
 
-                    $('#table-parent tbody').empty();
-                    $('#pagination').empty();
+            function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
+                $.ajax({
+                    url: '{{ route('admin.manajemen-berita.index') }}',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        typeDocument: typeDocument,
+                        search: search,
+                        order: order,
+                        page: page
+                    },
+                    success: function(data) {
+                        const tableBody = document.getElementById('table-parent tbody');
+                        console.log(tableBody);
 
-                    const initialLocation =
-                        `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                    window.history.pushState({
-                        path: initialLocation
-                    }, '', initialLocation);
+                        $('#table-parent tbody').empty();
+                        $('#pagination').empty();
 
-                    const news = data.news;
+                        const initialLocation =
+                            `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
+                        window.history.pushState({
+                            path: initialLocation
+                        }, '', initialLocation);
 
-                    if (!news.length) {
-                        $('#table-parent tbody').append(
-                            `<tr>
+                        const news = data.news;
+
+                        if (!news.length) {
+                            $('#table-parent tbody').append(
+                                `<tr>
                                 <td colspan="5" class="text-center">No data found</td>
                             </tr>`
-                        );
-                        return;
-                    }
-                    $.each(news, function(index, news) {
-                        var dateString = news.tanggal;
+                            );
+                            return;
+                        }
+                        $.each(news, function(index, news) {
+                            let dateString = news.tanggal;
 
-                        var dateTime = luxon.DateTime.fromISO(dateString);
+                            let dateTime = luxon.DateTime.fromISO(dateString);
 
-                        var formattedDate = dateTime.toFormat('MMMM, dd yyyy');
-                        $('#table-parent tbody').append(
-                            `
+                            let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+                            $('#table-parent tbody').append(
+                                `
                             <tr>
                                 <td>
                                     <div class="flex gap-5 text-main">
@@ -311,15 +330,17 @@
                                 </td>
                              </tr>
                             `
-                        );
-                    });
+                            );
+                        });
 
-                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error: " + status + " " + error);
-                }
-            });
-        }
+                        $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + status + " " + error);
+                    }
+                });
+            }
+
+        })
     </script>
 @endsection

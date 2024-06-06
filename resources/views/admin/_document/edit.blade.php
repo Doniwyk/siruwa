@@ -31,11 +31,11 @@
                 <input type="text" name="date" id="nama" class="form-control" disabled
                     value="{{ $document->created_at->format('d/m/Y') }}">
             </div>
-            <div class="form-group row-span-2">
+            <div class="form-group row-span-3 col-span-2">
                 <label for="nama" class="text-label_light">Deskripsi</label>
-                <textarea type="text" name="description" id="nama" class="form-control min-h-[10rem] text-left " disabled>{{ $document->keperluan }}</textarea>
+                <textarea type="text" name="description" id="nama" class="form-control h-full text-left " disabled>{{ $document->keperluan }}</textarea>
             </div>
-            <div class="form-group row-span-2">
+            <div class="form-group row-span-3 col-span-2">
                 <label for="nama" class="text-label_light">Catatan</label>
                 <textarea type="text" name="keterangan_status" id="keterangan_status" class="sm:text-sm md:text-base border-2 border-input-border outline-none rounded-2xl py-2 px-4 min-h-[10rem] text-left " required></textarea>
             </div>
