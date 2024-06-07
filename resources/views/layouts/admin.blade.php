@@ -79,6 +79,8 @@
                 fetchEventData(typeDocument, search, order);
             } else if (typeDocument == "pembayaran" || typeDocument == "riwayatPembayaran") {
                 fetchPaymentData(typeDocument, search, order);
+            } else if (typeDocument == "iuran-kematian" || typeDocument == "iuran-sampah") {
+                fetchTunggakanData(typeDocument, search, order);
             } else {
                 fetchResidentData(typeDocument, search, order);
             }

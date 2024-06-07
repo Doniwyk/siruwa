@@ -92,7 +92,7 @@ class AdminPaymentController extends Controller
     public function getDataTunggakan(Request $request)
     {
         try{
-            $typeDocument = $request->query('typeDocument', 'pembayaran');
+            $typeDocument = $request->query('typeDocument', 'iuran-sampah');
             $search = $request->query('search', '');
             $order = $request->query('order', 'asc');
             $adminId = Auth::id();
@@ -101,6 +101,16 @@ class AdminPaymentController extends Controller
             $page = $this->pageName;
 
             $dataTunggakan = $this->paymentService->getDataTunggakan($search, $order);
+
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'page' => $page,
+                    'title' => $title,
+                    'typeDocument' => $typeDocument,
+                    'dataTunggakan' => $dataTunggakan
+                ]);
+            }
+            
             return view('admin._fund.tunggakan', compact('dataTunggakan', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
         } catch(\Exception $e){
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);

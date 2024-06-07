@@ -136,6 +136,7 @@ class AdminPaymentService implements AdminPaymentContract
         ];
     }
     public function getDataTunggakan($search, $order) {
+        
         $currentYear = date('Y');
         $currentMonth = date('m');
         // Query for tunggakan kematian
@@ -180,9 +181,19 @@ class AdminPaymentService implements AdminPaymentContract
             DB::raw('SUM(combined.total_tunggakan_kematian) as total_tunggakan_kematian'),
             DB::raw('SUM(combined.total_tunggakan_sampah) as total_tunggakan_sampah')
         )
-        ->groupBy('combined.nomor_kk', 'combined.head_of_family')
-        ->get();
+        ->groupBy('combined.nomor_kk', 'combined.head_of_family');
         
-        return $combinedTunggakan;
+            // Apply search filter if provided
+        if ($search) {
+            $combinedTunggakan->having('combined.head_of_family', 'LIKE', '%' . $search . '%')
+                            ->orHaving('combined.nomor_kk', 'LIKE', '%' . $search . '%');
+        }
+
+        // Apply ordering
+        $combinedTunggakan->orderBy('combined.head_of_family', $order);
+
+        return $combinedTunggakan->get();
+
+
     }  
 }
