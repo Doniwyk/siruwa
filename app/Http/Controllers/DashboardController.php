@@ -28,7 +28,8 @@ class DashboardController extends Controller
             $dataDashboard = $this->dashboardContract->dataDashboard();
             return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard'=>$dataDashboard]);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            dd($e);
+            // return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 

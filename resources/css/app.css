@@ -262,6 +262,9 @@ input[type=file]::file-selector-button:hover{
 .card {
     @apply bg-white flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main;
 }
+.card-details-fund{
+    @apply bg-white flex-1 rounded-2xl flex py-4 px-5  justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main drop-shadow-2xl;
+}
 
 .text-fund {
     @apply text-2xl font-bold;
