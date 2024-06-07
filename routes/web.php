@@ -55,8 +55,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 //==================================ROUTE LANDING PAGE========================================
 
 Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index');
-
-
+Route::get('/fetch-events', [DashboardController::class, 'fetchEvents']);
 //==================================ROUTE STATISTIC FOR ADMIN========================================
 
 Route::group([
@@ -174,6 +173,8 @@ Route::group([
     Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
     Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('export');
     Route::get('/tunggakan', [AdminPaymentController::class, 'getDataTunggakan'])->name('tunggakan');
+    Route::get('/addExpense',[AdminPaymentController::class,'addExpende'])->name('add');
+    Route::post('/storeExpense',[AdminPaymentController::class,'storexpende'])->name('add');
 
 });
 

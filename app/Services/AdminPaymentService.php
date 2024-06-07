@@ -4,10 +4,14 @@ namespace App\Services;
 
 use App\Contracts\AdminPaymentContract;
 use App\Models\DeathFundModel;
+use App\Models\ExpenseModel;
 use App\Models\GarbageFundModel;
+use App\Models\IncomeModel;
 use App\Models\PaymentModel;
+use App\Models\PemasukanModel;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -30,6 +34,7 @@ class AdminPaymentService implements AdminPaymentContract
 
         $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
         $no_kk = $payment->nomor_kk;
+        $jenis= $payment->jenis;
 
         //Mencaari bulan yang belum lunas
         $monthsDue = $table::where('nomor_kk', $no_kk)
@@ -43,6 +48,15 @@ class AdminPaymentService implements AdminPaymentContract
             $payment->status = 'Terverifikasi';
             $payment->id_admin = Auth::user()->id;
             $payment->save();
+            try{
+            IncomeModel::create([
+                'jumlah_pemasukan' => $totalPayment,
+                'jenis_pemasukan'=> $jenis,
+            ]);
+            } catch(\Exception $e){
+                    dd($e);
+            }
+
 
             //Menghitung jumlah bulan yang belum lunas
             $monthsDueCount = $monthsDue->count();
@@ -196,4 +210,64 @@ class AdminPaymentService implements AdminPaymentContract
 
 
     }  
+
+
+    //Data keuangan
+
+    public function getFinancialData(){
+        $deathFundIncome = DB::table('pemasukan')
+            ->where('jenis_pemasukan','Iuran Kematian')
+            ->sum('jumlah_pemasukan');
+        $garbageFundIncome = DB::table('pemasukan')
+            ->where('jenis_pemasukan','Iuran Sampah')
+            ->sum('jumlah_pemasukan');
+
+        $deathFundExpense=DB::table('pengeluaran')
+        ->where('jenis_pengeluaran', 'Iuran Kematian')
+        ->sum('jumlah_pengeluaran');
+
+        $garbageFundExpense=DB::table('pengeluaran')
+        ->where('jenis_pengeluaran', 'Iuran Sampah')
+        ->sum('jumlah_pengeluaran');
+
+        $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
+        $incomeDetail = IncomeModel::all();
+        $expenseDetail = ExpenseModel::all();
+        $expense = DB::table('pengeluaran')->sum('jumlah_pengeluaran');
+        $saldo = $income - $expense;
+
+        return [
+            'deathFundIncome' => $deathFundIncome, // Pemasukan dari iuran kematian
+            'garbageFundIncome' => $garbageFundIncome, //Pemasukan dari iuran sampah
+            'deathFundExpense' => $deathFundExpense, //Pengeluaran untuk kematian warga
+            'garbageFundExpense' => $garbageFundExpense, //Pengeluaran untuk membayar jasa pengelolaan sampah
+            'income' =>  $income, //total semua pemasukan
+            'expense' => $expense, //total semua pengeluaran
+            'saldo' => $saldo, //saldo saat ini
+            'incomeDetail' => $incomeDetail, // detail pemasukan
+            'expenseDetail' => $expenseDetail //detail pengeluaran
+        ];
+        
+    }
+
+    //Pengeluaran
+    public function storeExpense(array $validatedData){
+        
+        DB::beginTransaction();
+        try {
+            try {
+                IncomeModel::create([
+                    'jumlah_pemasukan' => $validatedData['jumlah_pemasukan'],
+                    'jenis_pemasukan' => $validatedData['jenis_pengeluaran']
+                ]);
+            } catch (\Exception $e) {
+                dd($e);
+            }
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw new Exception($exception->getMessage());
+        }
+    }
+
 }

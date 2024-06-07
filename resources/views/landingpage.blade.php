@@ -7,7 +7,54 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>SIRUWA</title>
+
+
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    
+    <script>
+      // kalendar
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth, listYear'
+          },
+            initialView: 'dayGridMonth',
+            events: '/fetch-events' // Mengambil event dari endpoint ini
+        });
+
+        eventDisplay : '#225157'
+        eventColor: '#225157'
+        calendar.render();
+    });
+
+    </script>
+
+<style>
+        /* CSS untuk membuat header bulan rounded */
+    .fc-scrollgrid,  .fc-scrollgrid-liquid {
+      border-radius: 15px;
+      background-color: white;
+    }
+
+    thead th {
+      border-radius: 16px 16px 0 0;
+      background-color: rgb(34 81 87 / var(--tw-bg-opacity));
+      font-size: 1rem;
+      line-height: 1.25rem;
+      font-weight: 600;
+      color: rgb(255 255 255 / var(--tw-text-opacity));
+      padding: 2px 2px 2px;
+    }
+
+    fc-col-header-cell-cushion {
+      background-color: white;
+    }
+    </style>
 </head>
 
 <!-- Beranda -->
@@ -213,12 +260,9 @@
   </section>
 
   <!-- Kalender -->
-  <section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen justify-center sm:hidden">
-    <span class="text-cyan-900 text-5xl font-semibold">Agenda</span>
-    <div class="flex gap-10 items-center">
-      <div id="calendarContainer" class=""></div>
-      <div id="organizerContainer"></div>
-    </div>
+  <section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen sm:hidden">
+    <span class="text-main text-5xl font-semibold">Agenda</span>
+    <div class="w-3/5 text-main font-semibold" id='calendar'></div>
   </section>
 
   <!-- Struktur Organisasi -->
@@ -229,34 +273,7 @@
     </div>
   </section>
 
-  <!-- Stick script at the end of the body -->
-  <script src="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.js"></script>
   <script>
-    var calendar = new Calendar("calendarContainer", "medium",
-      ["Monday", 3],
-      ["#ffffff", "#225157", "#225157", "#ffffff"], {
-      });
-
-    var data = {
-      2024: {
-        5: {
-          2: [{
-            startTime: "00:00",
-            endTime: "24:00",
-            text: "Mata Kuliah PSI"
-          }],
-
-          3: [{
-            startTime: "00:00",
-            endTime: "24:00",
-            text: "Mata Kuliah PSI"
-          }],
-        } 
-      }
-    };
-
-    var organizer = new Organizer("organizerContainer", calendar, data);
-
     // Gambar Slideshow ofc dari GPT h3h3
     function slideshow() {
             return {

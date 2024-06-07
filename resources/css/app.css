@@ -226,7 +226,7 @@ input[type=file]::file-selector-button:hover{
     }
 
     .table-parent-spk-statistic {
-        @apply w-full rounded-3xl bg-white table-fixed overflow-hidden border;
+        @apply w-full rounded-t-3xl bg-white table-fixed overflow-hidden border-none;
     }
     th,
     td {
@@ -386,3 +386,4 @@ input[type=file]::file-selector-button:hover{
 [x-cloak] {
     display: hidden !important;
 }
+[x-cloak] { display: none; }

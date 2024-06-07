@@ -32,6 +32,19 @@ class DashboardController extends Controller
         }
     }
 
+    //Agenda
+    public function fetchEvents()
+    {
+        $events = EventModel::select('judul as title', 'tanggal as start')
+        ->get()
+        ->map(function($event) {
+            $event->start = \Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i:s');
+            return $event;
+        });
+
+        return response()->json($events);
+    }
+
     //To manajemen organixation structure for admin
     public function manajemenDashboard(){
         try{
@@ -53,6 +66,5 @@ class DashboardController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal megubah data' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
-
     }
 }
