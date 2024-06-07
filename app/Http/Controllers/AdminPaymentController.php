@@ -32,13 +32,9 @@ class AdminPaymentController extends Controller
 
             $fundData = $this->paymentService->getSubmission($search, $order);
             $history = $this->paymentService->getValidatedPayment($search, $order);
+            // $financialData = $this->paymentService->getFinancialData();
             $financialData = $this->paymentService->getFinancialData();
-            // try {
-            //     $financialData = $this->paymentService->getFinancialData();
-            //     dd($financialData);
-            // } catch (\Exception $e) {
-            //     dd($e);
-            // }
+
 
             switch ($typeDocument) {
                 case 'pembayaran':
@@ -82,11 +78,6 @@ class AdminPaymentController extends Controller
         }
         return redirect()->route('admin.data-pembayaran.index');
     }
-    // public function validatedPayment()
-    // { //riwayat
-    //     $validatedPayment = $this->paymentService->getValidatedPayment();
-    //     return $validatedPayment;
-    // }
     public function showBuktiPembayaran(PaymentModel $payment)
     {
         try {
@@ -124,8 +115,19 @@ class AdminPaymentController extends Controller
         }
     }
 
-    public function addExpense(){
-        return  view('admin._fund.add');
+    public function addExpense(Request $request){
+        
+        $typeDocument = $request->query('typeDocument', 'pembayaran');
+        $search = $request->query('search', '');
+        $order = $request->query('order', 'asc');
+        $adminId = Auth::id();
+
+        $title = "Manajemen Dana";
+        $page = $this->pageName;
+
+        $financialData = $this->paymentService->getFinancialData();
+
+        return  view('admin._fund.add', compact('title', 'page', 'financialData', 'typeDocument', 'search', 'order'));
     }
     public function storeExpense(Request $request)
     {

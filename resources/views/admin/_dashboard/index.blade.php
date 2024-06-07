@@ -110,7 +110,7 @@
         $(document).ready(()=>{
             let image = $('.animate-pulse');
             let imageUrl = image.attr('src');
-            let hasLoaded = localStorage.getItem('imageLoaded');
+            let hasLoaded = localStorage.getItem('iundmageLoaded');
 
             if (!hasLoaded) {
                 image.on('load', function() {
