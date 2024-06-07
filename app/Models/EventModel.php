@@ -15,6 +15,7 @@ class EventModel extends Model
 
     protected $fillable = ['id_admin', 'url_gambar', 'judul', 'isi', 'status', 'tanggal', 'image_public_id'];
 
+    protected $dates = ['tanggal'];
     public function admin(): BelongsTo
     {
         return $this->belongsTo(AccountModel::class, 'id_admin');

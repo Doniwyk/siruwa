@@ -55,8 +55,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 //==================================ROUTE LANDING PAGE========================================
 
 Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index');
-
-
+Route::get('/fetch-events', [DashboardController::class, 'fetchEvents']);
 //==================================ROUTE STATISTIC FOR ADMIN========================================
 
 Route::group([
