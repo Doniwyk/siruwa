@@ -1,0 +1,392 @@
+@import url("https://fonts.googleapis.com/css2?family=Anek+Tamil:wght@100..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: "Anek Tamil", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+a:hover{
+    @apply text-inherit
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+@layer utilities {
+    .flex-center {
+        @apply flex justify-center items-center;
+    }
+
+    .flex-between {
+        @apply flex justify-between items-center;
+    }
+
+    .flex-start {
+        @apply flex justify-start items-center;
+    }
+    .flex-end {
+        @apply flex justify-end items-center;
+    }
+
+    .h1-semibold {
+        @apply sm:text-2xl md:text-4xl text-main font-semibold;
+    }
+    .h4-semibold {
+        @apply text-secondary font-semibold mb-5;
+    }
+    .text-label_light {
+        @apply sm:text-sm md:text-base text-green-light font-semibold;
+    }
+
+    .link-option_parrent {
+        @apply font-semibold bg-white rounded-xl p-1 flex items-center;
+    }
+    .link-option {
+        @apply text-center text-secondary font-medium transition-all ease-linear py-2 relative sm:text-sm md:text-base md:px-10 sm:px-6;
+    }
+    .link-option_active {
+        @apply text-white font-semibold relative bg-main rounded-xl;
+    }
+    .invert-black {
+        @apply invert-[.6] transition font-bold;
+    }
+
+    .web_add-wrapper {
+        @apply sm:w-full md:w-auto md:min-w-[22rem] flex sm:justify-between sm:gap-2 md:gap-6;
+    }
+    .mobile_add-wrapper {
+        @apply block;
+    }
+
+    .mobile_add-wrapper a {
+        @apply block px-4 py-2;
+    }
+
+    .button-order_desc {
+        @apply flex-center rotate-180;
+    }
+
+    .form-group {
+        @apply flex flex-col flex-1 gap-2;
+    }
+    .form-control {
+        @apply py-2 px-6 rounded-2xl bg-input-disabled sm:text-sm md:text-base text-input-text border-none;
+    }
+    .form-control-input {
+        @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
+    }
+    .button-action {
+        @apply sm:px-16 md:px-24 sm:py-2 md:py-3 rounded-2xl sm:text-sm md:text-base;
+    }
+    .dropzone {
+        @apply h-full w-full border-2 border-dashed border-main bg-white rounded-2xl;
+    }
+    .ck-editor__editable_inline {
+        @apply h-[20rem];
+    }
+    .button-hover {
+        @apply hover:scale-95 transition-transform;
+    }
+    .button-main {
+        @apply flex-between gap-[10px] px-6 py-2 bg-main rounded-xl font-semibold text-white button-hover;
+    }
+    .button-white {
+        @apply flex-between gap-[10px] px-6 py-3 bg-white rounded-xl font-semibold text-main button-hover;
+    }
+    .input_profile-rw {
+        @apply w-16 text-center text-2xl text-white font-bold bg-transparent outline-none border-none;
+    }
+    .label_profile-rw {
+        @apply text-2xl text-white font-bold;
+    }
+    .enable-input_profile-rw {
+        @apply outline-none border-b-2 border-white;
+    }
+    .dropdown-content a {
+        @apply px-6 py-3 block;
+    }
+    .hamburger {
+        @apply h-[2.5px] w-8 bg-white rounded relative before:block before:absolute before:-top-2 before:w-full before:h-full before:bg-white before:rounded after:block after:absolute after:-bottom-2 after:w-full after:h-full after:bg-white after:rounded;
+    }
+    .form-input-login-page {
+        @apply py-3 px-6 rounded-2xl bg-white text-base font-medium text-input-text ring-gray-400 focus:ring-1 focus:ring-secondary focus:outline-none focus:shadow-md transition-all duration-150;
+    }
+    .custom-select {
+        @apply appearance-none rounded-2xl text-secondary focus:ring-1 focus:ring-secondary transition-all duration-150 opacity-70 font-semibold outline-none px-6 py-2 bg-white;
+        background-repeat: no-repeat;
+        -webkit-appearance: none; /* Safari */
+        -moz-appearance: none; /* Firefox */
+        appearance: none; /* Default */
+    }
+    .statistic-card{
+        @apply bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl drop-shadow-xl;
+    }
+}
+
+input[type=file]::file-selector-button{
+    @apply bg-main
+}
+input[type=file]::file-selector-button:hover{
+    @apply bg-main
+}
+
+.bg_beranda {
+    background: url("/public/bg_beranda.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.bg_berita1 {
+    background: url("/public/berita1.jpg") no-repeat fixed;
+    background-size: cover;
+    background-attachment: scroll;
+}
+.bg_berita2 {
+    background: url("/public/berita2.jpeg") no-repeat center fixed;
+    background-size: cover;
+    background-attachment: scroll;
+}
+@layer components {
+    .topbar {
+        @apply h-[5.75rem] w-full bg-secondary flex justify-between fixed z-50;
+    }
+    .left-sidebar {
+        @apply min-h-full w-[20rem] flex flex-col justify-between font-medium text-white transition-left duration-300 ease-in-out;
+    }
+    .web_left-sidebar {
+        @apply px-4 pb-6 pt-28 bg-main text-[16px] w-[30rem];
+    }
+    .web_left-sidebar a{
+        @apply whitespace-nowrap
+    }
+    .web_left-sidebar a:hover img {
+        @apply invert-black;
+    }
+    .mobile_left-sidebar {
+        @apply p-2 pr-20 pt-28 bg-main/90  absolute z-40 text-sm -left-[20rem];
+    }
+
+    .content {
+        @apply sm:px-4 sm:pt-28 sm:pb-5 md:px-16 md:py-9 md:pt-32 h-screen w-full bg-main-bg overflow-auto flex flex-col md:gap-9 sm:gap-6;
+    }
+
+    .content-landingpage {
+        @apply p-0;
+    }
+    .nav-menu {
+        @apply flex gap-4 px-3 py-4 w-full rounded-2xl transition;
+    }
+    .nav-menu:hover {
+        @apply bg-white text-main font-bold;
+    }
+    .topbar {
+        @apply px-6 py-4;
+    }
+
+    .filter_parent {
+        @apply min-h-[3rem] w-full flex sm:gap-1 md:gap-16 justify-between rounded-2xl overflow-hidden z-10;
+    }
+    .search-option {
+        @apply basis-3/4 bg-white flex items-center rounded-2xl border-2 relative;
+    }
+    .filter-option_parent {
+        @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between border-2;
+    }
+    .table-parent {
+        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden whitespace-nowrap;
+    }
+    .table-resident {
+        @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
+    }
+    .table-fund {
+        @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
+    }
+    .table-fund thead tr th{
+        @apply border-r border-white;
+    }
+    .table-fund tbody tr{
+        @apply border-t border-white border-b-0;
+    }
+    th,
+    td {
+        @apply p-3 text-left;
+    }
+    thead th {
+        @apply text-lg font-bold bg-secondary text-white;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-secondary text-base font-medium;
+    }
+
+    .table-parent-spk-statistic {
+        @apply w-full rounded-t-3xl bg-white table-fixed overflow-hidden border-none;
+    }
+    th,
+    td {
+        @apply p-3 pl-6 text-left;
+    }
+    thead th {
+        @apply text-sm font-bold bg-secondary text-white;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-secondary text-base font-medium;
+    }
+}
+#success-modal,#document-modal, #payment-modal {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(20px);
+    }
+}
+.summary-card_fund {
+    @apply flex sm:gap-5 md:gap-9 sm:flex-col md:flex-row;
+}
+.card {
+    @apply bg-white flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main;
+}
+.card-details-fund{
+    @apply bg-white flex-1 rounded-2xl flex py-4 px-5  justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main drop-shadow-2xl;
+}
+
+.text-fund {
+    @apply text-2xl font-bold;
+}
+
+.summary-card_news {
+    @apply flex sm:flex-col md:flex-row sm:gap-5 md:gap-9;
+}
+.summary-card {
+    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem];
+}
+.card-total {
+    @apply flex flex-auto;
+}
+.card-total > div {
+    @apply flex items-center justify-center flex-col text-base text-main gap-2;
+}
+.card-total > div > label:first-child {
+    @apply text-main font-bold text-2xl;
+}
+.news {
+    @apply h-[5rem] flex justify-start items-center;
+}
+
+.preview-paragraf {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* Jumlah maksimal baris */
+    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem];
+}
+.details {
+    @apply flex gap-2 items-center;
+}
+
+/* Profile Page */
+.profile_parent {
+    @apply flex p-9 bg-main rounded-2xl gap-9;
+}
+.profile-desc {
+    @apply flex flex-col text-white text-xl gap-2 font-normal;
+}
+.input-form {
+    @apply outline-gray-400 rounded-2xl border-gray-400 px-6 py-2 border text-main;
+}
+
+/* LANDINGPAGE STYLING */
+.menu {
+    @apply flex flex-col justify-center items-center gap-4 sm:gap-2 text-white text-2xl sm:text-xl text-center font-bold;
+}
+.news-container-landing {
+    @apply rounded-2xl flex flex-col justify-end;
+}
+.news-landing {
+    @apply flex flex-col justify-end gap-2.5 bg-gradient-to-t from-black to-transparent rounded-2xl p-4;
+}
+
+/* USER STYLING */
+.content-user {
+    @apply flex flex-col px-16 py-9 sm:p-4 md:gap-9 sm:gap-6;
+}
+.resident-profile-subheader {
+    @apply block mb-6 text-2xl font-semibold text-secondary;
+}
+.btn-main {
+    @apply w-60 bg-secondary text-stone-50 font-semibold py-3 rounded-2xl flex justify-center items-center;
+}
+.btn-secondary {
+    @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
+}
+.resident-header {
+    @apply sm:text-2xl md:text-4xl text-secondary font-semibold;
+}
+.resident-tab-parent {
+    @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
+}
+.resident-tab {
+    @apply flex-1 py-2 px-4 rounded-xl text-secondary font-medium focus:font-semibold focus:outline-none w-[44rem];
+}
+.left-icon {
+    @apply absolute inset-y-0 left-4 h-5 w-5 my-auto;
+}
+.right-icon {
+    @apply absolute inset-y-0 right-4 h-5 w-5 my-auto;
+}
+.resident-select {
+    @apply py-2 px-12 rounded-2xl text-gray-400 font-medium appearance-none h-[3rem] w-full;
+}
+.resident-search {
+    @apply py-2 pl-12 pr-6 rounded-2xl placeholder:text-gray-400 font-medium h-[3rem] w-full;
+}
+.button-pay {
+    @apply px-11 py-3 bg-secondary font-semibold text-stone-50 rounded-2xl whitespace-nowrap;
+}
+.fund-header {
+    @apply text-white tracking-wider;
+}
+.left-header {
+    @apply font-medium text-white bg-secondary border-white border-r;
+}
+.fund-header tr th {
+    @apply bg-secondary font-medium text-base text-center py-5 min-w-[11rem];
+}
+.fund-body tr {
+    @apply border-none;
+}
+.fund-body tr td {
+    @apply text-center min-w-[0px] py-5;
+}
+.history-header tr th {
+    @apply bg-secondary py-3 px-6;
+}
+.history-body tr {
+    @apply border-none;
+}
+.history-body tr td {
+    @apply bg-white py-3 px-6;
+}
+.resident-input {
+    @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
+}
+
+[x-cloak] {
+    display: hidden !important;
+}
+[x-cloak] { display: none; }
