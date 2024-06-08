@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Chart;
+namespace App\View\Components\Icon;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LineChart extends Component
+class Like extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class LineChart extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.chart.line-chart');
+        return view('components.icon.like');
     }
 }

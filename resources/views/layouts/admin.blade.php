@@ -11,9 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <title>{{ $title }}</title>
-    @vite('resources/css/app.css')
-    @vite('resources/css/output.css')
-    {{-- @stack('css') --}}
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/output.css') }}">
     <style>
         select:not([size]) {
             background-image: unset;
