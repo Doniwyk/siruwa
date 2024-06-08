@@ -4,17 +4,17 @@
         <table class="table-parent-spk-statistic">
             <thead>
                 <tr>
-                    <th>Prioritas</th>
-                    <th>Nama</th>
-                    <th>No.Telepon</th>
+                    <th class="priority-column">Prioritas</th>
+                    <th class="name-column">Nama</th>
+                    <th>No. Telepon</th>
                 </tr>
             </thead>
             <tbody>
                 @for ($i = 0; $i < 5 && $i < count($results); $i++)
                 <tr class="hover:bg-fourth transition-all ease-linear">
-                    <td>{{ $i + 1 }}</td>
-                    <td>{{ $results[$i]['name'] }}</td>
-                    <td>{{ $results[$i]['score'] }}</td>
+                    <td class="priority-column">{{ $i + 1 }}</td>
+                    <td class="name-column">{{ $results[$i]['name'] }}</td>
+                    <td>{{ $results[$i]['nomor_hp'] }}</td>
                 </tr>
                 @endfor
             </tbody>

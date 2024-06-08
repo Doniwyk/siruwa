@@ -56,6 +56,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 
 Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index');
 Route::get('/fetch-events', [DashboardController::class, 'fetchEvents']);
+
 //==================================ROUTE STATISTIC FOR ADMIN========================================
 
 Route::group([
@@ -67,6 +68,7 @@ Route::group([
     Route::get('/job', [StatisticController::class, 'getJobData'])->name('getJobData');
     Route::get('/lastStudied', [StatisticController::class, 'getLastStudiedData'])->name('getLastStudiedData');
     Route::get('/bansos', [DSSController::class, 'index'])->name('bansos');
+    Route::get('/getAgeDistribution', [StatisticController::class, 'getAgeDistribution'])->name('getAgeDistribution');
 });
 
 //==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
