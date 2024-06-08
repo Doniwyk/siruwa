@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-    <title>SIRUWA</title>
+    {{-- @vite('resources/css/app.css')
+    @vite('resources/css/output.css') --}}
+    <title>ASU</title>
 
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
