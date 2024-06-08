@@ -13,9 +13,6 @@
     <title>{{ $title }}</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-    <!-- @vite('resources/css/app.css')
-    @vite('resources/css/output.css') -->
-    {{-- @stack('css') --}}
     <style>
         select:not([size]) {
             background-image: unset;
