@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class delete extends Component
+class Delete extends Component
 {
     /**
      * Create a new component instance.

@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>SIRUWA</title>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/output.css') }}">
+    <title>ASU</title>
 
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -231,27 +232,27 @@
     </div>
   </section>
 
-  <!-- Statistik  bg-secondary flex flex-col items-center w-full h-auto md:px-72 md:py-16 sm:p-4 sm:gap-4 gap-16-->
+  <!-- Statistik -->
   <section id="statistik" class="bg-secondary flex flex-col justify-center w-full h-auto md:p-16 sm:p-4 md:gap-16 sm:gap-4">
     <span class="text-center text-white text-5xl sm:text-3xl font-semibold">RW 2 dalam Angka</span>
     <div class="grid grid-rows-2 grid-cols-2 md:grid-rows-1 md:grid-cols-4 sm:gap-y-6">
         <div class="menu">
-          <span class="text-4xl sm:text-2xl">205+</span>
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['resident']}}</span>
           <span class="sm:hidden">Populasi Penduduk</span>
           <span class="md:hidden">Populasi</span>
         </div>
         <div class="menu">
-          <span class="text-4xl sm:text-2xl">0</span>
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_pendidikan}}</span>
           <span class="sm:hidden">Fasilitas Pendidikan</span>
           <span class="md:hidden">Pendidikan</span>
         </div>
         <div class="menu">
-          <span class="text-4xl sm:text-2xl">1</span>
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_kesehatan}}</span>
           <span class="sm:hidden">Kesehatan</span>
           <span class="md:hidden">Kesehatan</span>
         </div>
         <div class="menu">
-          <span class="text-4xl sm:text-2xl">900</span>
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_administrasi}}</span>
           <span class="sm:hidden">Administrasi</span>
           <span class="md:hidden">Administrasi</span>
         </div>
@@ -260,7 +261,7 @@
   </section>
 
   <!-- Kalender -->
-  <section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen sm:hidden">
+  <section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen">
     <span class="text-main text-5xl font-semibold">Agenda</span>
     <div class="w-3/5 text-main font-semibold" id='calendar'></div>
   </section>

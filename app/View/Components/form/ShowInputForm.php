@@ -14,13 +14,11 @@ class ShowInputForm extends Component
     public $label;
     public $value;
     public $name;
-    public $isBoolean;
-    public function __construct($label, $value, $name, $isBoolean = false)
+    public function __construct($label, $value, $name)
     {
         $this->label = $label;
         $this->value = $value;
         $this->name = $name;
-        $this->isBoolean = $isBoolean;
         //
     }
 
