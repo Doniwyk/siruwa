@@ -32,20 +32,20 @@
             <x-form.show-input-form :label="'Pekerjaan'" :name="'reqPekerjaan'" :value="$resident->pekerjaan" />
             <x-form.show-input-form :label="'Status Perkawinan'" :name="'reqStatusPerkawinan'" :value="$resident->status_kawin" />
             <x-form.show-input-form :label="'Status dalam Keluarga'" :name="'reqStatusDalamKeluarga'" :value="$resident->status_keluarga" />
-            <x-form.show-input-form :label="'Akseptor KB'" :name="'akseptorKB'" :value="$resident->akseptor_kb" :isBoolean="true" />
+            <x-form.show-input-form :label="'Akseptor KB'" :name="'akseptorKB'" :value="(boolean) $resident->akseptor_kb"  />
             <x-form.show-input-form :label="'Jenis Akseptor'" :name="'jenisAkseptor'" :value="$resident->jenis_akseptor" />
-            <x-form.show-input-form :label="'Memiliki Tabungan'" :name="'reqMemilikiTabungan'" :value="$resident->has_tabungan" :isBoolean="true" />
+            <x-form.show-input-form :label="'Memiliki Tabungan'" :name="'reqMemilikiTabungan'" :value="(boolean) $resident->has_tabungan"  />
         </form>
     </section>
     <section id="kegiatan-keorganisasian">
         <h4 class="h4-semibold">Kegiatan Keorganisasian</h4>
         <form action="" class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
-            <x-form.show-input-form :label="'Aktif dalam Kegiatan Posyandu'" :name="'reqAktifKegiatan'" :value="$resident->aktif_posyandu" :isBoolean="true" />
-            <x-form.show-input-form :label="'Ikut dalam kegiatan Koperasi'" :name="'reqKoperasi'" :value="$resident->ikut_koperasi" :isBoolean="true" />
-            <x-form.show-input-form :label="'Mengikuti Kelompok Belajar'" :name="'reqKelompokBelajarJenis'" :value="$resident->ikut_kel_belajar" :isBoolean="true" />
+            <x-form.show-input-form :label="'Aktif dalam Kegiatan Posyandu'" :name="'reqAktifKegiatan'" :value="(boolean) $resident->aktif_posyandu"  />
+            <x-form.show-input-form :label="'Ikut dalam kegiatan Koperasi'" :name="'reqKoperasi'" :value="(boolean) $resident->ikut_koperasi"  />
+            <x-form.show-input-form :label="'Mengikuti Kelompok Belajar'" :name="'reqKelompokBelajarJenis'" :value="(boolean) $resident->ikut_kel_belajar"  />
             <x-form.show-input-form :label="'Jenis Kelompok Belajar yang Diikuti'" :name="'reqKelompokBelajarJenis'" :value="$resident->jenis_kel_belajar" />
-            <x-form.show-input-form :label="'Mengikuti PAUD/Sejenis'" :name="'reqPaud'" :value="$resident->ikut_paud" :isBoolean="true" />
-            <x-form.show-input-form :label="'Mengikuti Program Bina Keluarga Balita'" :name="'reqProgramBinaKeluargaBalita'" :value="$resident->has_BKB" :isBoolean="true" />
+            <x-form.show-input-form :label="'Mengikuti PAUD/Sejenis'" :name="'reqPaud'" :value="(boolean) $resident->ikut_paud"  />
+            <x-form.show-input-form :label="'Mengikuti Program Bina Keluarga Balita'" :name="'reqProgramBinaKeluargaBalita'" :value="(boolean) $resident->has_BKB"  />
         </form>
     </section>
     <section id="informasi-keuangan-pribadi">
