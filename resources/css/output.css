@@ -1854,6 +1854,14 @@ tbody td{
   width: 100vw;
 }
 
+.w-\[27\.25rem\]{
+  width: 27.25rem;
+}
+
+.w-\[32rem\]{
+  width: 32rem;
+}
+
 .min-w-\[16rem\]{
   min-width: 16rem;
 }
@@ -1864,6 +1872,10 @@ tbody td{
 
 .min-w-full{
   min-width: 100%;
+}
+
+.min-w-\[17\.25rem\]{
+  min-width: 17.25rem;
 }
 
 .max-w-72{
@@ -4754,6 +4766,22 @@ input[type=file]::file-selector-button:hover{
     width: 30rem;
   }
 
+  .md\:w-32{
+    width: 8rem;
+  }
+
+  .md\:w-\[32\]{
+    width: 32;
+  }
+
+  .md\:w-\[32rem\]{
+    width: 32rem;
+  }
+
+  .md\:min-w-\[32rem\]{
+    min-width: 32rem;
+  }
+
   .md\:basis-\[49\%\]{
     flex-basis: 49%;
   }
@@ -4828,6 +4856,16 @@ input[type=file]::file-selector-button:hover{
 
   .md\:rounded-xl{
     border-radius: 0.75rem;
+  }
+
+  .md\:bg-white{
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  }
+
+  .md\:bg-main{
+    --tw-bg-opacity: 1;
+    background-color: rgb(36 68 71 / var(--tw-bg-opacity));
   }
 
   .md\:p-10{
@@ -4939,6 +4977,10 @@ input[type=file]::file-selector-button:hover{
     width: 21rem;
   }
 
+  .lg\:w-\[32rem\]{
+    width: 32rem;
+  }
+
   .lg\:grid-flow-row{
     grid-auto-flow: row;
   }
@@ -4961,6 +5003,11 @@ input[type=file]::file-selector-button:hover{
 
   .lg\:gap-8{
     gap: 2rem;
+  }
+
+  .lg\:bg-main{
+    --tw-bg-opacity: 1;
+    background-color: rgb(36 68 71 / var(--tw-bg-opacity));
   }
 
   .lg\:p-8{

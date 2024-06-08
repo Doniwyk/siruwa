@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
+        "./public/**/*.blade.php",
+        "./public/**/*.js",
+        "./public/**/*.vue",
         "./node_modules/flowbite/**/*.js"
     ],
     theme: {
