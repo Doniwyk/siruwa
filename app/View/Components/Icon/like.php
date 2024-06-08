@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Back extends Component
+class Like extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Back extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.icon.back');
+        return view('components.icon.like');
     }
 }
