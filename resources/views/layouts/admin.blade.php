@@ -29,7 +29,7 @@
         </header>
         <main class="grow flex">
             @yield('modal')
-            <x-shared.leftsidebar :page="$page" />
+            <x-shared.left-sidebar :page="$page" />
             <div class="content" id="content">
                 @yield('content')
             </div>
