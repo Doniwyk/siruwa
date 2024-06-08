@@ -148,7 +148,7 @@
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td class="sm:text-sm md:text-base">
+                                <td class="sm:text-sm md:text-base relative">
                                     <div class="flex gap-5 text-main sm:items-center md:items-start">
                                         <img src="{{ $n->url_gambar }}" alt="logo"
                                             class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
@@ -157,13 +157,13 @@
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell">
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base flex-center">
+                                <td class="sm:text-sm md:text-base">
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-acara.edit', ['event' => $n->id_agenda]) }}"
                                             class="hover">
@@ -229,10 +229,10 @@
                     $('#table-parent tbody').empty();
                     $('#pagination').empty();
 
-                    const initialLocation =
+                    const initialLocation = 
                         `${window.location.origin}/admin/manajemen-berita?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                    window.history.pushState({
-                        path: initialLocation
+                    window.history.pushState({ 
+                        path: initialLocation 
                     }, '', initialLocation);
 
                     const news = data.news;
@@ -245,47 +245,88 @@
                         );
                         return;
                     }
+
                     $.each(news, function(index, news) {
                         let dateString = news.created_at;
 
                         let dateTime = luxon.DateTime.fromISO(dateString);
 
                         let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+
+                        let editUrl = `{{ route('admin.manajemen-berita.edit', ':id') }}`.replace(':id', news.id_berita);
+                        let deleteUrl = `{{ route('admin.manajemen-berita.delete', ':id') }}`.replace(':id', news.id_berita);
+                        let editStatusUrl = `{{ route('admin.manajemen-berita.edit-status', ':id') }}`.replace(':id', news.id_berita);
+
+                        let statusButton;
+                        if (news.status === 'Uploaded') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="draft">
+                                        <x-icon.draft-icon />
+                                    </button>
+                                </form>
+                            `;
+                        } else if (news.status === 'Draft') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="upload">
+                                        <x-icon.publish-icon />
+                                    </button>
+                                </form>
+                            `;
+                        }
+
                         $('#table-parent tbody').append(
                             `
                             <tr>
-                                <td>
+                                <td class="sm:text-sm md:text-base">
                                     <div class="flex gap-5 text-main">
-                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
-                                        <p class="desc-news">
+                                        <img src="${news.url_gambar}" alt="logo" 
+                                            class="w-[8.2rem] h-20 rounded-2xl">
+                                        <p class="desc-news text-wrap">
                                             ${news.judul}
                                         </p>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
-                                    <x-icon.uploaded />
-                                    <label for="">${formattedDate}</label>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="action flex gap-6">
-                                        <x-icon.edit />
-                                        <x-icon.delete />
+                                        <x-icon.uploaded />
+                                        <label for="">${formattedDate}</label>
                                     </div>
                                 </td>
-                             </tr>
+                                <td class="sm:text-sm md:text-base">
+                                    <div class="action flex gap-6">
+                                        <a href="${editUrl}" 
+                                            class="hover">
+                                            <x-icon.edit />
+                                        </a>
+                                        <form action="${deleteUrl}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <x-icon.delete />
+                                            </button>
+                                        </form>
+                                        ${statusButton}
+                                    </div>
+                                </td>
+                            </tr>
                             `
                         );
                     });
 
-                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                    $('#pagination').append(data.paginationHtml); // Update pagination HTML
                 },
                 error: function(xhr, status, error) {
                     console.error("Error: " + status + " " + error);
                 }
             });
         }
+
 
         function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
             $.ajax({
@@ -324,33 +365,71 @@
                     $.each(news, function(index, news) {
                         let dateString = news.tanggal;
 
-                        let dateTime = luxon.DateTime.fromISO(dateString);
+                        dateTime = luxon.DateTime.fromSQL(dateString);
 
                         let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+
+                        let editUrl = `{{ route('admin.manajemen-acara.edit', ':id') }}`.replace(':id', news.id_agenda);
+                        let deleteUrl = `{{ route('admin.manajemen-acara.delete', ':id') }}`.replace(':id', news.id_agenda);
+                        let editStatusUrl = `{{ route('admin.manajemen-acara.edit-status', ':id') }}`.replace(':id', news.id_agenda);
+
+                        let statusButton;
+                        if (news.status === 'Uploaded') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="draft">
+                                        <x-icon.draft-icon />
+                                    </button>
+                                </form>
+                            `;
+                        } else if (news.status === 'Draft') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="upload">
+                                        <x-icon.publish-icon />
+                                    </button>
+                                </form>
+                            `;
+                        }
                         $('#table-parent tbody').append(
                             `
                             <tr>
-                                <td>
+                                <td class="sm:text-sm md:text-base">
                                     <div class="flex gap-5 text-main">
-                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
-                                        <p class="desc-news">
+                                        <img src="${news.url_gambar}" alt="logo" 
+                                            class="w-[8.2rem] h-20 rounded-2xl">
+                                        <p class="desc-news text-wrap">
                                             ${news.judul}
                                         </p>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
-                                    <x-icon.uploaded />
-                                    <label for="">${formattedDate}</label>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="action flex gap-6">
-                                        <x-icon.edit />
-                                        <x-icon.delete />
+                                        <x-icon.uploaded />
+                                        <label for="">${formattedDate}</label>
                                     </div>
                                 </td>
-                             </tr>
+                                <td class="sm:text-sm md:text-base">
+                                    <div class="action flex gap-6">
+                                        <a href="${editUrl}" 
+                                            class="hover">
+                                            <x-icon.edit />
+                                        </a>
+                                        <form action="${deleteUrl}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <x-icon.delete />
+                                            </button>
+                                        </form>
+                                        ${statusButton}
+                                    </div>
+                                </td>
+                            </tr>
                             `
                         );
                     });
