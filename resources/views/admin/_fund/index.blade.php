@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 {{-- @dd($financialData) --}}
 @section('modal')
-    <div class="absolute min-h-full min-w-full flex-center bg-black/50 hidden z-50" id="payment-modal_parent">
+    <div class="absolute min-h-full min-w-full flex-center hidden bg-black/50 hidden z-50" id="payment-modal_parent">
         <div class="sm:w-[25rem] p-10 rounded-2xl bg-white center z-50 overflow-hidden" id="payment-modal">
             <form class="flex flex-col gap-9" method="POST">
                 @csrf

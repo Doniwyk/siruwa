@@ -7,8 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-    {{-- @vite('resources/css/app.css')
-    @vite('resources/css/output.css') --}}
     <title>ASU</title>
 
 
