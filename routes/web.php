@@ -45,7 +45,7 @@ Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])-
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
-Route::group(['middleware' => \App\Http\Middleware\IsGuest::class, 'revalidate'], function () {
+Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'doLogin']);
 });

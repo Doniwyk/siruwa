@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Icon;
+namespace App\View\Components\Shared;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class tunggakan extends Component
+class BottomBar extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class tunggakan extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.icon.tunggakan');
+        return view('components..shared.bottom-bar');
     }
 }

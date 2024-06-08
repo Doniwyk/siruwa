@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-    <title>ASU</title>
+    @vite('resources/css/app.css')
+    <title>SIRUWA</title>
 
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -238,21 +237,25 @@
     <div class="grid grid-rows-2 grid-cols-2 md:grid-rows-1 md:grid-cols-4 sm:gap-y-6">
         <div class="menu">
           <span class="text-4xl sm:text-2xl">{{$dataDashboard['resident']}}</span>
+          <span class="text-4xl sm:text-2xl">205+</span>
           <span class="sm:hidden">Populasi Penduduk</span>
           <span class="md:hidden">Populasi</span>
         </div>
         <div class="menu">
           <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_pendidikan}}</span>
+          <span class="text-4xl sm:text-2xl">0</span>
           <span class="sm:hidden">Fasilitas Pendidikan</span>
           <span class="md:hidden">Pendidikan</span>
         </div>
         <div class="menu">
           <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_kesehatan}}</span>
+          <span class="text-4xl sm:text-2xl">1</span>
           <span class="sm:hidden">Kesehatan</span>
           <span class="md:hidden">Kesehatan</span>
         </div>
         <div class="menu">
           <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_administrasi}}</span>
+          <span class="text-4xl sm:text-2xl">900</span>
           <span class="sm:hidden">Administrasi</span>
           <span class="md:hidden">Administrasi</span>
         </div>
@@ -262,6 +265,7 @@
 
   <!-- Kalender -->
   <section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen">
+  <section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen sm:hidden">
     <span class="text-main text-5xl font-semibold">Agenda</span>
     <div class="w-3/5 text-main font-semibold" id='calendar'></div>
   </section>

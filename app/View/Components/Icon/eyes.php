@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class DanaKematian extends Component
+class eyes extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class DanaKematian extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.icon.dana-kematian');
+        return view('components.icon.eyes');
     }
 }
