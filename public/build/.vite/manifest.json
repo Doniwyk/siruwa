@@ -1,0 +1,25 @@
+{
+  "public/berita1.jpg": {
+    "file": "assets/berita1-CtqUypvu.jpg",
+    "src": "public/berita1.jpg"
+  },
+  "public/berita2.jpeg": {
+    "file": "assets/berita2-C7YUuHgH.jpeg",
+    "src": "public/berita2.jpeg"
+  },
+  "public/bg_beranda.jpg": {
+    "file": "assets/bg_beranda-1wbOEp_C.jpg",
+    "src": "public/bg_beranda.jpg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/style-TXCn_ZXx.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CI1Bgkaz.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
