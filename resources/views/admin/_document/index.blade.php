@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('modal')
-    <div class="absolute min-h-full min-w-full flex-center bg-black/50 z-50 hidden" id="document-modal_parent">
+    <div class="absolute min-h-full min-w-full flex items-center justify-center bg-black/50 z-50 hidden" id="document-modal_parent">
         <div class="absolute p-10 rounded-2xl  bg-white center" id="document-modal">
             <form class="flex flex-col gap-7" method="POST">
                 @csrf
