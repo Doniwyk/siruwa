@@ -31,6 +31,7 @@
         </header>
         <main class="grow flex">
             @yield('modal')
+            @yield('modal_riwayat')
             <x-shared.left-sidebar :page="$page" />
             <div class="content" id="content">
                 @yield('content')
