@@ -11,7 +11,7 @@ Form Tambah Penduduk
             </svg>
         </span>
     </a>
-    <h1 class="h1-semibold">{{ $title }}</h1>
+    <h1 class="h1-semibold">Tambah Data Penduduk</h1>
 </div>
 
 <main>
