@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Profil
+@endsection
 @section('content')
 
 <div class="h1-semibold">{{ $title }}</div>

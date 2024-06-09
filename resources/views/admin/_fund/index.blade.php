@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 {{-- @dd($history) --}}
+@section('title')
+Manajemen Dana
+@endsection
 @section('modal')
     <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50"
         id="payment-modal_parent">
@@ -153,7 +156,7 @@
                 <tbody>
                     @if ($history->isEmpty())
                         <tr>
-                            <td colspan="5" class="text-center">No data found</td>
+                            <td class="text-center w-full">No data found</td>
                         </tr>
                     @else
                         @foreach ($history as $dataRiwayat)
@@ -163,7 +166,7 @@
                                 <td class="sm:hidden lg:table-cell font-medium">{{ $dataRiwayat->created_at }}</td>
                                 <td class="sm:text-sm md:text-base font-medium">{{ $dataRiwayat->admin->noHp }}</td>
                                 <td
-                                    class=" flex items-center gap-4 sm:text-sm md:text-base {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }} font-semibold">
+                                    class=" flex items-center justify-between gap-4 sm:text-sm md:text-base {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }} font-semibold">
                                     <span>{{ $dataRiwayat->status }}</span>
                                     <button onclick="showRiwayatPembayaranModal({{$dataRiwayat->id_pembayaran}})">
                                         <x-icon.detail />
@@ -246,7 +249,15 @@
                                 break;
                             case 'riwayatPembayaran':
                                 lastColumn =
-                                    `<td class="font-semibold ${ fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${fundData.status}</td>`
+                                    `
+                                        <td
+                                            class=" flex items-center justify between gap-4 sm:text-sm md:text-base ${fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'} font-semibold">
+                                            <span>${ fundData.status }</span>
+                                            <button onclick="showRiwayatPembayaranModal(${fundData.id_pembayaran})">
+                                                <x-icon.detail />
+                                            </button>
+                                        </td>
+                                    `
                                 break;
                         }
 
