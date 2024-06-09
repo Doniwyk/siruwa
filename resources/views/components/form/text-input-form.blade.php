@@ -15,6 +15,8 @@ $type = $type ?? 'text';
             class="form-control-input {{ $type === 'date' ? 'cursor-pointer' : '' }}" 
             @if ($type === 'date') onclick="this.showPicker()" @endif
         >
+        {{$name}}
+        <div id="error-{{$name}}" class="text-red-600 font-medium"></div>
 
         @if ($type === 'password')
             <img 
