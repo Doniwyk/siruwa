@@ -143,4 +143,12 @@ class AdminPaymentController extends Controller
             dd($e);
         }
     }
+
+    public  function validatedPayment(PaymentModel $payment) {
+        try {
+            return response()->json($payment);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
 }
