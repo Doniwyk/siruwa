@@ -103,14 +103,12 @@ class AdminPaymentController extends Controller
             $adminId = Auth::id();
 
             $page = $this->pageName;
-            $title = 'Data Tunggakan';
 
             $dataTunggakan = $this->paymentService->getDataTunggakan($search, $order);
 
             if ($request->wantsJson()) {
                 return response()->json([
                     'page' => $page,
-                    'title' => $title,
                     'typeDocument' => $typeDocument,
                     'dataTunggakan' => $dataTunggakan
                 ]);
