@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class OpenTab extends Component
+class eyes extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class OpenTab extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.icon.open-tab');
+        return view('components.icon.eyes');
     }
 }

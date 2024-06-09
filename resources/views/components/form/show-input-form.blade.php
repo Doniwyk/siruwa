@@ -3,7 +3,7 @@
     <input type="text" name="{{ $name }}" id="{{ $name }}" class="form-control" disabled
         placeholder="{{ $label }}"
         value=
-        @if (is_bool($value))
+        @if ($isBoolean)
             "{{ $value == 1 ? 'Iya' : 'Tidak' }}"
         @else
             "{{ $value }}"

@@ -6,26 +6,25 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FundCard extends Component
+class Input extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+    public $label;
     public $type;
-    public $moneyTotal;
-    public $paymentService;
-
-    public function __construct($type, $moneyTotal)
+    public $name;
+    
+    public function __construct($label, $type, $name)
     {
+        $this->label = $label;
         $this->type = $type;
-        $this->moneyTotal = $moneyTotal;
+        $this->name = $name;
     }
+    
 
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.fund-card');
+        return view('components.shared.input');
     }
 }

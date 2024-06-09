@@ -11,6 +11,9 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    @vite('resources/css/app.css')
+    @vite('resources/css/output.css')
+    {{-- @stack('css') --}}
     <title>@yield('title')</title>
 
     @vite('resources/css/app.css')
