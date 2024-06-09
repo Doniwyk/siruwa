@@ -11,7 +11,7 @@ Data Tunggakan Iuran
             </svg>
         </span>
     </a>
-    <h1 class="h1-semibold">{{ $title }}</h1>
+    <h1 class="h1-semibold">Data Tunggakan</h1>
 </div>
 
 <section class="w-full flex justify-between flex-wrap gap-8">
