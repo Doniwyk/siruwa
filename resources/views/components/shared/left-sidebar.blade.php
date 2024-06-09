@@ -16,9 +16,26 @@
 
     </ul>
     <div>
-        <a class=" hover:bg-white nav-menu cursor-pointer" href="{{route('logout')}}">
+        <a class=" hover:bg-white nav-menu cursor-pointer" href="{{ route('logout') }}">
             <img src="{{ asset('assets/icons/logout.svg') }}" alt="">
             <label for="">Keluar</label>
         </a>
     </div>
 </nav>
+@section('sidebar')
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('#left-sidebar');
+            const content = document.querySelector('#content');
+
+
+            if (sidebar.style.left === '0px') {
+                sidebar.style.left = '-20rem';
+                content.classList.remove('blur-sm');
+            } else {
+                sidebar.style.left = '0';
+                content.classList.add('blur-sm');
+            }
+        }
+    </script>
+@endsection
