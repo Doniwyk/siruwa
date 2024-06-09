@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Edit Profil
+@endsection
 @section('modal')
     <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-10 hidden" id="success-modal">
         <div class="flex flex-col bg-white rounded-2xl p-10 gap-9">
@@ -130,6 +133,7 @@
             const modal = document.querySelector('#success-modal');
             target.addEventListener('click', () => {
                 modal.classList.add('hidden');
+                location.reload()
             })
         }
         $(document).ready(function() {

@@ -2,14 +2,11 @@
 @section('content-landingpage')
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-  <title>ASU</title>
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    <title>SIRUWA</title>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
@@ -211,11 +208,34 @@
     </div>
   </div>
 
-  <div class="flex flex-col flex-1 gap-4 md:hidden">
-    @for ($i = 0; $i <= 2; $i++) @if(isset($latestNews[$i])) <a href="{{route('list-berita.show', ['artikel' => $latestNews[$i]->id_berita])}}" class="h-1/2 news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}');">
-      <div class="news-landing">
-        <span class="text-stone-100 text-base font-medium">{{ $latestNews[$i]->created_at }}</span>
-        <span class="text-stone-100 text-xl font-bold">{{ $latestNews[$i]->judul }}</span>
+  <!-- Statistik -->
+  <section id="statistik" class="bg-secondary flex flex-col justify-center w-full h-auto md:p-16 sm:p-4 md:gap-16 sm:gap-4">
+    <span class="text-center text-white text-5xl sm:text-3xl font-semibold">RW 2 dalam Angka</span>
+    <div class="grid grid-rows-2 grid-cols-2 md:grid-rows-1 md:grid-cols-4 sm:gap-y-6">
+        <div class="menu">
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['resident']}}</span>
+          <span class="text-4xl sm:text-2xl">205+</span>
+          <span class="sm:hidden">Populasi Penduduk</span>
+          <span class="md:hidden">Populasi</span>
+        </div>
+        <div class="menu">
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_pendidikan}}</span>
+          <span class="text-4xl sm:text-2xl">0</span>
+          <span class="sm:hidden">Fasilitas Pendidikan</span>
+          <span class="md:hidden">Pendidikan</span>
+        </div>
+        <div class="menu">
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_kesehatan}}</span>
+          <span class="text-4xl sm:text-2xl">1</span>
+          <span class="sm:hidden">Kesehatan</span>
+          <span class="md:hidden">Kesehatan</span>
+        </div>
+        <div class="menu">
+          <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_administrasi}}</span>
+          <span class="text-4xl sm:text-2xl">900</span>
+          <span class="sm:hidden">Administrasi</span>
+          <span class="md:hidden">Administrasi</span>
+        </div>
       </div>
       </a>
       @endif

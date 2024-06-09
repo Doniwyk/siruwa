@@ -45,7 +45,7 @@ Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])-
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
-Route::group(['middleware' => \App\Http\Middleware\IsGuest::class, 'revalidate'], function () {
+Route::group(['middleware' => 'isGuest', 'revalidate'], function () {
     Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'doLogin']);
 });
@@ -56,6 +56,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 
 Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index')->middleware('redirectIfAdmin');
 Route::get('/fetch-events', [DashboardController::class, 'fetchEvents']);
+
 //==================================ROUTE STATISTIC FOR ADMIN========================================
 
 Route::group([
@@ -67,6 +68,7 @@ Route::group([
     Route::get('/job', [StatisticController::class, 'getJobData'])->name('getJobData');
     Route::get('/lastStudied', [StatisticController::class, 'getLastStudiedData'])->name('getLastStudiedData');
     Route::get('/bansos', [DSSController::class, 'index'])->name('bansos');
+    Route::get('/getAgeDistribution', [StatisticController::class, 'getAgeDistribution'])->name('getAgeDistribution');
 });
 
 //==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
@@ -170,11 +172,11 @@ Route::group([
     Route::get('/', [AdminPaymentController::class, 'index'])->name('index'); //mendapatkan halaman data pembayaran yang harus divalidasi
     Route::get('/{payment}/show', [AdminPaymentController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
     Route::put('/{payment}/validate', [AdminPaymentController::class, 'validatePayment'])->name('validatePembayaran'); //proses validasi pembayaran
-    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
+    Route::get('/{payment}/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
     Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('export');
     Route::get('/tunggakan', [AdminPaymentController::class, 'getDataTunggakan'])->name('tunggakan');
-    Route::get('/addExpense',[AdminPaymentController::class,'addExpense'])->name('add');
-    Route::post('/storeExpense',[AdminPaymentController::class,'storeExpense'])->name('store');
+    Route::get('/addExpense',[AdminPaymentController::class,'addExpende'])->name('add');
+    Route::post('/storeExpense',[AdminPaymentController::class,'storexpende'])->name('add');
 
 });
 

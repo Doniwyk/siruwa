@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Dashboard
+@endsection
 @section('content')
     <h1 class="h1-semibold">Manajemen Dashboard</h1>
     <section class="flex flex-col gap-4">
@@ -63,15 +66,25 @@
             </div>
         </div>
         <div class="w-full relative mt-4 flex-center">
-            <img src="{{ $rwData->image }}" alt="image" class="animate-pulse bg-slate-700 w-[35rem] rounded-xl h-[22rem] object-contain"
-                id="previewImageRwStructure">
-            <form action="{{ route('admin.dashboard.update', ['data' => $rwData->id_dataDashboard]) }}" class="hidden w-full h-[22rem]"
-                id="formimageRwStructure" enctype="multipart/form-data" method="POST">
+            <div class="relative w-[35rem] h-[22rem]" id="previewImageRwStructure">
+                <div
+                    class="animate-pulse flex items-center justify-center w-full h-full bg-gray-400 dark:bg-slate-700 rounded-2xl absolute">
+                    <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                        <path
+                            d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                    </svg>
+                </div>
+                <img src="{{ $rwData->image }}" alt="image" class="hidden rounded-xl  object-contain">
+            </div>
+            <form action="{{ route('admin.dashboard.update', ['data' => $rwData->id_dataDashboard]) }}"
+                class="hidden w-full h-[22rem]" id="formimageRwStructure" enctype="multipart/form-data" method="POST">
                 @csrf
                 @method('PUT')
                 <fieldset id="file-1">
                     <input type="file" name="image" id="image" class="hidden">
-                    <label for="image" id="file-1-preview" class="absolute h-[18rem] w-full inline-block border-2 border-dashed border-main bg-white rounded-2xl object-contain flex-center flex-col">
+                    <label for="image" id="file-1-preview"
+                        class="absolute h-[18rem] w-full inline-block border-2 border-dashed border-main bg-white rounded-2xl object-contain flex-center flex-col">
                         <div>
                             <span class="font-semibold flex-col flex-center text-main ">
                                 <x-icon.galery />
@@ -80,7 +93,8 @@
                         </div>
                     </label>
                 </fieldset>
-                <button type="submit" class="button-main sm:text-sm absolute bottom-0 right-0" id="button-save-image-rw">Simpan Perubahan</button>
+                <button type="submit" class="button-main sm:text-sm absolute bottom-0 right-0"
+                    id="button-save-image-rw">Simpan Perubahan</button>
             </form>
         </div>
     </section>
@@ -107,21 +121,22 @@
             $('#button-save-details-rw').removeClass('hidden')
         }
 
-        $(document).ready(()=>{
-            let image = $('.animate-pulse');
-            let imageUrl = image.attr('src');
-            let hasLoaded = localStorage.getItem('iundmageLoaded');
+        $(document).ready(function() {
+            let images = $('.animate-pulse + img');
 
-            if (!hasLoaded) {
+            images.each(function() {
+                let image = $(this);
+                let skeleton = image.prev('.animate-pulse');
+
                 image.on('load', function() {
-                    $('.animate-pulse').addClass('bg-white');
-                    $('.animate-pulse').removeClass('animate-pulse');
-                    localStorage.setItem('imageLoaded', true);
+                    image.removeClass('hidden');
+                    skeleton.addClass('hidden');
                 });
-            } else {
-                $('.animate-pulse').addClass('bg-white');
-                $('.animate-pulse').removeClass('animate-pulse');
-            }
+
+                if (image[0].complete) {
+                    image.trigger('load');
+                }
+            });
         })
 
         $('#cancelEditDetailRw').click(function() {

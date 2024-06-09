@@ -13,7 +13,7 @@
     <h1 class="h1-semibold">{{ $title }}</h1>
 </div> 
 
-<div class="link-option_parrent w-max">
+<div class="link-option_parrent sm:w-full md:w-fit">
     <a href="{{ route('admin.statistic.bansos', ['typeDocument' => 'fuzzy', 'limit' => $limit]) }}" @class([
         'link-option',
         'link-option_active' => $typeDocument == 'fuzzy',
@@ -35,15 +35,15 @@
 </div>
 
 <!-- hasil perhitungan dan sorting -->
-<div class="flex flex-row justify-between" x-data="popupData()">
-    <div class="flex flex-row gap-4 items-center">
-        <span class="text-2xl font-semibold text-main">Hasil Perhitungan</span>
+<div class="flex flex-row sm:flex-col sm:gap-4 justify-between" x-data="popupData()">
+    <div class="flex flex-row gap-4 items-center sm:justify-between">
+        <span class="text-2xl font-semibold text-main sm:text-lg">Hasil Perhitungan</span>
         <button @click="showPopup = true; setPopupContent('{{ $typeDocument }}')">
             <x-icon.detail />
         </button>
     </div>
     <form method="GET" action="{{ route('admin.statistic.bansos', ['typeDocument' => $typeDocument]) }}" id="limitForm">
-        <label class="text-sm font-medium text-main" for="limit">Data yang ditampilkan</label>
+        <label class="text-sm font-medium text-main sm:pr-3" for="limit">Data yang ditampilkan</label>
         <select class="custom-select" name="limit" id="limit" onchange="document.getElementById('limitForm').submit()">
             <option value="5" @if($limit == 5) selected @endif>5</option>
             <option value="15" @if($limit == 15) selected @endif>15</option>
@@ -54,7 +54,7 @@
 
     <!-- Popup -->
     <div x-show="showPopup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" x-cloak>
-        <div class="bg-white p-8 rounded-lg shadow-lg relative" id="document-modal">
+        <div class="bg-white p-8 rounded-lg shadow-lg relative sm:m-4" id="document-modal">
             <h2 class="text-center text-xl font-semibold mb-4 text-main" x-text="popupTitle"></h2>
             <div class="max-w-96">
                 <span class="text-base text-main" x-text="popupContent"></span>
@@ -79,7 +79,7 @@
                 <tr>
                     <th>Prioritas</th>
                     <th>Nama</th>
-                    <th>No Hp</th>
+                    <th>No. Telepon</th>
                     <th>Skor</th>
                 </tr>
             </thead>

@@ -1,35 +1,41 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Pengeluaran
+@endsection
 @section('modal')
-    <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50" id="spending-payment-modal_parent">
-        <div class="sm:w-[25rem] md:w-[32rem] p-10 rounded-2xl  bg-white center z-50 overflow-hidden" id="spending-payment-modal">
-            <form action="{{route('admin.data-pembayaran.store')}}" method="POST" class="flex flex-col gap-4 items-center">
+    <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50"
+        id="spending-payment-modal_parent">
+        <div class="sm:w-[25rem] md:w-[32rem] sm:p-5 md:p-10 rounded-2xl  bg-white center z-50 overflow-hidden"
+            id="spending-payment-modal">
+            <form action="{{ route('admin.data-pembayaran.store') }}" method="POST" class="flex flex-col gap-4 items-center">
                 @csrf
                 @method('POST')
-                    <h4 class="text-center text-xl font-semibold">Tambah Data Pengeluaran</h4>
-                    <div class="flex flex-col items-start gap-4">
-                        <label for="jumlah_pengeluaran" class="text-main font-medium">Masukkan Nominal</label>
-                        <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
-                            class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline">
-                    </div>
-                    <div class="flex flex-col items-start gap-4">
-                        <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
-                        <select id="jenis_pengeluaran" name="jenis_pengeluaran"
-                            class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline ">
-                            <option selected>Jenis Iuran</option>
-                            <option value="Iuran Sampah">Iuran Sampah</option>
-                            <option value="Iuran Kematian">Iuran Kematian</option>
-                        </select>
-    
-                    </div>
-                    <div class="flex flex-col items-start gap-4">
-                        <label for="tanggal" class="text-main font-medium">Masukkan Nominal</label>
-                        <input type="date" placeholder="Masukkan Nominal" id="tanggal" name="tanggal"
-                            class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline">
-                    </div>
-                    <div class="w-full flex flex-col items-start gap-4">
-                        <label for="keterangan" class="text-main font-medium">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" placeholder="Masukkan Keterangan" class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
-                    </div>
+                <h4 class="text-center text-xl font-semibold">Tambah Data Pengeluaran</h4>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="jumlah_pengeluaran" class="text-main font-medium">Masukkan Nominal</label>
+                    <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline">
+                </div>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
+                    <select id="jenis_pengeluaran" name="jenis_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline ">
+                        <option selected>Jenis Iuran</option>
+                        <option value="Iuran Sampah">Iuran Sampah</option>
+                        <option value="Iuran Kematian">Iuran Kematian</option>
+                    </select>
+
+                </div>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="tanggal" class="text-main font-medium">Masukkan Nominal</label>
+                    <input type="date" placeholder="Masukkan Nominal" id="tanggal" name="tanggal"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline">
+                </div>
+                <div class="w-full flex flex-col items-start gap-4">
+                    <label for="keterangan" class="text-main font-medium">Keterangan</label>
+                    <textarea name="keterangan" id="keterangan" placeholder="Masukkan Keterangan"
+                        class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
+                </div>
                 <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl">Tambahkan Data</button>
             </form>
         </div>
@@ -37,7 +43,7 @@
 @endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
-        <a href="{{ route('admin.data-penduduk.index') }}">
+        <a href="{{ route('admin.data-pembayaran.index') }}">
             <span>
                 <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -49,63 +55,27 @@
         <h1 class="h1-semibold">Data Iuran</h1>
     </div>
     <div class="summary-card_fund ">
-        <x-shared.fund-details-card :moneyTotalKematian="$financialData['deathFundIncome']" :moneyTotalSampah="$financialData['garbageFundIncome']" />
-        <x-shared.fund-details-card :moneyTotalKematian="$financialData['deathFundExpense']" :moneyTotalSampah="$financialData['garbageFundExpense']" />
+        <x-shared.fund-details-card :type="'Pemasukan'" :moneyTotalKematian="$financialData['deathFundIncome']" :moneyTotalSampah="$financialData['garbageFundIncome']" />
+        <x-shared.fund-details-card :type="'Pengeluaran'" :moneyTotalKematian="$financialData['deathFundExpense']" :moneyTotalSampah="$financialData['garbageFundExpense']" />
     </div>
 
     <section id="tab-slider" class="flex justify-between">
         <div class="link-option_parrent sm:flex-between">
-            <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'pembayaran']) }}"
-                class="link-option {{ $typeDocument == 'pembayaran' ? 'link-option_active' : '' }}">Pembayaran</a>
-            <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'riwayatPembayaran']) }}"
-                class="link-option {{ $typeDocument == 'riwayatPembayaran' ? 'link-option_active' : '' }}">Riwayat</a>
+            <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'sampah']) }}"
+                class="link-option {{ $typeDocument == 'sampah' ? 'link-option_active' : '' }}">Iuran Sampah</a>
+            <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'kematian']) }}"
+                class="link-option {{ $typeDocument == 'kematian' ? 'link-option_active' : '' }}">Iuran Kematian</a>
         </div>
         <button class="button-main px-6 py-3" onclick="showFormSpendingPaymentForm()">Tambah Data Pengeluaran</button>
     </section>
     <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
     @switch($typeDocument)
-        @case('pembayaran')
+        @case('sampah')
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
                         <th class="sm:text-sm md:text-base">Nominal</th>
-                        <th class="sm:hidden lg:table-cell">Tanggal Pemasukkan</th>
-                        <th class="sm:text-sm md:text-base">Transaksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if ($financialData['deathTransaction']->isEmpty())
-                        <tr>
-                            <td colspan="5" class="text-center">No data found</td>
-                        </tr>
-                    @else
-                        @php
-                            $i = 1;
-                        @endphp
-                        @foreach ($financialData['deathTransaction'] as $dataPembayaran)
-                            <tr>
-                                <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->amount }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $dataPembayaran->created_at }}</td>
-                                <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->type }}</td>
-                            </tr>
-                            @php
-                                $i++;
-                            @endphp
-                        @endforeach
-                    @endif
-                </tbody>
-            </table>
-            <div id="pagination">
-                {{-- {{ $fundData['getSubmission']->appends(request()->except('validatedPage'))->links() }} --}}
-            </div>
-        @break
-
-        @case('riwayatPembayaran')
-            <table class="table-parent" id="table-parent">
-                <thead>
-                    <tr>
-                        <th class="sm:text-sm md:text-base">Nominal</th>
-                        <th class="sm:hidden lg:table-cell">Tanggal Pemasukkan</th>
+                        <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
                         <th class="sm:text-sm md:text-base">Transaksi</th>
                     </tr>
                 </thead>
@@ -115,31 +85,53 @@
                             <td colspan="5" class="text-center">No data found</td>
                         </tr>
                     @else
-                        @php
-                            $i = 1;
-                        @endphp
                         @foreach ($financialData['garbageTransaction'] as $dataRiwayat)
                             @php
                                 $isPembayaran = $dataRiwayat->type == 'Pemasukan';
                             @endphp
                             <tr>
-                                <td class="sm:hidden lg:table-cell {{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
+                                <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
                                     {{ $isPembayaran ? $dataRiwayat->amount : "-$dataRiwayat->amount" }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $dataRiwayat->created_at }}</td>
-                                <td
-                                    class="sm:hidden lg:table-cell font-semibold {{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
+                                <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
                                     {{ $dataRiwayat->type }}</td>
                             </tr>
-                            @php
-                                $i++;
-                            @endphp
                         @endforeach
                     @endif
                 </tbody>
             </table>
-            <div id="pagination">
-                {{-- {{ $history->appends(request()->except('submissionPage'))->links() }} --}}
-            </div>
+        @break
+
+        @case('kematian')
+            <table class="table-parent" id="table-parent">
+                <thead>
+                    <tr>
+                        <th class="sm:text-sm md:text-base">Nominal</th>
+                        <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
+                        <th class="sm:text-sm md:text-base">Transaksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if ($financialData['deathTransaction']->isEmpty())
+                        <tr>
+                            <td colspan="3" class="text-center">No data found</td>
+                        </tr>
+                    @else
+                        @foreach ($financialData['deathTransaction'] as $dataRiwayat)
+                            @php
+                                $isPembayaran = $dataRiwayat->type == 'Pemasukan';
+                            @endphp
+                            <tr>
+                                <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
+                                    {{ $isPembayaran ? $dataRiwayat->amount : "-$dataRiwayat->amount" }}</td>
+                                <td class="sm:text-sm md:text-base">{{ $dataRiwayat->created_at }}</td>
+                                <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
+                                    {{ $dataRiwayat->type }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
         @break
     @endswitch
 @endsection
@@ -148,77 +140,15 @@
         function showFormSpendingPaymentForm() {
             const form = document.querySelector('#spending-payment-modal_parent')
             form.classList.toggle('hidden');
-        }
-        function fetchPaymentData(typeDocument = '', search = '', order = 'asc', page = 1) {
-            $.ajax({
-                url: '{{ route('admin.data-pembayaran.add') }}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    typeDocument: typeDocument,
-                    search: search,
-                    order: order,
-                    page: page
-                },
-                success: function(data) {
-                    const initialLocation =
-                        `${window.location.origin}/admin/data-pembayaran?typeDocument=${typeDocument}&search=${search}&order=${order}&page=${page}`;
-                    window.history.pushState({
-                        path: initialLocation
-                    }, '', initialLocation);
 
-                    const fundDatas = data.fundData
-                    console.log(fundDatas);
-
-                    $('#table-parent tbody').empty();
-                    $('#pagination').empty();
-
-                    if (!fundDatas.length) {
-                        $('#table-parent tbody').append(
-                            `<tr>
-            <td colspan="5" class="text-center">No data found</td>
-        </tr>`
-                        );
-                        return;
-                    }
-                    let index = 0;
-                    $.each(fundDatas, function(index, fundData) {
-                        const datetime = fundData.created_at;
-                        const dateString = datetime.slice(0, 10);
-                        index++;
-                        let lastColumn;
-                        switch (typeDocument) {
-                            case 'pembayaran':
-                                lastColumn = `<td class="flex-start">
-            <button class="w-[25px] h-[25px] flex-center" id="button-${index}"
-                onclick="getDataPembayaran(${fundData.id_pembayaran})">
-                <x-icon.detail />
-            </button>
-        </td>`
-                                break;
-                            case 'riwayatPembayaran':
-                                lastColumn =
-                                    `<td class="font-semibold ${ fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${fundData.status}</td>`
-                                break;
-                        }
-
-                        $('#table-parent tbody').append(
-                            `<tr>
-            <td>${ fundData.resident.nama }</td>
-            <td class="sm:hidden lg:table-cell">${ fundData.nomor_kk }</td>
-            <td class="sm:hidden lg:table-cell">${ dateString }</td>
-            <td>${ fundData.admin.noHp }</td>
-            ${lastColumn}
-        </tr>`
-
-                        )
-                    })
-                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error: " + status + " " + error);
+            form.addEventListener('click', ({
+                target
+            }) => {
+                if (target == form) {
+                    form.classList.add('hidden')
                 }
-            });
+            })
+
         }
     </script>
 @endsection

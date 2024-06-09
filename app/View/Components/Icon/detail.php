@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Detail extends Component
+class detail extends Component
 {
     /**
      * Create a new component instance.

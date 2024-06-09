@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Carbon\Carbon;
 
 
 class UserModel extends Authenticatable
@@ -54,5 +55,9 @@ class UserModel extends Authenticatable
     public function iuran_sampah(): HasMany
     {
         return $this->hasMany(GarbageFundModel::class, 'nomor_kk');
+    }
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['tgl_lahir'])->age;
     }
 }

@@ -3,18 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.1.0/build/global/luxon.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <title>{{ $title }}</title>
-    <link rel="stylesheet" href="{{ asset('./css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('./css/output.css') }}">
-    {{-- @vite('resources/css/app.css') --}}
-    {{-- @vite('resources/css/output.css') --}}
+    @vite('resources/css/app.css')
+    @vite('resources/css/output.css')
+    {{-- @stack('css') --}}
+    <title>@yield('title')</title>
+
+    @vite('resources/css/app.css')
+    
     <style>
         select:not([size]) {
             background-image: unset;
@@ -31,6 +34,7 @@
         </header>
         <main class="grow flex">
             @yield('modal')
+            @yield('modal_riwayat')
             <x-shared.left-sidebar :page="$page" />
             <div class="content" id="content">
                 @yield('content')

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Uploaded extends Component
+class uploaded extends Component
 {
     /**
      * Create a new component instance.
