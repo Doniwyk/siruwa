@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('./css/output.css') }}"> --}}
     
     @vite('resources/css/app.css')
-    @vite('resources/css/output.css')
+    {{-- @vite('resources/css/output.css') --}}
     
     <style>
         select:not([size]) {
