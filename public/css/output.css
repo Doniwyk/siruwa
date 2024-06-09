@@ -1484,6 +1484,10 @@ tbody td{
   margin-bottom: 2.25rem;
 }
 
+.me-3{
+  margin-inline-end: 0.75rem;
+}
+
 .ml-2{
   margin-left: 0.5rem;
 }
@@ -1862,6 +1866,10 @@ tbody td{
   width: 100vw;
 }
 
+.w-\[\]{
+  width: ;
+}
+
 .min-w-\[16rem\]{
   min-width: 16rem;
 }
@@ -1888,6 +1896,10 @@ tbody td{
 
 .max-w-full{
   max-width: 100%;
+}
+
+.max-w-\[27\.25rem\]{
+  max-width: 27.25rem;
 }
 
 .flex-1{
@@ -1978,6 +1990,16 @@ tbody td{
 
 .animate-pulse{
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin{
+  to{
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin{
+  animation: spin 1s linear infinite;
 }
 
 .cursor-default{
@@ -2379,6 +2401,11 @@ tbody td{
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.bg-gray-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+
 .bg-gray-50{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -2449,6 +2476,16 @@ tbody td{
 
 .bg-white\/50{
   background-color: rgb(255 255 255 / 0.5);
+}
+
+.bg-orange-900{
+  --tw-bg-opacity: 1;
+  background-color: rgb(119 29 29 / var(--tw-bg-opacity));
+}
+
+.bg-gray-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-60{
@@ -2769,6 +2806,11 @@ tbody td{
 .text-cyan-900{
   --tw-text-opacity: 1;
   color: rgb(22 78 99 / var(--tw-text-opacity));
+}
+
+.text-gray-200{
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 
 .text-gray-400{
@@ -3662,7 +3704,6 @@ input[type=file]::file-selector-button:hover{
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   /* Jumlah maksimal baris */
-  max-width: 30rem;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1rem;
@@ -4311,6 +4352,11 @@ input[type=file]::file-selector-button:hover{
   background-color: rgb(155 28 28 / 0.2);
 }
 
+.dark\:bg-slate-700:is(.dark *){
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
 .dark\:bg-gradient-to-bl:is(.dark *){
   background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
 }
@@ -4328,6 +4374,11 @@ input[type=file]::file-selector-button:hover{
 .dark\:text-gray-400:is(.dark *){
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+
+.dark\:text-gray-600:is(.dark *){
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .dark\:text-white:is(.dark *){
@@ -4424,10 +4475,6 @@ input[type=file]::file-selector-button:hover{
     margin-left: 0px;
   }
 
-  .sm\:mr-3{
-    margin-right: 0.75rem;
-  }
-
   .sm\:mt-10{
     margin-top: 2.5rem;
   }
@@ -4462,6 +4509,10 @@ input[type=file]::file-selector-button:hover{
 
   .sm\:w-7{
     width: 1.75rem;
+  }
+
+  .sm\:w-96{
+    width: 24rem;
   }
 
   .sm\:w-\[25rem\]{
@@ -4578,6 +4629,10 @@ input[type=file]::file-selector-button:hover{
 
   .sm\:p-5{
     padding: 1.25rem;
+  }
+
+  .sm\:p-10{
+    padding: 2.5rem;
   }
 
   .sm\:px-4{
@@ -4708,10 +4763,6 @@ input[type=file]::file-selector-button:hover{
 
   .md\:row-span-2{
     grid-row: span 2 / span 2;
-  }
-
-  .md\:mr-5{
-    margin-right: 1.25rem;
   }
 
   .md\:mt-3{

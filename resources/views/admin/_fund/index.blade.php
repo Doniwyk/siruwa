@@ -14,18 +14,18 @@
                     </div>
                 </div>
                 <fieldset>
-                    <div class="flex gap-4 justify-between items-center">
+                    <div class="flex gap-4 justify-between items-center w-full">
                         <label for="metode_display" class="sm:text-sm">Metode Pembayaran</label>
                         <input type="text" name="metode" id="metode" value="" class="hidden">
                         <input type="text" name="metode_display" id="metode_display"
-                            class="w-[17.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline" value=""
+                            class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline" value=""
                             disabled>
                     </div>
-                    <div class="flex gap-4 justify-between mt-4 items-center">
+                    <div class="flex gap-4 justify-between mt-4 items-center w-full">
                         <label for="jumlah_display" class="sm:text-sm">Konfirmasi Nominal</label>
                         <input type="text" name="jumlah" id="jumlah" value="" class="hidden">
                         <input type="text" name="jumlah_display" id="jumlah_display"
-                            class="w-[17.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline" value=""
+                            class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline" value=""
                             disabled>
                     </div>
                 </fieldset>
