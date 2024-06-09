@@ -24,7 +24,7 @@ class ResidentDocumentController extends Controller
       $account = AccountModel::findOrFail($userId);
       $detailAccount = UserModel::findOrFail($account->id_penduduk);
       $title = 'Pengajuan Dokumen';
-      $resident = UserModel::findOrFail(Auth::id());
+      $resident = UserModel::findOrFail($account->id_penduduk);
       $documentData = $this->documentContract->getData();
       return view('resident._requestDocument.index', compact('title', 'resident', 'documentData', 'detailAccount'));
     } catch (\Exception $e) {
