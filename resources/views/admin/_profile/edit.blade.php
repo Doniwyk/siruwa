@@ -130,6 +130,7 @@
             const modal = document.querySelector('#success-modal');
             target.addEventListener('click', () => {
                 modal.classList.add('hidden');
+                location.reload()
             })
         }
         $(document).ready(function() {
