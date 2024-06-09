@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
             //
             'nama' => 'required|string',
             'nik'  => 'required|string|size:16',
-            'nomor_kk' => 'required',
+            'nomor_kk' => 'required|string|size:16',
             'rt' => 'required',
             'alamat' => 'required',
             'pekerjaan' => 'required',

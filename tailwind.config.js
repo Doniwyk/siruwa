@@ -2,13 +2,10 @@
 export default {
     content: [
         "./resources/**/*.blade.php",
+        "./resources/**/*.css",
         "./resources/**/*.js",
         "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js",
-
-        "./public/**/*.blade.php",
-        "./public/**/*.js",
-        "./public/**/*.vue",
     ],
     theme: {
         screens: {

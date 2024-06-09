@@ -125,10 +125,14 @@ async function showRiwayatPembayaranModal(idRiwayat) {
     const metodeInput = modal.querySelector("#riwayat-metode_pembayaran");
     const jumlahInput = modal.querySelector("#riwayat-jumlah_pembayaran");
     const buktiPembayaran = modal.querySelector('img')
+    const animatePulseDiv = modal.querySelector('.animate-pulse')
+    
     metodeInput.innerText = '';
     jumlahInput.innerText = '';
     buktiPembayaran.src = '';
-
+    
+    buktiPembayaran.classList.add('hidden')
+    animatePulseDiv.classList.remove('hidden')
 
     modal_parent.classList.remove("hidden");
 
@@ -143,6 +147,11 @@ async function showRiwayatPembayaranModal(idRiwayat) {
     metodeInput.value = data.metode;
     jumlahInput.value = data.jumlah;
     buktiPembayaran.src = data.urlBuktiPembayaran;
+
+    buktiPembayaran.addEventListener('load', ()=>{
+        buktiPembayaran.classList.remove('hidden')
+        animatePulseDiv.classList.add('hidden')
+    })
 
     modal_parent.addEventListener("click", ({ target }) => {
         if (target == modal_parent) {

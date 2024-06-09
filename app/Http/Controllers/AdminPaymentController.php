@@ -130,7 +130,9 @@ class AdminPaymentController extends Controller
         try {
             $validated = $request->validate([
                 'jumlah_pengeluaran' => 'required',
-                'jenis_pengeluaran' => 'required'
+                'jenis_pengeluaran' => 'required',
+                'tanggal_pengeluaran' => 'required',
+                'keterangan_pengeluaran' => 'required'
             ]);
 
             $this->paymentService->storeExpense($validated);
