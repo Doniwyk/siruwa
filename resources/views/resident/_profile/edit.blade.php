@@ -45,7 +45,7 @@
 
 <div class="bg-white p-9 rounded-2xl">
     <span class="resident-profile-subheader">Ubah Password</span>
-    <form id="update-password" action="{{ route('resident.profil.changePassword') }}" method="post" class="flex flex-col gap-9">
+    <form id="update-password" action="{{ url_secure('resident.profil.changePassword') }}" method="post" class="flex flex-col gap-9">
         @csrf
         @method('PUT')
         <div class="grid gap-x-9 gap-y-4 sm:grid-cols-1 sm:grid-rows-3 md:grid-cols-3 md:grid-rows-1">
