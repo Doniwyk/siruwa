@@ -42,10 +42,12 @@ class AccountController extends Controller
         try {
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
-            $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
+
+            $resident = UserModel::findOrFail($account->id_penduduk); //To retrieve name and nik data 
+            $title = 'Edit Profil';
             $page = 'profil';
             $role = Auth::user()->role;
-            return view($role . '._profile.edit', compact('account', 'resident', 'page'));
+            return view($role . '._profile.edit', compact('account', 'resident', 'page', 'title'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

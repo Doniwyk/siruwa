@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pemasukan', function (Blueprint $table) {
             $table->id('id_pemasukan');
-            $table->float('jumlah_pemasukan');
+            $table->double('jumlah_pemasukan');
             $table->enum('jenis_pemasukan',['Pemasukan Iuran Kematian','Pemasukan Iuran Sampah']);
             $table->timestamps();
         });
