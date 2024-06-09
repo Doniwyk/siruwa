@@ -8,6 +8,8 @@ use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AdminPaymentController extends Controller
 {
@@ -61,7 +63,7 @@ class AdminPaymentController extends Controller
                     'paginationHtml' => $paginationHtml
                 ]);
             }
-            return view('admin._fund.index', compact('fundData', 'history', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId','financialData'));
+            return view('admin._fund.index', compact('fundData', 'history', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId', 'financialData'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -89,7 +91,7 @@ class AdminPaymentController extends Controller
     public function getDataTunggakan(Request $request)
     {
 
-        try{
+        try {
             $typeDocument = $request->query('typeDocument', 'iuran-sampah');
             $search = $request->query('search', '');
             $order = $request->query('order', 'asc');
@@ -108,15 +110,16 @@ class AdminPaymentController extends Controller
                     'dataTunggakan' => $dataTunggakan
                 ]);
             }
-            
+
             return view('admin._fund.tunggakan', compact('dataTunggakan', 'title', 'page', 'typeDocument', 'search', 'order', 'adminId'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
-    public function addExpense(Request $request){
-        
+    public function addExpense(Request $request)
+    {
+
         $typeDocument = $request->query('typeDocument', 'pembayaran');
         $search = $request->query('search', '');
         $order = $request->query('order', 'asc');
@@ -131,15 +134,30 @@ class AdminPaymentController extends Controller
     }
     public function storeExpense(Request $request)
     {
-
+        $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
+        $expense = DB::table('pengeluaran')->sum('jumlah_pengeluaran');
+        $saldo = $income - $expense;
         try {
-            $validated = $request->validate([
-                'jumlah_pengeluaran' => 'required',
-                'jenis_pengeluaran' => 'required'
-            ]);
+
+        $validator = Validator::make($request->all(), [
+            'jumlah_pengeluaran' => [
+                'required',
+                'numeric',
+                function ($attribute, $value, $fail) use ($saldo) {
+                    if ($value > $saldo) {
+                        $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia.');
+                    }
+                }
+            ],
+            'jenis_pengeluaran' => 'required',
+            'tanggal_pengeluaran' => 'required',
+            'keterangan_pengeluaran' => 'required'
+        ]);
+            $validated = $validator->validated();
             $this->paymentService->storeExpense($validated);
+            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => 'pembayaran'])->with('success','Berhasil menambahkan data pengeluaran');
         } catch (\Exception $e) {
-            dd($e);
+                return redirect()->back()->withErrors($validator)->withInput();
         }
     }
 }

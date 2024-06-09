@@ -23,12 +23,12 @@
                     </div>
                     <div class="flex flex-col items-start gap-4">
                         <label for="tanggal" class="text-main font-medium">Masukkan Nominal</label>
-                        <input type="date" placeholder="Masukkan Nominal" id="tanggal" name="tanggal"
+                        <input type="date" placeholder="Masukkan Nominal" id="tanggal" name="tanggal_pengeluaran"
                             class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline">
                     </div>
                     <div class="w-full flex flex-col items-start gap-4">
                         <label for="keterangan" class="text-main font-medium">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" placeholder="Masukkan Keterangan" class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
+                        <textarea name="keterangan_pengeluaran" id="keterangan" placeholder="Masukkan Keterangan" class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
                     </div>
                 <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl">Tambahkan Data</button>
             </form>
