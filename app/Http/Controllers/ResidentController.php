@@ -255,17 +255,25 @@ class ResidentController extends Controller
 
 
     //For display resident data on the page "Resident->Data Penduduk"
-    public function indexResident()
+    public function indexResident(Request $request)
     {
         try {
+            $typeDocument = $request->query('typeDocument', 'pengajuan');
             $userId = Auth::id();
             $resident = UserModel::findOrFail($userId);
             $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
-            return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident, 'history' => $history]);
+    
+            return view('resident._residentData.index', [
+                'title' => 'Data Diri', 
+                'resident' => $resident, 
+                'history' => $history,
+                'typeDocument' => $typeDocument
+            ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
+    
 
 
     //For display edit form data that will be submitted
