@@ -10,6 +10,10 @@
     margin: 0;
     padding: 0;
 }
+a:hover {
+    @apply text-inherit;
+}
+
 
 ::-webkit-scrollbar {
     display: none;
@@ -120,16 +124,16 @@
         -moz-appearance: none; /* Firefox */
         appearance: none; /* Default */
     }
-    .statistic-card{
+    .statistic-card {
         @apply bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl drop-shadow-xl;
     }
 }
 
-input[type=file]::file-selector-button{
-    @apply bg-main
+input[type="file"]::file-selector-button {
+    @apply bg-main;
 }
-input[type=file]::file-selector-button:hover{
-    @apply bg-main
+input[type="file"]::file-selector-button:hover {
+    @apply bg-main;
 }
 
 .bg_beranda {
@@ -157,8 +161,8 @@ input[type=file]::file-selector-button:hover{
     .web_left-sidebar {
         @apply px-4 pb-6 pt-28 bg-main text-[16px] w-[30rem];
     }
-    .web_left-sidebar a{
-        @apply whitespace-nowrap
+    .web_left-sidebar a {
+        @apply whitespace-nowrap;
     }
     .web_left-sidebar a:hover img {
         @apply invert-black;
@@ -202,44 +206,50 @@ input[type=file]::file-selector-button:hover{
     .table-fund {
         @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
     }
-    .table-fund thead tr th{
+    .table-fund thead tr th {
         @apply border-r border-white;
     }
-    .table-fund tbody tr{
+    .table-fund tbody tr {
         @apply border-t border-white border-b-0;
     }
-    th,
-    td {
-        @apply p-3 text-left;
+    .table-parent th{
+        @apply text-left
     }
-    thead th {
-        @apply text-lg font-bold bg-secondary text-white;
+    .table-parent th,
+    .table-parent td {
+        @apply p-3;
     }
-    tbody tr {
+    .table-parent thead th {
+        @apply font-bold bg-secondary text-white;
+    }
+    .table-parent tbody tr {
         @apply border-b-2;
     }
-    tbody td {
-        @apply text-secondary text-base font-medium;
+    .table-parent tbody td {
+        @apply text-base;
     }
 
     .table-parent-spk-statistic {
         @apply w-full rounded-t-3xl bg-white table-fixed overflow-hidden border-none;
     }
-    th,
-    td {
+    .table-parent-spk-statistic th,
+    .table-parent-spk-statistic td {
         @apply p-3 pl-6 text-left;
     }
-    thead th {
+    .table-parent-spk-statistic thead th {
         @apply text-sm font-bold bg-secondary text-white;
     }
-    tbody tr {
+    .table-parent-spk-statistic tbody tr {
         @apply border-b-2;
     }
-    tbody td {
+    .table-parent-spk-statistic tbody td {
         @apply text-secondary text-base font-medium;
     }
 }
-#success-modal,#document-modal, #payment-modal, #spending-payment-modal {
+#success-modal,
+#document-modal,
+#payment-modal,
+#spending-payment-modal {
     animation: fadeInUp 0.5s ease-out forwards;
 }
 
@@ -259,7 +269,7 @@ input[type=file]::file-selector-button:hover{
 .card {
     @apply bg-white flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main;
 }
-.card-details-fund{
+.card-details-fund {
     @apply bg-white flex-1 rounded-2xl flex py-4 px-5  justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main drop-shadow-2xl;
 }
 
@@ -386,4 +396,6 @@ input[type=file]::file-selector-button:hover{
 [x-cloak] {
     display: hidden !important;
 }
-[x-cloak] { display: none; }
+[x-cloak] {
+    display: none;
+}

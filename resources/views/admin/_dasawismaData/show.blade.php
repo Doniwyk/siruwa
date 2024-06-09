@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Detail Data Penduduk
+@endsection
 @section('content')
 <div class="header-edit flex-start gap-1">
     <a href="{{ route('admin.data-penduduk.index') }}">

@@ -284,7 +284,9 @@ class AdminPaymentService implements AdminPaymentContract
             try {
                 ExpenseModel::create([
                     'jumlah_pengeluaran' => $validatedData['jumlah_pengeluaran'],
-                    'jenis_pengeluaran' => 'Pengeluaran ' . $validatedData['jenis_pengeluaran']
+                    'jenis_pengeluaran' => 'Pengeluaran ' . $validatedData['jenis_pengeluaran'],
+                    'tanggal_pengeluaran'=>  $validatedData['tanggal_pengeluaran'],
+                    'keterangan_pengeluaran' => $validatedData['keterangan_pengeluaran']
                 ]);
             } catch (\Exception $e) {
                 dd($e);

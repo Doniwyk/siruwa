@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Edit Data Penduduk
+@endsection
 @section('content')
 {{-- @dd($reqResident->umur()) --}}
 <div class="header-edit flex-start gap-1">

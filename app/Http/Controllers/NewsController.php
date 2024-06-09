@@ -60,7 +60,6 @@ class NewsController extends Controller
 
 
             $page = $this->pageName;
-            $title = 'Manajemen Berita';
 
             if ($request->wantsJson()) {
                 return [
@@ -69,7 +68,7 @@ class NewsController extends Controller
                 ];
             }
 
-            return view('admin._news.index', compact('news', 'paginationHtml', 'title', 'page', 'typeDocument', 'search', 'order', 'lastestEvent', 'lastestNews'));
+            return view('admin._news.index', compact('news', 'paginationHtml', 'page', 'typeDocument', 'search', 'order', 'lastestEvent', 'lastestNews'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -80,10 +79,9 @@ class NewsController extends Controller
     {
         try {
             $page = $this->pageName;
-            $title = 'Manajemen Berita';
             $userId = Auth::id();
             $account = UserModel::findOrFail($userId);
-            return view('admin._news.create', compact('page', 'title', 'account'));
+            return view('admin._news.create', compact('page', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form tambah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -125,10 +123,9 @@ class NewsController extends Controller
     {
         try {
             $page = $this->pageName;
-            $title = 'Manajemen Berita';
             $userId = Auth::id();
             $account = UserModel::findOrFail($userId);
-            return view('admin._news.edit', compact('title', 'page', 'news', 'account'));
+            return view('admin._news.edit', compact('page', 'news', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form ubah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
