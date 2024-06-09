@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Dokumen
+@endsection
 @section('modal')
     <div class="absolute min-h-full min-w-full flex items-center justify-center bg-black/50 z-50 hidden" id="document-modal_parent">
         <div class="absolute p-10 rounded-2xl  bg-white center" id="document-modal">

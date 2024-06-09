@@ -1,4 +1,10 @@
 @extends('layouts.admin')
+@section('header_script')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+@endsection
+@section('title')
+Tambah Berita
+@endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.manajemen-berita.index') }}">

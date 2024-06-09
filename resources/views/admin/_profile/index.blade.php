@@ -1,6 +1,8 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Profil
+@endsection
 @section('content')
-
 <div class="h1-semibold">{{ $title }}</div>
 <div class="bg-white p-9 rounded-2xl flex flex-col gap-6">
     <div class="flex sm:flex-col lg:flex-row sm:gap-9 w-full gap-9">

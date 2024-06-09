@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Berita
+@endsection
 @section('content')
     <h1 class="h1-semibold">Manajemen Berita & Acara</h1>
     <div class="summary-card_news">
