@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-{{-- @dd($history) --}}
 @section('title')
 Manajemen Dana
 @endsection
