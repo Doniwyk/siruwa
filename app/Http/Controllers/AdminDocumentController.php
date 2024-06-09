@@ -127,6 +127,7 @@ class AdminDocumentController extends Controller
             $page = $this->page;
             $title = 'Manajemen Dokumen';
             $documents = $this->documentService->getCanBeTakenDocument();
+
             return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -139,9 +140,11 @@ class AdminDocumentController extends Controller
     {
         try {
             $this->documentService->changeIntoSelesai($document);
+            
+            
         } catch (\Exception $e) {
             return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat mengubah status dokumen.');;
         }
-        return redirect()->route('admin.data-dokumen.index');
+        return redirect()->route('admin.data-dokumen.index', ['typeDocument' => 'canBeTaken']);
     }
 }
