@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FundDetailsCard extends Component
+class BottomBar extends Component
 {
     /**
      * Create a new component instance.
@@ -28,6 +28,6 @@ class FundDetailsCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.shared.fund-details-card');
+        return view('components..shared.bottom-bar');
     }
 }

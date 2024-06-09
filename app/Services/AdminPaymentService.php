@@ -233,7 +233,6 @@ class AdminPaymentService implements AdminPaymentContract
         $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
         $incomeDetail = IncomeModel::all();
         $expenseDetail = ExpenseModel::all();
-
         $expense = DB::table('pengeluaran')->sum('jumlah_pengeluaran');
         $saldo = $income - $expense;
 
@@ -263,15 +262,13 @@ class AdminPaymentService implements AdminPaymentContract
         return [
             'deathFundIncome' => $deathFundIncome, // Pemasukan dari iuran kematian
             'garbageFundIncome' => $garbageFundIncome, //Pemasukan dari iuran sampah
-            'deathFundExpense' => $deathFundExpense, //pengeluaran Iuran Kematian
-            'garbageFundExpense' => $garbageFundExpense, //pengeluaran Iuran sampah
-            'income' =>  $income, //total semua pemasukan4
+            'deathFundExpense' => $deathFundExpense, //Pengeluaran untuk kematian warga
+            'garbageFundExpense' => $garbageFundExpense, //Pengeluaran untuk membayar jasa pengelolaan sampah
+            'income' =>  $income, //total semua pemasukan
             'expense' => $expense, //total semua pengeluaran
             'saldo' => $saldo, //saldo saat ini
             'incomeDetail' => $incomeDetail, // detail pemasukan
-            'expenseDetail' => $expenseDetail, //detail pengeluaran
-            'deathTransaction' => $deathTransaction,
-            'garbageTransaction' => $garbageTransaction
+            'expenseDetail' => $expenseDetail //detail pengeluaran
         ];
     }
 
