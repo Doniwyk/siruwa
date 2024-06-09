@@ -125,7 +125,9 @@ async function showRiwayatPembayaranModal(idRiwayat) {
     const metodeInput = modal.querySelector("#riwayat-metode_pembayaran");
     const jumlahInput = modal.querySelector("#riwayat-jumlah_pembayaran");
     const buktiPembayaran = modal.querySelector('img')
-    buktiPembayaran.src = ''
+    metodeInput.innerText = '';
+    jumlahInput.innerText = '';
+    buktiPembayaran.src = '';
 
 
     modal_parent.classList.remove("hidden");
