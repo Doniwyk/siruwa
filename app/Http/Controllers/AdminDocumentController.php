@@ -27,7 +27,6 @@ class AdminDocumentController extends Controller
         try {
             $page = $this->page;
             $typeDocument = $request->query('typeDocument', 'pengajuan');
-            $title = 'Manajemen Dokumen';
             switch ($typeDocument) {
                 case 'pengajuan':
                     $documents = $this->documentService->getDocumentRequest();
@@ -44,7 +43,7 @@ class AdminDocumentController extends Controller
                 default:
                     break;
             }
-            return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
+            return view('admin._document.index', compact('documents', 'typeDocument', 'page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -68,7 +67,6 @@ class AdminDocumentController extends Controller
         try{
             $typeDocument = $request->query('typeDocument', 'riwayat');
             $page = $this->page;
-            $title = 'Manajemen Dokumen';
             $documentHistory = $this->documentService->getValidateHistory();
             return view('admin._document.history', compact('documentHistory'));
         } catch(\Exception $e){
@@ -82,9 +80,8 @@ class AdminDocumentController extends Controller
     {
         try{
             $page = $this->page;
-            $title = 'Manajemen Dokumen';
             $document = $document->findOrFail($document->id_dokumen);
-            return view('admin._document.edit', compact('page', 'title', 'document'));
+            return view('admin._document.edit', compact('page', 'document'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

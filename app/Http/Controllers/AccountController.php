@@ -28,9 +28,8 @@ class AccountController extends Controller
             $account = AccountModel::findOrFail($userId);
             $detailAccount = UserModel::findOrFail($account->id_penduduk);
             $page = 'profil';
-            $title = 'Profil';
+            $title = 'Manajemen Profil';
             $role = Auth::user()->role;
-            // return view($role.'._profile.index', ['title' => $title, 'page' => $page, 'account' =>$account]);
             return view($role . '._profile.index', compact('account', 'detailAccount', 'page', 'title', 'userId'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -45,7 +44,6 @@ class AccountController extends Controller
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
             $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
-            $title = 'Edit Profil';
             $page = 'profil';
             $role = Auth::user()->role;
             return view($role . '._profile.edit', compact('title', 'account', 'resident', 'page'));

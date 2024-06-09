@@ -33,8 +33,6 @@ class AuthenticationController extends Controller
         try {
             $this->authenticationContract->authenticate($request);
             if (Auth::user()->role == 'admin') {
-                // return redirect()->route('admin._statistics.index'); //Nanti disesuaikan
-                // return view('welcome');
                 return redirect()->route('admin.statistic.index');
             } else {
                 return redirect()->route('resident.index');

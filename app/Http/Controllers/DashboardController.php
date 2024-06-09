@@ -6,7 +6,6 @@ use App\Contracts\DashboardContract;
 use App\Models\DataDashboardModel;
 use App\Models\EventModel;
 use App\Models\NewsModel;
-use App\Models\OrStructureModel;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -49,12 +48,11 @@ class DashboardController extends Controller
     //To manajemen organixation structure for admin
     public function manajemenDashboard(){
         try{
-            $title = 'Manajemen Dashboard';
             $page='dashboard';
             $dataDashboard = $this->dashboardContract->dataDashboard(); 
             $residentTotal = $dataDashboard['resident'];
             $rwData = $dataDashboard['data'][0];
-            return view('admin._dashboard.index', compact('title', 'page', 'residentTotal', 'rwData'));
+            return view('admin._dashboard.index', compact('page', 'residentTotal', 'rwData'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
