@@ -1,35 +1,38 @@
 @extends('layouts.admin')
 @section('modal')
-    <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50" id="spending-payment-modal_parent">
-        <div class="sm:w-[25rem] md:w-[32rem] p-10 rounded-2xl  bg-white center z-50 overflow-hidden" id="spending-payment-modal">
-            <form action="{{route('admin.data-pembayaran.store')}}" method="POST" class="flex flex-col gap-4 items-center">
+    <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50"
+        id="spending-payment-modal_parent">
+        <div class="sm:w-[25rem] md:w-[32rem] sm:p-5 md:p-10 rounded-2xl  bg-white center z-50 overflow-hidden"
+            id="spending-payment-modal">
+            <form action="{{ route('admin.data-pembayaran.store') }}" method="POST" class="flex flex-col gap-4 items-center">
                 @csrf
                 @method('POST')
-                    <h4 class="text-center text-xl font-semibold">Tambah Data Pengeluaran</h4>
-                    <div class="flex flex-col items-start gap-4">
-                        <label for="jumlah_pengeluaran" class="text-main font-medium">Masukkan Nominal</label>
-                        <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
-                            class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline">
-                    </div>
-                    <div class="flex flex-col items-start gap-4">
-                        <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
-                        <select id="jenis_pengeluaran" name="jenis_pengeluaran"
-                            class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline ">
-                            <option selected>Jenis Iuran</option>
-                            <option value="Iuran Sampah">Iuran Sampah</option>
-                            <option value="Iuran Kematian">Iuran Kematian</option>
-                        </select>
-    
-                    </div>
-                    <div class="flex flex-col items-start gap-4">
-                        <label for="tanggal" class="text-main font-medium">Masukkan Nominal</label>
-                        <input type="date" placeholder="Masukkan Nominal" id="tanggal" name="tanggal"
-                            class="w-[27.25rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline">
-                    </div>
-                    <div class="w-full flex flex-col items-start gap-4">
-                        <label for="keterangan" class="text-main font-medium">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" placeholder="Masukkan Keterangan" class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
-                    </div>
+                <h4 class="text-center text-xl font-semibold">Tambah Data Pengeluaran</h4>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="jumlah_pengeluaran" class="text-main font-medium">Masukkan Nominal</label>
+                    <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline">
+                </div>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
+                    <select id="jenis_pengeluaran" name="jenis_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline ">
+                        <option selected>Jenis Iuran</option>
+                        <option value="Iuran Sampah">Iuran Sampah</option>
+                        <option value="Iuran Kematian">Iuran Kematian</option>
+                    </select>
+
+                </div>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="tanggal" class="text-main font-medium">Masukkan Nominal</label>
+                    <input type="date" placeholder="Masukkan Nominal" id="tanggal" name="tanggal"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline">
+                </div>
+                <div class="w-full flex flex-col items-start gap-4">
+                    <label for="keterangan" class="text-main font-medium">Keterangan</label>
+                    <textarea name="keterangan" id="keterangan" placeholder="Masukkan Keterangan"
+                        class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
+                </div>
                 <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl">Tambahkan Data</button>
             </form>
         </div>
@@ -37,7 +40,7 @@
 @endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
-        <a href="{{ route('admin.data-penduduk.index') }}">
+        <a href="{{ route('admin.data-pembayaran.index') }}">
             <span>
                 <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -148,7 +151,15 @@
         function showFormSpendingPaymentForm() {
             const form = document.querySelector('#spending-payment-modal_parent')
             form.classList.toggle('hidden');
+
+            form.addEventListener('click',({target})=>{
+                if (target == form) {
+                    form.classList.add('hidden')
+                }
+            })
+            
         }
+
         function fetchPaymentData(typeDocument = '', search = '', order = 'asc', page = 1) {
             $.ajax({
                 url: '{{ route('admin.data-pembayaran.add') }}',
@@ -176,8 +187,8 @@
                     if (!fundDatas.length) {
                         $('#table-parent tbody').append(
                             `<tr>
-            <td colspan="5" class="text-center">No data found</td>
-        </tr>`
+                                <td colspan="5" class="text-center">No data found</td>
+                             </tr>`
                         );
                         return;
                     }
@@ -190,11 +201,10 @@
                         switch (typeDocument) {
                             case 'pembayaran':
                                 lastColumn = `<td class="flex-start">
-            <button class="w-[25px] h-[25px] flex-center" id="button-${index}"
-                onclick="getDataPembayaran(${fundData.id_pembayaran})">
-                <x-icon.detail />
-            </button>
-        </td>`
+                                    <button class="w-[25px] h-[25px] flex-center" id="button-${index}" onclick="getDataPembayaran(${fundData.id_pembayaran})">
+                                        <x-icon.detail />
+                                    </button>
+                                  </td>`
                                 break;
                             case 'riwayatPembayaran':
                                 lastColumn =
@@ -204,12 +214,12 @@
 
                         $('#table-parent tbody').append(
                             `<tr>
-            <td>${ fundData.resident.nama }</td>
-            <td class="sm:hidden lg:table-cell">${ fundData.nomor_kk }</td>
-            <td class="sm:hidden lg:table-cell">${ dateString }</td>
-            <td>${ fundData.admin.noHp }</td>
-            ${lastColumn}
-        </tr>`
+                                <td>${ fundData.resident.nama }</td>
+                                <td class="sm:hidden lg:table-cell">${ fundData.nomor_kk }</td>
+                                <td class="sm:hidden lg:table-cell">${ dateString }</td>
+                                <td>${ fundData.admin.noHp }</td>
+                                ${lastColumn}
+                           </tr>`
 
                         )
                     })
