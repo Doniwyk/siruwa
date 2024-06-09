@@ -130,7 +130,7 @@ class ResidentController extends Controller
             }
             return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
         } catch (\Exception $e) {
-            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal menambahkan data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 

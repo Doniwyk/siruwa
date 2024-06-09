@@ -15,7 +15,7 @@ Edit Berita
         @method('PUT')
         <section class="sm:grid-rows-5 grid grid-rows-2 grid-cols-4 gap-6 w-full">
             <div class="sm:row-span-3 md:row-span-2 sm:col-span-4 md:col-span-1  relative " id="file-1">
-                <input type="file" name="gambar" id="image" class="hidden">
+                <input type="file" name="gambar" id="image" class="hidden" accept=".png, .jpg">
                 <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
                     <img src="{{ $news->url_gambar }}" alt="image" class="object-contain h-full" id="imagePreview">
                 </label>
