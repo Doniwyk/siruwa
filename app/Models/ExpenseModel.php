@@ -12,5 +12,5 @@ class ExpenseModel extends Model
     protected $table = 'pengeluaran';
     protected $primaryKey = 'id_pengeluaran';
 
-    protected $fillable = ['jumlah_pengeluaran','jenis_pengeluaran'];
+    protected $fillable = ['jumlah_pengeluaran','jenis_pengeluaran','tanggal_pengeluaran','keterangan_pengeluaran'];
 }
