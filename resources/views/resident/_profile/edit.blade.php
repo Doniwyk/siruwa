@@ -3,49 +3,44 @@
 
 <div class="resident-header">{{ $title }}</div>
 <div class="bg-white rounded-2xl flex p-9">
-        <form action="/your-endpoint" class="flex sm:flex-col md:flex-row gap-9 w-full " id="update-personal-data"
-            enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <!-- Foto Profil -->
-            <fieldset class="shrink-0 h-[21rem] flex flex-col relative items-center " x-data="imageHandler()">
-                <span class="resident-profile-subheader w-full">Foto Profil</span>
-                <div class="relative w-[21rem] h-[16rem] cursor-pointer  object-contain" @click="$refs.profileImageUpload.click()">
-                    <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*"
-                        @change="loadFile($event)" name="urlProfile" id="urlProfile">
-                    <img id="profile-image" class="w-full h-full rounded-xl absolute object-contain "
-                        :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" />
-                    <span class="w-[21rem] h-[16rem] group bg-black opacity-50 rounded-xl absolute object-contain"></span>
-                    <span class="w-[21rem] h-[16rem] group absolute flex flex-col justify-center items-center gap-2 object-contain">
-                        <img class="block w-12 opacity-100" src="{{ asset('assets/icons/upload-profile.svg') }}"
-                            alt="Upload" />
-                        <span class="text-white font-medium">Upload Foto Profil</span>
-                    </span>
-                </div>
-            </fieldset>
+    <form action="/your-endpoint" class="flex sm:flex-col md:flex-row gap-9 w-full " id="update-personal-data"
+        enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <!-- Foto Profil -->
+        <section class="md:w-[21rem] flex flex-col relative items-center " x-data="imageHandler()">
+            <span class="mb-6 block text-2xl font-semibold text-secondary w-full">Foto Profil</span>
+            <div class="relative sm:w-full md:w-[21rem] h-[16rem] cursor-pointer object-contain"
+                @click="$refs.profileImageUpload.click()">
+                <input type="file" x-ref="profileImageUpload" class="hidden" accept="image/*"
+                    @change="loadFile($event)" name="urlProfile" id="urlProfile">
+                <img id="profile-image" class="w-full h-full rounded-xl absolute object-contain"
+                    :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" />
+                <span class="w-full h-full group  opacity-50 rounded-xl absolute object-contain"></span>
+                <span class="w-full h-full group absolute flex flex-col justify-center items-center gap-2 object-contain">
+                    <img class="block w-12 opacity-100" src="{{ asset('assets/icons/upload-profile.svg') }}"
+                        alt="Upload" />
+                    <span class="text-white font-medium">Upload Foto Profil</span>
+                </span>
+            </div>
+        </section>
 
-            <!-- Identitas Diri -->
-            <fieldset class="w-full flex flex-col">
-                <span class="mb-6 block text-2xl font-semibold text-secondary">Identitas Diri</span>
-                <div class="grid gap-x-9 gap-y-5 sm:grid-cols-1  md:grid-cols-2">
-                    <div class="grid gap-y-4">
-                        <x-form.show-input-form :label="'Nama Lengkap'" :name="'nama'" :value="$resident->nama" />
-                        <x-form.show-input-form :label="'Alamat Lengkap'" :name="'alamat'" :value="$resident->alamat" />
-                        <x-form.show-input-form :label="'Role'" :name="'role'" :value="$account->role" />
-                    </div>
-                    
-                    <div class="grid gap-y-4">
-                        <x-form.text-input-form label="Username" name="username" :value="$account->username" />
-                        <x-form.text-input-form label="Email" name="email" :value="$account->email" />
-                        <x-form.text-input-form label="No. Telepon" name="noHp" :value="$account->noHp" />
-                    </div>
-                </div>
-                
-                <div class="flex justify-end">
-                    <button type="submit" class="btn-main button-hover mt-6">Simpan Perubahan</button>
-                </div>
-            </fieldset>
-        </form>
+        <!-- Identitas Diri -->
+        <section class="w-full flex flex-col">
+            <span class="mb-6 block text-2xl font-semibold text-secondary">Identitas Diri</span>
+            <div class="grid gap-x-9 gap-y-5 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
+                <x-form.show-input-form :label="'Nama Lengkap'" :name="'nama'" :value="$resident->nama" />
+                <x-form.text-input-form label="Email" name="email" :value="$account->email" />
+                <x-form.show-input-form :label="'Alamat Lengkap'" :name="'alamat'" :value="$resident->alamat" />
+                <x-form.text-input-form label="Username" name="username" :value="$account->username" />
+                <x-form.show-input-form :label="'Role'" :name="'role'" :value="$account->role" />
+                <x-form.text-input-form label="No. Telepon" name="noHp" :value="$account->noHp" />
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="btn-main button-hover mt-6">Simpan Perubahan</button>
+            </div>
+        </section>
+    </form>
 </div>
 
 <div class="bg-white p-9 rounded-2xl">
@@ -53,7 +48,7 @@
     <form id="update-password" action="{{ route('resident.profil.changePassword') }}" method="post" class="flex flex-col gap-9">
         @csrf
         @method('PUT')
-        <div class="grid md:grid-cols-3 md:grid-flow-row gap-x-9 gap-y-5">
+        <div class="grid gap-x-9 gap-y-4 sm:grid-cols-1 sm:grid-rows-3 md:grid-cols-3 md:grid-rows-1">
             <x-form.text-input-form type="password" label="Password Lama" name="current_password" />
             <x-form.text-input-form type="password" label="Password Baru" name="new_password" />
             <x-form.text-input-form type="password" label="Konfirmasi Password" name="new_password_confirmation" />
@@ -61,7 +56,7 @@
         <div class="flex justify-end">
             <button type="submit" class="btn-main button-hover">Simpan Perubahan</button>
         </div>
-    </form>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -103,7 +98,7 @@ $(document).ready(function() {
                 
                 $('#update-password .error-message').text('');
                 
-                if (response.errors) {
+                if (response && response.errors) {
                     let errors = response.errors;
                     for (let field in errors) {
                         if (errors.hasOwnProperty(field)) {
