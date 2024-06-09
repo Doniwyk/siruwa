@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('id_pengeluaran');
             $table->float('jumlah_pengeluaran');
             $table->string('jenis_pengeluaran');
+            $table->date('tanggal_pengeluaran');
+            $table->string('keterangan_pengeluaran');
             $table->timestamps();
         });
     }

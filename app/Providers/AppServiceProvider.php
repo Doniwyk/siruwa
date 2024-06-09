@@ -37,6 +37,7 @@ use App\Services\AdminPaymentService;
 use App\Services\ResidentDocumentService;
 use App\Services\ResidentPaymentService;
 use App\Services\StatisticService;
+use Illuminate\Support\Facades\URL;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class AppServiceProvider extends ServiceProvider
@@ -92,6 +93,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (env('APP_ENV') === 'production') {
+            $this->app['request']->server->set('HTTPS', 'on');
+            URL::forceScheme('https');
+        }
         Paginator::defaultView('pagination::default');
     }
 }

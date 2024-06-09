@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             PaymentSeeder::class,
             DeathFundSeeder::class,
             GarbageFundSeeder::class,
-            PendudukTemporarySeeder::class
+            PendudukTemporarySeeder::class,
+            ExpenseSeeder::class
         ]);
         
     }

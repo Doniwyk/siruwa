@@ -15,6 +15,7 @@
         select:not([size]) {
             background-image: unset;
         }
+        [x-cloak] { display: none; }
     </style>
 </head>
 

@@ -11,8 +11,15 @@ class BottomBar extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $type;
+    public $moneyTotalKematian;
+    public $moneyTotalSampah;
+
+    public function __construct($type,$moneyTotalKematian, $moneyTotalSampah)
     {
+        $this->type = $type;
+        $this->moneyTotalKematian = $moneyTotalKematian;
+        $this->moneyTotalSampah = $moneyTotalSampah;
         //
     }
 

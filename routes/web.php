@@ -54,7 +54,7 @@ Route::get('/logout', [AuthenticationController::class, 'doLogout'])->middleware
 
 //==================================ROUTE LANDING PAGE========================================
 
-Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index');
+Route::get('/', [DashboardController::class, 'indexLandingPage'])->name('index')->middleware('redirectIfAdmin');
 Route::get('/fetch-events', [DashboardController::class, 'fetchEvents']);
 
 //==================================ROUTE STATISTIC FOR ADMIN========================================
@@ -172,7 +172,7 @@ Route::group([
     Route::get('/', [AdminPaymentController::class, 'index'])->name('index'); //mendapatkan halaman data pembayaran yang harus divalidasi
     Route::get('/{payment}/show', [AdminPaymentController::class, 'showBuktiPembayaran'])->name('showBuktiPembayaran');
     Route::put('/{payment}/validate', [AdminPaymentController::class, 'validatePayment'])->name('validatePembayaran'); //proses validasi pembayaran
-    Route::get('/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
+    Route::get('/{payment}/history', [AdminPaymentController::class, 'validatedPayment'])->name('history'); //mendapatkan halaman riwayat pembayaran
     Route::get('/generate-pdf', [ExportController::class, 'exportPaymentData'])->name('export');
     Route::get('/tunggakan', [AdminPaymentController::class, 'getDataTunggakan'])->name('tunggakan');
     Route::get('/addExpense',[AdminPaymentController::class,'addExpende'])->name('add');

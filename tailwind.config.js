@@ -4,7 +4,11 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
+
+        "./public/**/*.blade.php",
+        "./public/**/*.js",
+        "./public/**/*.vue",
     ],
     theme: {
         screens: {
@@ -33,6 +37,7 @@ export default {
                 "danger-bg": "#EDA7A7",
                 danger: "#4C2323",
                 "input-disabled": "#DDE9EA",
+                "text-input-disabled": '#5E7C7F',
                 "green-light": "#3D5658",
                 "input-text": "#3D5658",
                 "input-border": "#244447",

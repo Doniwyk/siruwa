@@ -48,12 +48,11 @@ class DashboardController extends Controller
     //To manajemen organixation structure for admin
     public function manajemenDashboard(){
         try{
-            $title = 'Manajemen Dashboard';
             $page='dashboard';
             $dataDashboard = $this->dashboardContract->dataDashboard(); 
             $residentTotal = $dataDashboard['resident'];
             $rwData = $dataDashboard['data'][0];
-            return view('admin._dashboard.index', compact('title', 'page', 'residentTotal', 'rwData'));
+            return view('admin._dashboard.index', compact( 'page', 'residentTotal', 'rwData'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Statistik
+@endsection
 @section('content')
     <h1 class="h1-semibold">Statistik</h1>
     <section class="flex-start flex-wrap gap-3 w-full ">

@@ -34,7 +34,7 @@ class AdminPaymentService implements AdminPaymentContract
 
         $table = $payment->jenis === 'Iuran Kematian' ? DeathFundModel::class : GarbageFundModel::class;
         $no_kk = $payment->nomor_kk;
-        $jenis= $payment->jenis;
+        $jenis = $payment->jenis;
 
         //Mencaari bulan yang belum lunas
         $monthsDue = $table::where('nomor_kk', $no_kk)
@@ -48,13 +48,13 @@ class AdminPaymentService implements AdminPaymentContract
             $payment->status = 'Terverifikasi';
             $payment->id_admin = Auth::user()->id;
             $payment->save();
-            try{
-            IncomeModel::create([
-                'jumlah_pemasukan' => $totalPayment,
-                'jenis_pemasukan'=> $jenis,
-            ]);
-            } catch(\Exception $e){
-                    dd($e);
+            try {
+                IncomeModel::create([
+                    'jumlah_pemasukan' => $totalPayment,
+                    'jenis_pemasukan' => 'Pemasukan '. $jenis,
+                ]);
+            } catch (\Exception $e) {
+                dd($e);
             }
 
 
@@ -68,7 +68,7 @@ class AdminPaymentService implements AdminPaymentContract
                 $currentMonth->save();
             }
 
-            
+
             if ($monthsPaid > $monthsDueCount) {
                 $lastPaidMonth = $table::where('nomor_kk', $no_kk)
                     ->where('status', 'Lunas')
@@ -149,8 +149,9 @@ class AdminPaymentService implements AdminPaymentContract
             'tunggakan' => $getTunggakan
         ];
     }
-    public function getDataTunggakan($search, $order) {
-        
+    public function getDataTunggakan($search, $order)
+    {
+
         $currentYear = date('Y');
         $currentMonth = date('m');
         // Query for tunggakan kematian
@@ -189,52 +190,74 @@ class AdminPaymentService implements AdminPaymentContract
                 GROUP BY gf.nomor_kk
             ) as combined
         '))
-        ->select(
-            'combined.nomor_kk',
-            'combined.head_of_family',
-            DB::raw('SUM(combined.total_tunggakan_kematian) as total_tunggakan_kematian'),
-            DB::raw('SUM(combined.total_tunggakan_sampah) as total_tunggakan_sampah')
-        )
-        ->groupBy('combined.nomor_kk', 'combined.head_of_family');
-        
-            // Apply search filter if provided
+            ->select(
+                'combined.nomor_kk',
+                'combined.head_of_family',
+                DB::raw('SUM(combined.total_tunggakan_kematian) as total_tunggakan_kematian'),
+                DB::raw('SUM(combined.total_tunggakan_sampah) as total_tunggakan_sampah')
+            )
+            ->groupBy('combined.nomor_kk', 'combined.head_of_family');
+
+        // Apply search filter if provided
         if ($search) {
             $combinedTunggakan->having('combined.head_of_family', 'LIKE', '%' . $search . '%')
-                            ->orHaving('combined.nomor_kk', 'LIKE', '%' . $search . '%');
+                ->orHaving('combined.nomor_kk', 'LIKE', '%' . $search . '%');
         }
 
         // Apply ordering
         $combinedTunggakan->orderBy('combined.head_of_family', $order);
 
         return $combinedTunggakan->get();
-
-
-    }  
+    }
 
 
     //Data keuangan
 
-    public function getFinancialData(){
+    public function getFinancialData()
+    {
         $deathFundIncome = DB::table('pemasukan')
-            ->where('jenis_pemasukan','Iuran Kematian')
+            ->where('jenis_pemasukan', 'Pemasukan Iuran Kematian')
             ->sum('jumlah_pemasukan');
         $garbageFundIncome = DB::table('pemasukan')
-            ->where('jenis_pemasukan','Iuran Sampah')
+            ->where('jenis_pemasukan', 'Pemasukan Iuran Sampah')
             ->sum('jumlah_pemasukan');
 
-        $deathFundExpense=DB::table('pengeluaran')
-        ->where('jenis_pengeluaran', 'Iuran Kematian')
-        ->sum('jumlah_pengeluaran');
+        $deathFundExpense = DB::table('pengeluaran')
+            ->where('jenis_pengeluaran', 'Pengeluaran Iuran Kematian')
+            ->sum('jumlah_pengeluaran');
 
-        $garbageFundExpense=DB::table('pengeluaran')
-        ->where('jenis_pengeluaran', 'Iuran Sampah')
-        ->sum('jumlah_pengeluaran');
+        $garbageFundExpense = DB::table('pengeluaran')
+            ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
+            ->sum('jumlah_pengeluaran');
 
         $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
         $incomeDetail = IncomeModel::all();
         $expenseDetail = ExpenseModel::all();
         $expense = DB::table('pengeluaran')->sum('jumlah_pengeluaran');
         $saldo = $income - $expense;
+
+        $deathTransaction = DB::table('pemasukan')
+            ->select('created_at', 'jumlah_pemasukan as amount',  DB::raw('"Pemasukan" as type'))
+            ->where('jenis_pemasukan', 'Pemasukan Iuran Kematian')
+            ->union(
+                DB::table('pengeluaran')
+                    ->select('created_at', 'jumlah_pengeluaran as amount',  DB::raw('"Pengeluaran" as type'))
+                    ->where('jenis_pengeluaran', 'Pengeluaran Iuran Kematian')
+            )
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
+        $garbageTransaction = DB::table('pemasukan')
+            ->select('created_at', 'jumlah_pemasukan as amount', DB::raw('"Pemasukan" as type'))
+            ->where('jenis_pemasukan', 'Pemasukan Iuran Sampah')
+            ->union(
+                DB::table('pengeluaran')
+                    ->select('created_at', 'jumlah_pengeluaran as amount', DB::raw('"Pengeluaran" as type'))
+                    ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
+            )
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return [
             'deathFundIncome' => $deathFundIncome, // Pemasukan dari iuran kematian
@@ -247,18 +270,20 @@ class AdminPaymentService implements AdminPaymentContract
             'incomeDetail' => $incomeDetail, // detail pemasukan
             'expenseDetail' => $expenseDetail //detail pengeluaran
         ];
-        
     }
 
     //Pengeluaran
-    public function storeExpense(array $validatedData){
-        
+    public function storeExpense(array $validatedData)
+    {
+
         DB::beginTransaction();
         try {
             try {
-                IncomeModel::create([
-                    'jumlah_pemasukan' => $validatedData['jumlah_pemasukan'],
-                    'jenis_pemasukan' => $validatedData['jenis_pengeluaran']
+                ExpenseModel::create([
+                    'jumlah_pengeluaran' => $validatedData['jumlah_pengeluaran'],
+                    'jenis_pengeluaran' => 'Pengeluaran ' . $validatedData['jenis_pengeluaran'],
+                    'tanggal_pengeluaran'=>  $validatedData['tanggal_pengeluaran'],
+                    'keterangan_pengeluaran' => $validatedData['keterangan_pengeluaran']
                 ]);
             } catch (\Exception $e) {
                 dd($e);
@@ -269,5 +294,4 @@ class AdminPaymentService implements AdminPaymentContract
             throw new Exception($exception->getMessage());
         }
     }
-
 }

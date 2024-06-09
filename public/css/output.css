@@ -1245,32 +1245,30 @@ input:checked + .toggle-bg{
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-th,
-    td{
-  padding: 0.75rem;
+.table-parent th{
   text-align: left;
 }
 
-thead th{
+.table-parent th,
+    .table-parent td{
+  padding: 0.75rem;
+}
+
+.table-parent thead th{
   --tw-bg-opacity: 1;
   background-color: rgb(34 81 87 / var(--tw-bg-opacity));
-  font-size: 1.125rem;
-  line-height: 1.75rem;
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-tbody tr{
+.table-parent tbody tr{
   border-bottom-width: 2px;
 }
 
-tbody td{
+.table-parent tbody td{
   font-size: 1rem;
   line-height: 1.5rem;
-  font-weight: 500;
-  --tw-text-opacity: 1;
-  color: rgb(34 81 87 / var(--tw-text-opacity));
 }
 
 .table-parent-spk-statistic{
@@ -1284,14 +1282,14 @@ tbody td{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-th,
-    td{
+.table-parent-spk-statistic th,
+    .table-parent-spk-statistic td{
   padding: 0.75rem;
   padding-left: 1.5rem;
   text-align: left;
 }
 
-thead th{
+.table-parent-spk-statistic thead th{
   --tw-bg-opacity: 1;
   background-color: rgb(34 81 87 / var(--tw-bg-opacity));
   font-size: 0.875rem;
@@ -1301,11 +1299,11 @@ thead th{
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-tbody tr{
+.table-parent-spk-statistic tbody tr{
   border-bottom-width: 2px;
 }
 
-tbody td{
+.table-parent-spk-statistic tbody td{
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 500;
@@ -1548,6 +1546,10 @@ tbody td{
   margin-top: auto;
 }
 
+.mt-3{
+  margin-top: 0.75rem;
+}
+
 .block{
   display: block;
 }
@@ -1570,6 +1572,10 @@ tbody td{
 
 .table{
   display: table;
+}
+
+.table-row{
+  display: table-row;
 }
 
 .grid{
@@ -1955,6 +1961,16 @@ tbody td{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.translate-y-0{
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-4{
+  --tw-translate-y: 1rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .rotate-180{
   --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2207,6 +2223,10 @@ tbody td{
   overflow-x: auto;
 }
 
+.overflow-y-auto{
+  overflow-y: auto;
+}
+
 .whitespace-nowrap{
   white-space: nowrap;
 }
@@ -2363,6 +2383,10 @@ tbody td{
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
+.border-transparent{
+  border-color: transparent;
+}
+
 .bg-\[\#DDE9EA\]{
   --tw-bg-opacity: 1;
   background-color: rgb(221 233 234 / var(--tw-bg-opacity));
@@ -2474,8 +2498,27 @@ tbody td{
   background-color: rgb(255 255 255 / 0.5);
 }
 
+.bg-gray-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
+.bg-green-100{
+  --tw-bg-opacity: 1;
+  background-color: rgb(222 247 236 / var(--tw-bg-opacity));
+}
+
+.bg-green-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 122 85 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-60{
   --tw-bg-opacity: 0.6;
+}
+
+.bg-opacity-75{
+  --tw-bg-opacity: 0.75;
 }
 
 .from-gray-700{
@@ -2683,10 +2726,6 @@ tbody td{
   padding-right: 1rem;
 }
 
-.pr-40{
-  padding-right: 10rem;
-}
-
 .pr-5{
   padding-right: 1.25rem;
 }
@@ -2697,6 +2736,10 @@ tbody td{
 
 .pt-5{
   padding-top: 1.25rem;
+}
+
+.pb-4{
+  padding-bottom: 1rem;
 }
 
 .text-left{
@@ -2954,6 +2997,12 @@ tbody td{
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-xl{
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 .shadow-gray-500\/20{
   --tw-shadow-color: rgb(107 114 128 / 0.2);
   --tw-shadow: var(--tw-shadow-colored);
@@ -3036,6 +3085,14 @@ tbody td{
   transition-duration: 500ms;
 }
 
+.duration-150{
+  transition-duration: 150ms;
+}
+
+.duration-200{
+  transition-duration: 200ms;
+}
+
 .ease-in-out{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -3046,6 +3103,10 @@ tbody td{
 
 .ease-out{
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.ease-in{
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
 .flex-center{
@@ -3526,20 +3587,16 @@ tbody td{
   padding: 0;
 }
 
-a:hover{
-  color: inherit;
-}
-
 ::-webkit-scrollbar {
   display: none;
 }
 
-input[type=file]::file-selector-button{
+input[type="file"]::file-selector-button{
   --tw-bg-opacity: 1;
   background-color: rgb(36 68 71 / var(--tw-bg-opacity));
 }
 
-input[type=file]::file-selector-button:hover{
+input[type="file"]::file-selector-button:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(36 68 71 / var(--tw-bg-opacity));
 }
@@ -3561,7 +3618,10 @@ input[type=file]::file-selector-button:hover{
   background-attachment: scroll;
 }
 
-#success-modal,#document-modal, #payment-modal {
+#success-modal,
+#document-modal,
+#payment-modal,
+#spending-payment-modal {
   animation: fadeInUp 0.5s ease-out forwards;
 }
 
@@ -3712,7 +3772,6 @@ input[type=file]::file-selector-button:hover{
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   /* Jumlah maksimal baris */
-  max-width: 30rem;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 1rem;
@@ -4224,6 +4283,11 @@ input[type=file]::file-selector-button:hover{
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-green-500:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 159 110 / var(--tw-bg-opacity));
+}
+
 .hover\:text-blue-600:hover{
   --tw-text-opacity: 1;
   color: rgb(28 100 242 / var(--tw-text-opacity));
@@ -4251,6 +4315,11 @@ input[type=file]::file-selector-button:hover{
 
 .focus\:rounded-sm:focus{
   border-radius: 0.125rem;
+}
+
+.focus\:border-green-700:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(4 108 78 / var(--tw-border-opacity));
 }
 
 .focus\:outline-none:focus{
@@ -4480,12 +4549,29 @@ input[type=file]::file-selector-button:hover{
     grid-row: span 3 / span 3;
   }
 
+  .sm\:mx-0{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
   .sm\:ml-0{
     margin-left: 0px;
   }
 
   .sm\:mt-10{
     margin-top: 2.5rem;
+  }
+
+  .sm\:ml-3{
+    margin-left: 0.75rem;
+  }
+
+  .sm\:ml-4{
+    margin-left: 1rem;
+  }
+
+  .sm\:mt-0{
+    margin-top: 0px;
   }
 
   .sm\:block{
@@ -4508,6 +4594,10 @@ input[type=file]::file-selector-button:hover{
     height: auto;
   }
 
+  .sm\:h-10{
+    height: 2.5rem;
+  }
+
   .sm\:max-h-0{
     max-height: 0px;
   }
@@ -4528,8 +4618,20 @@ input[type=file]::file-selector-button:hover{
     width: 100%;
   }
 
+  .sm\:w-10{
+    width: 2.5rem;
+  }
+
+  .sm\:w-auto{
+    width: auto;
+  }
+
   .sm\:max-w-full{
     max-width: 100%;
+  }
+
+  .sm\:max-w-lg{
+    max-width: 32rem;
   }
 
   .sm\:basis-1\/2{
@@ -4540,12 +4642,33 @@ input[type=file]::file-selector-button:hover{
     flex-basis: 100%;
   }
 
+  .sm\:translate-y-0{
+    --tw-translate-y: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .sm\:scale-100{
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
+  .sm\:scale-95{
+    --tw-scale-x: .95;
+    --tw-scale-y: .95;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .sm\:grid-cols-1{
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .sm\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-rows-3{
+    grid-template-rows: repeat(3, minmax(0, 1fr));
   }
 
   .sm\:grid-rows-4{
@@ -4564,12 +4687,20 @@ input[type=file]::file-selector-button:hover{
     flex-direction: row;
   }
 
+  .sm\:flex-row-reverse{
+    flex-direction: row-reverse;
+  }
+
   .sm\:flex-col{
     flex-direction: column;
   }
 
   .sm\:flex-col-reverse{
     flex-direction: column-reverse;
+  }
+
+  .sm\:items-start{
+    align-items: flex-start;
   }
 
   .sm\:items-center{
@@ -4624,16 +4755,16 @@ input[type=file]::file-selector-button:hover{
     overflow: hidden;
   }
 
-  .sm\:rounded-xl{
-    border-radius: 0.75rem;
-  }
-
   .sm\:p-4{
     padding: 1rem;
   }
 
   .sm\:p-5{
     padding: 1.25rem;
+  }
+
+  .sm\:p-6{
+    padding: 1.5rem;
   }
 
   .sm\:px-4{
@@ -4689,6 +4820,10 @@ input[type=file]::file-selector-button:hover{
     padding-bottom: 0.75rem;
   }
 
+  .sm\:pb-4{
+    padding-bottom: 1rem;
+  }
+
   .sm\:text-left{
     text-align: left;
   }
@@ -4732,6 +4867,10 @@ input[type=file]::file-selector-button:hover{
   .sm\:text-xl{
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .sm\:leading-5{
+    line-height: 1.25rem;
   }
 
   .sm\:flex-between{
@@ -4794,6 +4933,10 @@ input[type=file]::file-selector-button:hover{
     display: none;
   }
 
+  .md\:h-\[16rem\]{
+    height: 16rem;
+  }
+
   .md\:w-1\/2{
     width: 50%;
   }
@@ -4810,6 +4953,10 @@ input[type=file]::file-selector-button:hover{
     width: 2rem;
   }
 
+  .md\:w-\[21rem\]{
+    width: 21rem;
+  }
+
   .md\:w-\[30rem\]{
     width: 30rem;
   }
@@ -4824,14 +4971,6 @@ input[type=file]::file-selector-button:hover{
 
   .md\:basis-\[49\%\]{
     flex-basis: 49%;
-  }
-
-  .md\:grid-flow-row{
-    grid-auto-flow: row;
-  }
-
-  .md\:grid-cols-2{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .md\:grid-cols-3{
@@ -4892,10 +5031,6 @@ input[type=file]::file-selector-button:hover{
 
   .md\:gap-9{
     gap: 2.25rem;
-  }
-
-  .md\:rounded-xl{
-    border-radius: 0.75rem;
   }
 
   .md\:p-10{

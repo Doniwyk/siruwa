@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PaymentModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade\Pdf;
+use \PDF;
 use Illuminate\Support\Facades\DB;
 
 class ExportController extends Controller

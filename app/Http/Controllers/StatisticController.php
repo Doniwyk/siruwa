@@ -21,10 +21,9 @@ class StatisticController extends Controller
     {
         try {
             $page = 'statistic';
-            $title = 'Statistik';
             $dssService = new CombinedDSSService();
             $results = $dssService->calculateScores();
-            return view('admin._statistics.index', compact('title', 'page', 'results'));
+            return view('admin._statistics.index', compact('page', 'results'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
