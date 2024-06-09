@@ -14,11 +14,11 @@ class PendudukTemporarySeeder extends Seeder
     public function run()
     {
         TempResidentModel::create([
-            'id_penduduk' => 6,
+            'id_penduduk' => 21,
             'tgl_lahir' => '1990-01-01',
-            'nik' => '1234567890',
-            'nomor_kk' => '0987654321',
-            'nama' => 'John Doe 1',
+            'nik' => '3579011402040021',
+            'nomor_kk' => '3507010201082556',
+            'nama' => 'John Doe ',
             'tempat_lahir' => 'Jakarta',
             'jenis_kelamin' => 'Laki-laki',
             'rt' => 001,
@@ -46,11 +46,11 @@ class PendudukTemporarySeeder extends Seeder
             'status' => 'Menunggu Verifikasi',
         ]);
         TempResidentModel::create([
-            'id_penduduk' => 7,
+            'id_penduduk' => 22,
             'tgl_lahir' => '1990-01-01',
-            'nik' => '1234567894',
-            'nomor_kk' => '0987654324',
-            'nama' => 'John Doe 2',
+            'nik' => '3579011402040022',
+            'nomor_kk' => '3507010201082556',
+            'nama' => 'Istri John Doe ',
             'tempat_lahir' => 'Jakarta',
             'jenis_kelamin' => 'Laki-laki',
             'rt' => 001,
@@ -78,11 +78,11 @@ class PendudukTemporarySeeder extends Seeder
             'status' => 'Menunggu Verifikasi',
         ]);
         TempResidentModel::create([
-            'id_penduduk' => 8,
+            'id_penduduk' => 23,
             'tgl_lahir' => '1990-01-01',
-            'nik' => '1234567895',
-            'nomor_kk' => '0987654325',
-            'nama' => 'John Doe 3',
+            'nik' => '3579011402040023',
+            'nomor_kk' => '3507010201082556',
+            'nama' => 'Anak John Doe 1',
             'tempat_lahir' => 'Jakarta',
             'jenis_kelamin' => 'Laki-laki',
             'rt' => 001,
@@ -111,11 +111,11 @@ class PendudukTemporarySeeder extends Seeder
             'keterangan_status'=> 'Data kurang lengkap!'
         ]);
         TempResidentModel::create([
-            'id_penduduk' => 9,
+            'id_penduduk' => 24,
             'tgl_lahir' => '1990-01-01',
-            'nik' => '1234567896',
-            'nomor_kk' => '0987654326',
-            'nama' => 'Loly',
+            'nik' => '3579011402040024',
+            'nomor_kk' => '3507010201082556',
+            'nama' => 'Loly Anak John Doe',
             'tempat_lahir' => 'Jakarta',
             'jenis_kelamin' => 'Perempuan',
             'rt' => 001,
@@ -140,7 +140,7 @@ class PendudukTemporarySeeder extends Seeder
             'ikut_paud' => false,
             'ikut_koperasi' => true,
             'jumlah_tanggungan' => 2,
-            'status' => 'Diterima',
+            'status' => 'Menunggu Verifikasi',
         ]);
     }
 }

@@ -24,7 +24,7 @@ class AccountSeeder extends Seeder
             AccountModel::create([
                 'id_penduduk' => $resident->id_penduduk,
                 'urlProfile' => fake()->imageUrl(),
-                'noHp' => fake()->phoneNumber(),
+                'noHp' => fake()->regexify('\+628[0-9]{8,12}'),
                 'username' => $resident->nik,
                 'email' => fake()->unique()->email(),
                 'email_verified_at' => now(),
@@ -38,7 +38,7 @@ class AccountSeeder extends Seeder
             AccountModel::create([
                 'id_penduduk' => $resident->id_penduduk,
                 'urlProfile' => fake()->imageUrl(),
-                'noHp' => fake()->phoneNumber(),
+                'noHp' => fake()->regexify('\+628[0-9]{8,12}'),
                 'username' => $resident->nik,
                 'email' => fake()->unique()->email(),
                 'email_verified_at' => now(),

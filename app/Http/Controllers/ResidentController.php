@@ -143,9 +143,9 @@ class ResidentController extends Controller
     {
         try {
             $this->residentContract->deleteUser($resident);
-            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil dihapus.');
+            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
@@ -211,7 +211,7 @@ class ResidentController extends Controller
                 return redirect()->route('admin.data-penduduk.index')->with('error', 'Data berhasil ditolak.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
