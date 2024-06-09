@@ -72,6 +72,7 @@ class Kernel extends HttpKernel
         'isAuth' => \App\Http\Middleware\IsAuth::class,
         'userAccess' => \App\Http\Middleware\UserAccess::class,
         'revalidate' => \App\Http\Middleware\RevalidateBackHistory::class,
+        'redirectIfAdmin' => \App\Http\Middleware\RedirectIfAdmin::class,
 
     ];
     protected $commands = [
