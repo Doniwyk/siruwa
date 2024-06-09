@@ -1805,10 +1805,6 @@ tbody td{
   width: 15rem;
 }
 
-.w-\[17\.25rem\]{
-  width: 17.25rem;
-}
-
 .w-\[180px\]{
   width: 180px;
 }
@@ -1823,10 +1819,6 @@ tbody td{
 
 .w-\[25px\]{
   width: 25px;
-}
-
-.w-\[27\.25rem\]{
-  width: 27.25rem;
 }
 
 .w-\[33rem\]{
@@ -1866,10 +1858,6 @@ tbody td{
   width: 100vw;
 }
 
-.w-\[\]{
-  width: ;
-}
-
 .min-w-\[16rem\]{
   min-width: 16rem;
 }
@@ -1896,10 +1884,6 @@ tbody td{
 
 .max-w-full{
   max-width: 100%;
-}
-
-.max-w-\[27\.25rem\]{
-  max-width: 27.25rem;
 }
 
 .flex-1{
@@ -2406,6 +2390,11 @@ tbody td{
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
+.bg-gray-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+
 .bg-gray-50{
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -2460,11 +2449,6 @@ tbody td{
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 
-.bg-slate-700{
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-}
-
 .bg-transparent{
   background-color: transparent;
 }
@@ -2476,16 +2460,6 @@ tbody td{
 
 .bg-white\/50{
   background-color: rgb(255 255 255 / 0.5);
-}
-
-.bg-orange-900{
-  --tw-bg-opacity: 1;
-  background-color: rgb(119 29 29 / var(--tw-bg-opacity));
-}
-
-.bg-gray-400{
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-60{
@@ -4511,10 +4485,6 @@ input[type=file]::file-selector-button:hover{
     width: 1.75rem;
   }
 
-  .sm\:w-96{
-    width: 24rem;
-  }
-
   .sm\:w-\[25rem\]{
     width: 25rem;
   }
@@ -4629,10 +4599,6 @@ input[type=file]::file-selector-button:hover{
 
   .sm\:p-5{
     padding: 1.25rem;
-  }
-
-  .sm\:p-10{
-    padding: 2.5rem;
   }
 
   .sm\:px-4{
