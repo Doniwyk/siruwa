@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 {{-- @dd($history) --}}
+@section('title')
+Manajemen Dana
+@endsection
 @section('modal')
     <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50"
         id="payment-modal_parent">

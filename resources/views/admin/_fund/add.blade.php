@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Pengeluaran
+@endsection
 @section('modal')
     <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50"
         id="spending-payment-modal_parent">

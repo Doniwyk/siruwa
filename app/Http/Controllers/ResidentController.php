@@ -51,20 +51,18 @@ class ResidentController extends Controller
             ])->links()->toHtml();
 
             $page = $this->page;
-            $title = 'Data Penduduk';
 
             // menangani jika request JSON
             if ($request->wantsJson()) {
                 return response()->json([
                     'page' => $page,
-                    'title' => $title,
                     'typeDocument' => $typeDocument,
                     'residents' => $residents->items(),
                     'paginationHtml' => $paginationHtml
                 ]);
             }
 
-            return view('admin._dasawismaData.index', compact('page', 'title', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
+            return view('admin._dasawismaData.index', compact('page', 'typeDocument', 'residents', 'paginationHtml', 'search', 'order'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data pembayaran tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -74,8 +72,7 @@ class ResidentController extends Controller
     {
         try {
             $page = $this->page;
-            $title = 'Form Tambah Penduduk';
-            return view('admin._dasawismaData.add', compact('title', 'page'));
+            return view('admin._dasawismaData.add', compact('page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat formulir tambah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -155,12 +152,11 @@ class ResidentController extends Controller
     {
         try {
             $page = $this->page;
-            $title = 'Edit Data Penduduk';
             //Data on residents who submitted data changes
             $resident = UserModel::findOrFail($resident->id_penduduk);
             // Data that  want to change
             $reqResident = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->orderBy('created_at', 'desc')->first();
-            return view('admin._dasawismaData.edit', compact('resident', 'page', 'title', 'reqResident'));
+            return view('admin._dasawismaData.edit', compact('resident', 'page','reqResident'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat data' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -240,9 +236,8 @@ class ResidentController extends Controller
     {
         try {
             $page = $this->page;
-            $title = 'Edit Data Penduduk';
             $resident = UserModel::find($resident->id_penduduk);
-            return view('admin._dasawismaData.show', compact('resident', 'page', 'title'));
+            return view('admin._dasawismaData.show', compact('resident', 'page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data penduduk tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

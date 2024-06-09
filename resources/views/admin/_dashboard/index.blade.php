@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Dashboard
+@endsection
 @section('content')
     <h1 class="h1-semibold">Manajemen Dashboard</h1>
     <section class="flex flex-col gap-4">
