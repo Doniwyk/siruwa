@@ -48,8 +48,12 @@
             <label for="description" class="text-main font-semibold">Isi Artikel</label>
             <textarea id="editor" name="isi" class="ck-editor__editable ck-editor__editable_inline"></textarea>
         </section>
-        <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
-            Upload </button>
+        <section class="flex gap-3">
+            <button name="action" value="draft" type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-white text-secondary rounded-2xl font-semibold border border-inset border-secondary">
+                Draft </button>
+            <button name="action" value="upload" type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
+                Upload </button>
+        </section>
     </form>
 @endsection
 @section('script')
