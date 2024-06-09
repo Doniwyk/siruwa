@@ -39,8 +39,8 @@ class EventController extends Controller
         try{
         $page = $this->pageName;
         $title = 'Tambah Agenda';
-        $userId = Auth::id();
-        $account = UserModel::findOrFail($userId);
+        $userId = Auth::user();
+        $account = UserModel::findOrFail($userId->id_penduduk);
         return view('admin._event.create', compact('page', 'title', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form tambah agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -85,8 +85,8 @@ class EventController extends Controller
         try{
         $page = $this->pageName;
         $title = 'Edit Agenda';
-        $userId = Auth::id();
-        $account = UserModel::findOrFail($userId);
+        $userId = Auth::user();
+        $account = UserModel::findOrFail($userId->id_penduduk);
         return view('admin._event.edit', compact('title', 'page','event', 'account'));
         } catch(\Exception $e){
             return redirect()->back()->with('error', 'Tidak dapat memuat data agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
