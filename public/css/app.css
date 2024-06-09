@@ -211,18 +211,21 @@ input[type="file"]::file-selector-button:hover {
     .table-fund tbody tr {
         @apply border-t border-white border-b-0;
     }
+    .table-parent th{
+        @apply text-left
+    }
     .table-parent th,
     .table-parent td {
-        @apply p-3 text-left;
+        @apply p-3;
     }
     .table-parent thead th {
-        @apply text-lg font-bold bg-secondary text-white;
+        @apply font-bold bg-secondary text-white;
     }
     .table-parent tbody tr {
         @apply border-b-2;
     }
     .table-parent tbody td {
-        @apply text-secondary text-base;
+        @apply text-base;
     }
 
     .table-parent-spk-statistic {
