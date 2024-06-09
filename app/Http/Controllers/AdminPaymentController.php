@@ -117,7 +117,7 @@ class AdminPaymentController extends Controller
 
     public function addExpense(Request $request){
         
-        $typeDocument = $request->query('typeDocument', 'pembayaran');
+        $typeDocument = $request->query('typeDocument', 'sampah');
         $search = $request->query('search', '');
         $order = $request->query('order', 'asc');
         $adminId = Auth::id();

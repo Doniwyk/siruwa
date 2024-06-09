@@ -9,7 +9,6 @@ export default {
         "./public/**/*.blade.php",
         "./public/**/*.js",
         "./public/**/*.vue",
-        "./node_modules/flowbite/**/*.js"
     ],
     theme: {
         screens: {
