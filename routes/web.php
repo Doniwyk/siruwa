@@ -5,22 +5,16 @@ use App\Http\Controllers\AdminDocumentController;
 use App\Http\Controllers\AdminImportResidentController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\ResidentDocumentController;
 use App\Http\Controllers\ResidentPaymentController;
 use App\Http\Controllers\StatisticController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DSSController;
-use App\Http\Controllers\DSSFuzzyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportController;
-use App\Http\Controllers\ExportResidentController;
-use App\Http\Controllers\DSSCombinedController;
 
 /*
 |--------------------------------------------------------------------------
