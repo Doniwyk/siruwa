@@ -137,7 +137,6 @@ class AdminPaymentController extends Controller
                 'jumlah_pengeluaran' => 'required',
                 'jenis_pengeluaran' => 'required'
             ]);
-
             $this->paymentService->storeExpense($validated);
         } catch (\Exception $e) {
             dd($e);

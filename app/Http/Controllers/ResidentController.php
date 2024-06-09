@@ -259,7 +259,8 @@ class ResidentController extends Controller
     {
         try {
             $userId = Auth::id();
-            $resident = UserModel::findOrFail($userId);
+            $account = AccountModel::findOrFail($userId);
+            $resident = UserModel::findOrFail($account->id_penduduk);
             $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
             return view('resident._residentData.index', ['title' => 'Data Diri', 'resident' => $resident, 'history' => $history]);
         } catch (\Exception $e) {

@@ -44,7 +44,7 @@ class AccountController extends Controller
         try {
             $userId = Auth::id();
             $account = AccountModel::findOrFail($userId);
-            $resident = UserModel::findOrFail($userId); //To retrieve name and nik data 
+            $resident = UserModel::findOrFail($account->id_penduduk); //To retrieve name and nik data 
             $title = 'Edit Profil';
             $page = 'profil';
             $role = Auth::user()->role;
