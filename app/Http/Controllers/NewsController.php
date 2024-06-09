@@ -79,8 +79,8 @@ class NewsController extends Controller
     {
         try {
             $page = $this->pageName;
-            $userId = Auth::id();
-            $account = UserModel::findOrFail($userId);
+            $userId = Auth::user();
+            $account = UserModel::findOrFail($userId->id_penduduk);
             return view('admin._news.create', compact('page', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form tambah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -123,8 +123,8 @@ class NewsController extends Controller
     {
         try {
             $page = $this->pageName;
-            $userId = Auth::id();
-            $account = UserModel::findOrFail($userId);
+            $userId = Auth::user();
+            $account = UserModel::findOrFail($userId->id_penduduk);
             return view('admin._news.edit', compact('page', 'news', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form ubah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
