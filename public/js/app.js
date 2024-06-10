@@ -168,3 +168,15 @@ async function getDataRiwayatPembayaran(idRiwayat) {
 
     return data;
 }
+
+function showModal(id_modal_parent, id_modal) {
+    const modalParent = document.querySelector(id_modal_parent)
+    const modal = modalParent.querySelector(id_modal)
+
+    modalParent.classList.remove('hidden');
+    modalParent.addEventListener('click', ({target})=>{
+        if (target == modalParent) {
+            modalParent.classList.add('hidden');
+        }
+    })
+}

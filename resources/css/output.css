@@ -3358,20 +3358,6 @@ tbody td{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.input_profile-rw{
-  width: 4rem;
-  border-style: none;
-  background-color: transparent;
-  text-align: center;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
 .label_profile-rw{
   font-size: 1.5rem;
   line-height: 2rem;
@@ -3380,13 +3366,6 @@ tbody td{
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.enable-input_profile-rw{
-  border-bottom-width: 2px;
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
 
 .hamburger{
   position: relative;
