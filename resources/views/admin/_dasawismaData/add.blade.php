@@ -17,7 +17,7 @@
     </div>
 
     <main>
-        <form action="" method="POST" class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
+        <form action="" method="POST" class="bg-white sm:py-4 md:py-9 sm:px-6 md:px-24 rounded-2xl flex flex-col gap-9">
             @csrf
             @method('POST')
             <section id="identitas-kependudukan" class="">
