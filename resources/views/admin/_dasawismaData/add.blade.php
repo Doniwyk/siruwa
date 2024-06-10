@@ -17,17 +17,7 @@
     </div>
 
     <main>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form action="{{ route('admin.data-penduduk.store') }}" method="POST"
-            class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
+        <form action="" method="POST" class="bg-white py-9 px-24 rounded-2xl flex flex-col gap-9">
             @csrf
             @method('POST')
             <section id="identitas-kependudukan" class="">
@@ -163,16 +153,29 @@
             $('form').submit(function(e) {
                 e.preventDefault();
 
+                const loader = $('#loader-modal_parent')
+                const alerts = $('form input + div')
+
+                loader.removeClass('hidden')
+                $.each(alerts, function(index, alert) {
+                    $(alert).text('');
+                });
+
                 $.ajax({
                     type: "POST",
                     url: "{{ route('admin.data-penduduk.store') }}",
                     data: $(this).serialize(),
                     success: function(response) {
-
+                        loader.addClass('hidden')
+                        if (response.success) {
+                            window.location.href = response.redirect;
+                        }
                     },
                     error: function(response) {
-                        console.log(response);
-                        const {errors} = response.responseJSON
+                        loader.addClass('hidden')
+                        const {
+                            errors
+                        } = response.responseJSON
                         $.each(errors, function(key, value) {
                             $('#error-' + key).text(value[0]);
                         });
