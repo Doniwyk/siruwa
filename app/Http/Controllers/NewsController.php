@@ -213,34 +213,67 @@ class NewsController extends Controller
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-    public function listBerita() //Untuk Penduduk
+    public function listBerita(Request $request) // Untuk Penduduk
     {
         try {
-            $news = NewsModel::where('status', 'Uploaded')->get();
-            $event = EventModel::where('status', 'Uploaded')->get();
-            $latestNews = NewsModel::where('status', 'Uploaded')
-                        ->orderBy('created_at', 'desc')->take(3)->get();
-            $latestEvent = EventModel::where('status', 'Uploaded')
-                        ->orderBy('created_at', 'desc')->take(3)->get();
-            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
+            $query = NewsModel::where('status', 'Uploaded')->orderBy('created_at', 'desc');
+    
+            if ($request->has('search')) {
+                $search = $request->input('search');
+                $query->where('judul', 'LIKE', "%{$search}%");
+            }
+    
+            $news = $query->get();
+    
+            // Check if the request is AJAX
+            if ($request->ajax()) {
+                return response()->json($news);
+            }
+    
+            $event = EventModel::where('status', 'Uploaded')->orderBy('created_at', 'desc')->get();
+    
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
-    public function showArtikel($id)
+    
+
+    public function showArtikel($type, $id)
     {
         try {
-            $artikel = DB::table('users')
-                ->join('berita', 'users.id', '=', 'berita.id_admin')
-                ->join('penduduk', 'users.id', '=', 'penduduk.id_penduduk')
-                ->select('berita.*', 'penduduk.nama')
-                ->where('berita.id_berita', $id)
-                ->first();
-            return view('berita.Artikel', compact('artikel'));
+            // Fetch the item based on type
+            // berita
+            if ($type === 'news') {
+                $item = DB::table('users')
+                    ->join('berita', 'users.id', '=', 'berita.id_admin')
+                    ->join('penduduk', 'users.id', '=', 'penduduk.id_penduduk')
+                    ->select('berita.*', 'penduduk.nama')
+                    ->where('berita.id_berita', $id)
+                    ->first();
+
+            // agenda
+            } elseif ($type === 'event') {
+                $item = DB::table('agenda')
+                    ->join('users', 'agenda.id_admin', '=', 'users.id')
+                    ->join('penduduk', 'users.id', '=', 'penduduk.id_penduduk')
+                    ->select('agenda.*', 'penduduk.nama')
+                    ->where('agenda.id_agenda', $id)
+                    ->first();
+            } else {
+                return redirect()->back()->with('error', 'Tipe tidak dikenali');
+            }
+    
+            // Fetch events
+            $event = EventModel::where('status', 'Uploaded')->orderBy('created_at', 'desc')->get();
+    
+            return view('berita.Artikel', ['title' => 'Artikel', 'item' => $item, 'type' => $type, 'event' => $event]);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Data artikel tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->back()->with('error', 'Data tidak ditemukan: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
+    
+
     public function changeStatus(Request $request, NewsModel $news){
         $action = $request->action;
         try {

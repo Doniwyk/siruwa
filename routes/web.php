@@ -41,7 +41,7 @@ Route::get('/berita/list-berita', [NewsController::class, 'ListBerita'])->name('
 // Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
 // Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
 
-Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
+Route::get('/berita/{type}/{id}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
