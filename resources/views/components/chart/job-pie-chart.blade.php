@@ -1,8 +1,7 @@
 <div class="flex-center relative flex-col">
     <h3 class="text-xl font-semibold text-main top-0">Rasio Pekerjaan Penduduk</h3>
-    <canvas id="rasio_pekerjaan" class="sm:max-w-full object-contain" ></canvas>
+    <canvas id="rasio_pekerjaan" class="md:max-w-full" ></canvas>
 </div>
-@section('jobChartScript')
     <script>
         const LAST_STUDIED_INITIAL_DATA = {
             pm: {
@@ -39,21 +38,20 @@
         async function getJobData() {
             const url = '{{ route('admin.statistic.getJobData') }}';
             const response = await fetch(url);
-            const {
-                data
-            } = await response.json();
+            const {data} = await response.json();
 
-            const updatedData = {
-                ...LAST_STUDIED_INITIAL_DATA
-            };
+            const updatedData = {...LAST_STUDIED_INITIAL_DATA};
+
             for (const jobType in data) {
                 updatedData[jobType].jumlah = data[jobType];
             }
 
-            createJobChart(updatedData);
+            return updatedData;
         }
 
-        function createJobChart(data) {
+        async function createJobChart() {
+            let data = await getJobData()
+            console.log(data);
             const ctx2 = document.getElementById('rasio_pekerjaan').getContext('2d');
 
             const jobChartData = {
@@ -82,6 +80,5 @@
             const myChart2 = new Chart(ctx2, config2);
         }
 
-        getJobData();
+            createJobChart();
     </script>
-@endsection
