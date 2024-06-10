@@ -79,7 +79,7 @@ class ResidentController extends Controller
     }
 
     //To store resident data in database
-    public function storeResident(UserRequest $request): RedirectResponse
+    public function storeResident(UserRequest $request)
     {
 
         try {                                                                                                                                                                                                                                                                          
@@ -128,7 +128,7 @@ class ResidentController extends Controller
                     GarbageFundModel::create($garbage_fund);
                 }
             }
-            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
+            return response()->json(['success' => 'Data stored successfully', 'redirect' => route('admin.data-penduduk.index')], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
