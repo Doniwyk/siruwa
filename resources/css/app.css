@@ -10,9 +10,6 @@
     margin: 0;
     padding: 0;
 }
-a:hover{
-    @apply text-inherit
-}
 
 ::-webkit-scrollbar {
     display: none;
@@ -75,7 +72,7 @@ a:hover{
         @apply flex flex-col flex-1 gap-2;
     }
     .form-control {
-        @apply py-2 px-6 rounded-2xl bg-input-disabled sm:text-sm md:text-base text-input-text border-none;
+        @apply py-2 px-6 rounded-2xl bg-input-disabled sm:text-sm md:text-base text-input-text;
     }
     .form-control-input {
         @apply py-2 px-6 rounded-2xl bg-white text-base text-input-text border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
@@ -99,7 +96,7 @@ a:hover{
         @apply flex-between gap-[10px] px-6 py-3 bg-white rounded-xl font-semibold text-main button-hover;
     }
     .input_profile-rw {
-        @apply w-16 text-center text-2xl text-white font-bold bg-transparent outline-none border-none;
+        @apply w-16 bg-transparent text-center text-2xl text-white font-bold ;
     }
     .label_profile-rw {
         @apply text-2xl text-white font-bold;
@@ -122,9 +119,6 @@ a:hover{
         -webkit-appearance: none; /* Safari */
         -moz-appearance: none; /* Firefox */
         appearance: none; /* Default */
-    }
-    .statistic-card{
-        @apply bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl drop-shadow-xl;
     }
 }
 
@@ -158,10 +152,7 @@ input[type=file]::file-selector-button:hover{
         @apply min-h-full w-[20rem] flex flex-col justify-between font-medium text-white transition-left duration-300 ease-in-out;
     }
     .web_left-sidebar {
-        @apply px-4 pb-6 pt-28 bg-main text-[16px] w-[30rem];
-    }
-    .web_left-sidebar a{
-        @apply whitespace-nowrap
+        @apply px-4 pb-6 pt-28 bg-main text-[16px];
     }
     .web_left-sidebar a:hover img {
         @apply invert-black;
@@ -188,7 +179,7 @@ input[type=file]::file-selector-button:hover{
     }
 
     .filter_parent {
-        @apply min-h-[3rem] w-full flex sm:gap-1 md:gap-16 justify-between rounded-2xl overflow-hidden z-10;
+        @apply min-h-[2.5rem] w-full flex sm:gap-1 md:gap-16 justify-between rounded-2xl overflow-hidden z-10;
     }
     .search-option {
         @apply basis-3/4 bg-white flex items-center rounded-2xl border-2 relative;
@@ -198,18 +189,6 @@ input[type=file]::file-selector-button:hover{
     }
     .table-parent {
         @apply rounded-2xl  bg-white md:table-fixed overflow-hidden whitespace-nowrap;
-    }
-    .table-resident {
-        @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
-    }
-    .table-fund {
-        @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
-    }
-    .table-fund thead tr th{
-        @apply border-r border-white;
-    }
-    .table-fund tbody tr{
-        @apply border-t border-white border-b-0;
     }
     th,
     td {
@@ -226,7 +205,7 @@ input[type=file]::file-selector-button:hover{
     }
 
     .table-parent-spk-statistic {
-        @apply w-full rounded-t-3xl bg-white table-fixed overflow-hidden border-none;
+        @apply w-full rounded-3xl bg-white table-fixed overflow-hidden border;
     }
     th,
     td {
@@ -242,8 +221,13 @@ input[type=file]::file-selector-button:hover{
         @apply text-secondary text-base font-medium;
     }
 }
-#success-modal,#document-modal, #payment-modal {
+
+#document-modal {
     animation: fadeInUp 0.5s ease-out forwards;
+}
+
+#payment-modal {
+    animation: fadeInUp 0.25s ease-out forwards;
 }
 
 @keyframes fadeInUp {
@@ -261,9 +245,6 @@ input[type=file]::file-selector-button:hover{
 }
 .card {
     @apply bg-white flex-1 rounded-2xl flex py-4 px-5 flex-col justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main;
-}
-.card-details-fund{
-    @apply bg-white flex-1 rounded-2xl flex py-4 px-5  justify-between text-main min-h-[7rem] border-y border-r border-l-8 border-main drop-shadow-2xl;
 }
 
 .text-fund {
@@ -312,7 +293,7 @@ input[type=file]::file-selector-button:hover{
 
 /* LANDINGPAGE STYLING */
 .menu {
-    @apply flex flex-col justify-center items-center gap-4 sm:gap-2 text-white text-2xl sm:text-xl text-center font-bold;
+    @apply flex flex-col justify-center items-center gap-6 text-white text-2xl text-center font-bold;
 }
 .news-container-landing {
     @apply rounded-2xl flex flex-col justify-end;
@@ -323,7 +304,7 @@ input[type=file]::file-selector-button:hover{
 
 /* USER STYLING */
 .content-user {
-    @apply flex flex-col px-16 py-9 sm:p-4 md:gap-9 sm:gap-6;
+    @apply px-16 py-9;
 }
 .resident-profile-subheader {
     @apply block mb-6 text-2xl font-semibold text-secondary;
@@ -335,7 +316,7 @@ input[type=file]::file-selector-button:hover{
     @apply py-3 px-10 w-60 font-semibold text-secondary rounded-2xl border-2 border-secondary flex justify-center items-center;
 }
 .resident-header {
-    @apply sm:text-2xl md:text-4xl text-secondary font-semibold;
+    @apply text-secondary text-4xl font-semibold mb-9;
 }
 .resident-tab-parent {
     @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
@@ -385,8 +366,3 @@ input[type=file]::file-selector-button:hover{
 .resident-input {
     @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
 }
-
-[x-cloak] {
-    display: hidden !important;
-}
-[x-cloak] { display: none; }
