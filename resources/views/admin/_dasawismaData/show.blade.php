@@ -3,19 +3,21 @@
     Detail Data Penduduk
 @endsection
 @section('modal')
-<div class="absolute min-h-full min-w-full flex items-center justify-center hidden bg-black/50 z-50" id="delete-resident-modal_parent">
-    <div class=" absolute p-10 rounded-2xl  bg-white center flex flex-col gap-4" id="delete-resident-modal">
-        <span class="text-xl font-semibold text-secondary">Apakah Anda Yakin Ingin Menghapus Data</span>
-        <div class="flex-center gap-3">
-            <button class="button-main" onclick="closePopup('#delete-resident-modal_parent')">Batal</button>
-            <form action="{{ route('admin.data-penduduk.delete', ['resident' => $resident->id_penduduk]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="button-red">Hapus</button>
-            </form>
+    <div class="absolute min-h-full min-w-full flex items-center justify-center hidden bg-black/50 z-50"
+        id="delete-resident-modal_parent">
+        <div class=" absolute p-10 rounded-2xl  bg-white center flex flex-col gap-4" id="delete-resident-modal">
+            <span class="text-xl font-semibold text-secondary">Apakah Anda Yakin Ingin Menghapus Data</span>
+            <div class="flex-center gap-3">
+                <button class="button-main" onclick="closePopup('#delete-resident-modal_parent')">Batal</button>
+                <form action="{{ route('admin.data-penduduk.delete', ['resident' => $resident->id_penduduk]) }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="button-red">Hapus</button>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
@@ -80,7 +82,8 @@
         </section>
         <div class="flex flex-end">
             <div class="flex justify-center items-center">
-                <button type="submit" class="bg-red-600 text-stone-50 font-semibold px-6 py-3 rounded-2xl" onclick="showModal('#delete-resident-modal_parent', '#delete-resident-modal')">
+                <button type="submit" class="bg-red-600 text-stone-50 font-semibold px-6 py-3 rounded-2xl"
+                    onclick="showModal('#delete-resident-modal_parent', '#delete-resident-modal')">
                     Hapus Data Penduduk
                 </button>
             </div>
