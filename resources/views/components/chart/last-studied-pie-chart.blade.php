@@ -75,7 +75,6 @@
         const lastStudiedChartData = {
             labels: Object.values(data).map(lastStudied => lastStudied.label),
             datasets: [{
-                label: 'My First Dataset',
                 data: Object.values(data).map(lastStudied => lastStudied.jumlah),
                 backgroundColor: Object.values(data).map(lastStudied => lastStudied.warna),
                 hoverOffset: 4
