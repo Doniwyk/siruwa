@@ -1,7 +1,9 @@
 @extends('layouts.user')
+@section('title')
+Profil
+@endsection
 @section('content-user')
-
-<div class="h1-semibold">{{ $title }}</div>
+<div class="h1-semibold">Profil</div>
 <div class="bg-white p-9 rounded-2xl flex flex-col gap-6">
     <div class="flex sm:flex-col md:flex-row w-full gap-9">
         <section class="shrink-0 md:w-[21rem] md:h-[16rem] flex flex-col">
