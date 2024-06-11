@@ -90,12 +90,14 @@
                     $(alert).text('');
                 });
 
+                let action = $(document.activeElement).val();
+
                 const formData = new FormData();
                 formData.append('_token', token);
                 formData.append('judul', titleInput);
                 formData.append('isi', descriptionInput);
-                formData.append('tanggal', dateInput);
                 formData.append('image', file);
+                formData.append('action', action);
 
                 $.ajax({
                     type: "POST",
