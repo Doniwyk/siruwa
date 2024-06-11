@@ -243,7 +243,7 @@ class NewsController extends Controller
                         ->take(3)
                         ->get();
           
-            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
