@@ -202,9 +202,9 @@ class ResidentController extends Controller
         try {
             $this->residentContract->validateEditRequest($request->action, $request->id, $request->keterangan_status);
             if ($request->action === 'accept') {
-                return redirect()->route('admin.data-penduduk.index')->with('success', 'Data berhasil disetujui.');
+                return redirect()->route('admin.data-penduduk.index',['typeDocument' => 'pengajuan'])->with('success', 'Data berhasil disetujui.');
             } elseif ($request->action === 'reject') {
-                return redirect()->route('admin.data-penduduk.index')->with('error', 'Data berhasil ditolak.');
+                return redirect()->route('admin.data-penduduk.index' , ['typeDocument' => 'pengajuan'])->with('error', 'Data berhasil ditolak.');
             }
         } catch (\Exception $e) {
             return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);

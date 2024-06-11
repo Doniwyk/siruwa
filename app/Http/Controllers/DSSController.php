@@ -26,8 +26,7 @@ class DSSController extends Controller
         try {
             $results = $this->dssService->calculateScores();
             $typeDocument = $request->query('typeDocument', 'fuzzy');
-            $title = 'Sistem Pendukung Keputusan Bansos';
-            $page = 'SPK Bansos';
+            $page = 'statistic';
         
             switch ($typeDocument) {
                 case 'saw':
@@ -54,7 +53,7 @@ class DSSController extends Controller
                 $limitedResults = array_slice($results, 0, $limit);
             }
         
-            return view('admin._statistics.bansos', compact('limitedResults', 'typeDocument', 'title', 'page', 'limit'));
+            return view('admin._statistics.bansos', compact('limitedResults', 'typeDocument', 'page', 'limit'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

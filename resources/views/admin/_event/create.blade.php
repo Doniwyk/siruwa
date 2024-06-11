@@ -29,34 +29,27 @@
                 <div id="error-image" class=" text-red-600 font-medium"></div>
             </div>
             <div class="form-group col-span-3 sm:col-span-4 md:col-span-3">
-                <label for="judul" class="text-main font-semibold">Judul Agenda</label>
+                <label for="judul" class="text-main font-semibold">Judul Agenda <span id="error-judul" class=" text-red-600 font-medium"></span></label>
                 <input type="text" id ="judul" name ="judul" class="px-6 py-2 rounded-2xl outline-none"
                     placeholder="Tuliskan Judul Berita" />
-                <div id="error-judul" class=" text-red-600 font-medium"></div>
-
             </div>
             <section class="flex sm:flex-col col-span-3 sm:col-span-4 md:col-span-3 gap-3">
                 <div class="form-group ">
-                    <label for="penulis" class="text-main font-semibold">Penulis</label>
+                    <label for="penulis" class="text-main font-semibold">Penulis <span id="error-penulis" class=" text-red-600 font-medium"></span></label>
                     <input type="text" id ="penulis" name ="penulis"
                         class="px-6 py-2 rounded-2xl outline-none bg-[#DDE9EA] text-main" value="{{ $account->nama }}"
                         readonly />
-                <div id="error-penulis" class=" text-red-600 font-medium"></div>
-
                 </div>
                 <div class="form-group ">
-                    <label for="penulis" class="text-main font-semibold">Tanggal Agenda</label>
+                    <label for="penulis" class="text-main font-semibold">Tanggal Agenda <span id="error-tanggal" class=" text-red-600 font-medium"></span></label>
                     <input type="date" id ="tanggal" name ="tanggal" class="px-6 py-2 rounded-2xl outline-none" />
-                <div id="error-tanggal" class=" text-red-600 font-medium"></div>
-
                 </div>
 
             </section>
         </section>
         <section class="flex flex-col gap-3 w-full">
-            <label for="description" class="text-main font-semibold">Isi Artikel</label>
+            <label for="description" class="text-main font-semibold">Isi Artikel <span id="error-isi" class=" text-red-600 font-medium"></span></label>
             <textarea id="editor" name="isi" class="ck-editor__editable ck-editor__editable_inline"></textarea>
-            <div id="error-isi" class=" text-red-600 font-medium"></div>
         </section>
         <section class="flex gap-3">
             <button name="action" value="draft" type="submit" id="submit-all"
@@ -120,7 +113,11 @@
                         loader.addClass('hidden')
                         const {errors} = response.responseJSON
                         $.each(errors, function(key, value) {
-                            $('#error-' + key).text(value[0]);
+                            $('#error-' + key).html(`
+                                <svg width="10" height="10" viewBox="-1 -1 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline">
+                                    <path d="M4.85202 0.853897C5.04724 0.658676 5.04724 0.341637 4.85202 0.146416C4.6568 -0.0488052 4.33976 -0.0488052 4.14454 0.146416L2.5 1.79252L0.853897 0.147977C0.658676 -0.0472435 0.341637 -0.0472435 0.146416 0.147977C-0.0488052 0.343198 -0.0488052 0.660237 0.146416 0.855458L1.79252 2.5L0.147978 4.1461C-0.0472434 4.34132 -0.0472434 4.65836 0.147978 4.85358C0.343199 5.04881 0.660237 5.04881 0.855458 4.85358L2.5 3.20748L4.1461 4.85202C4.34132 5.04724 4.65836 5.04724 4.85358 4.85202C5.04881 4.6568 5.04881 4.33976 4.85358 4.14454L3.20748 2.5L4.85202 0.853897Z" fill="#D01C1C"/>
+                                </svg><span>${value[0]}</span>
+                            `);
                         });
                     }
                 });

@@ -25,7 +25,7 @@ class NewsRequest extends FormRequest
             //
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'judul' => 'required|string|max:255',
-            'editor' => 'required|string',
+            'isi' => 'required|string',
         ];
     }
 
@@ -40,7 +40,7 @@ class NewsRequest extends FormRequest
             'judul.required' => 'Judul wajib diisi.',
             'judul.string' => 'Judul harus berupa teks.',
             'judul.max' => 'Judul tidak boleh lebih dari 255 karakter.',
-            'editor.required' => 'Isi berita wajib diisi.',
+            'isi.required' => 'Isi berita wajib diisi.',
     ];
     }
 }
