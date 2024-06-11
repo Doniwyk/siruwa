@@ -140,9 +140,9 @@ class ResidentController extends Controller
     {
         try {
             $this->residentContract->deleteUser($resident);
-            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil dihapus.');
+            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
@@ -207,7 +207,7 @@ class ResidentController extends Controller
                 return redirect()->route('admin.data-penduduk.index')->with('error', 'Data berhasil ditolak.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
@@ -255,7 +255,8 @@ class ResidentController extends Controller
         try {
             $typeDocument = $request->query('typeDocument', 'pengajuan');
             $userId = Auth::id();
-            $resident = UserModel::findOrFail($userId);
+            $account = AccountModel::findOrFail($userId);
+            $resident = UserModel::findOrFail($account->id_penduduk);
             $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
     
             return view('resident._residentData.index', [
