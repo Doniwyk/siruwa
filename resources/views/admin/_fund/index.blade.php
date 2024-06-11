@@ -128,7 +128,7 @@
                                 <td class="sm:text-sm md:text-base">{{ $dataPembayaran->akun->noHp }}</td>
                                 <td class="sm:text-sm md:text-base">
                                     <button class="w-[25px] h-[25px] flex-center"
-                                        onclick="getDataPembayaran({{ $dataPembayaran->id_pembayaran }})">
+                                        onclick="showPopupPembayaran({{ $dataPembayaran->id_pembayaran }})">
                                         <x-icon.detail />
                                     </button>
                                 </td>
@@ -227,7 +227,7 @@
                             case 'pembayaran':
                                 lastColumn = `<td class="flex-start">
                                         <button class="w-[25px] h-[25px] flex-center" id="button-${index}"
-                                            onclick="getDataPembayaran(${fundData.id_pembayaran})">
+                                            onclick="showPopupPembayaran(${fundData.id_pembayaran})">
                                             <x-icon.detail />
                                         </button>
                                         </td>`
