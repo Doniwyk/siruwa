@@ -90,6 +90,21 @@ class NewsController extends Controller
 
     public function storeNews(Request $request)
     {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'judul' => 'required|string|max:255',
+            'editor' => 'required|string',
+        ],
+        [
+            'image.required' => 'Gambar wajib diunggah.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Gambar harus berformat: jpeg, png, jpg, gif, svg.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'judul.required' => 'Judul wajib diisi.',
+            'judul.string' => 'Judul harus berupa teks.',
+            'judul.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+            'editor.required' => 'Isi berita wajib diisi.',
+        ]);
         try { 
             if($request->action == 'upload'){
                 $status = 'Uploaded';
