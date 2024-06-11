@@ -13,7 +13,7 @@
         >
 
     @if ($label != 'No. Registrasi' && $label != 'No. KTP/NIK')
-        <input type="text" name="{{ $reqName }}" id="{{ $reqName }}" class="form-control border-2 border-input-border" disabled
+        <input type="text" name="{{ $reqName }}" id="{{ $reqName }}" class="form-control border-0 ring-2 ring-inset ring-input-border" disabled
             placeholder="{{ $label }}" 
             value=
             @if (is_bool($reqValue))
