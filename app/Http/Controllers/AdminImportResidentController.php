@@ -79,6 +79,8 @@ class AdminImportResidentController extends Controller
         Log::info('Started saveImportedResidents method.');
 
         try {
+            $errors = Session::get('importErrors', []);
+            // dd($errors);
             $this->importService->saveImportedResidents();
             Log::info('Save imported residents called successfully.');
             return redirect()->route('admin.data-penduduk.index')->with('success', 'Data berhasil diimport.');

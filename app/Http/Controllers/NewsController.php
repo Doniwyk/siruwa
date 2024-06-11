@@ -9,6 +9,7 @@ use App\Http\Requests\EditNewsRequest;
 use App\Models\EventModel;
 use App\Models\NewsModel;
 use App\Models\UserModel;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -189,7 +190,8 @@ class NewsController extends Controller
     public function getLastestEvent($count)
     {
         try {
-            $event = EventModel::orderBy('created_at', 'desc')
+            $event = EventModel::where('tanggal', '>=', Carbon::today())
+            ->orderBy('tanggal', 'asc')
             ->take($count)
             ->get();
             return $event;
@@ -221,7 +223,10 @@ class NewsController extends Controller
             $latestNews = NewsModel::where('status', 'Uploaded')
                         ->orderBy('created_at', 'desc')->take(3)->get();
             $latestEvent = EventModel::where('status', 'Uploaded')
-                        ->orderBy('created_at', 'desc')->take(3)->get();
+                        ->where('tanggal', '>=', Carbon::today())
+                        ->orderBy('tanggal', 'asc')
+                        ->take(3)
+                        ->get();
             return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
