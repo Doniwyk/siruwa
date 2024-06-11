@@ -16,13 +16,13 @@ class ResidentPaymentController extends Controller
         $this->paymentContract = $paymentContract;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
             $fundData = $this->paymentContract->getFundData();
             $history = $this->paymentContract->getHistory();
-            $title = 'Iuran RW 2';
-            return view('resident._fund.index', compact('fundData', 'title', 'history'));
+            $typeDocument = $request->query('typeDocument', 'pembayaran');
+            return view('resident._fund.index', compact('fundData', 'history', 'typeDocument'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data pembayaran tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -43,9 +43,9 @@ class ResidentPaymentController extends Controller
 
         try {
             $this->paymentContract->storePayment($validatedData);
-            return redirect()->route('resident.data-pembayaran.index')->with('success', 'Pembayaran berhasil disimpan!');
+            return redirect()->route('resident.data-pembayaran.index', ['typeDocument' => 'riwayat'])->with('success', 'Pembayaran berhasil disimpan!');
         } catch (\Exception $e) {
-            return redirect()->route('resident.data-pembayaran.index')->with('error', 'Terjadi kesalahan saat menyimpan pembayaran.');
+            return response()->json(['error' => 'Terjadi kesalahan saat menyimpan pembayaran.'], 500);
         }
     }
 

@@ -1,9 +1,9 @@
 @extends('layouts.user')
+@section('title')
+Data Penduduk
+@endsection
 @section('content-user')
-
-    <div class="resident-header">{{ $title }}</div>
-
-    <!-- TAB -->
+    <div class="resident-header">Data Penduduk</div>
     <div x-data="{ 
     showModal: false, 
     currentStatus: '', 
@@ -21,6 +21,17 @@
                     Riwayat
                 </a>
             </div>
+            @if($typeDocument == 'riwayat')
+                <div class="relative basis-1/5">
+                    <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
+                        <option value="default">Urutkan</option>
+                        <option value="newest">Terbaru</option>
+                        <option value="oldest">Terlama</option>
+                    </select>
+                    <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
+                    <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
+                </div>
+            @endif
         </section>
     
         @switch($typeDocument)
@@ -106,23 +117,6 @@
             @break
     
             @case('riwayat')
-                <div class="flex justify-between">
-                    <div class="relative w-[630px] mr-9">
-                        <input type="text" placeholder="Cari Nama" class="resident-search">
-                        <img src="{{ asset('assets/icons/search.svg') }}" alt="Search Icon" class="left-icon">
-                    </div>
-                    <div class="whitespace-nowrap flex items-center">
-                        <div class="relative w-[180px]">
-                            <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
-                                <option value="default">Urutkan</option>
-                                <option value="newest">Terbaru</option>
-                                <option value="oldest">Terlama</option>
-                            </select>
-                            <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
-                            <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
-                        </div>
-                    </div>
-                </div>
                 <div class="overflow-x-auto rounded-xl">
                     <table class="table-resident">
                         <thead>
@@ -135,12 +129,12 @@
                         </thead>
                         <tbody>
                             @if ($history->isEmpty())
-                                <tr>
+                                <tr class="hover:bg-fourth transition-all ease-linear">
                                     <td colspan="4" class="text-center">Tidak Ada Data</td>
                                 </tr>
                             @else
                                 @foreach($history as $record)
-                                    <tr>
+                                    <tr class="hover:bg-fourth transition-all ease-linear">
                                         <td class="sm:hidden">{{ $record->nama }}</td>
                                         <td>{{ $record->created_at->format('d F Y') }}</td>
                                         <td>{{ $record->updated_at }}</td>
@@ -221,12 +215,6 @@
     </div>
 
     <script>
-        function calcHeight(value) {
-            let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-            let newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2;
-            return newHeight;
-        }
-
         let historyNotEmpty = @json($history->isNotEmpty());
         let anyPendingVerification = @json($history->contains(function ($value, $key) {
             return $value->status === 'Menunggu Verifikasi';
@@ -234,8 +222,8 @@
 
         function sortHistory(option) {
             const tbody = document.querySelector('.table-resident tbody');
-            let rows = Array.from(tbody.querySelectorAll('tr'));
-    
+            let rows = Array.from(tbody.querySelectorAll('tr')).filter(row => row.style.display !== 'none');
+
             switch(option) {
                 case 'newest':
                     rows.sort((a, b) => new Date(getCellValue(b, 1)) - new Date(getCellValue(a, 1)));
@@ -246,44 +234,15 @@
                 default:
                     break;
             }
-    
+
             rows.forEach(row => {
                 tbody.appendChild(row);
             });
         }
-    
+
         function getCellValue(row, index) {
             return row.children[index].textContent.trim();
         }
-    
-        function searchName() {
-            const input = document.querySelector('.resident-search');
-            const filter = input.value.toUpperCase();
-            const rows = document.querySelectorAll('.table-resident tbody tr');
-            let visibleRows = 0;
 
-            rows.forEach(row => {
-                const nameCell = row.children[0];
-                if (nameCell && nameCell.innerText !== 'Tidak Ada Data') { // Ensure it's not the "Data not found" row
-                    const txtValue = nameCell.textContent || nameCell.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        row.style.display = '';
-                        visibleRows++;
-                    } else {
-                        row.style.display = 'none';
-                    }
-                }
-            });
-
-            // Show "Data not found" message if no rows are visible
-            const noResultsRow = document.getElementById('no-results');
-            if (visibleRows === 0) {
-                noResultsRow.style.display = 'table-row';
-            } else {
-                noResultsRow.style.display = 'none';
-            }
-        }
-
-        document.querySelector('.resident-search').addEventListener('input', searchName);
     </script>
 @endsection

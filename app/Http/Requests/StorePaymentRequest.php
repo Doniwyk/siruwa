@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Rule;
 
 class StorePaymentRequest extends FormRequest
 {
@@ -24,7 +25,17 @@ class StorePaymentRequest extends FormRequest
         return [
             'jenis' => 'required',
             'metode' => 'required',
-            'jumlah' => 'required|numeric',
+            'jumlah' => ['required', 'numeric', new class implements Rule {
+                public function passes($attribute, $value)
+                {
+                    return $value % 10000 === 0;
+                }
+    
+                public function message()
+                {
+                    return 'Nominal harus kelipatan 10.000';
+                }
+            }],
             'urlBuktiPembayaran' => 'required|mimes:jpeg,png,jpg|max:1000',
         ];
     }
@@ -33,10 +44,11 @@ class StorePaymentRequest extends FormRequest
         return [
             'jenis.required' => 'Jenis pembayaran wajib diisi.',
             'metode.required' => 'Metode pembayaran wajib diisi.',
+            'jumlah.required' => 'Nominal wajib diisi.',
+            'jumlah.numeric' => 'Nominal harus berupa angka.',
             'urlBuktiPembayaran.required' => 'Bukti pembayaran wajib diupload.',
-            'urlBuktiPembayaran.file' => 'Bukti pembayaran harus berupa file.',
             'urlBuktiPembayaran.mimes' => 'Bukti pembayaran harus berupa file dengan format: jpeg, png, jpg.',
-            'urlBuktiPembayaran.max' => 'Ukuran file bukti pembayaran tidak boleh lebih dari 2MB.'
+            'urlBuktiPembayaran.max' => 'Ukuran file bukti pembayaran tidak boleh lebih dari 1MB.'
         ];
     }
 }
