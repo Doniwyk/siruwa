@@ -202,9 +202,9 @@ class ResidentController extends Controller
         try {
             $this->residentContract->validateEditRequest($request->action, $request->id, $request->keterangan_status);
             if ($request->action === 'accept') {
-                return redirect()->route('admin.data-penduduk.index')->with('success', 'Data berhasil disetujui.');
+                return redirect()->route('admin.data-penduduk.index',['typeDocument' => 'pengajuan'])->with('success', 'Data berhasil disetujui.');
             } elseif ($request->action === 'reject') {
-                return redirect()->route('admin.data-penduduk.index')->with('error', 'Data berhasil ditolak.');
+                return redirect()->route('admin.data-penduduk.index' , ['typeDocument' => 'pengajuan'])->with('error', 'Data berhasil ditolak.');
             }
         } catch (\Exception $e) {
             return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -292,7 +292,7 @@ class ResidentController extends Controller
 
         try {
             if ($this->residentContract->editRequest($request, $resident)) {
-                return redirect()->back()->with('success', 'Formulir pengajuan edit berhasil disimpan.');
+                return redirect()->route('resident.data-dasawisma.index', ['typeDocument' => 'riwayat']);
             } else {
                 return redirect()->back()->with('error', 'Anda sudah mengajukan perubahan data. Harap tunggu proses verifikasi sebelum mengajukan perubahan lagi.');
             }

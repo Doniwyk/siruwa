@@ -1,3 +1,6 @@
+// Global Variable
+const loader = $("#loader-modal_parent");
+
 function setActionAndSubmit(action) {
     let form = document.querySelector("form");
     let formAction = form.getAttribute("action");
@@ -10,15 +13,21 @@ function setActionAndSubmit(action) {
     form.submit();
 }
 
+function closePopup(id_modal) {
+    const modal = document.querySelector(id_modal);
+    modal.classList.add("hidden");
+}
+
 async function getDataPembayaran(id_pembayaran) {
     const url = `/admin/data-pembayaran/${id_pembayaran}/show`;
     const response = await fetch(url);
     const data = await response.json();
 
-    showPopupPembayaran(data, id_pembayaran);
+    return data;
 }
 
-function showPopupPembayaran(data, id_pembayaran) {
+async function showPopupPembayaran(id_pembayaran) {
+    const data = await getDataPembayaran(id_pembayaran);
     const routeForm = `/admin/data-pembayaran/${id_pembayaran}/validate`;
     const modal = document.querySelector("#payment-modal_parent");
     const form = document.querySelector("#payment-modal_parent form");
@@ -43,23 +52,11 @@ function showPopupPembayaran(data, id_pembayaran) {
     });
 }
 
-function closePopup(id_modal) {
-    const modal = document.querySelector(id_modal);
-    modal.classList.add("hidden");
-}
-function closeForm(formId, modalId) {
-    const sectionPopup = document.querySelector(modalId);
-    const popUp = document.querySelector(formId);
-
-    popUp.classList.add("hidden");
-    sectionPopup.classList.add("hidden");
-}
-
 async function showPopupToContinueDocumentProccess(id_document, action) {
     const routeForm = `/admin/data-dokumen/${id_document}/status`;
-    const modal = document.querySelector("#document-modal_parent");
-    const form = modal.querySelector("form");
-    const button = modal.querySelector("button");
+    const modalParent = document.querySelector("#document-modal_parent");
+    const form = modalParent.querySelector("form");
+    const button = modalParent.querySelector("button");
 
     form.action = routeForm;
     button.value = action;
@@ -74,10 +71,10 @@ async function showPopupToContinueDocumentProccess(id_document, action) {
         button.innerText = "Lanjutkan";
     }
 
-    modal.classList.toggle("hidden");
+    modalParent.classList.toggle("hidden");
 
-    modal.addEventListener("click", (event) => {
-        if (event.target == modal) {
+    modalParent.addEventListener("click", (event) => {
+        if (event.target == modalParent) {
             closePopup("#document-modal_parent");
             return;
         }
@@ -114,10 +111,16 @@ const previewBeforeUpload = (id) => {
     });
 };
 
+async function getDataRiwayatPembayaran(idRiwayat) {
+    const url = `/admin/data-pembayaran/${idRiwayat}/history`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    return data;
+}
+
 async function showRiwayatPembayaranModal(idRiwayat) {
-    const modal_parent = document.querySelector(
-        "#riwayat-payment-modal_parent"
-    );
+    const modal_parent = document.querySelector("#riwayat-payment-modal_parent");
     const modal = modal_parent.querySelector("#riwayat-payment-modal");
     const status = modal.querySelector("#riwayat-status");
     const metodeInput = modal.querySelector("#riwayat-metode_pembayaran");
@@ -157,14 +160,6 @@ async function showRiwayatPembayaranModal(idRiwayat) {
         }
     });
 }
-async function getDataRiwayatPembayaran(idRiwayat) {
-    const url = `/admin/data-pembayaran/${idRiwayat}/history`;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    return data;
-}
-
 function showModal(id_modal_parent, id_modal) {
     const modalParent = document.querySelector(id_modal_parent);
     const modal = modalParent.querySelector(id_modal);

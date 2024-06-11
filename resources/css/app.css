@@ -10,9 +10,6 @@
     margin: 0;
     padding: 0;
 }
-a:hover{
-    @apply text-inherit
-}
 
 ::-webkit-scrollbar {
     display: none;
@@ -204,7 +201,7 @@ input[type=file]::file-selector-button:hover{
         @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between border-2;
     }
     .table-parent {
-        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden whitespace-nowrap;
+        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden;
     }
     .table-resident {
         @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
@@ -235,17 +232,17 @@ input[type=file]::file-selector-button:hover{
     .table-parent-spk-statistic {
         @apply w-full rounded-t-3xl bg-white table-fixed overflow-hidden border-none;
     }
-    th,
-    td {
+    .table-parent-spk-statistic th,
+    .table-parent-spk-statistic td {
         @apply p-3 pl-6 text-left;
     }
-    thead th {
+    .table-parent-spk-statistic thead th {
         @apply text-sm font-bold bg-secondary text-white;
     }
-    tbody tr {
+    .table-parent-spk-statistic tbody tr {
         @apply border-b-2;
     }
-    tbody td {
+    .table-parent-spk-statistic tbody td {
         @apply text-secondary text-base font-medium;
     }
 
@@ -306,7 +303,7 @@ input[type=file]::file-selector-button:hover{
     @apply flex sm:flex-col md:flex-row sm:gap-5 md:gap-9;
 }
 .summary-card {
-    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem];
+    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem] md:max-w-[50%];
 }
 .card-total {
     @apply flex flex-auto;
@@ -318,14 +315,11 @@ input[type=file]::file-selector-button:hover{
     @apply text-main font-bold text-2xl;
 }
 .news {
-    @apply h-[5rem] flex justify-start items-center;
+    @apply h-[5rem] flex justify-start items-center line-clamp-2;
 }
 
 .preview-paragraf {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* Jumlah maksimal baris */
-    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem];
+    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem] line-clamp-2;
 }
 .details {
     @apply flex gap-2 items-center;
@@ -370,10 +364,10 @@ input[type=file]::file-selector-button:hover{
     @apply sm:text-2xl md:text-4xl text-secondary font-semibold;
 }
 .resident-tab-parent {
-    @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
+    @apply flex bg-white max-w-72 p-1 rounded-2xl space-x-4;
 }
 .resident-tab {
-    @apply flex-1 py-2 px-4 rounded-xl text-secondary font-medium focus:font-semibold focus:outline-none w-[44rem];
+    @apply flex-1 py-2 px-4 rounded-xl font-medium w-[44rem];
 }
 .left-icon {
     @apply absolute inset-y-0 left-4 h-5 w-5 my-auto;

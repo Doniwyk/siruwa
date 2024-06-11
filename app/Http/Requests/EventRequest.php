@@ -25,7 +25,8 @@ class EventRequest extends FormRequest
             //
             'judul' => 'required',
             'isi' => 'required',
-            'tanggal' => 'required'
+            'tanggal' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 
@@ -36,7 +37,11 @@ class EventRequest extends FormRequest
             'id_admin.required' => 'ID Admin wajib diisi.',
             'judul.required' => 'Judul berita wajib diisi.',
             'isi.required' => 'Isi berita wajib diisi.',
-            'tanggal.required' => 'Tanggal wajib diisi'
+            'tanggal.required' => 'Tanggal wajib diisi',
+            'image.required' => 'Gambar harus diunggah.',
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Gambar harus berformat: jpeg, png, jpg, gif.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2 MB.',
         ];
     }
 }

@@ -6,9 +6,11 @@ use App\Contracts\DashboardContract;
 use App\Contracts\EventContract;
 use App\Contracts\NewsContract;
 use App\Http\Requests\EditNewsRequest;
+use App\Http\Requests\NewsRequest;
 use App\Models\EventModel;
 use App\Models\NewsModel;
 use App\Models\UserModel;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -87,7 +89,7 @@ class NewsController extends Controller
         }
     }
 
-    public function storeNews(Request $request)
+    public function storeNews(NewsRequest $request)
     {
         try { 
             if($request->action == 'upload'){
@@ -108,14 +110,14 @@ class NewsController extends Controller
                 'image_public_id' => $publicId,
                 'judul' => $request->input('judul'),
                 'id_admin' => $admin,
-                'isi' => $request->input('editor'),
+                'isi' => $request->input('isi'),
                 'status' => $status
             ]);
             $imageUpload->save();
-            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
+            return response()->json(['success' => 'Data stored successfully', 'redirect' => route('admin.manajemen-berita.index')], 200);
         } catch (\Exception $e) {
             dd($e);
-            return redirect()->back()->with('error', 'Berita gagal ditambahkan' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 
@@ -189,7 +191,8 @@ class NewsController extends Controller
     public function getLastestEvent($count)
     {
         try {
-            $event = EventModel::orderBy('created_at', 'desc')
+            $event = EventModel::where('tanggal', '>=', Carbon::today())
+            ->orderBy('tanggal', 'asc')
             ->take($count)
             ->get();
             return $event;
@@ -233,6 +236,14 @@ class NewsController extends Controller
             $event = EventModel::where('status', 'Uploaded')->orderBy('created_at', 'desc')->get();
     
             return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event]);
+          
+            $latestEvent = EventModel::where('status', 'Uploaded')
+                        ->where('tanggal', '>=', Carbon::today())
+                        ->orderBy('tanggal', 'asc')
+                        ->take(3)
+                        ->get();
+          
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
