@@ -165,7 +165,7 @@ class AdminImportService
                 $account = [
                     'id_penduduk' => $create->id_penduduk,
                     'noHp' => $data['noHp'],
-                    'username' => $data['nomor_kk'],
+                    'username' => $data['nik'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['nik']),
                     'role' => 'resident'
