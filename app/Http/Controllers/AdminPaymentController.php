@@ -155,7 +155,7 @@ class AdminPaymentController extends Controller
         ]);
             $validated = $validator->validated();
             $this->paymentService->storeExpense($validated);
-            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => 'pembayaran'])->with('success','Berhasil menambahkan data pengeluaran');
+            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => 'sampah'])->with('success','Berhasil menambahkan data pengeluaran');
         } catch (\Exception $e) {
                 return redirect()->back()->withErrors($validator)->withInput();
         }
