@@ -10,10 +10,6 @@
     margin: 0;
     padding: 0;
 }
-a:hover{
-    @apply text-inherit
-}
-
 ::-webkit-scrollbar {
     display: none;
 }

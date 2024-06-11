@@ -24,7 +24,9 @@ Profil
         </section>
     </div>
     <div class="flex justify-end ">
-        <a href="{{ route('admin.profil.edit') }}" class="btn-main text-white button-hover">Edit Profil</a>
+        <a href="{{ route('admin.profil.edit') }}">
+            <button class="btn-main text-white button-hover">Edit Profil</button>
+        </a>
     </div>
 </div>
 @endsection
