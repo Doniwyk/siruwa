@@ -1,6 +1,8 @@
 @extends('layouts.admin')
+@section('title')
+SPK Bansos
+@endsection
 @section('content')
-
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" defer></script>
 <div id="1" class="header-edit flex-start gap-1">
     <a href="{{ route('admin.statistic.index') }}">
@@ -10,7 +12,7 @@
             </svg>
         </span>
     </a>
-    <h1 class="h1-semibold">{{ $title }}</h1>
+    <h1 class="h1-semibold">Sistem Pendukung Keputusan Bansos</h1>
 </div> 
 
 <div class="link-option_parrent w-max">
