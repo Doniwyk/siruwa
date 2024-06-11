@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Manajemen Pengeluaran
+    Manajemen Pengeluaran
 @endsection
 @section('modal')
     <div class="absolute min-h-full min-w-full flex justify-center items-center bg-black/50 hidden z-50"
@@ -25,7 +25,8 @@ Manajemen Pengeluaran
                             <option value="Iuran Sampah">Iuran Sampah</option>
                             <option value="Iuran Kematian">Iuran Kematian</option>
                         </select>
-                        <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon" class="right-icon pointer-events-none">
+                        <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon"
+                            class="right-icon pointer-events-none">
 
                     </div>
 
@@ -34,19 +35,55 @@ Manajemen Pengeluaran
                     <label for="tanggal_pengeluaran" class="text-main font-medium">Tanggal</label>
                     <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran" name="tanggal_pengeluaran"
                         class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline hidden"value="{{ date('Y-m-d') }}">
-                    <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran" 
-                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-secondary" disabled value="{{ date('Y-m-d') }}">
+                    <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-secondary" disabled
+                        value="{{ date('Y-m-d') }}">
                 </div>
                 <div class="w-full flex flex-col items-start gap-4">
                     <label for="keterangan_pengeluaran" class="text-main font-medium">Keterangan</label>
                     <textarea name="keterangan_pengeluaran" id="keterangan_pengeluaran" placeholder="Masukkan Keterangan"
                         class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
                 </div>
-                <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl button-hover">Tambahkan Data</button>
+                <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl button-hover">Tambahkan
+                    Data</button>
             </form>
         </div>
     </div>
 @endsection
+@section('modal_detail_pengeluaran')
+    <div class="absolute min-h-full min-w-full flex justify-center items-center hidden bg-black/50  z-50"
+        id="details-spending-payment-modal_parent">
+        <div class="sm:w-[25rem] md:w-[32rem] sm:p-5 md:p-10 rounded-2xl  bg-white center z-50 overflow-hidden"
+            id="details-spending-payment-modal">
+            <section class="flex flex-col gap-4 items-center">
+                <h4 class="text-center text-xl font-semibold">Details Data Pengeluaran</h4>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="jumlah_pengeluaran" class="text-main font-medium">Nominal</label>
+                    <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline" disabled>
+                </div>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
+                    <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline" disabled>
+
+                </div>
+                <div class="flex flex-col items-start gap-4 w-full">
+                    <label for="tanggal_pengeluaran" class="text-main font-medium">Tanggal</label>
+                    <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran"
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-secondary" disabled
+                        value="">
+                </div>
+                <div class="w-full flex flex-col items-start gap-4">
+                    <label for="keterangan_pengeluaran" class="text-main font-medium">Keterangan</label>
+                    <textarea name="keterangan_pengeluaran" id="keterangan_pengeluaran" placeholder="Masukkan Keterangan"
+                        class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
+                </div>
+            </section>
+        </div>
+    </div>
+@endsection
+@dd($financialData['garbageTransaction'])
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.data-pembayaran.index') }}">
@@ -82,6 +119,7 @@ Manajemen Pengeluaran
                         <th class="sm:text-sm md:text-base">Nominal</th>
                         <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
                         <th class="sm:text-sm md:text-base">Transaksi</th>
+                        <th class="sm:text-sm md:text-base">Details</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,6 +138,13 @@ Manajemen Pengeluaran
                                 <td class="sm:text-sm md:text-base">{{ $dataRiwayat->created_at }}</td>
                                 <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
                                     {{ $dataRiwayat->type }}</td>
+                                    @if ($dataRiwayat->type === 'Pengeluaran')
+                                    <td>
+                                        <button onclick="showFundExpenseDetails()">
+                                            <x-icon.detail />
+                                        </button>
+                                    </td>
+                                    @endif
                             </tr>
                         @endforeach
                     @endif

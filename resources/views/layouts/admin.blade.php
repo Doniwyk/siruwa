@@ -33,6 +33,7 @@
         <main class="grow flex">
             @yield('modal')
             @yield('modal_riwayat')
+            @yield('modal_detail_pengeluaran')
             <section class="absolute min-h-full min-w-full flex items-center justify-center bg-black/50 z-50"
                 id="loader-modal_parent">
                 <div role="status">
