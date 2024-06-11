@@ -245,7 +245,6 @@ Manajemen Berita
                 },
                 success: function(data) {
                     const tableBody = document.getElementById('table-parent tbody');
-                    console.log(tableBody);
 
                     $('#table-parent tbody').empty();
                     $('#pagination').empty();
@@ -365,7 +364,6 @@ Manajemen Berita
                 },
                 success: function(data) {
                     const tableBody = document.getElementById('table-parent tbody');
-                    console.log(tableBody);
 
                     $('#table-parent tbody').empty();
                     $('#pagination').empty();

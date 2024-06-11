@@ -120,7 +120,6 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            console.log(response);
                             if (!response.length) {
                                 $('#table-parent tbody').append(
                                     `<tr>

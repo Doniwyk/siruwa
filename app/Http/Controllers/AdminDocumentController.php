@@ -133,9 +133,11 @@ class AdminDocumentController extends Controller
     {
         try {
             $this->documentService->changeIntoSelesai($document);
+            
+            
         } catch (\Exception $e) {
             return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat mengubah status dokumen.');;
         }
-        return redirect()->route('admin.data-dokumen.index');
+        return redirect()->route('admin.data-dokumen.index', ['typeDocument' => 'canBeTaken']);
     }
 }

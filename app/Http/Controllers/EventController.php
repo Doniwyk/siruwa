@@ -39,8 +39,8 @@ class EventController extends Controller
         try{
         $page = $this->pageName;
         $title = 'Tambah Agenda';
-        $userId = Auth::id();
-        $account = UserModel::findOrFail($userId);
+        $userId = Auth::user();
+        $account = UserModel::findOrFail($userId->id_penduduk);
         return view('admin._event.create', compact('page', 'title', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form tambah agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -73,10 +73,9 @@ class EventController extends Controller
                 'status' =>  $status
             ]);
             $imageUpload->save();
-            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
+            return response()->json(['success' => 'Data stored successfully', 'redirect' => route('admin.manajemen-berita.index')], 200);
         } catch (\Exception $e) {
-            dd($e);
-            return redirect()->back()->with('error', 'Tidak dapat menambahkan agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 
@@ -85,8 +84,8 @@ class EventController extends Controller
         try{
         $page = $this->pageName;
         $title = 'Edit Agenda';
-        $userId = Auth::id();
-        $account = UserModel::findOrFail($userId);
+        $userId = Auth::user();
+        $account = UserModel::findOrFail($userId->id_penduduk);
         return view('admin._event.edit', compact('title', 'page','event', 'account'));
         } catch(\Exception $e){
             return redirect()->back()->with('error', 'Tidak dapat memuat data agenda' . $e->getMessage())->withErrors([$e->getMessage()]);

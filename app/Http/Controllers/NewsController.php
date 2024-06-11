@@ -6,9 +6,11 @@ use App\Contracts\DashboardContract;
 use App\Contracts\EventContract;
 use App\Contracts\NewsContract;
 use App\Http\Requests\EditNewsRequest;
+use App\Http\Requests\NewsRequest;
 use App\Models\EventModel;
 use App\Models\NewsModel;
 use App\Models\UserModel;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,15 +81,15 @@ class NewsController extends Controller
     {
         try {
             $page = $this->pageName;
-            $userId = Auth::id();
-            $account = UserModel::findOrFail($userId);
+            $userId = Auth::user();
+            $account = UserModel::findOrFail($userId->id_penduduk);
             return view('admin._news.create', compact('page', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form tambah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
-    public function storeNews(Request $request)
+    public function storeNews(NewsRequest $request)
     {
         try { 
             if($request->action == 'upload'){
@@ -123,8 +125,8 @@ class NewsController extends Controller
     {
         try {
             $page = $this->pageName;
-            $userId = Auth::id();
-            $account = UserModel::findOrFail($userId);
+            $userId = Auth::user();
+            $account = UserModel::findOrFail($userId->id_penduduk);
             return view('admin._news.edit', compact('page', 'news', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form ubah penduduk' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -189,7 +191,8 @@ class NewsController extends Controller
     public function getLastestEvent($count)
     {
         try {
-            $event = EventModel::orderBy('created_at', 'desc')
+            $event = EventModel::where('tanggal', '>=', Carbon::today())
+            ->orderBy('tanggal', 'asc')
             ->take($count)
             ->get();
             return $event;
@@ -221,7 +224,10 @@ class NewsController extends Controller
             $latestNews = NewsModel::where('status', 'Uploaded')
                         ->orderBy('created_at', 'desc')->take(3)->get();
             $latestEvent = EventModel::where('status', 'Uploaded')
-                        ->orderBy('created_at', 'desc')->take(3)->get();
+                        ->where('tanggal', '>=', Carbon::today())
+                        ->orderBy('tanggal', 'asc')
+                        ->take(3)
+                        ->get();
             return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event, 'latestNews' => $latestNews]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);

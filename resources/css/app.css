@@ -90,19 +90,22 @@
         @apply hover:scale-95 transition-transform;
     }
     .button-main {
-        @apply flex-between gap-[10px] px-6 py-2 bg-main rounded-xl font-semibold text-white button-hover;
+        @apply flex-between gap-[10px] px-8 py-2 bg-main rounded-xl font-semibold text-white button-hover;
     }
     .button-white {
-        @apply flex-between gap-[10px] px-6 py-3 bg-white rounded-xl font-semibold text-main button-hover;
+        @apply flex-between gap-[10px] px-8 py-2 bg-white rounded-xl font-semibold text-main button-hover;
+    }
+    .button-red {
+        @apply flex-between gap-[10px] px-8 py-2 bg-red-600 rounded-xl font-semibold text-white button-hover;
     }
     .input_profile-rw {
-        @apply w-16 text-center text-2xl text-white font-bold bg-transparent outline-none border-none;
+        @apply w-16 text-center text-2xl text-white font-bold bg-transparent outline-none border-0;
     }
     .label_profile-rw {
         @apply text-2xl text-white font-bold;
     }
     .enable-input_profile-rw {
-        @apply outline-none border-b-2 border-white;
+        @apply border-y-0 border-x-0 border-b-2 border-white;
     }
     .dropdown-content a {
         @apply px-6 py-3 block;
@@ -194,7 +197,7 @@ input[type=file]::file-selector-button:hover{
         @apply basis-1/5 bg-white rounded-2xl px-6 py-2 flex justify-between border-2;
     }
     .table-parent {
-        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden whitespace-nowrap;
+        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden;
     }
     .table-resident {
         @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
@@ -225,21 +228,21 @@ input[type=file]::file-selector-button:hover{
     .table-parent-spk-statistic {
         @apply w-full rounded-t-3xl bg-white table-fixed overflow-hidden border-none;
     }
-    th,
-    td {
+    .table-parent-spk-statistic th,
+    .table-parent-spk-statistic td {
         @apply p-3 pl-6 text-left;
     }
-    thead th {
+    .table-parent-spk-statistic thead th {
         @apply text-sm font-bold bg-secondary text-white;
     }
-    tbody tr {
+    .table-parent-spk-statistic tbody tr {
         @apply border-b-2;
     }
-    tbody td {
+    .table-parent-spk-statistic tbody td {
         @apply text-secondary text-base font-medium;
     }
 }
-#success-modal,#document-modal, #payment-modal {
+#success-modal,#document-modal, #payment-modal,#delete-resident-modal {
     animation: fadeInUp 0.5s ease-out forwards;
 }
 
@@ -271,7 +274,7 @@ input[type=file]::file-selector-button:hover{
     @apply flex sm:flex-col md:flex-row sm:gap-5 md:gap-9;
 }
 .summary-card {
-    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem];
+    @apply bg-white flex-1 p-4 rounded-2xl min-h-[9rem] md:max-w-[50%];
 }
 .card-total {
     @apply flex flex-auto;
@@ -283,14 +286,11 @@ input[type=file]::file-selector-button:hover{
     @apply text-main font-bold text-2xl;
 }
 .news {
-    @apply h-[5rem] flex justify-start items-center;
+    @apply h-[5rem] flex justify-start items-center line-clamp-2;
 }
 
 .preview-paragraf {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2; /* Jumlah maksimal baris */
-    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem];
+    @apply text-base text-main  font-semibold  overflow-hidden text-ellipsis max-w-[30rem] line-clamp-2;
 }
 .details {
     @apply flex gap-2 items-center;
@@ -382,8 +382,3 @@ input[type=file]::file-selector-button:hover{
 .resident-input {
     @apply rounded-2xl text-secondary font-medium appearance-none w-full py-2 px-4 border-0 ring-2 ring-inset ring-gray-400 focus:ring-2 focus:ring-inset focus:ring-secondary focus:outline-none;
 }
-
-[x-cloak] {
-    display: hidden !important;
-}
-[x-cloak] { display: none; }

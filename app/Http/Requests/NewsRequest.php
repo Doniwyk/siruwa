@@ -24,8 +24,8 @@ class NewsRequest extends FormRequest
         return [
             //
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'judul' => 'required',
-            'isi' => 'required'
+            'judul' => 'required|string|max:255',
+            'editor' => 'required|string',
         ];
     }
 
@@ -33,9 +33,14 @@ class NewsRequest extends FormRequest
     public function messages()
     {
         return [
-        'id_admin.required' => 'ID Admin wajib diisi.',
-        'judul.required' => 'Judul berita wajib diisi.',
-        'isi.required' => 'Isi berita wajib diisi.'
+            'image.required' => 'Gambar wajib diunggah.',
+            'image.image' => 'File harus berupa gambar.',
+            'image.mimes' => 'Gambar harus berformat: jpeg, png, jpg, gif, svg.',
+            'image.max' => 'Ukuran gambar tidak boleh lebih dari 2MB.',
+            'judul.required' => 'Judul wajib diisi.',
+            'judul.string' => 'Judul harus berupa teks.',
+            'judul.max' => 'Judul tidak boleh lebih dari 255 karakter.',
+            'editor.required' => 'Isi berita wajib diisi.',
     ];
     }
 }
