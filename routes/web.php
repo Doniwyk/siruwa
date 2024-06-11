@@ -176,6 +176,7 @@ Route::group([
     Route::get('/tunggakan', [AdminPaymentController::class, 'getDataTunggakan'])->name('tunggakan');
     Route::get('/laporan',[AdminPaymentController::class,'addExpense'])->name('add');
     Route::post('/storeExpense',[AdminPaymentController::class,'storeExpense'])->name('store');
+    Route::get('/{idPengeluaran}/expense-history',[AdminPaymentController::class,'expenseHistory'])->name('expenseHistory');
 
 });
 
