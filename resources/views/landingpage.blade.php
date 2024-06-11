@@ -12,24 +12,30 @@
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 
   <script>
-    // kalendar
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth, listYear'
-        },
-        initialView: 'dayGridMonth',
-        events: '/fetch-events' // Mengambil event dari endpoint ini
-      });
+  // kalendar
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth, listYear'
+      },
+      initialView: 'dayGridMonth',
+      events: '/fetch-events', // Mengambil event dari endpoint ini
+      eventColor: '#225157',
+      eventClick: function(info) {
+        info.jsEvent.preventDefault(); // Prevent the browser from navigating
 
-      eventDisplay: '#225157'
-      eventColor: '#225157'
-      calendar.render();
+        if (info.event.url) {
+          window.location.href = info.event.url; // Redirect to the event's URL
+        }
+      }
     });
-  </script>
+
+    calendar.render();
+  });
+</script>
 
   <style>
     /* CSS untuk membuat header bulan rounded */
@@ -46,11 +52,29 @@
       line-height: 1.25rem;
       font-weight: 600;
       color: rgb(255 255 255 / var(--tw-text-opacity));
-      padding: 2px 2px 2px;
     }
 
-    fc-col-header-cell-cushion {
-      background-color: white;
+    .fc-scrollgrid-sync-inner{
+      padding: 12px;
+    }
+
+    .fc-dayGridMonth-view {
+      height:600px;
+    }
+
+    .fc-scrollgrid-section, .fc-scrollgrid-section-body, .fc-scrollgrid-section-liquid {
+      margin: 90px;
+    }
+    
+    @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint */
+      .fc-scrollgrid-sync-inner {
+        padding: 6px;
+        font-size: small;
+      }
+
+      .fc-dayGridMonth-view {
+      height:470px;
+      }
     }
   </style>
 </head>
@@ -267,16 +291,16 @@
 </section>
 
 <!-- Kalender -->
-<section id="agenda" class="bg-bg_color flex flex-col content-center p-16 sm:p-4 w-full gap-6 items-center h-screen">
+<section id="agenda" class="bg-bg_color sm:h-screen flex flex-col content-center p-16 sm:p-4 w-screen gap-6 items-center h-max">
   <span class="text-main text-5xl font-semibold sm:text-3xl">Agenda</span>
-  <div class="w-3/5 sm:w-full sm:h-full text-main font-semibold " id='calendar'></div>
+  <div class="w-1/2 h-full sm:w-full sm:h-full text-main font-semibold" id='calendar'></div>
 </section>
 
 <!-- Struktur Organisasi -->
-<section id="struktur" class="h-screen sm:h-auto bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full gap-6 sm:gap-4">
+<section id="struktur" class="h-screen sm:h-screen bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full gap-6 sm:gap-4">
   <span class="text-cyan-900 text-5xl sm:text-3xl font-semibold text-center">Struktur Organisasi</span>
-  <div class="flex flex-center">
-    <img class="rounded-2xl" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
+  <div class="flex flex-center h-full">
+    <img class="rounded-2xl h-full" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
   </div>
 </section>
 
