@@ -205,7 +205,6 @@
                     }, '', initialLocation);
 
                     const fundDatas = data.fundData
-                    console.log(fundDatas);
 
                     $('#table-parent tbody').empty();
                     $('#pagination').empty();

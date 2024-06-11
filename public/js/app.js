@@ -15,8 +15,6 @@ async function getDataPembayaran(id_pembayaran) {
     const response = await fetch(url);
     const data = await response.json();
 
-    console.log(url);
-
     showPopupPembayaran(data, id_pembayaran);
 }
 
@@ -124,15 +122,15 @@ async function showRiwayatPembayaranModal(idRiwayat) {
     const status = modal.querySelector("#riwayat-status");
     const metodeInput = modal.querySelector("#riwayat-metode_pembayaran");
     const jumlahInput = modal.querySelector("#riwayat-jumlah_pembayaran");
-    const buktiPembayaran = modal.querySelector('img')
-    const animatePulseDiv = modal.querySelector('.animate-pulse')
-    
-    metodeInput.innerText = '';
-    jumlahInput.innerText = '';
-    buktiPembayaran.src = '';
-    
-    buktiPembayaran.classList.add('hidden')
-    animatePulseDiv.classList.remove('hidden')
+    const buktiPembayaran = modal.querySelector("img");
+    const animatePulseDiv = modal.querySelector(".animate-pulse");
+
+    metodeInput.innerText = "";
+    jumlahInput.innerText = "";
+    buktiPembayaran.src = "";
+
+    buktiPembayaran.classList.add("hidden");
+    animatePulseDiv.classList.remove("hidden");
 
     modal_parent.classList.remove("hidden");
 
@@ -148,10 +146,10 @@ async function showRiwayatPembayaranModal(idRiwayat) {
     jumlahInput.value = data.jumlah;
     buktiPembayaran.src = data.urlBuktiPembayaran;
 
-    buktiPembayaran.addEventListener('load', ()=>{
-        buktiPembayaran.classList.remove('hidden')
-        animatePulseDiv.classList.add('hidden')
-    })
+    buktiPembayaran.addEventListener("load", () => {
+        buktiPembayaran.classList.remove("hidden");
+        animatePulseDiv.classList.add("hidden");
+    });
 
     modal_parent.addEventListener("click", ({ target }) => {
         if (target == modal_parent) {
@@ -164,19 +162,17 @@ async function getDataRiwayatPembayaran(idRiwayat) {
     const response = await fetch(url);
     const data = await response.json();
 
-    console.log(data);
-
     return data;
 }
 
 function showModal(id_modal_parent, id_modal) {
-    const modalParent = document.querySelector(id_modal_parent)
-    const modal = modalParent.querySelector(id_modal)
+    const modalParent = document.querySelector(id_modal_parent);
+    const modal = modalParent.querySelector(id_modal);
 
-    modalParent.classList.remove('hidden');
-    modalParent.addEventListener('click', ({target})=>{
+    modalParent.classList.remove("hidden");
+    modalParent.addEventListener("click", ({ target }) => {
         if (target == modalParent) {
-            modalParent.classList.add('hidden');
+            modalParent.classList.add("hidden");
         }
-    })
+    });
 }
