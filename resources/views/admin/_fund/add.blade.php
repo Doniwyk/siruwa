@@ -18,25 +18,31 @@ Manajemen Pengeluaran
                 </div>
                 <div class="flex flex-col items-start gap-4 w-full">
                     <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
-                    <select id="jenis_pengeluaran" name="jenis_pengeluaran"
-                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline ">
-                        <option selected>Jenis Iuran</option>
-                        <option value="Iuran Sampah">Iuran Sampah</option>
-                        <option value="Iuran Kematian">Iuran Kematian</option>
-                    </select>
+                    <div class="relative w-full">
+                        <select id="jenis_pengeluaran" name="jenis_pengeluaran"
+                            class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline ">
+                            <option selected>Jenis Iuran</option>
+                            <option value="Iuran Sampah">Iuran Sampah</option>
+                            <option value="Iuran Kematian">Iuran Kematian</option>
+                        </select>
+                        <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Dropdown Icon" class="right-icon pointer-events-none">
+
+                    </div>
 
                 </div>
                 <div class="flex flex-col items-start gap-4 w-full">
                     <label for="tanggal_pengeluaran" class="text-main font-medium">Tanggal</label>
                     <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran" name="tanggal_pengeluaran"
-                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline">
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline hidden"value="{{ date('Y-m-d') }}">
+                    <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran" 
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-secondary" disabled value="{{ date('Y-m-d') }}">
                 </div>
                 <div class="w-full flex flex-col items-start gap-4">
                     <label for="keterangan_pengeluaran" class="text-main font-medium">Keterangan</label>
                     <textarea name="keterangan_pengeluaran" id="keterangan_pengeluaran" placeholder="Masukkan Keterangan"
                         class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
                 </div>
-                <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl">Tambahkan Data</button>
+                <button type="submit" class="bg-main py-3 px-16 text-white font-medium rounded-2xl button-hover">Tambahkan Data</button>
             </form>
         </div>
     </div>
@@ -68,7 +74,6 @@ Manajemen Pengeluaran
         </div>
         <button class="button-main px-6 py-3" onclick="showFormSpendingPaymentForm()">Tambah Data Pengeluaran</button>
     </section>
-    <x-filter :typeDocument=$typeDocument :search="$search" :order="$order" />
     @switch($typeDocument)
         @case('sampah')
             <table class="table-parent" id="table-parent">
