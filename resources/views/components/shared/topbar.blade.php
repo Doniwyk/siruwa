@@ -45,20 +45,3 @@
         </div>
     </a>
 </div>
-@section('sidebar')
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.querySelector('#left-sidebar');
-            const content = document.querySelector('#content');
-
-
-            if (sidebar.style.left === '0px') {
-                sidebar.style.left = '-20rem';
-                content.classList.remove('blur-sm');
-            } else {
-                sidebar.style.left = '0';
-                content.classList.add('blur-sm');
-            }
-        }
-    </script>
-@endsection
