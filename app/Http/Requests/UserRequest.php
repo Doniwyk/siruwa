@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
             //
             'nama' => 'required|string',
             'nik'  => 'required|string|size:16',
-            'nomor_kk' => 'required',
+            'nomor_kk' => 'required|string|size:16',
             'rt' => 'required',
             'alamat' => 'required',
             'pekerjaan' => 'required',
@@ -61,6 +61,7 @@ class UserRequest extends FormRequest
             'tgl_lahir.required' => 'Tanggal lahir wajib diisi.',
             'nik.required' => 'NIK wajib diisi.',
             'no_kk.required' => 'No KK wajib diisi',
+            'no_kk.size' => 'No KK harus berjumlah 16 karakter.',
             'nik.size' => 'NIK harus berjumlah 16 karakter.',
             'nama.required' => 'Nama wajib diisi.',
             'tempat_lahir.required' => 'Tempat lahir wajib diisi.',

@@ -1,7 +1,10 @@
 @extends('layouts.admin')
+@section('title')
+Profil
+@endsection
 @section('content')
 
-<div class="h1-semibold">{{ $title }}</div>
+<div class="h1-semibold">Profil</div>
 <div class="bg-white p-9 rounded-2xl flex flex-col gap-6">
     <div class="flex sm:flex-col lg:flex-row sm:gap-9 w-full gap-9">
         <section class="flex-grow flex flex-col">
@@ -21,7 +24,9 @@
         </section>
     </div>
     <div class="flex justify-end ">
-        <a href="{{ route('admin.profil.edit') }}" class="btn-main text-white button-hover">Edit Profil</a>
+        <a href="{{ route('admin.profil.edit') }}">
+            <button class="btn-main text-white button-hover">Edit Profil</button>
+        </a>
     </div>
 </div>
 @endsection

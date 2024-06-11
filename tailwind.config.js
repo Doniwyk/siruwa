@@ -2,9 +2,10 @@
 export default {
     content: [
         "./resources/**/*.blade.php",
+        "./resources/**/*.css",
         "./resources/**/*.js",
         "./resources/**/*.vue",
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
     ],
     theme: {
         screens: {
@@ -33,6 +34,7 @@ export default {
                 "danger-bg": "#EDA7A7",
                 danger: "#4C2323",
                 "input-disabled": "#DDE9EA",
+                "text-input-disabled": '#5E7C7F',
                 "green-light": "#3D5658",
                 "input-text": "#3D5658",
                 "input-border": "#244447",

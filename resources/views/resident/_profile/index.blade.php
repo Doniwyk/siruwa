@@ -1,19 +1,18 @@
 @extends('layouts.user')
+@section('title')
+Profil
+@endsection
 @section('content-user')
-
-<div class="resident-header">{{ $title }}</div>
-<div class="bg-white rounded-2xl flex flex-col p-9 gap-6">
-    <div class="flex sm:flex-col lg:flex-row md:gap-9 w-full">
-        <section class="shrink-0 h-[21rem] flex flex-col relative items-center">
-            <span class="resident-profile-subheader w-full">Foto Profil</span>
-            <span class="rounded-2xl">
-                <img src="{{ $account->urlProfile }}" class="h-[16rem] lg:w-[21rem] sm:w-full md:rounded-xl sm:rounded-xl object-contain" alt="Profil">   
-
-            </span>
+<div class="h1-semibold">Profil</div>
+<div class="bg-white p-9 rounded-2xl flex flex-col gap-6">
+    <div class="flex sm:flex-col md:flex-row w-full gap-9">
+        <section class="shrink-0 md:w-[21rem] md:h-[16rem] flex flex-col">
+            <span class="resident-profile-subheader ">Foto Profil</span>
+            <img src="{{ $account->urlProfile }}" class="h-[16rem] md:w-[21rem] sm:w-full rounded-xl object-contain" alt="Profil">   
         </section>
-        <section class="basis-3/4 flex flex-col">
-            <span class="mb-6 text-2xl font-semibold text-secondary">Identitas Diri</span>
-            <form class="grid gap-x-9 gap-y-5 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
+        <section class="w-full flex flex-col">
+            <span class="mb-6 text-2xl font-semibold text-main">Identitas Diri</span>
+            <form class="grid gap-x-9 gap-y-4 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
                 <x-form.show-input-form :label="'Nama Lengkap'"  :name="'anu'" :value="$detailAccount->nama" />
                 <x-form.show-input-form :label="'Username'"  :name="'nama'" :value="$account->username" />
                 <x-form.show-input-form :label="'Role'"  :name="'reqRegistrasi'" :value="$account->role" />

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class EventModel extends Model
 {
@@ -19,5 +20,10 @@ class EventModel extends Model
     public function admin(): BelongsTo
     {
         return $this->belongsTo(AccountModel::class, 'id_admin');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d');
     }
 }

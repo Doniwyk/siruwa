@@ -2,14 +2,11 @@
 @section('content-landingpage')
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/output.css') }}">
-  <title>ASU</title>
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @vite('resources/css/app.css')
+    <title>SIRUWA</title>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
@@ -124,11 +121,20 @@
   </div>
 
   <!-- Picture Div -->
-  <div x-data="slideshow()" x-init="init()" class="absolute inset-0 z-0">
+  <div x-data="slideshow()" x-init="init()" class="absolute inset-0 z-0 overflow-hidden">
     <template x-for="(image, index) in images" :key="index">
-      <div x-show="currentIndex === index" class="absolute inset-0 bg-center bg-cover transition-opacity duration-500" :style="'background-image: url(' + image + ');'" x-transition:enter="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="opacity-100" x-transition:leave-end="opacity-0">
+      <div x-show="currentIndex === index"
+          x-transition:enter="transition-opacity ease-out duration-1000"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="transition-opacity ease-in duration-1000"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+          class="absolute inset-0 bg-center bg-cover"
+          :style="'background-image: url(' + image + ');'">
       </div>
     </template>
+
     <div class="absolute inset-0 bg-main opacity-80"></div>
     <div class="relative z-10 flex flex-col justify-center items-center text-white text-center h-full px-4">
       <div class="text-8xl sm:text-5xl font-extrabold">SIRUWA</div>
@@ -139,8 +145,14 @@
         @else
         <a href="#berita" class="absolute bottom-0 z-10 flex flex-col text-center text-white mb-4">
           @endauth
-          <span>Mulai Jelajah !</span>
-          <span>↓</span>
+          <h5>Mulai Jelajah</h5>
+          <span class="flex justify-center">
+            <svg width="36" height="36" viewBox="0 0 40 41" xmlns="http://www.w3.org/2000/svg" transform="rotate(-90)">
+                <path
+                    d="M14.6672 23.0165L17.9505 26.2999L23.3005 31.6499C24.4339 32.7665 26.3672 31.9665 26.3672 30.3665L26.3672 19.9832L26.3672 10.6332C26.3672 9.03321 24.4339 8.23321 23.3005 9.36654L14.6672 17.9999C13.2839 19.3665 13.2839 21.6332 14.6672 23.0165Z"
+                    fill="#ffffff" />
+            </svg>
+        </span>
         </a>
     </div>
   </div>
@@ -175,104 +187,107 @@
 @endauth
 
 <!-- Berita -->
-<section id="berita" class="h-screen p-16 sm:px-4 sm:py-8 flex flex-col justify-center">
+<section id="berita" class=" p-16 sm:px-4 sm:py-8 flex flex-col justify-center">
   <div class="flex justify-between items-center w-full mb-6">
     <span class="text-secondary text-5xl sm:text-3xl font-semibold">Berita</span>
 
-    <button class="px-8 py-3 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex">
+    <button class="px-8 py-3 sm:px-4 sm:py-2 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex" onclick="window.location='{{ route('list-berita.index') }}'">
       <div class="justify-start items-center gap-8 inline-flex">
-        <span class="text-white text-base font-semibold cursor-pointer" onclick="window.location='{{ route('list-berita.index') }}'">Lebih Banyak ></span>
+        <span class="text-white text-base sm:text-sm font-semibold cursor-pointer">Lebih Banyak</span>
+        <svg width="32" height="32" viewBox="0 0 40 41" xmlns="http://www.w3.org/2000/svg" class="transform rotate-180">
+            <path
+                d="M14.6672 23.0165L17.9505 26.2999L23.3005 31.6499C24.4339 32.7665 26.3672 31.9665 26.3672 30.3665L26.3672 19.9832L26.3672 10.6332C26.3672 9.03321 24.4339 8.23321 23.3005 9.36654L14.6672 17.9999C13.2839 19.3665 13.2839 21.6332 14.6672 23.0165Z"
+                fill="#ffffff" />
+        </svg>
       </div>
     </button>
   </div>
-  <div class="flex gap-6 sm:hidden">
-    <div class="w-1/2">
-      <a href="{{route('list-berita.show', ['artikel' => $latestNews[0]->id_berita])}}">
-        <div class="h-[50rem] news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}');">
-          <div class="news-landing">
+  <div class="flex gap-6 sm:flex-col">
+    <div class="w-1/2 sm:w-full">
+      <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[0]->id_berita])}}">
+        <div class="h-[50rem] sm:h-[25rem] news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}'); background-size: cover; background-position: center;">
+          <div class="news-landing p-4">
             @if(isset($latestNews[0]))
-            <span class="text-stone-100 text-base font-medium">{{ $latestNews[0]->created_at }}</span>
-            <span class="text-stone-100 text-xl font-bold">{{ $latestNews[0]->judul }}</span>
+            <div class="flex flex-row items-center gap-4">
+              <x-icon.calendar />
+              <span class="text-stone-100 text-lg font-medium sm:text-base">{{ $latestNews[0]->created_at }}</span>
+              </div>
+            <span class="text-stone-100 text-2xl font-bold sm:text-xl">{{ $latestNews[0]->judul }}</span>
             @endif
           </div>
         </div>
       </a>
     </div>
 
-    <div class="flex flex-col w-1/2 gap-6">
-      @for ($i = 1; $i <= 2; $i++) @if(isset($latestNews[$i])) <a href="{{route('list-berita.show', ['artikel' => $latestNews[$i]->id_berita])}}" class="h-1/2 news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}');">
-        <div class="news-landing">
-          <span class="text-stone-100 text-base font-medium">{{ $latestNews[$i]->created_at }}</span>
-          <span class="text-stone-100 text-xl font-bold">{{ $latestNews[$i]->judul }}</span>
+    <div class="flex flex-col w-1/2 gap-6 sm:w-full sm:gap-4">
+      @for ($i = 1; $i <= 2; $i++)
+      @if(isset($latestNews[$i]))
+      <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[$i]->id_berita])}}" class="h-1/2 sm:h-[12.5rem] news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}'); background-size: cover; background-position: center;">
+        <div class="news-landing p-4">
+          <div class="flex flex-row items-center gap-4">
+            <x-icon.calendar />
+            <span class="text-stone-100 text-lg font-medium sm:text-sm">{{ $latestNews[$i]->created_at }}</span>
+          </div>
+          <span class="text-stone-100 text-2xl font-bold sm:text-base">{{ $latestNews[$i]->judul }}</span>
         </div>
-        </a>
-        @endif
-        @endfor
-    </div>
-  </div>
-
-  <div class="flex flex-col flex-1 gap-4 md:hidden">
-    @for ($i = 0; $i <= 2; $i++) @if(isset($latestNews[$i])) <a href="{{route('list-berita.show', ['artikel' => $latestNews[$i]->id_berita])}}" class="h-1/2 news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}');">
-      <div class="news-landing">
-        <span class="text-stone-100 text-base font-medium">{{ $latestNews[$i]->created_at }}</span>
-        <span class="text-stone-100 text-xl font-bold">{{ $latestNews[$i]->judul }}</span>
-      </div>
       </a>
       @endif
       @endfor
+    </div>
   </div>
 </section>
 
+
 <!-- Statistik -->
-<section id="statistik" class="bg-secondary flex flex-col justify-center w-full h-auto md:p-16 sm:p-4 md:gap-16 sm:gap-4">
+<section id="statistik" class="bg-secondary flex flex-col justify-center w-full h-auto md:p-16 sm:p-4 md:gap-16 sm:gap-6">
   <span class="text-center text-white text-5xl sm:text-3xl font-semibold">RW 2 dalam Angka</span>
   <div class="grid grid-rows-2 grid-cols-2 md:grid-rows-1 md:grid-cols-4 sm:gap-y-6">
-    <div class="menu">
-      <span class="text-4xl sm:text-2xl">{{$dataDashboard['resident']}}</span>
-      <span class="sm:hidden">Populasi Penduduk</span>
-      <span class="md:hidden">Populasi</span>
+      <div class="menu">
+        <span class="text-4xl sm:text-2xl">{{$dataDashboard['resident']}}</span>
+        <span class="sm:hidden">Populasi Penduduk</span>
+        <span class="md:hidden">Populasi</span>
+      </div>
+      <div class="menu">
+        <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_pendidikan}}</span>
+        <span class="sm:hidden">Fasilitas Pendidikan</span>
+        <span class="md:hidden">Pendidikan</span>
+      </div>
+      <div class="menu">
+        <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_kesehatan}}</span>
+        <span class="sm:hidden">Kesehatan</span>
+        <span class="md:hidden">Kesehatan</span>
+      </div>
+      <div class="menu">
+        <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_administrasi}}</span>
+        <span class="sm:hidden">Administrasi</span>
+        <span class="md:hidden">Administrasi</span>
+      </div>
     </div>
-    <div class="menu">
-      <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_pendidikan}}</span>
-      <span class="sm:hidden">Fasilitas Pendidikan</span>
-      <span class="md:hidden">Pendidikan</span>
-    </div>
-    <div class="menu">
-      <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_kesehatan}}</span>
-      <span class="sm:hidden">Kesehatan</span>
-      <span class="md:hidden">Kesehatan</span>
-    </div>
-    <div class="menu">
-      <span class="text-4xl sm:text-2xl">{{$dataDashboard['data'][0]->fasilitas_administrasi}}</span>
-      <span class="sm:hidden">Administrasi</span>
-      <span class="md:hidden">Administrasi</span>
-    </div>
-  </div>
   </div>
 </section>
 
 <!-- Kalender -->
-<section id="agenda" class="bg-bg_color flex flex-col content-center p-16 w-full gap-6 items-center h-screen">
-  <span class="text-main text-5xl font-semibold">Agenda</span>
-  <div class="w-3/5 text-main font-semibold" id='calendar'></div>
+<section id="agenda" class="bg-bg_color flex flex-col content-center p-16 sm:p-4 w-full gap-6 items-center h-screen">
+  <span class="text-main text-5xl font-semibold sm:text-3xl">Agenda</span>
+  <div class="w-3/5 sm:w-full sm:h-full text-main font-semibold " id='calendar'></div>
 </section>
 
 <!-- Struktur Organisasi -->
 <section id="struktur" class="h-screen sm:h-auto bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full gap-6 sm:gap-4">
-  <span class="text-cyan-900 text-5xl sm:text-3xl font-semibold">Struktur Organisasi</span>
+  <span class="text-cyan-900 text-5xl sm:text-3xl font-semibold text-center">Struktur Organisasi</span>
   <div class="flex flex-center">
     <img class="rounded-2xl" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
   </div>
 </section>
 
 <script>
-  // Gambar Slideshow ofc dari GPT h3h3
+
   function slideshow() {
     return {
       images: [
-        "{{ asset('https://cdn.api.upstation.media/upstation_x/ac915e5166ffa9c578d1e40313c2b116be4753502b5331bb55050f58a68d85c74c1b97b50b32fd8d4ceb844f388faad447fff9957b5bd19f402995558a38958c') }}",
-        "{{ asset('https://api.duniagames.co.id/api/content/upload/file/6182724481603360805.jpeg') }}",
-        "{{ asset('https://upload-os-bbs.hoyolab.com/upload/2022/08/11/17136071/989ca1a56ed158e8e6f8386984f9c31c_1397685953817154726.jpeg?x-oss-process=image%2Fresize%2Cs_1000%2Fauto-orient%2C0%2Finterlace%2C1%2Fformat%2Cwebp%2Fquality%2Cq_80') }}",
+        "{{ asset('landing1.jpg') }}",
+        "{{ asset('landing2.webp') }}",
+        "{{ asset('landing3.jpg') }}",
       ],
       currentIndex: 0,
       init() {
@@ -280,7 +295,7 @@
           this.currentIndex = (this.currentIndex + 1) % this.images.length;
         }, 3000);
       }
-    }
+    };
   }
 
   var navbar = document.querySelector('.navbar');

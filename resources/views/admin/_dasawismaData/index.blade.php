@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Data Penduduk
+@endsection
 @section('content')
     <h1 class="h1-semibold">Data Penduduk</h1>
     <section class="w-full flex justify-between flex-wrap gap-8">
@@ -43,8 +46,8 @@
         <div class="md:web_add-wrapper sm:hidden">
             <a href="{{ route('admin.data-penduduk.export') }}">
                 <button class="button-white">
-                    <x-icon.import />
-                    <label for="" class="sm:hidden md:inline">
+                    <x-icon.export />
+                    <label for="" class="sm:hidden md:inline cursor-pointer">
                         Export .Pdf
                     </label>
                 </button>
@@ -52,15 +55,15 @@
             <a href="{{ route('admin.data-penduduk.import') }}">
                 <button class="button-white">
                     <x-icon.import />
-                    <label for="" class="sm:hidden md:inline">
+                    <label for="" class="sm:hidden md:inline cursor-pointer">
                         Import .csv
                     </label>
                 </button>
             </a>
             <a href="{{ route('admin.data-penduduk.add') }}">
-                <button class="button-main">
+                <button class="flex-between gap-[10px] px-6 py-3 bg-main rounded-xl font-semibold text-white button-hover">
                     <x-icon.add-circle />
-                    <label for="" class="sm:hidden md:inline">
+                    <label for="" class="sm:hidden md:inline cursor-pointer">
                         Tambah Data
                     </label>
                 </button>

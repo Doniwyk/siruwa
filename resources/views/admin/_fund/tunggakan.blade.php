@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Data Tunggakan Iuran
+@endsection
 @section('content')
 <div class="header-edit flex-start gap-1">
     <a href="{{ route('admin.data-pembayaran.index') }}">
@@ -8,7 +11,7 @@
             </svg>
         </span>
     </a>
-    <h1 class="h1-semibold">{{ $title }}</h1>
+    <h1 class="h1-semibold">Data Tunggakan</h1>
 </div>
 
 <section class="w-full flex justify-between flex-wrap gap-8">
@@ -89,7 +92,6 @@
                 }, '', initialLocation);
 
                 const dataTunggakan = data.dataTunggakan;
-                // console.log(tunggakan);
 
                 $('#table-parent tbody').empty();
 

@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('head_script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+@endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.manajemen-berita.index') }}">
@@ -13,7 +16,7 @@
         @method('PUT')
         <section class="sm:grid-rows-4 grid grid-rows-2 grid-cols-4 gap-6 w-full">
             <div class="sm:row-span-3 md:row-span-2 sm:col-span-4 md:col-span-1  relative " id="file-1">
-                <input type="file" name="gambar" id="image" class="hidden">
+                <input type="file" name="gambar" id="image" class="hidden" accept=".png, .jpg">
                 <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
                     <img src="{{ $event->url_gambar }}" alt="image" class="object-contain h-full" id="imagePreview">
                 </label>
@@ -44,7 +47,7 @@
             <textarea id="editor" name="isi" class="ck-editor__editable ck-editor__editable_inline">{{ $event->isi }}</textarea>
         </section>
         <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
-            Upload </button>
+            Selesai </button>
     </form>
 @endsection
 @section('script')

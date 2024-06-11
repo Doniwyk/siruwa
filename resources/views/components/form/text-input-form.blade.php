@@ -16,6 +16,8 @@ $type = $type ?? 'text';
             @if ($type === 'date') onclick="this.showPicker()" @endif
         >
 
+        <div id="error-{{$name}}" class="text-red-600 font-medium"></div>
+
         @if ($type === 'password')
             <img 
                 src="{{ asset('assets/icons/eye.svg') }}" 

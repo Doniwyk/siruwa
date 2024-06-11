@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Contracts\AdminDocumentContract;
-use App\Http\Requests\ChangeDocumentStatusRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateDocumentRequest;
 use App\Models\DocumentModel;
-use Exception;
 
 class AdminDocumentController extends Controller
 {
@@ -27,7 +25,6 @@ class AdminDocumentController extends Controller
         try {
             $page = $this->page;
             $typeDocument = $request->query('typeDocument', 'pengajuan');
-            $title = 'Manajemen Dokumen';
             switch ($typeDocument) {
                 case 'pengajuan':
                     $documents = $this->documentService->getDocumentRequest();
@@ -44,7 +41,7 @@ class AdminDocumentController extends Controller
                 default:
                     break;
             }
-            return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
+            return view('admin._document.index', compact('documents', 'typeDocument', 'page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -82,9 +79,8 @@ class AdminDocumentController extends Controller
     {
         try{
             $page = $this->page;
-            $title = 'Manajemen Dokumen';
             $document = $document->findOrFail($document->id_dokumen);
-            return view('admin._document.edit', compact('page', 'title', 'document'));
+            return view('admin._document.edit', compact('page', 'document'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -111,9 +107,8 @@ class AdminDocumentController extends Controller
         try{
             $typeDocument = $request->query('typeDocument', 'proses');
             $page = $this->page;
-            $title = 'Manajemen Dokumen';
             $documents = $this->documentService->getProcessedDocument();
-            return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
+            return view('admin._document.index', compact('documents', 'typeDocument', 'page'));
         } catch (\Exception $e) {
             return redirect()->route('admin.data-dokumen.index')->with('error', 'Terjadi kesalahan tak terduga saat mengganti status.');
         }
@@ -125,10 +120,8 @@ class AdminDocumentController extends Controller
         try{
             $typeDocument = $request->query('typeDocument', 'bisa diambil');
             $page = $this->page;
-            $title = 'Manajemen Dokumen';
             $documents = $this->documentService->getCanBeTakenDocument();
-
-            return view('admin._document.index', compact('documents', 'typeDocument', 'page', 'title'));
+            return view('admin._document.index', compact('documents', 'typeDocument', 'page'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
