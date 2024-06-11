@@ -10,9 +10,6 @@
     margin: 0;
     padding: 0;
 }
-a:hover{
-    @apply text-inherit
-}
 
 ::-webkit-scrollbar {
     display: none;
@@ -338,10 +335,10 @@ input[type=file]::file-selector-button:hover{
     @apply sm:text-2xl md:text-4xl text-secondary font-semibold;
 }
 .resident-tab-parent {
-    @apply flex bg-white max-w-72 p-2 rounded-2xl space-x-4 mb-9;
+    @apply flex bg-white max-w-72 p-1 rounded-2xl space-x-4;
 }
 .resident-tab {
-    @apply flex-1 py-2 px-4 rounded-xl text-secondary font-medium focus:font-semibold focus:outline-none w-[44rem];
+    @apply flex-1 py-2 px-4 rounded-xl font-medium w-[44rem];
 }
 .left-icon {
     @apply absolute inset-y-0 left-4 h-5 w-5 my-auto;
