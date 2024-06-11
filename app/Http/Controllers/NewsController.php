@@ -235,7 +235,6 @@ class NewsController extends Controller
     
             $event = EventModel::where('status', 'Uploaded')->orderBy('created_at', 'desc')->get();
     
-            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event]);
           
             $latestEvent = EventModel::where('status', 'Uploaded')
                         ->where('tanggal', '>=', Carbon::today())
@@ -243,7 +242,7 @@ class NewsController extends Controller
                         ->take(3)
                         ->get();
           
-            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event);
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
