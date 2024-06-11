@@ -92,7 +92,6 @@ Data Tunggakan Iuran
                 }, '', initialLocation);
 
                 const dataTunggakan = data.dataTunggakan;
-                // console.log(tunggakan);
 
                 $('#table-parent tbody').empty();
 
