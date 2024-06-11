@@ -138,8 +138,18 @@ class AdminPaymentService implements AdminPaymentContract
         $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')->count() * 10000;
         $getGarbageFundAmount = GarbageFundModel::where('status', 'Lunas')->count() * 10000;
 
-        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')->count() * 10000;
-        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')->count() * 10000;
+        $currentYear = now()->year;
+        $currentMonth = now()->month;
+
+        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')
+            ->whereYear('bulan', '<=', $currentYear)
+            ->whereMonth('bulan', '<=', $currentMonth)
+            ->count() * 10000;
+
+        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')
+            ->whereYear('bulan', '<=', $currentYear)
+            ->whereMonth('bulan', '<=', $currentMonth)
+            ->count() * 10000;
         $getTunggakan = $getDeathFundTunggakan + $getGarbageFundTunggakan;
 
         return [
