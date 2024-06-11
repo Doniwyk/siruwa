@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Data Penduduk
+@endsection
 @section('content')
     <h1 class="h1-semibold">Data Penduduk</h1>
     <section class="w-full flex justify-between flex-wrap gap-8">

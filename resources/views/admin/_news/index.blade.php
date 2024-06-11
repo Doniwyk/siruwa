@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Manajemen Berita
+@endsection
 @section('content')
     <h1 class="h1-semibold">Manajemen Berita & Acara</h1>
     <div class="summary-card_news">
@@ -71,10 +74,18 @@
                         @foreach ($news as $n)
                             <tr>
                                 <td class="sm:text-sm md:text-base relative">
-                                    <div class="flex gap-5 text-main sm:items-center md:items-start">
-                                        <div class="animate-pulse min-w-[8.2rem] h-20 bg-slate-500 rounded-2xl">
+                                    <div class=" flex gap-5 text-main sm:items-center md:items-start relative">
+                                        <div class="relative min-w-[8.2rem] h-20">
+                                            <div
+                                                class="animate-pulse flex items-center justify-center w-full h-full bg-gray-300 dark:bg-gray-700 rounded-2xl absolute">
+                                                <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                                    <path
+                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                                                </svg>
+                                            </div>
                                             <img src="{{ $n->url_gambar }}" alt="logo"
-                                                class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
+                                                class="min-w-[8.2rem] h-20 rounded-2xl object-fill hidden">
                                         </div>
                                         <p class="desc-news text-wrap">
                                             {{ $n->judul }}
@@ -148,22 +159,32 @@
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td class="sm:text-sm md:text-base">
-                                    <div class="flex gap-5 text-main sm:items-center md:items-start">
-                                        <img src="{{ $n->url_gambar }}" alt="logo"
-                                            class="min-w-[8.2rem] h-20 rounded-2xl object-fill">
+                                <td class="sm:text-sm md:text-base relative">
+                                    <div class=" flex gap-5 text-main sm:items-center md:items-start relative">
+                                        <div class="relative min-w-[8.2rem] h-20">
+                                            <div
+                                                class="animate-pulse flex items-center justify-center w-full h-full bg-gray-300 dark:bg-gray-700 rounded-2xl absolute">
+                                                <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                                    <path
+                                                        d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                                                </svg>
+                                            </div>
+                                            <img src="{{ $n->url_gambar }}" alt="logo"
+                                                class="min-w-[8.2rem] h-20 rounded-2xl object-fill hidden">
+                                        </div>
                                         <p class="desc-news text-wrap">
                                             {{ $n->judul }}
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell">
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base flex-center">
+                                <td class="sm:text-sm md:text-base">
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-acara.edit', ['event' => $n->id_agenda]) }}"
                                             class="hover">
@@ -245,47 +266,91 @@
                         );
                         return;
                     }
+
                     $.each(news, function(index, news) {
                         let dateString = news.created_at;
 
                         let dateTime = luxon.DateTime.fromISO(dateString);
 
                         let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+
+                        let editUrl = `{{ route('admin.manajemen-berita.edit', ':id') }}`.replace(
+                            ':id', news.id_berita);
+                        let deleteUrl = `{{ route('admin.manajemen-berita.delete', ':id') }}`.replace(
+                            ':id', news.id_berita);
+                        let editStatusUrl = `{{ route('admin.manajemen-berita.edit-status', ':id') }}`
+                            .replace(':id', news.id_berita);
+
+                        let statusButton;
+                        if (news.status === 'Uploaded') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="draft">
+                                        <x-icon.draft-icon />
+                                    </button>
+                                </form>
+                            `;
+                        } else if (news.status === 'Draft') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="upload">
+                                        <x-icon.publish-icon />
+                                    </button>
+                                </form>
+                            `;
+                        }
+
                         $('#table-parent tbody').append(
                             `
                             <tr>
-                                <td>
+                                <td class="sm:text-sm md:text-base">
                                     <div class="flex gap-5 text-main">
-                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
-                                        <p class="desc-news">
+                                        <img src="${news.url_gambar}" alt="logo" 
+                                            class="w-[8.2rem] h-20 rounded-2xl">
+                                        <p class="desc-news text-wrap">
                                             ${news.judul}
                                         </p>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
-                                    <x-icon.uploaded />
-                                    <label for="">${formattedDate}</label>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="action flex gap-6">
-                                        <x-icon.edit />
-                                        <x-icon.delete />
+                                        <x-icon.uploaded />
+                                        <label for="">${formattedDate}</label>
                                     </div>
                                 </td>
-                             </tr>
+                                <td class="sm:text-sm md:text-base">
+                                    <div class="action flex gap-6">
+                                        <a href="${editUrl}" 
+                                            class="hover">
+                                            <x-icon.edit />
+                                        </a>
+                                        <form action="${deleteUrl}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <x-icon.delete />
+                                            </button>
+                                        </form>
+                                        ${statusButton}
+                                    </div>
+                                </td>
+                            </tr>
                             `
                         );
                     });
 
-                    $('#pagination').append(data.paginationHtml); // Update HTML paginasi
+                    $('#pagination').append(data.paginationHtml); // Update pagination HTML
                 },
                 error: function(xhr, status, error) {
                     console.error("Error: " + status + " " + error);
                 }
             });
         }
+
 
         function fetchEventData(typeDocument = '', search = '', order = 'asc', page = 1) {
             $.ajax({
@@ -324,33 +389,74 @@
                     $.each(news, function(index, news) {
                         let dateString = news.tanggal;
 
-                        let dateTime = luxon.DateTime.fromISO(dateString);
+                        dateTime = luxon.DateTime.fromSQL(dateString);
 
                         let formattedDate = dateTime.toFormat('MMMM, dd yyyy');
+
+                        let editUrl = `{{ route('admin.manajemen-acara.edit', ':id') }}`.replace(':id',
+                            news.id_agenda);
+                        let deleteUrl = `{{ route('admin.manajemen-acara.delete', ':id') }}`.replace(
+                            ':id', news.id_agenda);
+                        let editStatusUrl = `{{ route('admin.manajemen-acara.edit-status', ':id') }}`
+                            .replace(':id', news.id_agenda);
+
+                        let statusButton;
+                        if (news.status === 'Uploaded') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="draft">
+                                        <x-icon.draft-icon />
+                                    </button>
+                                </form>
+                            `;
+                        } else if (news.status === 'Draft') {
+                            statusButton = `
+                                <form action="${editStatusUrl}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="action" value="upload">
+                                        <x-icon.publish-icon />
+                                    </button>
+                                </form>
+                            `;
+                        }
                         $('#table-parent tbody').append(
                             `
                             <tr>
-                                <td>
+                                <td class="sm:text-sm md:text-base">
                                     <div class="flex gap-5 text-main">
-                                        <img src="${news.url_gambar}" alt="logo" class="w-[8.2rem] h-20 rounded-2xl">
-                                        <p class="desc-news">
+                                        <img src="${news.url_gambar}" alt="logo" 
+                                            class="w-[8.2rem] h-20 rounded-2xl">
+                                        <p class="desc-news text-wrap">
                                             ${news.judul}
                                         </p>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
-                                    <x-icon.uploaded />
-                                    <label for="">${formattedDate}</label>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="action flex gap-6">
-                                        <x-icon.edit />
-                                        <x-icon.delete />
+                                        <x-icon.uploaded />
+                                        <label for="">${formattedDate}</label>
                                     </div>
                                 </td>
-                             </tr>
+                                <td class="sm:text-sm md:text-base">
+                                    <div class="action flex gap-6">
+                                        <a href="${editUrl}" 
+                                            class="hover">
+                                            <x-icon.edit />
+                                        </a>
+                                        <form action="${deleteUrl}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <x-icon.delete />
+                                            </button>
+                                        </form>
+                                        ${statusButton}
+                                    </div>
+                                </td>
+                            </tr>
                             `
                         );
                     });
@@ -363,20 +469,21 @@
             });
         }
         $(document).ready(function() {
-            let image = $('.animate-pulse img');
-            let imageUrl = image.attr('src');
-            let hasLoaded = localStorage.getItem('imageLoaded');
+            let images = $('.animate-pulse + img');
 
-            if (!hasLoaded) {
+            images.each(function() {
+                let image = $(this);
+                let skeleton = image.prev('.animate-pulse');
+
                 image.on('load', function() {
-                    $('.animate-pulse').addClass('bg-white');
-                    $('.animate-pulse').removeClass('animate-pulse');
-                    localStorage.setItem('imageLoaded', true);
+                    image.removeClass('hidden');
+                    skeleton.addClass('hidden');
                 });
-            } else {
-                $('.animate-pulse').addClass('bg-white');
-                $('.animate-pulse').removeClass('animate-pulse');
-            }
+
+                if (image[0].complete) {
+                    image.trigger('load');
+                }
+            });
         })
     </script>
 @endsection

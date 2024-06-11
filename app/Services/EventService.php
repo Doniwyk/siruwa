@@ -26,6 +26,7 @@ class EventService implements EventContract
         if (!array_key_exists('gambar', $validatedData)) {
             $event->judul = $validatedData['judul'];
             $event->isi = $validatedData['isi'];
+            $event->tanggal = $validatedData['tanggal'];
             $event->save();
             return;
         }

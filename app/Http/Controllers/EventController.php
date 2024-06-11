@@ -7,6 +7,7 @@ use App\Http\Requests\EditEventRequest;
 use App\Http\Requests\EventRequest;
 use App\Models\EventModel;
 use App\Models\UserModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
@@ -38,19 +39,18 @@ class EventController extends Controller
         try{
         $page = $this->pageName;
         $title = 'Tambah Agenda';
-        $userId = Auth::id();
-        $account = UserModel::findOrFail($userId);
+        $userId = Auth::user();
+        $account = UserModel::findOrFail($userId->id_penduduk);
         return view('admin._event.create', compact('page', 'title', 'account'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat form tambah agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
-    public function storeEvent(EventRequest $request, $action)
+    public function storeEvent(EventRequest $request)
     {
         try {
-
-            if($action == 'upload'){
+            if($request->action == 'upload'){
                 $status = 'Uploaded';
             }else{
                 $status = 'Draft';
@@ -70,11 +70,12 @@ class EventController extends Controller
                 'id_admin' => $admin,
                 'isi' => $request->input('isi'),
                 'tanggal' => $request->input('tanggal'),
-                'status' =>  $request->$status
+                'status' =>  $status
             ]);
             $imageUpload->save();
             return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Tidak dapat menambahkan agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
@@ -84,8 +85,8 @@ class EventController extends Controller
         try{
         $page = $this->pageName;
         $title = 'Edit Agenda';
-        $userId = Auth::id();
-        $account = UserModel::findOrFail($userId);
+        $userId = Auth::user();
+        $account = UserModel::findOrFail($userId->id_penduduk);
         return view('admin._event.edit', compact('title', 'page','event', 'account'));
         } catch(\Exception $e){
             return redirect()->back()->with('error', 'Tidak dapat memuat data agenda' . $e->getMessage())->withErrors([$e->getMessage()]);
@@ -114,7 +115,8 @@ class EventController extends Controller
         }
     }
 
-    public function changeStatus($action, EventModel $event){
+    public function changeStatus(Request $request, EventModel $event){
+        $action = $request->action;
         try {
             if($action == 'upload'){
                 $event->status = 'Uploaded';

@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('title')
+Tambah Berita
+@endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.manajemen-berita.index') }}">
@@ -12,7 +15,7 @@
         @method('POST')
         <section class="sm:grid-rows-5 grid grid-rows-2 grid-cols-4 gap-6 w-full">
             <div class="sm:row-span-3 md:row-span-2 sm:col-span-4 md:col-span-1  relative" id="file-1">
-                <input type="file" name="image" id="image" class="hidden">
+                <input type="file" name="image" id="image" class="hidden" accept=".png, .jpg">
                 <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
                     <div>
                         <span class="font-semibold flex-col flex-center text-main ">
@@ -39,8 +42,12 @@
             <label for="description" class="text-main font-semibold">Isi Artikel</label>
             <textarea id="editor" name="editor" class="ck-editor__editable ck-editor__editable_inline"></textarea>
         </section>
-        <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
-            Upload </button>
+        <section class="flex gap-3">
+            <button name="action" value="draft" type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-white text-secondary rounded-2xl font-semibold border border-inset border-secondary">
+                Draft </button>
+            <button name="action" value="upload" type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
+                Upload </button>
+        </section>
     </form>
 @endsection
 @section('script')

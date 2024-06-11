@@ -1,16 +1,3 @@
-function activeButton(button) {
-    const buttons = document.querySelectorAll(".button-option");
-    buttons.forEach((button) => {
-        button.classList.remove("button-option_active");
-    });
-    button.classList.add("button-option_active");
-}
-
-function togglePassword(idInputField) {
-    const input = document.querySelector(idInputField);
-    const typeInput = input.type;
-    input.type = typeInput == "text" ? "password" : "text";
-}
 function setActionAndSubmit(action) {
     let form = document.querySelector("form");
     let formAction = form.getAttribute("action");
@@ -56,7 +43,6 @@ function showPopupPembayaran(data, id_pembayaran) {
             closePopup("#payment-modal_parent");
         }
     });
-
 }
 
 function closePopup(id_modal) {
@@ -81,13 +67,13 @@ async function showPopupToContinueDocumentProccess(id_document, action) {
     button.value = action;
 
     if (action == "batalkan") {
-        button.innerText = 'Batalkan'
-        button.classList.remove('bg-main')
-        button.classList.add('bg-red-600')
+        button.innerText = "Batalkan";
+        button.classList.remove("bg-main");
+        button.classList.add("bg-red-600");
     } else {
-        button.classList.remove('bg-red-600')
-        button.classList.add('bg-main')
-        button.innerText = 'Lanjutkan'
+        button.classList.remove("bg-red-600");
+        button.classList.add("bg-main");
+        button.innerText = "Lanjutkan";
     }
 
     modal.classList.toggle("hidden");
@@ -98,9 +84,7 @@ async function showPopupToContinueDocumentProccess(id_document, action) {
             return;
         }
     });
-
 }
-
 
 const previewBeforeUpload = (id) => {
     const input = document.querySelector("#" + id + " input");
@@ -131,3 +115,68 @@ const previewBeforeUpload = (id) => {
         document.querySelector("#" + id + "-preview").appendChild(imagePreview);
     });
 };
+
+async function showRiwayatPembayaranModal(idRiwayat) {
+    const modal_parent = document.querySelector(
+        "#riwayat-payment-modal_parent"
+    );
+    const modal = modal_parent.querySelector("#riwayat-payment-modal");
+    const status = modal.querySelector("#riwayat-status");
+    const metodeInput = modal.querySelector("#riwayat-metode_pembayaran");
+    const jumlahInput = modal.querySelector("#riwayat-jumlah_pembayaran");
+    const buktiPembayaran = modal.querySelector('img')
+    const animatePulseDiv = modal.querySelector('.animate-pulse')
+    
+    metodeInput.innerText = '';
+    jumlahInput.innerText = '';
+    buktiPembayaran.src = '';
+    
+    buktiPembayaran.classList.add('hidden')
+    animatePulseDiv.classList.remove('hidden')
+
+    modal_parent.classList.remove("hidden");
+
+    const data = await getDataRiwayatPembayaran(idRiwayat);
+
+    if (data.status == "Ditolak") {
+        status.classList.add("text-red-600");
+    } else {
+        status.classList.add("text-main");
+    }
+    status.innerText = data.status;
+    metodeInput.value = data.metode;
+    jumlahInput.value = data.jumlah;
+    buktiPembayaran.src = data.urlBuktiPembayaran;
+
+    buktiPembayaran.addEventListener('load', ()=>{
+        buktiPembayaran.classList.remove('hidden')
+        animatePulseDiv.classList.add('hidden')
+    })
+
+    modal_parent.addEventListener("click", ({ target }) => {
+        if (target == modal_parent) {
+            modal_parent.classList.add("hidden");
+        }
+    });
+}
+async function getDataRiwayatPembayaran(idRiwayat) {
+    const url = `/admin/data-pembayaran/${idRiwayat}/history`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    console.log(data);
+
+    return data;
+}
+
+function showModal(id_modal_parent, id_modal) {
+    const modalParent = document.querySelector(id_modal_parent)
+    const modal = modalParent.querySelector(id_modal)
+
+    modalParent.classList.remove('hidden');
+    modalParent.addEventListener('click', ({target})=>{
+        if (target == modalParent) {
+            modalParent.classList.add('hidden');
+        }
+    })
+}
