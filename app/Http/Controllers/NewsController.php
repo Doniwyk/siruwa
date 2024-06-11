@@ -110,14 +110,14 @@ class NewsController extends Controller
                 'image_public_id' => $publicId,
                 'judul' => $request->input('judul'),
                 'id_admin' => $admin,
-                'isi' => $request->input('editor'),
+                'isi' => $request->input('isi'),
                 'status' => $status
             ]);
             $imageUpload->save();
-            return redirect()->route('admin.manajemen-berita.index')->with('success', 'Berita berhasil ditambahkan.');
+            return response()->json(['success' => 'Data stored successfully', 'redirect' => route('admin.manajemen-berita.index')], 200);
         } catch (\Exception $e) {
             dd($e);
-            return redirect()->back()->with('error', 'Berita gagal ditambahkan' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 
