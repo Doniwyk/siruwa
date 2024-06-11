@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
@@ -58,14 +59,12 @@
         </main>
     </div>
 </body>
-<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 @yield('script')
 @yield('sidebar')
 <script>
     $(document).ready(function() {
-        const loader = $('#loader-modal_parent')
         loader.addClass('hidden')
 
         var debounceTimer;
