@@ -1190,13 +1190,6 @@ input:checked + .toggle-bg{
   padding-bottom: 0.5rem;
 }
 
-.table-parent{
-  overflow: hidden;
-  white-space: nowrap;
-  border-radius: 1rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
 
 @media (min-width: 768px){
   .table-parent{
@@ -3680,21 +3673,6 @@ input[type=file]::file-selector-button:hover{
   height: 5rem;
   align-items: center;
   justify-content: flex-start;
-}
-
-.preview-paragraf {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  /* Jumlah maksimal baris */
-  max-width: 30rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 600;
-  --tw-text-opacity: 1;
-  color: rgb(36 68 71 / var(--tw-text-opacity));
 }
 
 .details{

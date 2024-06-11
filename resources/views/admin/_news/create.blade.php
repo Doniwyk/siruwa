@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 @section('title')
-Tambah Berita
+    Tambah Berita
+@endsection
+@section('head_script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 @endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
@@ -43,9 +46,11 @@ Tambah Berita
             <textarea id="editor" name="editor" class="ck-editor__editable ck-editor__editable_inline"></textarea>
         </section>
         <section class="flex gap-3">
-            <button name="action" value="draft" type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-white text-secondary rounded-2xl font-semibold border border-inset border-secondary">
+            <button name="action" value="draft" type="submit" id="submit-all"
+                class="w-[15rem] h-[3rem] bg-white text-secondary rounded-2xl font-semibold border border-inset border-secondary">
                 Draft </button>
-            <button name="action" value="upload" type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
+            <button name="action" value="upload" type="submit" id="submit-all"
+                class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
                 Upload </button>
         </section>
     </form>

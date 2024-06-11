@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('head_script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+@endsection
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.manajemen-berita.index') }}">
@@ -44,7 +47,7 @@
             <textarea id="editor" name="isi" class="ck-editor__editable ck-editor__editable_inline">{{ $event->isi }}</textarea>
         </section>
         <button type="submit" id="submit-all" class="w-[15rem] h-[3rem] bg-main text-white rounded-2xl font-semibold">
-            Upload </button>
+            Selesai </button>
     </form>
 @endsection
 @section('script')
