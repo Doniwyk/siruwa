@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\ResidentDocumentContract;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Models\AccountModel;
 use App\Models\UserModel;
@@ -17,16 +18,16 @@ class ResidentDocumentController extends Controller
   {
     $this->documentContract = $documentContract;
   }
-  public function index()
+  public function index(Request $request)
   {
     try {
       $userId = Auth::id();
       $account = AccountModel::findOrFail($userId);
       $detailAccount = UserModel::findOrFail($account->id_penduduk);
-      $title = 'Pengajuan Dokumen';
-      $resident = UserModel::findOrFail(Auth::id());
+      $resident = UserModel::findOrFail($account->id_penduduk);
       $documentData = $this->documentContract->getData();
-      return view('resident._requestDocument.index', compact('title', 'resident', 'documentData', 'detailAccount'));
+      $typeDocument = $request->query('typeDocument', 'pengajuan');
+      return view('resident._requestDocument.index', compact('resident', 'documentData', 'detailAccount', 'typeDocument'));
     } catch (\Exception $e) {
     }
   }
@@ -37,7 +38,7 @@ class ResidentDocumentController extends Controller
 
     try {
       $this->documentContract->requestDocument($validatedData);
-      return redirect()->route('resident.data-dokumen.index')->with('success', 'Pengajuan berhasil disimpan!');
+      return redirect()->route('resident.data-dokumen.index', ['typeDocument' => 'riwayat'])->with('success', 'Pengajuan berhasil disimpan!');
     } catch (\Exception $e) {
       return redirect()->route('resident.data-dokumen.index')->with('error', 'Terjadi kesalahan saat menyimpan pengajuan.');
     }

@@ -22,6 +22,7 @@ class IncomeSeeder extends Seeder
             [
                 'jumlah_pemasukan' => $getDeathFundAmount,
                 'jenis_pemasukan' => 'Pemasukan Iuran Kematian',
+                'created_at' => now()
             ]
         );
 
@@ -29,6 +30,7 @@ class IncomeSeeder extends Seeder
             [
                 'jumlah_pemasukan' => $getGarbageFundAmount,
                 'jenis_pemasukan' => 'Pemasukan Iuran Sampah',
+                'created_at' => now()
             ]
         );
     }

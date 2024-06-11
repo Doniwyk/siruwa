@@ -79,7 +79,7 @@ class ResidentController extends Controller
     }
 
     //To store resident data in database
-    public function storeResident(UserRequest $request): RedirectResponse
+    public function storeResident(UserRequest $request)
     {
 
         try {                                                                                                                                                                                                                                                                          
@@ -128,9 +128,9 @@ class ResidentController extends Controller
                     GarbageFundModel::create($garbage_fund);
                 }
             }
-            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil ditambahkan.');
+            return response()->json(['success' => 'Data stored successfully', 'redirect' => route('admin.data-penduduk.index')], 200);
         } catch (\Exception $e) {
-            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal menambahkan data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 
@@ -140,9 +140,9 @@ class ResidentController extends Controller
     {
         try {
             $this->residentContract->deleteUser($resident);
-            return redirect()->route('admin.data-dasawisma.index')->with('success', 'Data penduduk berhasil dihapus.');
+            return redirect()->route('admin.data-penduduk.index')->with('success', 'Data penduduk berhasil dihapus.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal menghapus data penduduk: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
@@ -202,12 +202,12 @@ class ResidentController extends Controller
         try {
             $this->residentContract->validateEditRequest($request->action, $request->id, $request->keterangan_status);
             if ($request->action === 'accept') {
-                return redirect()->route('admin.data-penduduk.index')->with('success', 'Data berhasil disetujui.');
+                return redirect()->route('admin.data-penduduk.index',['typeDocument' => 'pengajuan'])->with('success', 'Data berhasil disetujui.');
             } elseif ($request->action === 'reject') {
-                return redirect()->route('admin.data-penduduk.index')->with('error', 'Data berhasil ditolak.');
+                return redirect()->route('admin.data-penduduk.index' , ['typeDocument' => 'pengajuan'])->with('error', 'Data berhasil ditolak.');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
+            return redirect()->route('admin.data-penduduk.index')->with('error', 'Gagal memvalidasi pengajuan perubahan data ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
 
@@ -255,7 +255,8 @@ class ResidentController extends Controller
         try {
             $typeDocument = $request->query('typeDocument', 'pengajuan');
             $userId = Auth::id();
-            $resident = UserModel::findOrFail($userId);
+            $account = AccountModel::findOrFail($userId);
+            $resident = UserModel::findOrFail($account->id_penduduk);
             $history = TempResidentModel::where('id_penduduk', $resident->id_penduduk)->get();
     
             return view('resident._residentData.index', [
@@ -291,7 +292,7 @@ class ResidentController extends Controller
 
         try {
             if ($this->residentContract->editRequest($request, $resident)) {
-                return redirect()->back()->with('success', 'Formulir pengajuan edit berhasil disimpan.');
+                return redirect()->route('resident.data-dasawisma.index', ['typeDocument' => 'riwayat']);
             } else {
                 return redirect()->back()->with('error', 'Anda sudah mengajukan perubahan data. Harap tunggu proses verifikasi sebelum mengajukan perubahan lagi.');
             }

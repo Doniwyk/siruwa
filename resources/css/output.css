@@ -1190,13 +1190,6 @@ input:checked + .toggle-bg{
   padding-bottom: 0.5rem;
 }
 
-.table-parent{
-  overflow: hidden;
-  white-space: nowrap;
-  border-radius: 1rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
 
 @media (min-width: 768px){
   .table-parent{
@@ -2465,10 +2458,6 @@ tbody td{
   background-color: transparent;
 }
 
-.bg-white{
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
 
 .bg-white\/50{
   background-color: rgb(255 255 255 / 0.5);
@@ -3362,20 +3351,6 @@ tbody td{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.input_profile-rw{
-  width: 4rem;
-  border-style: none;
-  background-color: transparent;
-  text-align: center;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
 .label_profile-rw{
   font-size: 1.5rem;
   line-height: 2rem;
@@ -3384,13 +3359,6 @@ tbody td{
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.enable-input_profile-rw{
-  border-bottom-width: 2px;
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
 
 .hamburger{
   position: relative;
@@ -3705,21 +3673,6 @@ input[type=file]::file-selector-button:hover{
   height: 5rem;
   align-items: center;
   justify-content: flex-start;
-}
-
-.preview-paragraf {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  /* Jumlah maksimal baris */
-  max-width: 30rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 600;
-  --tw-text-opacity: 1;
-  color: rgb(36 68 71 / var(--tw-text-opacity));
 }
 
 .details{

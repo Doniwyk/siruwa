@@ -7,18 +7,41 @@
             @endphp
             <li>
                 {{-- id pada tag a kyk e bakal diganti id user sg log in --}}
-                <a href="{{ route($route) }}" @class(['nav-menu', 'bg-white text-main font-bold' => $isActivePage])>
-                    <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class(['invert-black' => $isActivePage])>
-                    {{ $item['label'] }}
+                <a href="{{ route($route) }}">
+                    <button @class(['nav-menu', 'bg-white text-main font-bold' => $isActivePage]) onclick="showLoader()">
+                        <img src="{{ asset($item['imgURL']) }}" alt="{{ $item['label'] }}" @class(['invert-black' => $isActivePage])>
+                        {{ $item['label'] }}
+                    </button>
                 </a>
             </li>
         @endforeach
 
     </ul>
     <div>
-        <a class=" hover:bg-white nav-menu cursor-pointer" href="{{route('logout')}}">
+        <a class=" hover:bg-white nav-menu cursor-pointer" href="{{ route('logout') }}">
             <img src="{{ asset('assets/icons/logout.svg') }}" alt="">
             <label for="">Keluar</label>
         </a>
     </div>
 </nav>
+@section('sidebar')
+    <script>
+        function showLoader() {
+            loader.removeClass('hidden')
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('#left-sidebar');
+            const content = document.querySelector('#content');
+
+
+            if (sidebar.style.left === '0px') {
+                sidebar.style.left = '-20rem';
+                content.classList.remove('blur-sm');
+            } else {
+                sidebar.style.left = '0';
+                content.classList.add('blur-sm');
+            }
+        }
+    </script>
+@endsection
