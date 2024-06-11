@@ -35,7 +35,6 @@ class AdminPaymentController extends Controller
             $history = $this->paymentService->getValidatedPayment($search, $order);
             // $financialData = $this->paymentService->getFinancialData();
             $financialData = $this->paymentService->getFinancialData();
-            dd($financialData)->toArray();
 
             switch ($typeDocument) {
                 case 'pembayaran':
@@ -63,7 +62,6 @@ class AdminPaymentController extends Controller
             }
             return view('admin._fund.index', compact('fundData', 'history', 'page', 'typeDocument', 'search', 'order', 'adminId','financialData'));
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
