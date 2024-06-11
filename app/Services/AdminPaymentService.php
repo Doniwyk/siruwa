@@ -230,6 +230,9 @@ class AdminPaymentService implements AdminPaymentContract
             ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
             ->sum('jumlah_pengeluaran');
 
+        $saldoDeathFund = $deathFundIncome-$deathFundExpense;
+        $saldoGarbageFund = $garbageFundIncome-$garbageFundExpense;
+
         $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
         $incomeDetail = IncomeModel::all();
         $expenseDetail = ExpenseModel::all();
@@ -238,11 +241,11 @@ class AdminPaymentService implements AdminPaymentContract
         $saldo = $income - $expense;
 
         $deathTransaction = DB::table('pemasukan')
-            ->select('created_at', 'jumlah_pemasukan as amount',  DB::raw('"Pemasukan" as type'))
+            ->select('id_pemasukan','created_at', 'jumlah_pemasukan as amount',  DB::raw('"Pemasukan" as type'))
             ->where('jenis_pemasukan', 'Pemasukan Iuran Kematian')
             ->union(
                 DB::table('pengeluaran')
-                    ->select('created_at', 'jumlah_pengeluaran as amount',  DB::raw('"Pengeluaran" as type'))
+                    ->select('id_pengeluaran','created_at', 'jumlah_pengeluaran as amount',  DB::raw('"Pengeluaran" as type'))
                     ->where('jenis_pengeluaran', 'Pengeluaran Iuran Kematian')
             )
             ->orderBy('created_at', 'desc')
@@ -250,11 +253,11 @@ class AdminPaymentService implements AdminPaymentContract
 
 
         $garbageTransaction = DB::table('pemasukan')
-            ->select('created_at', 'jumlah_pemasukan as amount', DB::raw('"Pemasukan" as type'))
+            ->select('id_pemasukan','created_at', 'jumlah_pemasukan as amount', DB::raw('"Pemasukan" as type'))
             ->where('jenis_pemasukan', 'Pemasukan Iuran Sampah')
             ->union(
                 DB::table('pengeluaran')
-                    ->select('created_at', 'jumlah_pengeluaran as amount', DB::raw('"Pengeluaran" as type'))
+                    ->select('id_pengeluaran','created_at', 'jumlah_pengeluaran as amount', DB::raw('"Pengeluaran" as type'))
                     ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
             )
             ->orderBy('created_at', 'desc')
@@ -270,8 +273,10 @@ class AdminPaymentService implements AdminPaymentContract
             'saldo' => $saldo, //saldo saat ini
             'incomeDetail' => $incomeDetail, // detail pemasukan
             'expenseDetail' => $expenseDetail, //detail pengeluaran
-            'deathTransaction' => $deathTransaction,
-            'garbageTransaction' => $garbageTransaction
+            'deathTransaction' => $deathTransaction, //transaksi pemasukan dan pengerluaran iuran kematian
+            'garbageTransaction' => $garbageTransaction, // transaksi pemasukan dan pengeluaran iuran sampah
+            'saldoDeathFund' => $saldoDeathFund, // saldo iuran kematian yang tersedia
+            'saldoGarbageFund' => $saldoGarbageFund //saldo iuran sampah yang tersedia
         ];
     }
 

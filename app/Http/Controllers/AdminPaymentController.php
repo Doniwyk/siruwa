@@ -35,7 +35,7 @@ class AdminPaymentController extends Controller
             $history = $this->paymentService->getValidatedPayment($search, $order);
             // $financialData = $this->paymentService->getFinancialData();
             $financialData = $this->paymentService->getFinancialData();
-
+            dd($financialData)->toArray();
 
             switch ($typeDocument) {
                 case 'pembayaran':
@@ -63,6 +63,7 @@ class AdminPaymentController extends Controller
             }
             return view('admin._fund.index', compact('fundData', 'history', 'page', 'typeDocument', 'search', 'order', 'adminId','financialData'));
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
     }
@@ -127,34 +128,35 @@ class AdminPaymentController extends Controller
     }
     public function storeExpense(Request $request)
     {
-        $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
-        $expense = DB::table('pengeluaran')->sum('jumlah_pengeluaran');
-        $saldo = $income - $expense;
-        try {
-            $validated = $request->validate([
-                'jumlah_pengeluaran' => 'required',
-                'jenis_pengeluaran' => 'required',
-                'tanggal_pengeluaran' => 'required',
-                'keterangan_pengeluaran' => 'required'
-            ]);
+        $financialData = $this->paymentService->getFinancialData();
+        $saldoDeathFund = $financialData['saldoDeathFund'];
+        $saldoGarbageFund = $financialData['saldoGarbageFund'];
 
+        try {
+        
         $validator = Validator::make($request->all(), [
-            'jumlah_pengeluaran' => [
-                'required',
-                'numeric',
-                function ($attribute, $value, $fail) use ($saldo) {
-                    if ($value > $saldo) {
-                        $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia.');
+                'jumlah_pengeluaran' => [
+                    'required',
+                    'numeric',
+                    function ($attribute, $value, $fail) use ( $saldoDeathFund, $saldoGarbageFund, $request) {
+                        if ($request->jenis_pengeluaran == 'Iuran Kematian' && $value > $saldoDeathFund) {
+                            $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia untuk Iuran Kematian.');
+                        }
+
+                        if ($request->jenis_pengeluaran == 'Iuran Sampah' && $value > $saldoGarbageFund) {
+                            $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia untuk Iuran Sampah.');
+                        }
                     }
-                }
-            ],
+                ],
             'jenis_pengeluaran' => 'required',
             'tanggal_pengeluaran' => 'required',
             'keterangan_pengeluaran' => 'required'
         ]);
             $validated = $validator->validated();
             $this->paymentService->storeExpense($validated);
-            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => 'pembayaran'])->with('success','Berhasil menambahkan data pengeluaran');
+            $typeDocument = $request->jenis_pengeluaran == 'Iuran Sampah' ? 'sampah' : 'kematian';
+
+            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => $typeDocument])->with('success','Berhasil menambahkan data pengeluaran');
         } catch (\Exception $e) {
                 return redirect()->back()->withErrors($validator)->withInput();
         }
