@@ -126,6 +126,10 @@
     .statistic-card{
         @apply bg-white sm:basis-full md:basis-[49%] p-8 rounded-2xl drop-shadow-xl;
     }
+
+    .statistic-card-ageDistribution{
+        @apply bg-white sm:basis-full md:basis-[49%] sm:h-max h-[480px] p-8 rounded-2xl drop-shadow-xl;
+    }
 }
 
 input[type=file]::file-selector-button{
@@ -240,6 +244,31 @@ input[type=file]::file-selector-button:hover{
     }
     .table-parent-spk-statistic tbody td {
         @apply text-secondary text-base font-medium;
+    }
+
+    .table-parent-spk-statistic {
+        @apply w-full rounded-t-2xl bg-white table-fixed overflow-hidden border-none;
+    }
+    th,
+    td {
+        @apply p-3 pl-6 text-left sm:pl-3;
+    }
+    thead th {
+        @apply text-base font-bold bg-secondary text-white;
+    }
+    tbody tr {
+        @apply border-b-2;
+    }
+    tbody td {
+        @apply text-secondary text-base font-medium;
+    }
+    
+    .priority-column {
+        @apply sm:w-20 md:w-32;
+    }
+
+    .name-column {
+        @apply sm:w-24 md:w-72;
     }
 }
 #success-modal,#document-modal, #payment-modal,#delete-resident-modal {

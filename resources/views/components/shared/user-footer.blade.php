@@ -25,7 +25,7 @@
         </div>
         <div class="flex flex-col gap-4 text-base font-medium">
             <span class="text-xl font-semibold">Aspirasi</span>
-            <a href=""><span>Form Aspirasi</span></a>
+            <a href="https://forms.gle/a9Qn42ysUN5dZtNE7"><span>Form Aspirasi</span></a>
         </div>
     </div>
     <div class="text-xs font-normal md:mt-3 sm:mt-10">Copyright &copy; 2024 Siruwa - Politeknik Negeri malang</div>

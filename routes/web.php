@@ -41,7 +41,7 @@ Route::get('/berita/list-berita', [NewsController::class, 'ListBerita'])->name('
 // Route::get('/berita/list-berita', [NewsController::class, 'NewsListPage'])->name('list-berita');
 // Route::get('/berita/list-berita', [EventController::class, 'AgendaListPage'])->name('list-berita.index');
 
-Route::get('/berita/{artikel}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
+Route::get('/berita/{type}/{id}/artikel', [NewsController::class, 'showArtikel'])->name('list-berita.show');
 
 //==================================ROUTE LOGIN & LOGOUT========================================
 
@@ -67,6 +67,7 @@ Route::group([
     Route::get('/job', [StatisticController::class, 'getJobData'])->name('getJobData');
     Route::get('/lastStudied', [StatisticController::class, 'getLastStudiedData'])->name('getLastStudiedData');
     Route::get('/bansos', [DSSController::class, 'index'])->name('bansos');
+    Route::get('/getAgeDistribution', [StatisticController::class, 'getAgeDistribution'])->name('getAgeDistribution');
 });
 
 //==================================ROUTE DASHBOARD MANAJEMEN FOR ADMIN========================================
