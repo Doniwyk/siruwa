@@ -218,6 +218,20 @@ input[type=file]::file-selector-button:hover{
     .table-fund tbody tr{
         @apply border-t border-white border-b-0;
     }
+
+    .table-fund-mobile {
+        @apply rounded-2xl  bg-white md:table-fixed overflow-hidden;
+    } 
+    .table-fund-mobile th,
+    .table-fund-mobile td {
+            @apply p-3;
+        }
+    .table-fund-mobile thead th {
+        @apply text-lg font-bold bg-secondary text-white text-nowrap text-left;
+    }
+    .table-fund-mobile tbody tr {
+        @apply border-b-2;
+    }
    .table-parent th,
    .table-parent td {
         @apply p-3;
