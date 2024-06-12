@@ -24,7 +24,10 @@ class DashboardController extends Controller
         try {
             $news = NewsModel::all();
             $event = EventModel::all();
-            $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
+            $latestNews = NewsModel::where('status', 'Uploaded')
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
             $dataDashboard = $this->dashboardContract->dataDashboard();
             return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard'=>$dataDashboard]);
         } catch (\Exception $e) {
