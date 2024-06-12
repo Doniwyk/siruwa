@@ -54,7 +54,8 @@
                         <th>Total Pajak Kendaraan</th>
                         <th>Jumlah Tanggungan</th>
                         <th>No. Hp</th>
-                        <th>Email></th </tr>
+                        <th>Email</th>
+                    </tr>
                 </thead>
                 <tbody>
                 </tbody>
@@ -103,9 +104,7 @@
                 const csrfToken = document.querySelector('input[name="_token"]').value;
                 const previewData = document.querySelector('#preview-csv-data');
                 const tableBody = previewData.querySelector('tbody')
-                const updatedData = {
-                    ...INITIAL_DATA_CSV
-                };
+
                 const file = fileInput.files[0];
                 const resultData = [];
 
@@ -142,6 +141,9 @@
                             }
 
                             data.forEach(res => {
+                                const updatedData = {
+                                    ...INITIAL_DATA_CSV
+                                };
                                 for (const key in updatedData) {
                                     updatedData[key] = res[key]
                                 }
@@ -185,7 +187,7 @@
                                     <td>${data['total_pajak_kendaraan']}</td>
                                     <td>${data['jumlah_tanggungan']}</td>
                                     <td>${data['noHp']}</td>
-                                    <td>${data['email']}></td 
+                                    <td>${data['email']}</td>
                                 </tr>`
                                 )
                             })
@@ -200,7 +202,7 @@
                                 return
                             }
                             $('#error-csv').addClass('hidden')
-                            $('form button[type="submit"]').attr('disabled', 'enabled')
+                            $('form button[type="submit"]').removeAttr('disabled')
                             $('form button[type="submit"]').addClass('button-main')
                             $('form button[type="submit"]').removeClass('button-disabled')
 
