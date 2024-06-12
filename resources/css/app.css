@@ -223,7 +223,7 @@ input[type=file]::file-selector-button:hover{
         @apply p-3;
     }
     .table-parent thead th {
-        @apply text-lg font-bold bg-secondary text-white text-nowrap;
+        @apply text-lg font-bold bg-secondary text-white text-nowrap text-left;
     }
     .table-parent tbody tr {
         @apply border-b-2;
