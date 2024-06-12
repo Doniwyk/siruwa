@@ -234,9 +234,10 @@ class NewsController extends Controller
             }
 
             $latestEvent = EventModel::where('status', 'Uploaded')
-                        ->orderBy('tanggal', 'asc')
-                        ->take(3)
-                        ->get();
+                    ->where('tanggal', '>=', Carbon::today())
+                    ->orderBy('tanggal', 'asc')
+                    ->take(3)
+                    ->get();
           
             return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent]);
         } catch (\Exception $e) {

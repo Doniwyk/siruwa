@@ -13,29 +13,30 @@
 
   <script>
   // kalendar
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth, listYear'
-      },
-      initialView: 'dayGridMonth',
-      events: '/fetch-events', // Mengambil event dari endpoint ini
-      eventColor: '#225157',
-      eventClick: function(info) {
-        info.jsEvent.preventDefault(); // Prevent the browser from navigating
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,list'
+        },
+        initialView: 'dayGridMonth',
+        events: '/fetch-events', // Mengambil event dari endpoint ini
+        eventColor: '#225157',
+        eventClick: function(info) {
+          info.jsEvent.preventDefault(); // Prevent the browser from navigating
 
-        if (info.event.url) {
-          window.location.href = info.event.url; // Redirect to the event's URL
-        }
-      }
+          if (info.event.url) {
+            window.location.href = info.event.url; // Redirect to the event's URL
+          }
+        },
+        displayEventTime: false
+      });
+
+      calendar.render();
     });
-
-    calendar.render();
-  });
-</script>
+  </script>
 
   <style>
     /* CSS untuk membuat header bulan rounded */
@@ -292,7 +293,7 @@
 </section>
 
 <!-- Kalender -->
-<section id="agenda" class="bg-bg_color sm:h-screen flex flex-col content-center p-16 sm:p-4 w-screen gap-6 items-center h-max">
+<section id="agenda" class="bg-bg_color sm:h-screen flex flex-col content-center p-16 sm:p-4 w-screen gap-6 items-center h-screen">
   <span class="text-main text-5xl font-semibold sm:text-3xl">Agenda</span>
   <div class="w-1/2 h-full sm:w-full sm:h-full text-main font-semibold" id='calendar'></div>
 </section>
