@@ -83,7 +83,7 @@
         </div>
     </div>
 @endsection
-{{-- @dd($financialData['garbageTransaction']) --}}
+{{-- @dd($financialData['deathTransaction']) --}}
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.data-pembayaran.index') }}">
@@ -119,7 +119,7 @@
                         <th class="sm:text-sm md:text-base">Nominal</th>
                         <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
                         <th class="sm:text-sm md:text-base">Transaksi</th>
-                        <th class="sm:text-sm md:text-base">Details</th>
+                        <th class="sm:text-sm md:text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -159,6 +159,7 @@
                         <th class="sm:text-sm md:text-base">Nominal</th>
                         <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
                         <th class="sm:text-sm md:text-base">Transaksi</th>
+                        <th class="sm:text-sm md:text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
