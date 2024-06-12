@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>SIRUWA</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.svg') }}">
+
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
@@ -299,10 +301,10 @@
 </section>
 
 <!-- Struktur Organisasi -->
-<section id="struktur" class="h-screen sm:h-screen bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full gap-6 sm:gap-4">
-  <span class="text-cyan-900 text-5xl sm:text-3xl font-semibold text-center">Struktur Organisasi</span>
-  <div class="flex flex-center h-full">
-    <img class="rounded-2xl h-full" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
+<section id="struktur" class="md:h-screen sm:h-auto bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full ">
+  <div class="flex flex-col h-full gap-6 sm:gap-4">
+    <span class="text-cyan-900 text-5xl sm:text-3xl font-semibold text-center">Struktur Organisasi</span>
+    <img class="rounded-2xl object-contain" style="max-height: 75vh;" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
   </div>
 </section>
 

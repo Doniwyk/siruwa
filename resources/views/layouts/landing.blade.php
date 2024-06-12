@@ -8,6 +8,7 @@
     {{-- <title>{{ $pages }}</title> --}}
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.svg') }}">
     <link href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css" rel="stylesheet" />
 </head>
 
