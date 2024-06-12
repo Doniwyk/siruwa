@@ -82,7 +82,7 @@ Manajemen Dashboard
                 @csrf
                 @method('PUT')
                 <fieldset id="file-1">
-                    <input type="file" name="image" id="image" class="hidden">
+                    <input type="file" name="image" id="image" class="hidden" accept="image/jpeg, image/png">
                     <label for="image" id="file-1-preview"
                         class="absolute h-[18rem] w-full inline-block border-2 border-dashed border-main bg-white rounded-2xl object-contain flex-center flex-col">
                         <div>
