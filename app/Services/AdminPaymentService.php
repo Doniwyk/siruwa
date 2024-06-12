@@ -240,6 +240,9 @@ class AdminPaymentService implements AdminPaymentContract
             ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
             ->sum('jumlah_pengeluaran');
 
+        $saldoDeathFund = $deathFundIncome-$deathFundExpense;
+        $saldoGarbageFund = $garbageFundIncome-$garbageFundExpense;
+
         $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
         $incomeDetail = IncomeModel::all();
         $expenseDetail = ExpenseModel::all();
@@ -300,8 +303,10 @@ class AdminPaymentService implements AdminPaymentContract
             'saldo' => $saldo, //saldo saat ini
             'incomeDetail' => $incomeDetail, // detail pemasukan
             'expenseDetail' => $expenseDetail, //detail pengeluaran
-            'deathTransaction' => $deathTransaction,
-            'garbageTransaction' => $garbageTransaction
+            'deathTransaction' => $deathTransaction, //transaksi pemasukan dan pengerluaran iuran kematian
+            'garbageTransaction' => $garbageTransaction, // transaksi pemasukan dan pengeluaran iuran sampah
+            'saldoDeathFund' => $saldoDeathFund, // saldo iuran kematian yang tersedia
+            'saldoGarbageFund' => $saldoGarbageFund //saldo iuran sampah yang tersedia
         ];
     }
 

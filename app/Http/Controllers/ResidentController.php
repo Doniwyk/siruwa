@@ -278,7 +278,8 @@ class ResidentController extends Controller
     {
         try {
             $userId = Auth::id();
-            $resident = UserModel::findOrFail($userId);
+            $account = AccountModel::findOrFail($userId);
+            $resident = UserModel::findOrFail($account->id_penduduk);
             $title = 'Pengajuan Perubahan Data Penduduk';
             return view('resident._residentData.edit', compact('resident', 'title'));
         } catch (\Exception $e) {
