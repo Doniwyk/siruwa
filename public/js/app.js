@@ -1,17 +1,6 @@
 // Global Variable
 const loader = $("#loader-modal_parent");
 
-function setActionAndSubmit(action) {
-    let form = document.querySelector("form");
-    let formAction = form.getAttribute("action");
-    if (action === "tolak") {
-        formAction += "?action=tolak&status=Ditolak";
-    } else {
-        formAction += "?action=terima&status=Proses";
-    }
-    form.setAttribute("action", formAction);
-    form.submit();
-}
 
 function closePopup(id_modal) {
     const modal = document.querySelector(id_modal);
@@ -120,7 +109,9 @@ async function getDataRiwayatPembayaran(idRiwayat) {
 }
 
 async function showRiwayatPembayaranModal(idRiwayat) {
-    const modal_parent = document.querySelector("#riwayat-payment-modal_parent");
+    const modal_parent = document.querySelector(
+        "#riwayat-payment-modal_parent"
+    );
     const modal = modal_parent.querySelector("#riwayat-payment-modal");
     const status = modal.querySelector("#riwayat-status");
     const metodeInput = modal.querySelector("#riwayat-metode_pembayaran");

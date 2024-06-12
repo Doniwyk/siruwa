@@ -1,6 +1,7 @@
-@extends('layouts.user')
-@section('content-user')
+@extends('layouts.landing')
+@section('content-landingpage')
 <head>
+<title>Berita</title>
     <style>
         /* styles.css */
         @keyframes fadeIn {
@@ -43,7 +44,71 @@
     </style>
 </head>
 
-<div x-data="newsSearch()" class="flex flex-col gap-16 px-20 sm:px-4 sm:gap-8 sm:overflow-hidden sm:pl-3">
+ <!-- Navbar -->
+ <div class="navbar sticky top-0 w-full z-50 text-white px-16 py-4 sm:px-5 sm:py-0 md:flex md:justify-between items-center transition-transform duration-300 transform bg-secondary">
+    <div class="flex justify-between sm:py-2">
+      <span class="flex justify-center w-7">
+        <img src="{{ asset('assets/icons/logo-white.svg') }}" alt="">
+      </span>
+      <!-- MENU ICON -->
+      <div class="md:hidden flex items-center">
+        <button type="button" class="mobile-menu-button flex items-center">
+          <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
+            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+            <g id="SVGRepo_iconCarrier">
+              <path d="M4 18H10" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <path d="M4 12L16 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+              <path d="M4 6L20 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="md:hidden sm:overflow-hidden sm:sticky sm:max-h-0 transition-[max-height] duration-500 ease-in-out flex flex-col items-end gap-3 navigation-menu sm:hidden">
+      @auth
+      <a href="{{ route('logout') }}" class="text-white hover:text-gray-100">LOGOUT</a>
+      @else
+      <a href="{{ route('login') }}" class="text-white hover:text-gray-100">LOGIN</a>
+      @endauth
+            <a href="{{ route('index') }}#struktur" class="text-white hover:text-gray-100 text-right">KEPENGURUSAN</a>
+            <a href="{{ route('index') }}#agenda" class="text-white hover:text-gray-100 text-right">AGENDA</a>
+            <a href="{{ route('index') }}#berita" class="text-white hover:text-gray-100 text-right">BERITA</a>
+            <a href="{{ route('index') }}#menu" class="text-white hover:text-gray-100 text-right">MENU</a>
+            <a href="{{ route('index') }}#beranda" class="text-white hover:text-gray-100 text-right">BERANDA</a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <ul class="sm:hidden md:flex gap-10 justify-center items-center">
+           <li><a href="{{ route('index') }}#struktur" class="text-white hover:text-gray-100 text-right">KEPENGURUSAN</a></li>
+           <li><a href="{{ route('index') }}#agenda" class="text-white hover:text-gray-100 text-right">AGENDA</a></li>
+           <li><a href="{{ route('index') }}#berita" class="text-white hover:text-gray-100 text-right">BERITA</a></li>
+           <li><a href="{{ route('index') }}#menu" class="text-white hover:text-gray-100 text-right">MENU</a></li>
+           <li><a href="{{ route('index') }}#beranda" class="text-white hover:text-gray-100 text-right">BERANDA</a></li>    
+      <li>
+        <a href="@auth {{ route('logout') }} @else {{ route('login') }} @endauth">
+          <span class="flex justify-center items-center bg-white rounded-2xl px-4 py-2 gap-3">
+            <div class="text-secondary">@auth Logout @else Login @endauth</div>
+            @auth
+            @php
+            $userId = Auth::id();
+            $account = App\Models\AccountModel::findOrFail($userId);
+            $urlProfile = $account->urlProfile;
+            @endphp
+            <img class="rounded-full w-9 h-9" src="{{ $urlProfile }}" alt="Profile Image">
+            @else
+            <img class="rounded-full w-9 h-9" src="{{ asset('assets/icons/user.svg') }}" alt="User Icon">
+            @endauth
+          </span>
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+<div x-data="newsSearch()" class="flex flex-col gap-12 px-20 sm:px-4 sm:gap-8 sm:overflow-hidden sm:pl-3 py-6">
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('index') }}">
             <x-icon.back />
@@ -79,7 +144,12 @@
          <div class="p-6 bg-secondary rounded-2xl text-white w-[420px] h-max sm:w-full">
             <span class="text-3xl font-semibold sm:text=xl">Agenda</span>
             <div class="p-4 sm:p-2"></div>
-            @foreach ($event as $index => $events)
+            @if ($latestEvent->isEmpty())
+                <div class="w-1/2 h-full sm:w-full sm:h-full text-main font-semibold">
+                    <p class="text-white w-64">Tidak ada agenda terdekat</p>
+                </div>
+            @else
+            @foreach ($latestEvent as $index => $events)
                 <a href="{{ route('list-berita.show', ['type' => 'event', 'id' => $events->id_agenda]) }}">
                     <div class="relative event-container" data-index="{{ $loop->iteration }}">
                         <div class="absolute top-3 left-0 w-12 h-12 sm:w-8 sm:h-8 flex items-center justify-center bg-white text-secondary rounded-full font-bold text-xl sm:text-lg z-10 circle">
@@ -100,6 +170,7 @@
                     </div>
                 </a>
             @endforeach
+            @endif
         </div>
     </div>
 </div>
@@ -153,6 +224,23 @@
         totalDelay = animateEvent(container, totalDelay);
     });
 });
+
+const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('.navigation-menu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    if (mobileMenu.classList.contains('sm:hidden')) {
+      mobileMenu.classList.remove('sm:hidden');
+      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+    } else {
+      mobileMenu.style.maxHeight = '0';
+      mobileMenu.addEventListener('transitionend', () => {
+        mobileMenu.classList.add('sm:hidden');
+      }, {
+        once: true
+      });
+    }
+  });
 </script>
 
 @endsection

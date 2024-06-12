@@ -60,8 +60,8 @@ class UserRequest extends FormRequest
 
             'tgl_lahir.required' => 'Tanggal lahir wajib diisi.',
             'nik.required' => 'NIK wajib diisi.',
-            'no_kk.required' => 'No KK wajib diisi',
-            'no_kk.size' => 'No KK harus berjumlah 16 karakter.',
+            'nomor_kk.required' => 'No KK wajib diisi',
+            'nomor_kk.size' => 'No KK harus berjumlah 16 karakter.',
             'nik.size' => 'NIK harus berjumlah 16 karakter.',
             'nama.required' => 'Nama wajib diisi.',
             'tempat_lahir.required' => 'Tempat lahir wajib diisi.',
@@ -84,7 +84,8 @@ class UserRequest extends FormRequest
             'biaya_air.required' => 'Biaya listrik wajib diisi.',
             'pajak_bumi.required' => 'Pajak bumi wajib diisi.',
             'gaji.required' => 'Gaji wajib diisi',
-            'jumlah_tanggungan' => 'Jumlah tanggungan wajib diisi',
+            'jumlah_tanggungan.required' => 'Jumlah tanggungan wajib diisi',
+            'total_pajak_kendaraan.required' => 'Total pajak kendaraan wajib diisi',
             
             
         ];

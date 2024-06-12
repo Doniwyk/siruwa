@@ -56,7 +56,8 @@ class ResidentPaymentController extends Controller
             $fundData = $this->paymentContract->getFundDataByYear($year);
             $history = $this->paymentContract->getHistory(); // Fetch the history
             $title = 'Iuran RW 2'; // Add the title
-            return view('resident._fund.index', compact('fundData', 'history', 'title'));
+            $typeDocument = $request->query('typeDocument', 'pembayaran');
+            return view('resident._fund.index', compact('fundData', 'history', 'title', 'typeDocument'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Tidak dapat memuat data: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

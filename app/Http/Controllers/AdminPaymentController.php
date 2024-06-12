@@ -6,6 +6,7 @@ use App\Contracts\AdminPaymentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +36,6 @@ class AdminPaymentController extends Controller
             $history = $this->paymentService->getValidatedPayment($search, $order);
             // $financialData = $this->paymentService->getFinancialData();
             $financialData = $this->paymentService->getFinancialData();
-
 
             switch ($typeDocument) {
                 case 'pembayaran':
@@ -127,34 +127,36 @@ class AdminPaymentController extends Controller
     }
     public function storeExpense(Request $request)
     {
-        $income = DB::table('pemasukan')->sum('jumlah_pemasukan');
-        $expense = DB::table('pengeluaran')->sum('jumlah_pengeluaran');
-        $saldo = $income - $expense;
-        try {
-            $validated = $request->validate([
-                'jumlah_pengeluaran' => 'required',
-                'jenis_pengeluaran' => 'required',
-                'tanggal_pengeluaran' => 'required',
-                'keterangan_pengeluaran' => 'required'
-            ]);
+        $financialData = $this->paymentService->getFinancialData();
+        $saldoDeathFund = $financialData['saldoDeathFund'];
+        $saldoGarbageFund = $financialData['saldoGarbageFund'];
 
+        try {
+        
         $validator = Validator::make($request->all(), [
-            'jumlah_pengeluaran' => [
-                'required',
-                'numeric',
-                function ($attribute, $value, $fail) use ($saldo) {
-                    if ($value > $saldo) {
-                        $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia.');
+                'jumlah_pengeluaran' => [
+                    'required',
+                    'numeric',
+                    function ($attribute, $value, $fail) use ( $saldoDeathFund, $saldoGarbageFund, $request) {
+                        if ($request->jenis_pengeluaran == 'Iuran Kematian' && $value > $saldoDeathFund) {
+                            $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia untuk Iuran Kematian.');
+                        }
+
+                        if ($request->jenis_pengeluaran == 'Iuran Sampah' && $value > $saldoGarbageFund) {
+                            $fail('Jumlah pengeluaran tidak boleh melebihi saldo yang tersedia untuk Iuran Sampah.');
+                        }
                     }
-                }
-            ],
+                ],
             'jenis_pengeluaran' => 'required',
             'tanggal_pengeluaran' => 'required',
             'keterangan_pengeluaran' => 'required'
         ]);
             $validated = $validator->validated();
             $this->paymentService->storeExpense($validated);
-            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => 'pembayaran'])->with('success','Berhasil menambahkan data pengeluaran');
+
+            $typeDocument = $request->jenis_pengeluaran == 'Iuran Sampah' ? 'sampah' : 'kematian';
+            return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => $typeDocument])->with('success','Berhasil menambahkan data pengeluaran');
+
         } catch (\Exception $e) {
                 return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -165,6 +167,15 @@ class AdminPaymentController extends Controller
             return response()->json($payment);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+
+    public function expenseHistory($idPengeluaran) {
+        try {
+            $expensesHistory = $this->paymentService->getExepnseHistory($idPengeluaran);
+            return response()->json(['success' => 'Data stored successfully', 'data' => $expensesHistory], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 }

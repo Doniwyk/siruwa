@@ -5,7 +5,7 @@ Edit Profil
 @section('content-user')
 <div class="resident-header">Edit Profil</div>
 <div class="bg-white rounded-2xl flex p-9">
-    <form action="/your-endpoint" class="flex sm:flex-col md:flex-row gap-9 w-full " id="update-personal-data"
+    <form action="{{ route('resident.profil.update') }}" class="flex sm:flex-col md:flex-row gap-9 w-full " id="update-personal-data" method="post"
         enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -18,7 +18,7 @@ Edit Profil
                     @change="loadFile($event)" name="urlProfile" id="urlProfile">
                 <img id="profile-image" class="w-full h-full rounded-xl absolute object-contain"
                     :src="croppedImageUrl || '{{ $account->urlProfile }}'" alt="Profil" />
-                <span class="w-full h-full group  opacity-50 rounded-xl absolute object-contain"></span>
+                <span class="w-full h-full group bg-black/50 rounded-xl absolute object-contain"></span>
                 <span class="w-full h-full group absolute flex flex-col justify-center items-center gap-2 object-contain">
                     <img class="block w-12 opacity-100" src="{{ asset('assets/icons/upload-profile.svg') }}"
                         alt="Upload" />
@@ -30,7 +30,7 @@ Edit Profil
         <!-- Identitas Diri -->
         <section class="w-full flex flex-col">
             <span class="mb-6 block text-2xl font-semibold text-secondary">Identitas Diri</span>
-            <div class="grid gap-x-9 gap-y-5 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
+            <div class="grid gap-x-9 gap-y-4 sm:grid-cols-1 sm:grid-rows-6 lg:grid-cols-2 lg:grid-rows-2">
                 <x-form.show-input-form :label="'Nama Lengkap'" :name="'nama'" :value="$resident->nama" />
                 <x-form.text-input-form label="Email" name="email" :value="$account->email" />
                 <x-form.show-input-form :label="'Alamat Lengkap'" :name="'alamat'" :value="$resident->alamat" />
@@ -133,8 +133,22 @@ $(document).ready(function() {
                 $('#modal').removeClass('hidden');
             },
             error: function(xhr) {
-                console.error('Error:', xhr.responseText);
-                alert('An error occurred while updating the data.');
+                console.error('Error:', xhr.responseJSON);
+                let response = xhr.responseJSON;
+
+                $('#update-personal-data .error-message').text('');
+
+                if (response && response.errors) {
+                    let errors = response.errors;
+                    for (let field in errors) {
+                        if (errors.hasOwnProperty(field)) {
+                            let errorMessage = errors[field][0];
+                            $('#error-' + field).text(errorMessage);
+                        }
+                    }
+                } else {
+                    alert('An error occurred while updating the data.');
+                }
             }
         });
     });
