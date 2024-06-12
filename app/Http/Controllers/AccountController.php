@@ -96,7 +96,7 @@ class AccountController extends Controller
             'new_password.required' => 'Form Tidak Boleh Kosong',
             'new_password.string' => 'Password Harus Alphanumerik',
             'new_password.min' => 'Password Minimal 8 Karakter',
-            'new_password.confirmed' => 'Password Lama dan Baru Tidak Sesuai',
+            'new_password.confirmed' => 'Password Baru dan Konfirmasi Tidak Sesuai',
             'new_password_confirmation.required' => 'Form Tidak Boleh Kosong',
             'new_password_confirmation.string' => 'Password Harus Alphanumerik',
             'new_password_confirmation.min' => 'Password Minimal 8 Karakter',
