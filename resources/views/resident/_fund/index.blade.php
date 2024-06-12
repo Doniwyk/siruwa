@@ -70,7 +70,7 @@ Iuran RW
                                         <td class="left-header border-b">Iuran Sampah</td>
                                         @foreach ($months as $index => $month)
                                             <td>
-                                                {{ isset($fundData['garbage_fund'][$index]) ? $fundData['garbage_fund'][$index]->status : 'Belum Lunas' }}
+                                                {{ isset($fundData['garbage_fund'][$index]) ? $fundData['garbage_fund'][$index]->status : 'Not Found' }}
                                             </td>
                                         @endforeach
                                     </tr>
@@ -78,7 +78,7 @@ Iuran RW
                                         <td class="left-header">Iuran Kematian</td>
                                         @foreach ($months as $index => $month)
                                             <td>
-                                                {{ isset($fundData['death_fund'][$index]) ? $fundData['death_fund'][$index]->status : 'Belum Lunas' }}
+                                                {{ isset($fundData['death_fund'][$index]) ? $fundData['death_fund'][$index]->status : 'Not Found' }}
                                             </td>
                                         @endforeach
                                     </tr>
