@@ -10,15 +10,19 @@
     <form action="{{ route('admin.data-penduduk.saveImport') }}" method="POST" enctype="multipart/form-data"
         class="flex sm:gap-3 md:gap-8">
         @csrf
-        <input
-            class="block sm:w-full md:w-[30rem] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            id="file_input-csv" type="file" accept=".csv" name="dataPreviewed" required>
-        <button type="submit" class="button-main"">Import</button>
+        <div class="relative">
+            <input
+                class="block sm:w-full md:w-[30rem] text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                id="file_input-csv" type="file" accept=".csv" name="dataPreviewed" required>
+            <div class="mt-1 absolute font-medium text-red-600 hidden" id="empty-csv">Data Tidak Boleh Kosong</div>
+            <div class="mt-1 absolute font-medium text-red-600 hidden" id="error-csv">Ada Kesalahan Dalam Data</div>
+        </div>
+        <button type="submit" class="button-main">Import</button>
     </form>
     <section id="preview-csv-data" class="hidden">
         <h1 class="text-xl font-semibold text-main p-3">Hasil Preview</h1>
         <div class="w-full bg-white overflow-scroll rounded-2xl">
-            <table class="table-parent">
+            <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
                         <th>Nama</th>
@@ -104,7 +108,8 @@
                 };
                 const file = fileInput.files[0];
                 const resultData = [];
-                
+
+                console.log(fileInput.files);
                 if (file) {
                     const formData = new FormData();
                     formData.append('csv', file);
@@ -120,21 +125,33 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            if (!response.length) {
-                                $('#table-parent tbody').append(
-                                    `<tr>
-                                        <td colspan="5" class="text-center">No data found</td>
-                                    </tr>`
-                                );
+                            console.log(response);
+                            $('#empty-csv').addClass('hidden')
+                            $('#error-csv').addClass('hidden')
+                            const {
+                                data
+                            } = response;
+                            if (!data.length) {
+                                $('tbody').html('')
+                                $('#empty-csv').removeClass('hidden')
+                                $('form button[type="submit"]').attr('disabled', 'disabled')
+                                $('form button[type="submit"]').removeClass('button-main')
+                                $('form button[type="submit"]').addClass('button-disabled')
+                                previewData.classList.add('hidden')
                                 return;
                             }
 
-                            response.forEach(res => {
+                            data.forEach(res => {
                                 for (const key in updatedData) {
                                     updatedData[key] = res[key]
                                 }
                                 resultData.push(updatedData)
                             });
+
+                            $('form button[type="submit"]').attr('disabled', 'enabled')
+                            $('form button[type="submit"]').removeClass('button-disabled')
+                            $('form button[type="submit"]').addClass('button-main')
+                            $('tbody').html('')
 
                             resultData.forEach(data => {
                                 $('tbody').append(
@@ -172,8 +189,20 @@
                                 </tr>`
                                 )
                             })
+
                             previewData.classList.remove('hidden')
 
+                            if (response.statusCsv == 'error') {
+                                $('#error-csv').removeClass('hidden')
+                                $('form button[type="submit"]').attr('disabled', 'disabled')
+                                $('form button[type="submit"]').removeClass('button-main')
+                                $('form button[type="submit"]').addClass('button-disabled')
+                                return
+                            }
+                            $('#error-csv').addClass('hidden')
+                            $('form button[type="submit"]').attr('disabled', 'enabled')
+                            $('form button[type="submit"]').addClass('button-main')
+                            $('form button[type="submit"]').removeClass('button-disabled')
 
                         },
                         error: function(xhr, status, error) {

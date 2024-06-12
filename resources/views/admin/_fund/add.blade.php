@@ -56,7 +56,7 @@
         <div class="sm:w-[25rem] md:w-[32rem] sm:p-5 md:p-10 rounded-2xl  bg-white center z-50 overflow-hidden"
             id="details-spending-payment-modal">
             <section class="flex flex-col gap-4 items-center">
-                <h4 class="text-center text-xl font-semibold text-secondary">Details Data Pengeluaran</h4>
+                <h4 class="text-center text-xl font-semibold text-secondary">Detail Data Pengeluaran</h4>
                 <div class="flex flex-col items-start gap-4 w-full">
                     <label for="jumlah_pengeluaran" class="text-main font-medium">Nominal</label>
                     <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
@@ -77,7 +77,7 @@
                 <div class="w-full flex flex-col items-start gap-4">
                     <label for="keterangan_pengeluaran" class="text-main font-medium">Keterangan</label>
                     <textarea name="keterangan_pengeluaran" id="keterangan_pengeluaran" placeholder="Masukkan Keterangan"
-                        class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline"></textarea>
+                        class="w-full h-[7.2rem] py-2 px-4 outline-none rounded-2xl border-2 border-outline" readonly></textarea>
                 </div>
             </section>
         </div>

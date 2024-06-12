@@ -59,7 +59,7 @@ class AdminImportResidentController extends Controller
           if ($request->hasFile('csv')) {
               $file = $request->file('csv');
               $csv = $this->importService->importResident($file);
-              return response()->json($csv);
+              return response()->json(['success' => 'Preview successfully', 'statusCsv' => $csv[0], 'data' => $csv[1]], 200);
           } else {
               return response()->json([
                   'success' => false,

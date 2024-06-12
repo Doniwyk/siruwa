@@ -95,6 +95,7 @@
                 const formData = new FormData();
                 formData.append('_token', token);
                 formData.append('judul', titleInput);
+                formData.append('tanggal', dateInput);
                 formData.append('isi', descriptionInput);
                 formData.append('image', file);
                 formData.append('action', action);
