@@ -112,10 +112,12 @@ class AdminImportService
             array_push($errorCsv, $data);
         }
             
-            if (count($errors) > 0) {
+        if (count($errors) > 0) {
+            Session::put('importErrors', $errors); 
             $statusCsv = 'error';
             return [$statusCsv, $errorCsv];
         }
+        Session::put('dataPreview', $csv);
 
         return [$statusCsv,$csv];
     }
