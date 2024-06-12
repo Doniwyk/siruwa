@@ -12,28 +12,28 @@
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 
   <script>
-  // kalendar
+    // kalendar
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth,list'
+          right: 'dayGridMonth,listYear'
         },
         initialView: 'dayGridMonth',
         events: '/fetch-events', // Mengambil event dari endpoint ini
         eventColor: '#225157',
         eventClick: function(info) {
           info.jsEvent.preventDefault(); // Prevent the browser from navigating
-
+  
           if (info.event.url) {
             window.location.href = info.event.url; // Redirect to the event's URL
           }
         },
-        displayEventTime: false
+        displayEventTime: false // Hide event time completely
       });
-
+  
       calendar.render();
     });
   </script>
