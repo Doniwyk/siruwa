@@ -8,7 +8,7 @@
 @section('content')
     <h1 class="h1-semibold">Statistik</h1>
     <section class="flex-start flex-wrap gap-3 w-full ">
-        <div class="statistic-card">
+        <div class="statistic-card sm:min-h-[31.125rem] md:h-[40rem]">
             <x-s-p-k-table :results="$results" />
             <div class="flex-end mt-4">
                 <a class="button-main flex items-center justify-between w-32 py-2 rounded-2xl p-4 bg-main font-semibold text-white"

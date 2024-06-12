@@ -19,20 +19,21 @@
         <section class="sm:grid-rows-5 grid grid-rows-2 grid-cols-4 gap-6 w-full">
             <div class="sm:row-span-3 md:row-span-2 sm:col-span-4 md:col-span-1  relative">
                 <div id="file-1" class="relative h-full mb-1">
-                <input type="file" name="image" id="image" class="hidden" accept=".png, .jpg">
-                <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
-                    <div>
-                        <span class="font-semibold flex-col flex-center text-main ">
-                            <x-icon.galery />
-                            Upload Gambar
-                        </span>
-                    </div>
-                </label>
+                    <input type="file" name="image" id="image" class="hidden" accept=".png, .jpg">
+                    <label for="image" id="file-1-preview" class="dropzone absolute w-full h-full flex-center flex-col">
+                        <div>
+                            <span class="font-semibold flex-col flex-center text-main ">
+                                <x-icon.galery />
+                                Upload Gambar
+                            </span>
+                        </div>
+                    </label>
                 </div>
                 <div id="error-image" class=" text-red-600 font-medium"></div>
             </div>
             <div class="form-group sm:col-span-4 md:col-span-3">
-                <label for="judul" class="text-main font-semibold">Judul Berita <span id="error-judul" class=" text-red-600 font-medium"></span></label>
+                <label for="judul" class="text-main font-semibold">Judul Berita <span id="error-judul"
+                        class=" text-red-600 font-medium"></span></label>
                 <input type="text" id ="judul" name ="judul" class="px-6 py-2 rounded-2xl outline-none"
                     placeholder="Tuliskan Judul Berita" />
             </div>
@@ -45,7 +46,8 @@
             </div>
         </section>
         <section class="flex flex-col gap-3 w-full">
-            <label for="description" class="text-main font-semibold">Isi Artikel <span id="error-isi" class=" text-red-600 font-medium"></span></label> 
+            <label for="description" class="text-main font-semibold">Isi Artikel <span id="error-isi"
+                    class=" text-red-600 font-medium"></span></label>
             <textarea id="editor" name="editor" class="ck-editor__editable ck-editor__editable_inline"></textarea>
         </section>
         <section class="flex gap-3">
@@ -63,9 +65,9 @@
         // inisiasi classic editor (CKE5)
         let newsEditor;
         ClassicEditor.create(document.querySelector('#editor'))
-        .then((newEditor)=>{
-            newsEditor = newEditor;
-        })
+            .then((newEditor) => {
+                newsEditor = newEditor;
+            })
         previewBeforeUpload('file-1')
 
         $(document).ready(function() {
@@ -86,11 +88,14 @@
                     $(alert).text('');
                 });
 
+                let action = $(document.activeElement).val();
+
                 const formData = new FormData();
                 formData.append('_token', token);
                 formData.append('judul', titleInput);
                 formData.append('isi', descriptionInput);
                 formData.append('image', file);
+                formData.append('action', action);
 
                 $.ajax({
                     type: "POST",
@@ -100,13 +105,16 @@
                     data: formData,
                     success: function(response) {
                         loader.addClass('hidden')
+                        console.log(response.status);
                         if (response.success) {
                             window.location.href = response.redirect;
                         }
                     },
                     error: function(response) {
                         loader.addClass('hidden')
-                        const {errors} = response.responseJSON
+                        const {
+                            errors
+                        } = response.responseJSON
                         $.each(errors, function(key, value) {
                             $('#error-' + key).html(`
                                 <svg width="10" height="10" viewBox="-1 -1 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline">
@@ -115,7 +123,7 @@
                             `);
                         });
                     }
-                });
+                })
             });
         });
     </script>
