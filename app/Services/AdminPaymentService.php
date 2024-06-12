@@ -238,27 +238,25 @@ class AdminPaymentService implements AdminPaymentContract
         $saldo = $income - $expense;
 
         $deathTransaction = DB::table('pemasukan')
-            ->select('created_at', 'jumlah_pemasukan as amount',  DB::raw('"Pemasukan" as type'))
+            ->select(
+                'id_pemasukan as id', // Aliaskan kolom id untuk konsistensi
+                'created_at', 
+                'jumlah_pemasukan as amount', 
+                DB::raw('"Pemasukan" as type')
+            )
             ->where('jenis_pemasukan', 'Pemasukan Iuran Kematian')
             ->union(
                 DB::table('pengeluaran')
-                    ->select('created_at', 'jumlah_pengeluaran as amount',  DB::raw('"Pengeluaran" as type'))
+                    ->select(
+                        'id_pengeluaran as id', // Aliaskan kolom id untuk konsistensi
+                        'created_at', 
+                        'jumlah_pengeluaran as amount', 
+                        DB::raw('"Pengeluaran" as type')
+                    )
                     ->where('jenis_pengeluaran', 'Pengeluaran Iuran Kematian')
             )
             ->orderBy('created_at', 'desc')
             ->get();
-
-
-        // $garbageTransaction = DB::table('pemasukan')
-        //     ->select('id_pemasukan','created_at', 'jumlah_pemasukan as amount', DB::raw('"Pemasukan" as type'))
-        //     ->where('jenis_pemasukan', 'Pemasukan Iuran Sampah')
-        //     ->union(
-        //         DB::table('pengeluaran')
-        //             ->select('id_pengeluaran','created_at', 'jumlah_pengeluaran as amount', DB::raw('"Pengeluaran" as type'))
-        //             ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
-        //     )
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
 
         $garbageTransaction = DB::table('pemasukan')
             ->select(
