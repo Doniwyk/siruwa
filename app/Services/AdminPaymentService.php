@@ -239,7 +239,7 @@ class AdminPaymentService implements AdminPaymentContract
 
         $deathTransaction = DB::table('pemasukan')
             ->select(
-                'id_pemasukan as id', // Aliaskan kolom id untuk konsistensi
+                'id_pemasukan as id', // dialiasno cek enak
                 'created_at', 
                 'jumlah_pemasukan as amount', 
                 DB::raw('"Pemasukan" as type')
@@ -248,7 +248,7 @@ class AdminPaymentService implements AdminPaymentContract
             ->union(
                 DB::table('pengeluaran')
                     ->select(
-                        'id_pengeluaran as id', // Aliaskan kolom id untuk konsistensi
+                        'id_pengeluaran as id', // dialiasno cek enak
                         'created_at', 
                         'jumlah_pengeluaran as amount', 
                         DB::raw('"Pengeluaran" as type')
@@ -260,7 +260,7 @@ class AdminPaymentService implements AdminPaymentContract
 
         $garbageTransaction = DB::table('pemasukan')
             ->select(
-                'id_pemasukan as id', // Aliaskan kolom id untuk konsistensi
+                'id_pemasukan as id',
                 'created_at', 
                 'jumlah_pemasukan as amount', 
                 DB::raw('"Pemasukan" as type')
@@ -269,7 +269,7 @@ class AdminPaymentService implements AdminPaymentContract
             ->union(
                 DB::table('pengeluaran')
                     ->select(
-                        'id_pengeluaran as id', // Aliaskan kolom id untuk konsistensi
+                        'id_pengeluaran as id',
                         'created_at', 
                         'jumlah_pengeluaran as amount', 
                         DB::raw('"Pengeluaran" as type')
