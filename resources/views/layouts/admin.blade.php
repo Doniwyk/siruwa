@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.svg') }}">
     @yield('head_script')
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
