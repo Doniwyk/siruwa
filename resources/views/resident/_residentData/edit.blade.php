@@ -32,7 +32,6 @@ Edit Data Penduduk
         <section id="identitas-kependudukan" class="">
             <h4 class="h4-semibold flex items-center">
                 Identitas Kependudukan
-                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
             </h4>
             <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.show-input-form :label="'No. KTP/NIK'"  :name="'reqKtp'" :value="$resident->nik" />
@@ -45,7 +44,6 @@ Edit Data Penduduk
         <section id="identitas-lengkap">
             <h4 class="h4-semibold flex items-center">
                 Identitas Lengkap
-                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
             </h4>
             <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form label="Tempat Lahir" name="tempat_lahir" value="{{ $resident->tempat_lahir }}" />
@@ -112,7 +110,6 @@ Edit Data Penduduk
         <section id="kegiatan-keorganisasian">
             <h4 class="h4-semibold flex items-center">
                 Kegiatan Keorganisasian
-                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
             </h4>
             <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.select-input-form label="Keaktifan dalam Kegiatan Posyandu" name="aktif_posyandu">
@@ -146,7 +143,6 @@ Edit Data Penduduk
         <section id="informasi-keuangan-pribadi">
             <h4 class="h4-semibold flex items-center">
                 Informasi Keuangan Pribadi
-                <div class="flex-1 h-[2px] bg-secondary ml-2 rounded"></div>
             </h4>
             <div class="sm:flex sm:flex-col md:grid grid-cols-2 grid-flow-row gap-x-9 gap-y-5">
                 <x-form.text-input-form label="Gaji Perbulan" name="gaji" value="{{ $resident->gaji }}" />

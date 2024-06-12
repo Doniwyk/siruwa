@@ -27,7 +27,7 @@ Edit Profil
 @endsection
 @section('content')
     {{-- <div id="response-message"></div> --}}
-    <div class="h1-semibold">Edit Profile</div>
+    <div class="h1-semibold">Edit Profil</div>
     <div class="bg-white p-9 rounded-2xl flex mb-6">
         <form action="" class="flex sm:flex-col lg:flex-row gap-9 w-full " id="update-personal-data"
             enctype="multipart/form-data">
