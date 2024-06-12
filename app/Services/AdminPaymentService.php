@@ -169,11 +169,19 @@ class AdminPaymentService implements AdminPaymentContract
             (
                 SELECT 
                     df.nomor_kk, 
-                    (SELECT p.nama 
-                     FROM penduduk p 
-                     WHERE p.nomor_kk = df.nomor_kk 
-                     AND p.status_keluarga = "Kepala Keluarga" 
-                     LIMIT 1) as head_of_family, 
+                    (
+                        SELECT p.nama 
+                        FROM penduduk p 
+                        WHERE p.nomor_kk = df.nomor_kk 
+                        AND p.status_keluarga IN ("Kepala Keluarga", "Istri", "Anak")
+                        ORDER BY 
+                            CASE p.status_keluarga
+                                WHEN "Kepala Keluarga" THEN 1
+                                WHEN "Istri" THEN 2
+                                WHEN "Anak" THEN 3
+                            END
+                        LIMIT 1
+                    ) as head_of_family, 
                     COUNT(df.id_iuran_kematian) as total_tunggakan_kematian, 
                     0 as total_tunggakan_sampah
                 FROM iuran_kematian df
@@ -181,16 +189,24 @@ class AdminPaymentService implements AdminPaymentContract
                 AND YEAR(df.bulan) = ' . $currentYear . '
                 AND MONTH(df.bulan) <= ' . $currentMonth . '
                 GROUP BY df.nomor_kk
-    
+
                 UNION ALL
-    
+
                 SELECT 
                     gf.nomor_kk, 
-                    (SELECT p.nama 
-                     FROM penduduk p 
-                     WHERE p.nomor_kk = gf.nomor_kk 
-                     AND p.status_keluarga = "Kepala Keluarga" 
-                     LIMIT 1) as head_of_family, 
+                    (
+                        SELECT p.nama 
+                        FROM penduduk p 
+                        WHERE p.nomor_kk = gf.nomor_kk 
+                        AND p.status_keluarga IN ("Kepala Keluarga", "Istri", "Anak")
+                        ORDER BY 
+                            CASE p.status_keluarga
+                                WHEN "Kepala Keluarga" THEN 1
+                                WHEN "Istri" THEN 2
+                                WHEN "Anak" THEN 3
+                            END
+                        LIMIT 1
+                    ) as head_of_family, 
                     0 as total_tunggakan_kematian, 
                     COUNT(gf.id_iuran_sampah) as total_tunggakan_sampah
                 FROM iuran_sampah gf

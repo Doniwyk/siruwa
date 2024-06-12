@@ -174,7 +174,7 @@ input[type=file]::file-selector-button:hover{
         @apply invert-black;
     }
     .mobile_left-sidebar {
-        @apply p-2 pr-20 pt-28 bg-main/90  absolute z-40 text-sm -left-[20rem];
+        @apply p-2 pr-20 pt-28 bg-main/90  absolute z-40 text-sm -left-[20rem] min-h-full;
     }
 
     .content {
@@ -213,12 +213,11 @@ input[type=file]::file-selector-button:hover{
         @apply w-full rounded-2xl bg-white md:table-fixed overflow-hidden;
     }
     .table-fund thead tr th{
-        @apply border-r border-white;
+        @apply border-r border-white sm:text-sm md:text-base;
     }
     .table-fund tbody tr{
-        @apply border-t border-white border-b-0;
+        @apply border-t border-white border-b-0 sm:text-sm md:text-base;
     }
-
     .table-fund-mobile {
         @apply rounded-2xl  bg-white md:table-fixed overflow-hidden;
     } 
@@ -232,9 +231,13 @@ input[type=file]::file-selector-button:hover{
     .table-fund-mobile tbody tr {
         @apply border-b-2;
     }
-   .table-parent th,
+
+   .table-parent th{
+        @apply p-3 text-left sm:text-sm md:text-base;
+   }
+
    .table-parent td {
-        @apply p-3;
+        @apply p-3 sm:text-sm md:text-base;
     }
     .table-parent thead th {
         @apply text-lg font-bold bg-secondary text-white text-nowrap text-left;

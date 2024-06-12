@@ -34,17 +34,17 @@ Data Tunggakan Iuran
         <table class="table-parent" id="table-parent">
             <thead>
                 <tr>
-                    <th class="sm:text-sm md:text-base">Nama Kepala Keluarga</th>
-                    <th class="md:table-cell sm:text-sm md:text-base">Nomor KK</th>
-                    <th class="sm:text-sm md:text-base">Total Tunggakan</th>
+                    <th class="">Nama Kepala Keluarga</th>
+                    <th class="md:table-cell ">Nomor KK</th>
+                    <th class="">Total Tunggakan</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($dataTunggakan as $tunggakan)
                     <tr>
-                        <td class="sm:text-sm md:text-base">{{ $tunggakan->head_of_family }}</td>
-                        <td class="md:table-cell sm:text-sm md:text-base">{{ $tunggakan->nomor_kk }}</td>
-                        <td class="sm:text-sm md:text-base">Rp. {{ number_format($tunggakan->total_tunggakan_sampah * 10000, 0, ',', '.') }}</td>
+                        <td class="">{{ $tunggakan->head_of_family }}</td>
+                        <td class="md:table-cell ">{{ $tunggakan->nomor_kk }}</td>
+                        <td class="">Rp. {{ number_format($tunggakan->total_tunggakan_sampah * 10000, 0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -54,17 +54,17 @@ Data Tunggakan Iuran
         <table class="table-parent" id="table-parent">
             <thead>
                 <tr>
-                    <th class="sm:text-sm md:text-base">Nama Kepala Keluarga</th>
-                    <th class="md:table-cell sm:text-sm md:text-base">Nomor KK</th>
-                    <th class="sm:text-sm md:text-base">Total Tunggakan</th>
+                    <th class="">Nama Kepala Keluarga</th>
+                    <th class="md:table-cell ">Nomor KK</th>
+                    <th class="">Total Tunggakan</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($dataTunggakan as $tunggakan)
                 <tr>
-                    <td class="sm:text-sm md:text-base">{{ $tunggakan->head_of_family }}</td>
-                    <td class="md:table-cell sm:text-sm md:text-base">{{ $tunggakan->nomor_kk }}</td>
-                    <td class="sm:text-sm md:text-base">Rp. {{ number_format($tunggakan->total_tunggakan_kematian * 10000, 0, ',', '.') }}</td>
+                    <td class="">{{ $tunggakan->head_of_family }}</td>
+                    <td class="md:table-cell ">{{ $tunggakan->nomor_kk }}</td>
+                    <td class="">Rp. {{ number_format($tunggakan->total_tunggakan_kematian * 10000, 0, ',', '.') }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -107,9 +107,9 @@ Data Tunggakan Iuran
                 $.each(dataTunggakan, function(index, dataTunggakan) {
                     $('#table-parent tbody').append(
                         `<tr>
-                            <td class="sm:text-sm md:text-base">${dataTunggakan.head_of_family}</td>
-                            <td class="sm:text-sm md:text-base">${dataTunggakan.nomor_kk}</td>
-                            <td class="sm:text-sm md:text-base">Rp. ${(dataTunggakan.total_tunggakan_sampah * 10000).toLocaleString('id-ID')}</td>
+                            <td class="">${dataTunggakan.head_of_family}</td>
+                            <td class="">${dataTunggakan.nomor_kk}</td>
+                            <td class="">Rp. ${(dataTunggakan.total_tunggakan_sampah * 10000).toLocaleString('id-ID')}</td>
                         </tr>`
                     )
                 })

@@ -107,11 +107,11 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama</th>
+                        <th >Nama</th>
                         <th class="sm:hidden lg:table-cell">Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
-                        <th class="sm:text-sm md:text-base">No. Telepon</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >No. Telepon</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,11 +122,11 @@
                     @else
                         @foreach ($fundData['getSubmission'] as $dataPembayaran)
                             <tr>
-                                <td class="sm:text-sm md:text-base">{{ $dataPembayaran->resident->nama }}</td>
+                                <td >{{ $dataPembayaran->resident->nama }}</td>
                                 <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->nomor_kk }}</td>
                                 <td class="sm:hidden lg:table-cell">{{ $dataPembayaran->created_at }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $dataPembayaran->akun->noHp }}</td>
-                                <td class="sm:text-sm md:text-base">
+                                <td >{{ $dataPembayaran->akun->noHp }}</td>
+                                <td >
                                     <button class="w-[25px] h-[25px] flex-center"
                                         onclick="showPopupPembayaran({{ $dataPembayaran->id_pembayaran }})">
                                         <x-icon.detail />
@@ -146,11 +146,11 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama</th>
+                        <th >Nama</th>
                         <th class="sm:hidden lg:table-cell">Nomor KK</th>
                         <th class="sm:hidden lg:table-cell">Tgl Permintaan</th>
-                        <th class="sm:text-sm md:text-base">No. Telepon</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >No. Telepon</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -161,12 +161,12 @@
                     @else
                         @foreach ($history as $dataRiwayat)
                             <tr>
-                                <td class="sm:text-sm md:text-base font-medium">{{ $dataRiwayat->resident->nama }}</td>
+                                <td class=" font-medium">{{ $dataRiwayat->resident->nama }}</td>
                                 <td class="sm:hidden lg:table-cell font-medium">{{ $dataRiwayat->nomor_kk }}</td>
                                 <td class="sm:hidden lg:table-cell font-medium">{{ $dataRiwayat->created_at }}</td>
-                                <td class="sm:text-sm md:text-base font-medium">{{ $dataRiwayat->admin->noHp }}</td>
+                                <td class=" font-medium">{{ $dataRiwayat->admin->noHp }}</td>
                                 <td
-                                    class=" flex items-center gap-4 sm:text-sm md:text-base {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }} font-semibold">
+                                    class=" flex items-center gap-4  {{ $dataRiwayat->status == 'Ditolak' ? 'text-red-600' : 'text-main' }} font-semibold">
                                     <span class="w-[5rem]">{{ $dataRiwayat->status }}</span>
                                     <button onclick="showRiwayatPembayaranModal({{ $dataRiwayat->id_pembayaran }})">
                                         <x-icon.detail />
@@ -236,7 +236,7 @@
                                 lastColumn =
                                     `
                                         <td
-                                            class=" flex items-center gap-4 sm:text-sm md:text-base ${fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'} font-semibold">
+                                            class=" flex items-center gap-4  ${fundData.status == 'Ditolak' ? 'text-red-600' : 'text-main'} font-semibold">
                                             <span class="w-[6rem]">${ fundData.status }</span>
                                             <button onclick="showRiwayatPembayaranModal(${fundData.id_pembayaran})">
                                                 <x-icon.detail />
