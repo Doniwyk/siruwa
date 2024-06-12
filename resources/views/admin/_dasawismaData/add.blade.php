@@ -67,6 +67,7 @@
                         <option value="Wirausaha">Wirausaha</option>
                         <option value="Wiraswasta">Wiraswasta</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+                        <option value="Tidak Bekerja">Tidak Bekerja</option>
                     </x-form.select-input-form>
                     <x-form.select-input-form label="Status Perkawinan" name="status_kawin">
                         <option value="">Status Perkawinan</option>

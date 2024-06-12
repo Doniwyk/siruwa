@@ -57,29 +57,65 @@ Iuran RW
                                 <thead class="fund-header">
                                     <tr>
                                         <th class="border-white border-r border-b">Bulan</th>
-                                        @php
-                                            $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                                        @endphp
-                                        @foreach ($months as $month)
-                                            <th>{{ $month }}</th>
-                                        @endforeach
+                                            @php
+                                                $englishMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];    
+                                                $months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                                            @endphp
+
+                                            @foreach ($months as $month)
+                                                <th>{{ $month }}</th>
+                                            @endforeach
                                     </tr>
                                 </thead>
                                 <tbody class="fund-body">
                                     <tr>
                                         <td class="left-header border-b">Iuran Sampah</td>
+                                        @php
+                                            $i = 0;
+                                        @endphp
                                         @foreach ($months as $index => $month)
-                                            <td>
-                                                {{ isset($fundData['garbage_fund'][$index]) ? $fundData['garbage_fund'][$index]->status : 'Not Found' }}
-                                            </td>
+                                            @php
+                                                $indexBulan = date('m', strtotime($fundData['garbage_fund'][$i]->bulan)) - 1;
+                                                $isMonthValid = date('F', strtotime($fundData['garbage_fund'][$i]->bulan)) == $englishMonths[$indexBulan];   
+                                            @endphp
+
+                                            @if ($englishMonths[$index] == $englishMonths[$indexBulan])
+                                                <td>
+                                                    {{ $fundData['garbage_fund'][$i]->bulan ? $fundData['garbage_fund'][$i]->status : 'Not Found' }}
+                                                </td>
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                            @else
+                                                <td>
+                                                    Not Found
+                                                </td>
+                                            @endif
                                         @endforeach
                                     </tr>
                                     <tr>
                                         <td class="left-header">Iuran Kematian</td>
+                                        @php
+                                            $i = 0;
+                                        @endphp
                                         @foreach ($months as $index => $month)
-                                            <td>
-                                                {{ isset($fundData['death_fund'][$index]) ? $fundData['death_fund'][$index]->status : 'Not Found' }}
-                                            </td>
+                                            @php
+                                                $indexBulan = date('m', strtotime($fundData['death_fund'][$i]->bulan)) - 1;
+                                                $isMonthValid = date('F', strtotime($fundData['death_fund'][$i]->bulan)) == $englishMonths[$indexBulan];   
+                                            @endphp
+
+                                            @if ($englishMonths[$index] == $englishMonths[$indexBulan])
+                                                <td>
+                                                    {{ $fundData['death_fund'][$i]->bulan ? $fundData['death_fund'][$i]->status : 'Not Found' }}
+                                                </td>
+                                                @php
+                                                    $i++;
+                                                @endphp
+                                            @else
+                                                <td>
+                                                    Not Found
+                                                </td>
+                                            @endif
                                         @endforeach
                                     </tr>
                                 </tbody>
