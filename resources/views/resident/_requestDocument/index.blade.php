@@ -192,7 +192,7 @@ window.documentLabels = {
 
         @case('riwayat')
             <div class="overflow-x-auto rounded-xl">
-                <table class="table-resident">
+                <table class="table-parent w-full">
                     <thead>
                         <tr>
                             <th>Nama Pengaju</th>
@@ -274,7 +274,7 @@ window.documentLabels = {
 
 <script>
     function sortHistory(option) {
-        const tbody = document.querySelector('.table-resident tbody');
+        const tbody = document.querySelector('.table-parent tbody');
         const rows = Array.from(tbody.querySelectorAll('tr'));
 
         switch(option) {

@@ -129,7 +129,7 @@ Iuran RW
                 </div>
                 {{-- Table --}}
                 <div class="overflow-x-auto rounded-xl">
-                    <table class="table-resident">
+                    <table class="table-parent w-full">
                         <thead>
                             <tr>
                                 <th>Nama Pembayar</th>
