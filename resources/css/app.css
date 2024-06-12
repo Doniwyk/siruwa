@@ -271,7 +271,7 @@ input[type=file]::file-selector-button:hover{
         @apply sm:w-24 md:w-72;
     }
 }
-#success-modal,#document-modal, #payment-modal,#delete-resident-modal {
+#success-modal,#document-modal, #payment-modal,#delete-resident-modal, #details-spending-payment-modal {
     animation: fadeInUp 0.5s ease-out forwards;
 }
 

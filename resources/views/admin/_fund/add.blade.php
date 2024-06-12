@@ -56,7 +56,7 @@
         <div class="sm:w-[25rem] md:w-[32rem] sm:p-5 md:p-10 rounded-2xl  bg-white center z-50 overflow-hidden"
             id="details-spending-payment-modal">
             <section class="flex flex-col gap-4 items-center">
-                <h4 class="text-center text-xl font-semibold">Details Data Pengeluaran</h4>
+                <h4 class="text-center text-xl font-semibold text-secondary">Details Data Pengeluaran</h4>
                 <div class="flex flex-col items-start gap-4 w-full">
                     <label for="jumlah_pengeluaran" class="text-main font-medium">Nominal</label>
                     <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
@@ -64,15 +64,15 @@
                 </div>
                 <div class="flex flex-col items-start gap-4 w-full">
                     <label for="jenis_pengeluaran" class="text-main font-medium">Jenis Iuran</label>
-                    <input type="text" placeholder="Masukkan Nominal" id="jumlah_pengeluaran" name="jumlah_pengeluaran"
-                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline" disabled>
+                    <input type="text" placeholder="Masukkan Jenis Pengeluaran" id="jenis_pengeluaran"
+                        name="jenis_pengeluaran" class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-outline"
+                        disabled>
 
                 </div>
                 <div class="flex flex-col items-start gap-4 w-full">
                     <label for="tanggal_pengeluaran" class="text-main font-medium">Tanggal</label>
                     <input type="date" placeholder="Masukkan Nominal" id="tanggal_pengeluaran"
-                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-secondary" disabled
-                        value="">
+                        class="w-full py-2 px-4 outline-none rounded-2xl border-2 border-secondary" disabled value="">
                 </div>
                 <div class="w-full flex flex-col items-start gap-4">
                     <label for="keterangan_pengeluaran" class="text-main font-medium">Keterangan</label>
@@ -83,7 +83,7 @@
         </div>
     </div>
 @endsection
-@dd($financialData['garbageTransaction'])
+{{-- @dd($financialData['deathTransaction']) --}}
 @section('content')
     <div class="header-edit flex-start gap-1">
         <a href="{{ route('admin.data-pembayaran.index') }}">
@@ -109,7 +109,7 @@
             <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'kematian']) }}"
                 class="link-option {{ $typeDocument == 'kematian' ? 'link-option_active' : '' }}">Iuran Kematian</a>
         </div>
-        <button class="button-main px-6 py-3" onclick="showFormSpendingPaymentForm()">Tambah Data Pengeluaran</button>
+        <button class="button-main px-6 py-3" onclick="showSpendingForm()">Tambah Data Pengeluaran</button>
     </section>
     @switch($typeDocument)
         @case('sampah')
@@ -119,7 +119,7 @@
                         <th class="sm:text-sm md:text-base">Nominal</th>
                         <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
                         <th class="sm:text-sm md:text-base">Transaksi</th>
-                        <th class="sm:text-sm md:text-base">Details</th>
+                        <th class="sm:text-sm md:text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,23 +128,23 @@
                             <td colspan="5" class="text-center">No data found</td>
                         </tr>
                     @else
-                        @foreach ($financialData['garbageTransaction'] as $dataRiwayat)
+                        @foreach ($financialData['garbageTransaction'] as $dataRiwayatSampah)
                             @php
-                                $isPembayaran = $dataRiwayat->type == 'Pemasukan';
+                                $isPembayaran = $dataRiwayatSampah->type == 'Pemasukan';
                             @endphp
                             <tr>
                                 <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
-                                    {{ $isPembayaran ? $dataRiwayat->amount : "-$dataRiwayat->amount" }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $dataRiwayat->created_at }}</td>
+                                    {{ $isPembayaran ? $dataRiwayatSampah->amount : "-$dataRiwayatSampah->amount" }}</td>
+                                <td class="sm:text-sm md:text-base">{{ $dataRiwayatSampah->created_at }}</td>
                                 <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
-                                    {{ $dataRiwayat->type }}</td>
-                                    @if ($dataRiwayat->type === 'Pengeluaran')
+                                    {{ $dataRiwayatSampah->type }}</td>
+                                @if ($dataRiwayatSampah->type === 'Pengeluaran')
                                     <td>
-                                        <button onclick="showFundExpenseDetails()">
+                                        <button onclick="showFormSpendingPaymentHistory({{ $dataRiwayatSampah->id }})">
                                             <x-icon.detail />
                                         </button>
                                     </td>
-                                    @endif
+                                @endif
                             </tr>
                         @endforeach
                     @endif
@@ -159,6 +159,7 @@
                         <th class="sm:text-sm md:text-base">Nominal</th>
                         <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
                         <th class="sm:text-sm md:text-base">Transaksi</th>
+                        <th class="sm:text-sm md:text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -167,16 +168,23 @@
                             <td colspan="3" class="text-center">No data found</td>
                         </tr>
                     @else
-                        @foreach ($financialData['deathTransaction'] as $dataRiwayat)
+                        @foreach ($financialData['deathTransaction'] as $dataRiwayatKematian)
                             @php
-                                $isPembayaran = $dataRiwayat->type == 'Pemasukan';
+                                $isPembayaran = $dataRiwayatKematian->type == 'Pemasukan';
                             @endphp
                             <tr>
                                 <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
-                                    {{ $isPembayaran ? $dataRiwayat->amount : "-$dataRiwayat->amount" }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $dataRiwayat->created_at }}</td>
+                                    {{ $isPembayaran ? $dataRiwayatKematian->amount : "-$dataRiwayatKematian->amount" }}</td>
+                                <td class="sm:text-sm md:text-base">{{ $dataRiwayatKematian->created_at }}</td>
                                 <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
-                                    {{ $dataRiwayat->type }}</td>
+                                    {{ $dataRiwayatKematian->type }}</td>
+                                @if ($dataRiwayatKematian->type === 'Pengeluaran')
+                                    <td>
+                                        <button onclick="showFormSpendingPaymentHistory({{ $dataRiwayatKematian->id }})">
+                                            <x-icon.detail />
+                                        </button>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     @endif
@@ -187,7 +195,7 @@
 @endsection
 @section('script')
     <script>
-        function showFormSpendingPaymentForm() {
+        function showSpendingForm() {
             const form = document.querySelector('#spending-payment-modal_parent')
             form.classList.toggle('hidden');
 
@@ -199,6 +207,45 @@
                 }
             })
 
+        }
+
+
+        async function getSpendingFundData(id) {
+            const url = `/admin/data-pembayaran/${id}/expense-history`;
+            const response = await fetch(url);
+            const {
+                data
+            } = await response.json();
+
+            return data;
+        }
+
+        async function showFormSpendingPaymentHistory(id) {
+            const modal_parent = document.querySelector(
+                "#details-spending-payment-modal_parent"
+            );
+            const modal = modal_parent.querySelector("#details-spending-payment-modal");
+            const nominalInput = modal.querySelector("#jumlah_pengeluaran");
+            const jenisInput = modal.querySelector("#jenis_pengeluaran");
+            const tanggalInput = modal.querySelector("#tanggal_pengeluaran");
+            const keteranganInput = modal.querySelector("#keterangan_pengeluaran");
+
+            const data = await getSpendingFundData(id);
+
+            modal_parent.classList.remove("hidden");
+
+            nominalInput.value = data.jumlah_pengeluaran;
+            jenisInput.value = data.jenis_pengeluaran;
+            tanggalInput.value = data.tanggal_pengeluaran.substring(0, 10);
+            keteranganInput.value = data.keterangan_pengeluaran;
+
+            modal_parent.addEventListener("click", ({
+                target
+            }) => {
+                if (target == modal_parent) {
+                    modal_parent.classList.add("hidden");
+                }
+            });
         }
     </script>
 @endsection
