@@ -102,24 +102,35 @@
         <x-shared.fund-details-card :type="'Pengeluaran'" :moneyTotalKematian="$financialData['deathFundExpense']" :moneyTotalSampah="$financialData['garbageFundExpense']" />
     </div>
 
-    <section id="tab-slider" class="flex justify-between">
+    <section id="tab-slider" class="flex justify-between sm:gap-3">
         <div class="link-option_parrent sm:flex-between">
             <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'sampah']) }}"
                 class="link-option {{ $typeDocument == 'sampah' ? 'link-option_active' : '' }}">Iuran Sampah</a>
             <a href="{{ route('admin.data-pembayaran.add', ['typeDocument' => 'kematian']) }}"
                 class="link-option {{ $typeDocument == 'kematian' ? 'link-option_active' : '' }}">Iuran Kematian</a>
         </div>
-        <button class="button-main px-6 py-3" onclick="showSpendingForm()">Tambah Data Pengeluaran</button>
+        <button class="button-main !px-6 !py-3 sm:hidden md:block" onclick="showSpendingForm()">Tambah Data Pengeluaran</button>
+        <button class="button-main !px-4 !py-4 sm:block md:hidden">
+            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M10.4993 18.3332C15.0827 18.3332 18.8327 14.5832 18.8327 9.99984C18.8327 5.4165 15.0827 1.6665 10.4993 1.6665C5.91602 1.6665 2.16602 5.4165 2.16602 9.99984C2.16602 14.5832 5.91602 18.3332 10.4993 18.3332Z"
+                    stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M7.16602 9.99902H13.8327" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M10.5 13.3327V6.66602" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
     </section>
     @switch($typeDocument)
         @case('sampah')
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nominal</th>
-                        <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
-                        <th class="sm:text-sm md:text-base">Transaksi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th class="sm:!text-sm md:!text-base">Nominal</th>
+                        <th class="sm:!text-sm md:!text-base sm:hidden md:table-cell">Tanggal Pemasukkan</th>
+                        <th class="sm:!text-sm md:!text-base">Transaksi</th>
+                        <th class="sm:!text-sm md:!text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,9 +144,9 @@
                                 $isPembayaran = $dataRiwayatSampah->type == 'Pemasukan';
                             @endphp
                             <tr>
-                                <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
+                                <td class="{{ $isPembayaran ? '!text-main' : '!text-red-600' }}">
                                     {{ $isPembayaran ? $dataRiwayatSampah->amount : "-$dataRiwayatSampah->amount" }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $dataRiwayatSampah->created_at }}</td>
+                                <td class="sm:!text-sm md:!text-base sm:hidden md:table-cell">{{ $dataRiwayatSampah->created_at }}</td>
                                 <td class="font-semibold {{ $isPembayaran ? '!text-secondary' : '!text-red-600' }}">
                                     {{ $dataRiwayatSampah->type }}</td>
                                 @if ($dataRiwayatSampah->type === 'Pengeluaran')
@@ -156,10 +167,10 @@
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nominal</th>
-                        <th class="sm:text-sm md:text-base">Tanggal Pemasukkan</th>
-                        <th class="sm:text-sm md:text-base">Transaksi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th class="sm:!text-sm md:!text-base">Nominal</th>
+                        <th class="sm:!text-sm md:!text-base sm:hidden md:table-cell">Tanggal Pemasukkan</th>
+                        <th class="sm:!text-sm md:!text-base">Transaksi</th>
+                        <th class="sm:!text-sm md:!text-base">Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -175,7 +186,7 @@
                             <tr>
                                 <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
                                     {{ $isPembayaran ? $dataRiwayatKematian->amount : "-$dataRiwayatKematian->amount" }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $dataRiwayatKematian->created_at }}</td>
+                                <td class="sm:!text-sm md:!text-base sm:hidden md:table-cell">{{ $dataRiwayatKematian->created_at }}</td>
                                 <td class="font-semibold {{ $isPembayaran ? '!text-secondary' : '!text-red-600' }}">
                                     {{ $dataRiwayatKematian->type }}</td>
                                 @if ($dataRiwayatKematian->type === 'Pengeluaran')

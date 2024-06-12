@@ -54,11 +54,11 @@ Manajemen Dokumen
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Pengaju</th>
-                        <th class="sm:text-sm md:text-base">Tipe Berkas</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Pengajuan</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >Nama Pengaju</th>
+                        <th >Tipe Berkas</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Pengajuan</th>
+                        <th class=" sm:hidden md:table-cell">No. Registrasi</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,10 +70,10 @@ Manajemen Dokumen
                         @foreach ($documents as $document)
                             <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
+                                <td >{{ $document->penduduk->nama }}</td>
+                                <td >{{ $document->jenis }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->created_at }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
                                 <td class="flex-start">
                                     <a class="flex-center"
                                         href="{{ route('admin.data-dokumen.edit-data-dokumen', ['document' => $document->id_dokumen, 'typeDocument' => 'pengajuan']) }}">
@@ -91,11 +91,11 @@ Manajemen Dokumen
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Pengaju</th>
-                        <th class="sm:text-sm md:text-base">Tipe Berkas</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Pengajuan</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Action</th>
+                        <th >Nama Pengaju</th>
+                        <th >Tipe Berkas</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Pengajuan</th>
+                        <th class=" sm:hidden md:table-cell">No. Registrasi</th>
+                        <th >Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,10 +110,10 @@ Manajemen Dokumen
                         @foreach ($documents as $document)
                             <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->jenis }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->id_dokumen }}</td>
+                                <td >{{ $document->penduduk->nama }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->jenis }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->created_at }}</td>
+                                <td >{{ $document->id_dokumen }}</td>
                                 <td class="flex-start">
                                     <button class="mr-4"
                                         onclick="showPopupToContinueDocumentProccess({{ $document->id_dokumen }}, 'batalkan')"">
@@ -137,11 +137,11 @@ Manajemen Dokumen
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Pengaju</th>
-                        <th class="sm:text-sm md:text-base">Tipe Berkas</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Pengajuan</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Action</th>
+                        <th >Nama Pengaju</th>
+                        <th >Tipe Berkas</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Pengajuan</th>
+                        <th class=" sm:hidden md:table-cell">No. Registrasi</th>
+                        <th >Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,10 +153,10 @@ Manajemen Dokumen
                         @foreach ($documents as $document)
                             <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
+                                <td >{{ $document->penduduk->nama }}</td>
+                                <td >{{ $document->jenis }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->created_at }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
                                 <td class="flex-start">
                                     <form
                                         action="{{ route('admin.data-dokumen.changeIntoSelesai', ['document' => $document->id_dokumen]) }}"
@@ -166,7 +166,7 @@ Manajemen Dokumen
                                         <input type="text" name="keterangan_status" class="hidden"
                                             value="{{ $document->keterangan_status }}">
                                         <button type="input"
-                                            class="button-hover sm:px-5 sm:py-1 sm:text-sm md:text-base sm:font-base md:px-8 md:py-2 bg-main rounded-3xl text-white"
+                                            class="button-hover sm:px-5 sm:py-1  sm:font-base md:px-8 md:py-2 bg-main rounded-3xl text-white"
                                             type="submit" name="status" value="Selesai">Selesai</button>
                                     </form>
                                 </td>
@@ -182,11 +182,11 @@ Manajemen Dokumen
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Pengaju</th>
-                        <th class="sm:text-sm md:text-base">Tipe Berkas</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Pengajuan</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >Nama Pengaju</th>
+                        <th >Tipe Berkas</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Pengajuan</th>
+                        <th class=" sm:hidden md:table-cell">No. Registrasi</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -198,12 +198,12 @@ Manajemen Dokumen
                         @foreach ($documents as $document)
                             <tr class="hover:bg-fourth transition-all ease-linear">
                                 <td class="hidden">{{ $document->id_dokumen }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->penduduk->nama }}</td>
-                                <td class="sm:text-sm md:text-base">{{ $document->jenis }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->created_at }}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
+                                <td >{{ $document->penduduk->nama }}</td>
+                                <td >{{ $document->jenis }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->created_at }}</td>
+                                <td class=" sm:hidden md:table-cell">{{ $document->id_dokumen }}</td>
                                 <td
-                                    class="sm:text-sm md:text-base  font-bold {{ $document->status == 'Dibatalkan' ? 'text-red-600' : 'text-main' }}">
+                                    class="  font-bold {{ $document->status == 'Dibatalkan' ? 'text-red-600' : 'text-main' }}">
                                     {{ $document->status }}</td>
                             </tr>
                         @endforeach

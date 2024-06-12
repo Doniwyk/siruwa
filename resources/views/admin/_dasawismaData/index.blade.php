@@ -21,7 +21,7 @@ Data Penduduk
         </div>
 
         <div class="sm:mobile_add-wrapper relative inline-block md:hidden">
-            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="button-main" type="button"> ...
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="button-main !px-5" type="button"> ...
             </button>
         </div>
 
@@ -78,21 +78,21 @@ Data Penduduk
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Lengkap</th>
-                        <th class="sm:text-sm md:text-base">NIK</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Lahir</th>
-                        <th class="sm:hidden sm:text-sm md:text-base md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >Nama Lengkap</th>
+                        <th >NIK</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Lahir</th>
+                        <th class="sm:hidden  md:table-cell">No. Registrasi</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($residents as $resident)
                         <tr class="hover:bg-fourth transition-all ease-linear">
                             <td class="hidden">{{ $resident->id_penduduk }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $resident->nama }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $resident->nik }}</td>
-                            <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->tgl_lahir }}</td>
-                            <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->id_penduduk }}</td>
+                            <td >{{ $resident->nama }}</td>
+                            <td >{{ $resident->nik }}</td>
+                            <td class=" sm:hidden md:table-cell">{{ $resident->tgl_lahir }}</td>
+                            <td class=" sm:hidden md:table-cell">{{ $resident->id_penduduk }}</td>
                             <td class="flex-start">
                                 <a class="flex-center"
                                     href="{{ route('admin.data-penduduk.show', ['resident' => $resident->id_penduduk]) }}">
@@ -112,21 +112,21 @@ Data Penduduk
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Lengkap</th>
-                        <th class="sm:text-sm md:text-base">NIK</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Lahir</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >Nama Lengkap</th>
+                        <th >NIK</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Lahir</th>
+                        <th class=" sm:hidden md:table-cell">No. Registrasi</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($residents as $resident)
                         <tr>
                             <td class="hidden">{{ $resident->id_penduduk }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $resident->penduduk->nama }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $resident->penduduk->nik }}</td>
-                            <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->tgl_lahir }}</td>
-                            <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->id_penduduk }}</td>
+                            <td >{{ $resident->penduduk->nama }}</td>
+                            <td >{{ $resident->penduduk->nik }}</td>
+                            <td class=" sm:hidden md:table-cell">{{ $resident->penduduk->tgl_lahir }}</td>
+                            <td class=" sm:hidden md:table-cell">{{ $resident->penduduk->id_penduduk }}</td>
                             <td>
                                 <a class="flex-start buton-hover"
                                     href="{{ route('admin.data-penduduk.edit', ['resident' => $resident['id_penduduk']]) }}">
@@ -146,23 +146,23 @@ Data Penduduk
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Nama Lengkap</th>
-                        <th class="sm:text-sm md:text-base">NIK</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">Tgl Lahir</th>
-                        <th class="sm:text-sm md:text-base sm:hidden md:table-cell">No. Registrasi</th>
-                        <th class="sm:text-sm md:text-base">Detail</th>
+                        <th >Nama Lengkap</th>
+                        <th >NIK</th>
+                        <th class=" sm:hidden md:table-cell">Tgl Lahir</th>
+                        <th class=" sm:hidden md:table-cell">No. Registrasi</th>
+                        <th >Detail</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($residents as $resident)
                         <tr>
                             <td class="hidden">{{ $resident->id_penduduk }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $resident->penduduk->nama }}</td>
-                            <td class="sm:text-sm md:text-base">{{ $resident->penduduk->nik }}</td>
-                            <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->tgl_lahir }}</td>
-                            <td class="sm:text-sm md:text-base sm:hidden md:table-cell">{{ $resident->penduduk->id_penduduk }}</td>
+                            <td >{{ $resident->penduduk->nama }}</td>
+                            <td >{{ $resident->penduduk->nik }}</td>
+                            <td class=" sm:hidden md:table-cell">{{ $resident->penduduk->tgl_lahir }}</td>
+                            <td class=" sm:hidden md:table-cell">{{ $resident->penduduk->id_penduduk }}</td>
                             <td
-                                class="font-bold sm:sm:text-sm md:text-base {{ $resident->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
+                                class="font-bold sm: {{ $resident->status == 'Ditolak' ? 'text-red-600' : 'text-main' }}">
                                 {{ $resident->status }}
                             </td>
                         </tr>
@@ -216,14 +216,14 @@ Data Penduduk
                         let lastColumn;
                         switch (typeDocument) {
                             case 'daftar-penduduk':
-                                lastColumn = `<td class="flex-start sm:text-sm md:text-base">
+                                lastColumn = `<td class="flex-start ">
                                         <a class="flex-center" href=" data-penduduk/${resident.id_penduduk}/show">
                                             <x-icon.detail />
                                         </a>
                                         </td>`
                                 break;
                             case 'pengajuan':
-                                lastColumn = `<td class="sm:text-sm md:text-base">
+                                lastColumn = `<td >
                                     <a class="flex-start" href=" data-penduduk/${resident.id_penduduk}/edit">
                                         <x-icon.detail />
                                         </a>
@@ -231,16 +231,16 @@ Data Penduduk
                                 break;
                             case 'riwayat':
                                 lastColumn =
-                                    `<td class="font-bold sm:text-sm md:text-base ${resident.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${resident.status}</td>`
+                                    `<td class="font-bold  ${resident.status == 'Ditolak' ? 'text-red-600' : 'text-main'}">${resident.status}</td>`
                                 break;
                         }
 
                         $('#table-parent tbody').append(
                             `<tr>
-                                <td class="sm:text-sm md:text-base">${resident.penduduk?.nama || resident.nama}</td>
-                                <td class="sm:text-sm md:text-base">${resident.nik}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">${resident.tgl_lahir}</td>
-                                <td class="sm:text-sm md:text-base sm:hidden md:table-cell">${resident.id_penduduk}</td>
+                                <td >${resident.penduduk?.nama || resident.nama}</td>
+                                <td >${resident.nik}</td>
+                                <td class=" sm:hidden md:table-cell">${resident.tgl_lahir}</td>
+                                <td class=" sm:hidden md:table-cell">${resident.id_penduduk}</td>
                                 ${lastColumn}
                             </tr>`
 
