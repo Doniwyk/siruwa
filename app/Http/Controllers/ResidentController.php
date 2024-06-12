@@ -90,7 +90,7 @@ class ResidentController extends Controller
                 'id_penduduk' => $resident->id_penduduk,
                 'urlProfile' => $request->has('urlProfile') ? $request->urlProfile : null,
                 'noHp' => $request->has('noHp') ? $request->noHp : null,
-                'username' => $resident->nomor_kk,
+                'username' => $resident->nik,
                 'email' => $request->has('email') ? $request->email : null,
                 'email_verified_at' => now(),
                 'password' => bcrypt($resident->nik),
