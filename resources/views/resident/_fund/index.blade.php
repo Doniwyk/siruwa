@@ -70,7 +70,7 @@ Iuran RW
                                         <td class="left-header border-b">Iuran Sampah</td>
                                         @foreach ($months as $index => $month)
                                             <td>
-                                                {{ isset($fundData['garbage_fund'][$index]) ? $fundData['garbage_fund'][$index]->status : 'Belum Lunas' }}
+                                                {{ isset($fundData['garbage_fund'][$index]) ? $fundData['garbage_fund'][$index]->status : 'Not Found' }}
                                             </td>
                                         @endforeach
                                     </tr>
@@ -78,7 +78,7 @@ Iuran RW
                                         <td class="left-header">Iuran Kematian</td>
                                         @foreach ($months as $index => $month)
                                             <td>
-                                                {{ isset($fundData['death_fund'][$index]) ? $fundData['death_fund'][$index]->status : 'Belum Lunas' }}
+                                                {{ isset($fundData['death_fund'][$index]) ? $fundData['death_fund'][$index]->status : 'Not Found' }}
                                             </td>
                                         @endforeach
                                     </tr>
@@ -107,7 +107,7 @@ Iuran RW
                         </table>
                     </div>
                 </div>
-                @break
+            @break
             @case('riwayat')
                 {{-- Filter --}}
                 <div class="flex justify-between">
@@ -115,24 +115,22 @@ Iuran RW
                         <input type="text" placeholder="Cari Nama" class="resident-search">
                         <img src="{{ asset('assets/icons/search.svg') }}" alt="Search Icon" class="left-icon">
                     </div>
-                    <div class="whitespace-nowrap flex items-center">
-                        <div class="relative basis-1/5">
-                            <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
-                                <option value="default">Urutkan</option>
-                                <option value="newest">Terbaru</option>
-                                <option value="oldest">Terlama</option>
-                                <option value="alphabetical">A-Z</option>
-                                <option value="reverse_alphabetical">Z-A</option>
-                            </select>
-                            <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
-                            <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
-                        </div>
+                    <div class="relative basis-1/5">
+                        <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
+                            <option value="default">Urutkan</option>
+                            <option value="newest">Terbaru</option>
+                            <option value="oldest">Terlama</option>
+                            <option value="alphabetical">A-Z</option>
+                            <option value="reverse_alphabetical">Z-A</option>
+                        </select>
+                        <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
+                        <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
                     </div>
                 </div>
                 {{-- Table --}}
                 <div class="overflow-x-auto rounded-xl">
-                    <table class="w-full text-left table-fixed">
-                        <thead class="history-header">
+                    <table class="table-parent w-full">
+                        <thead>
                             <tr>
                                 <th>Nama Pembayar</th>
                                 <th>Tipe</th>
@@ -142,7 +140,7 @@ Iuran RW
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody class="history-body">
+                        <tbody>
                             @if ($history->isEmpty())
                                 <tr class="hover:bg-fourth transition-all ease-linear">
                                     <td colspan="6" class="text-center">Tidak ada data</td>

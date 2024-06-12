@@ -60,12 +60,26 @@ class AccountController extends Controller
                 'email' => 'required|string|email|max:255',
                 'noHp' => 'required|string|max:15',
                 'urlProfile' => 'nullable'
+            ], [
+                'username.required' => 'Form Tidak Boleh Kosong',
+                'username.string' => 'Username Harus Alphanumerik',
+                'username.max' => 'Username Maksimal 255 Karakter',
+                'email.required' => 'Form Tidak Boleh Kosong',
+                'email.string' => 'Email Harus Alphanumerik',
+                'email.email' => 'Format Email Tidak Valid',
+                'email.max' => 'Email Maksimal 255 Karakter',
+                'noHp.required' => 'Form Tidak Boleh Kosong',
+                'noHp.string' => 'Nomor HP Harus Alphanumerik',
+                'noHp.max' => 'Nomor HP Maksimal 15 Karakter',
+                'urlProfile.nullable' => 'URL Profile Tidak Wajib'
             ]);
 
             $account = Auth::user();
 
             $this->akunContract->updateAccount($validated, $account);
             return response()->json(['message' => 'Account updated successfully.'], 200);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 403);
         }
@@ -82,7 +96,7 @@ class AccountController extends Controller
             'new_password.required' => 'Form Tidak Boleh Kosong',
             'new_password.string' => 'Password Harus Alphanumerik',
             'new_password.min' => 'Password Minimal 8 Karakter',
-            'new_password.confirmed' => 'Password Lama dan Baru Tidak Sesuai',
+            'new_password.confirmed' => 'Password Baru dan Konfirmasi Tidak Sesuai',
             'new_password_confirmation.required' => 'Form Tidak Boleh Kosong',
             'new_password_confirmation.string' => 'Password Harus Alphanumerik',
             'new_password_confirmation.min' => 'Password Minimal 8 Karakter',

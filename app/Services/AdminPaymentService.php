@@ -138,8 +138,18 @@ class AdminPaymentService implements AdminPaymentContract
         $getDeathFundAmount = DeathFundModel::where('status', 'Lunas')->count() * 10000;
         $getGarbageFundAmount = GarbageFundModel::where('status', 'Lunas')->count() * 10000;
 
-        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')->count() * 10000;
-        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')->count() * 10000;
+        $currentYear = now()->year;
+        $currentMonth = now()->month;
+
+        $getDeathFundTunggakan = DeathFundModel::where('status', 'Belum Lunas')
+            ->whereYear('bulan', '<=', $currentYear)
+            ->whereMonth('bulan', '<=', $currentMonth)
+            ->count() * 10000;
+
+        $getGarbageFundTunggakan = GarbageFundModel::where('status', 'Belum Lunas')
+            ->whereYear('bulan', '<=', $currentYear)
+            ->whereMonth('bulan', '<=', $currentMonth)
+            ->count() * 10000;
         $getTunggakan = $getDeathFundTunggakan + $getGarbageFundTunggakan;
 
         return [
@@ -241,27 +251,47 @@ class AdminPaymentService implements AdminPaymentContract
         $saldo = $income - $expense;
 
         $deathTransaction = DB::table('pemasukan')
-            ->select('id_pemasukan','created_at', 'jumlah_pemasukan as amount',  DB::raw('"Pemasukan" as type'))
+            ->select(
+                'id_pemasukan as id', // dialiasno cek enak
+                'created_at', 
+                'jumlah_pemasukan as amount', 
+                DB::raw('"Pemasukan" as type')
+            )
             ->where('jenis_pemasukan', 'Pemasukan Iuran Kematian')
             ->union(
                 DB::table('pengeluaran')
-                    ->select('id_pengeluaran','created_at', 'jumlah_pengeluaran as amount',  DB::raw('"Pengeluaran" as type'))
+                    ->select(
+                        'id_pengeluaran as id', // dialiasno cek enak
+                        'created_at', 
+                        'jumlah_pengeluaran as amount', 
+                        DB::raw('"Pengeluaran" as type')
+                    )
                     ->where('jenis_pengeluaran', 'Pengeluaran Iuran Kematian')
             )
             ->orderBy('created_at', 'desc')
             ->get();
 
-
         $garbageTransaction = DB::table('pemasukan')
-            ->select('id_pemasukan','created_at', 'jumlah_pemasukan as amount', DB::raw('"Pemasukan" as type'))
+            ->select(
+                'id_pemasukan as id',
+                'created_at', 
+                'jumlah_pemasukan as amount', 
+                DB::raw('"Pemasukan" as type')
+            )
             ->where('jenis_pemasukan', 'Pemasukan Iuran Sampah')
             ->union(
                 DB::table('pengeluaran')
-                    ->select('id_pengeluaran','created_at', 'jumlah_pengeluaran as amount', DB::raw('"Pengeluaran" as type'))
+                    ->select(
+                        'id_pengeluaran as id',
+                        'created_at', 
+                        'jumlah_pengeluaran as amount', 
+                        DB::raw('"Pengeluaran" as type')
+                    )
                     ->where('jenis_pengeluaran', 'Pengeluaran Iuran Sampah')
             )
             ->orderBy('created_at', 'desc')
             ->get();
+
 
         return [
             'deathFundIncome' => $deathFundIncome, // Pemasukan dari iuran kematian
@@ -301,5 +331,10 @@ class AdminPaymentService implements AdminPaymentContract
             DB::rollBack();
             throw new Exception($exception->getMessage());
         }
+    }
+
+    public function getExepnseHistory($id){
+        $expenseDetail = ExpenseModel::find($id);
+        return $expenseDetail;
     }
 }

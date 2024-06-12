@@ -24,7 +24,10 @@ class DashboardController extends Controller
         try {
             $news = NewsModel::all();
             $event = EventModel::all();
-            $latestNews = NewsModel::orderBy('created_at', 'desc')->take(3)->get();
+            $latestNews = NewsModel::where('status', 'Uploaded')
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
             $dataDashboard = $this->dashboardContract->dataDashboard();
             return view('landingpage', ['title' => 'Daftar Berita', 'news' => $news, 'event' => $event, 'latestNews' => $latestNews, 'dataDashboard'=>$dataDashboard]);
         } catch (\Exception $e) {
@@ -36,15 +39,16 @@ class DashboardController extends Controller
     //Agenda
     public function fetchEvents()
     {
-        $events = EventModel::select('judul as title', 'tanggal as start')
-        ->get()
-        ->map(function($event) {
-            $event->start = \Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i:s');
-            return $event;
-        });
-
+        $events = EventModel::select('id_agenda', 'judul as title', 'tanggal as start')
+            ->get()
+            ->map(function($event) {
+                $event->start = \Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i:s');
+                $event->url = route('list-berita.show', ['type' => 'event', 'id' => $event->id_agenda]);
+                return $event;
+            });
+    
         return response()->json($events);
-    }
+    }    
 
     //To manajemen organixation structure for admin
     public function manajemenDashboard(){

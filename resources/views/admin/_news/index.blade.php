@@ -181,7 +181,7 @@ Manajemen Berita
                                 <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
                                     <div class="details">
                                         <x-icon.uploaded />
-                                        <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
+                                        <label for="">{{ date('F, j Y', strtotime($n->tanggal)) }}</label>
                                     </div>
                                 </td>
                                 <td class="sm:text-sm md:text-base">

@@ -5,20 +5,61 @@ Pengajuan Dokumen
 @section('content-user')
 
 <script>
-    window.documentLabels = {
-        'Surat Pengantar Pernikahan': {
-            label: 'Surat Pengantar Pernikahan',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum facilis laudantium atque corrupti totam quidem, beatae iure fuga nulla? Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, officia!'
-        },
-        'Surat Pengantar KTP': {
-            label: 'Surat Pengantar KTP',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum facilis laudantium atque corrupti totam quidem, beatae iure fuga nulla? Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, officia!'
-        },
-        'Surat Keterangan': {
-            label: 'Surat Keterangan',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet earum facilis laudantium atque corrupti totam quidem, beatae iure fuga nulla? Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, in. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, officia!'
-        }
-    };
+window.documentLabels = {
+    'Surat Pengantar KTP': {
+        label: 'Surat Pengantar KTP',
+        desc: 'Surat ini digunakan untuk mengurus pembuatan atau perpanjangan Kartu Tanda Penduduk (KTP). Surat ini dikeluarkan oleh Ketua RT atau RW untuk memastikan bahwa pemohon adalah warga yang sah di lingkungan tersebut.'
+    },
+    'Surat Pengantar Pernikahan': {
+        label: 'Surat Pengantar Pernikahan',
+        desc: 'Surat ini digunakan sebagai syarat administrasi untuk melangsungkan pernikahan secara resmi. Surat ini dikeluarkan oleh Ketua RT atau RW dan berfungsi sebagai bukti bahwa calon mempelai adalah warga yang sah di lingkungan tersebut.'
+    },
+    'Surat Pengantar Pembuatan KK': {
+        label: 'Surat Pengantar Pembuatan KK',
+        desc: 'Surat ini digunakan untuk membuat Kartu Keluarga (KK) baru, baik itu karena baru menikah, pindah rumah, atau karena KK lama hilang. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Pengurusan Akta Kelahiran': {
+        label: 'Surat Pengantar Pengurusan Akta Kelahiran',
+        desc: 'Surat ini diperlukan untuk mengurus akta kelahiran anak yang baru lahir agar mendapatkan pengakuan resmi dari negara. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Pengurusan Akta Kematian': {
+        label: 'Surat Pengantar Pengurusan Akta Kematian',
+        desc: 'Surat ini digunakan untuk mengurus akta kematian bagi warga yang telah meninggal dunia. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Surat Keterangan Domisili': {
+        label: 'Surat Pengantar Surat Keterangan Domisili',
+        desc: 'Surat ini digunakan untuk mengurus surat keterangan domisili yang menyatakan tempat tinggal resmi seseorang. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Izin Usaha': {
+        label: 'Surat Pengantar Izin Usaha',
+        desc: 'Surat ini diperlukan untuk mengurus izin usaha bagi warga yang ingin membuka usaha kecil di lingkungan tempat tinggalnya. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Izin Keramaian': {
+        label: 'Surat Pengantar Izin Keramaian',
+        desc: 'Surat ini digunakan untuk mengurus izin keramaian seperti acara pernikahan, hajatan, atau acara lainnya yang mengundang keramaian. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Pengurusan SKCK': {
+        label: 'Surat Pengantar Pengurusan SKCK',
+        desc: 'Surat ini diperlukan untuk mengurus Surat Keterangan Catatan Kepolisian (SKCK), yang sering digunakan untuk keperluan kerja atau studi. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Pindah Alamat': {
+        label: 'Surat Pengantar Pindah Alamat',
+        desc: 'Surat ini digunakan untuk mengurus perpindahan alamat seseorang dari satu RT/RW ke RT/RW lainnya. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Permohonan Bantuan Sosial': {
+        label: 'Surat Pengantar Permohonan Bantuan Sosial',
+        desc: 'Surat ini dibutuhkan untuk mengajukan permohonan bantuan sosial dari pemerintah atau lembaga terkait. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Keterangan Tidak Mampu': {
+        label: 'Surat Pengantar Keterangan Tidak Mampu',
+        desc: 'Surat ini digunakan untuk mengurus berbagai keperluan yang membutuhkan bukti bahwa seseorang atau keluarganya berada dalam kondisi ekonomi yang kurang mampu. Dikeluarkan oleh Ketua RT atau RW.'
+    },
+    'Surat Pengantar Pengadaan Lahan': {
+        label: 'Surat Pengantar Pengadaan Lahan',
+        desc: 'Surat ini digunakan untuk mengurus proses pengadaan lahan untuk keperluan pembangunan, proyek, atau investasi tertentu. Dikeluarkan oleh Ketua RT atau RW sebagai persyaratan administratif.'
+    }
+};
+
 </script>
 
 <div class="resident-header">Pengajuan Dokumen</div>
@@ -45,16 +86,17 @@ Pengajuan Dokumen
                 Riwayat
             </a>
         </div>
-
-        <div class="relative basis-1/5">
-            <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
-                <option value="default">Urutkan</option>
-                <option value="newest">Terbaru</option>
-                <option value="oldest">Terlama</option>
-            </select>
-            <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
-            <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
-        </div>
+        @if($typeDocument == 'riwayat')
+            <div class="relative basis-1/5">
+                <select class="resident-select cursor-pointer" onchange="sortHistory(this.value)">
+                    <option value="default">Urutkan</option>
+                    <option value="newest">Terbaru</option>
+                    <option value="oldest">Terlama</option>
+                </select>
+                <img src="{{ asset('assets/icons/filter.svg') }}" alt="Filter Icon" class="left-icon pointer-events-none">
+                <img src="{{ asset('assets/icons/arrow.svg') }}" alt="Arrow Icon" class="right-icon pointer-events-none">
+            </div>
+        @endif
     </div>
 
     <!-- TAB PENGAJUAN -->
@@ -70,9 +112,16 @@ Pengajuan Dokumen
                             <div class="relative">
                                 <select x-model="selectedDocument" name="jenis" id="jenis_dokumen" class="form-control-input appearance-none cursor-pointer w-full">
                                     <option value="">Pilih Jenis Dokumen</option>
-                                    <option value="Surat Pengantar Pernikahan">Surat Pengantar Pernikahan</option>
-                                    <option value="Surat Pengantar KTP">Surat Pengantar KTP</option>
-                                    <option value="Surat Keterangan">Surat Keterangan</option>
+                                    <script>
+                                        // Mengambil objek documentLabels dari window
+                                        var documentLabels = window.documentLabels;
+                                        // Iterasi melalui objek documentLabels dan membuat opsi select
+                                        for (var key in documentLabels) {
+                                            if (documentLabels.hasOwnProperty(key)) {
+                                                document.write('<option value="' + key + '">' + documentLabels[key].label + '</option>');
+                                            }
+                                        }
+                                    </script>
                                 </select>
                                 <img src="{{ asset('assets/icons/arrow-up.svg') }}" alt="arrow-up" class="right-icon pointer-events-none">
                             </div>
@@ -143,7 +192,7 @@ Pengajuan Dokumen
 
         @case('riwayat')
             <div class="overflow-x-auto rounded-xl">
-                <table class="table-resident">
+                <table class="table-parent w-full">
                     <thead>
                         <tr>
                             <th>Nama Pengaju</th>
@@ -225,7 +274,7 @@ Pengajuan Dokumen
 
 <script>
     function sortHistory(option) {
-        const tbody = document.querySelector('.table-resident tbody');
+        const tbody = document.querySelector('.table-parent tbody');
         const rows = Array.from(tbody.querySelectorAll('tr'));
 
         switch(option) {

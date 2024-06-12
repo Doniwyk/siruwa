@@ -45,7 +45,7 @@ Data Penduduk
 
         <div class="md:web_add-wrapper sm:hidden">
             <a href="{{ route('admin.data-penduduk.export') }}">
-                <button class="button-white">
+                <button class="button-white h-full">
                     <x-icon.export />
                     <label for="" class="sm:hidden md:inline cursor-pointer">
                         Export .Pdf
@@ -53,7 +53,7 @@ Data Penduduk
                 </button>
             </a>
             <a href="{{ route('admin.data-penduduk.import') }}">
-                <button class="button-white">
+                <button class="button-white h-full">
                     <x-icon.import />
                     <label for="" class="sm:hidden md:inline cursor-pointer">
                         Import .csv

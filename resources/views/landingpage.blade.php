@@ -12,21 +12,28 @@
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 
   <script>
-    // kalendar
+  // kalendar
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
       var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
           left: 'prev,next today',
           center: 'title',
-          right: 'dayGridMonth, listYear'
+          right: 'dayGridMonth,list'
         },
         initialView: 'dayGridMonth',
-        events: '/fetch-events' // Mengambil event dari endpoint ini
+        events: '/fetch-events', // Mengambil event dari endpoint ini
+        eventColor: '#225157',
+        eventClick: function(info) {
+          info.jsEvent.preventDefault(); // Prevent the browser from navigating
+
+          if (info.event.url) {
+            window.location.href = info.event.url; // Redirect to the event's URL
+          }
+        },
+        displayEventTime: false
       });
 
-      eventDisplay: '#225157'
-      eventColor: '#225157'
       calendar.render();
     });
   </script>
@@ -46,11 +53,29 @@
       line-height: 1.25rem;
       font-weight: 600;
       color: rgb(255 255 255 / var(--tw-text-opacity));
-      padding: 2px 2px 2px;
     }
 
-    fc-col-header-cell-cushion {
-      background-color: white;
+    .fc-scrollgrid-sync-inner{
+      padding: 12px;
+    }
+
+    .fc-dayGridMonth-view {
+      height:600px;
+    }
+
+    .fc-scrollgrid-section, .fc-scrollgrid-section-body, .fc-scrollgrid-section-liquid {
+      margin: 90px;
+    }
+    
+    @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint */
+      .fc-scrollgrid-sync-inner {
+        padding: 6px;
+        font-size: small;
+      }
+
+      .fc-dayGridMonth-view {
+      height:470px;
+      }
     }
   </style>
 </head>
@@ -187,10 +212,10 @@
 @endauth
 
 <!-- Berita -->
-<section id="berita" class=" p-16 sm:px-4 sm:py-8 flex flex-col justify-center">
+<section id="berita" class="h-screen p-16 sm:px-4 sm:py-8 flex flex-col justify-center">
   <div class="flex justify-between items-center w-full mb-6">
     <span class="text-secondary text-5xl sm:text-3xl font-semibold">Berita</span>
-
+    <!-- Lebih Banyak Button -->
     <button class="px-8 py-3 sm:px-4 sm:py-2 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex" onclick="window.location='{{ route('list-berita.index') }}'">
       <div class="justify-start items-center gap-8 inline-flex">
         <span class="text-white text-base sm:text-sm font-semibold cursor-pointer">Lebih Banyak</span>
@@ -202,28 +227,29 @@
       </div>
     </button>
   </div>
-  <div class="flex gap-6 sm:flex-col">
-    <div class="w-1/2 sm:w-full">
+
+  <div class="flex gap-6 sm:flex-col h-full">
+    <div class="md:w-1/2 sm:w-full sm:h-1/3">
       <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[0]->id_berita])}}">
-        <div class="h-[50rem] sm:h-[25rem] news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}'); background-size: cover; background-position: center;">
-          <div class="news-landing p-4">
+        <div class="h-full news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}'); background-size: cover; background-position: center;">
+          <div class="news-landing p-4 h-full">
             @if(isset($latestNews[0]))
             <div class="flex flex-row items-center gap-4">
               <x-icon.calendar />
               <span class="text-stone-100 text-lg font-medium sm:text-base">{{ $latestNews[0]->created_at }}</span>
-              </div>
+            </div>
             <span class="text-stone-100 text-2xl font-bold sm:text-xl">{{ $latestNews[0]->judul }}</span>
             @endif
           </div>
         </div>
       </a>
     </div>
-
-    <div class="flex flex-col w-1/2 gap-6 sm:w-full sm:gap-4">
+  
+    <div class="flex flex-col md:w-1/2 gap-6 sm:w-full sm:gap-4 sm:h-2/3">
       @for ($i = 1; $i <= 2; $i++)
       @if(isset($latestNews[$i]))
-      <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[$i]->id_berita])}}" class="h-1/2 sm:h-[12.5rem] news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}'); background-size: cover; background-position: center;">
-        <div class="news-landing p-4">
+      <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[$i]->id_berita])}}" class="h-1/2 sm:h-1/2 news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}'); background-size: cover; background-position: center;">
+        <div class="news-landing p-4 h-full">
           <div class="flex flex-row items-center gap-4">
             <x-icon.calendar />
             <span class="text-stone-100 text-lg font-medium sm:text-sm">{{ $latestNews[$i]->created_at }}</span>
@@ -267,16 +293,16 @@
 </section>
 
 <!-- Kalender -->
-<section id="agenda" class="bg-bg_color flex flex-col content-center p-16 sm:p-4 w-full gap-6 items-center h-screen">
+<section id="agenda" class="bg-bg_color sm:h-screen flex flex-col content-center p-16 sm:p-4 w-screen gap-6 items-center h-screen">
   <span class="text-main text-5xl font-semibold sm:text-3xl">Agenda</span>
-  <div class="w-3/5 sm:w-full sm:h-full text-main font-semibold " id='calendar'></div>
+  <div class="w-1/2 h-full sm:w-full sm:h-full text-main font-semibold" id='calendar'></div>
 </section>
 
 <!-- Struktur Organisasi -->
-<section id="struktur" class="h-screen sm:h-auto bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full gap-6 sm:gap-4">
+<section id="struktur" class="h-screen sm:h-screen bg-bg_color flex flex-col justify-center content-center p-16 sm:px-4 sm:py-8 w-full gap-6 sm:gap-4">
   <span class="text-cyan-900 text-5xl sm:text-3xl font-semibold text-center">Struktur Organisasi</span>
-  <div class="flex flex-center">
-    <img class="rounded-2xl" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
+  <div class="flex flex-center h-full">
+    <img class="rounded-2xl h-full" src="{{ $dataDashboard['data'][0]->image }}" alt="Image">
   </div>
 </section>
 

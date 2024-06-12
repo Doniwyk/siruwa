@@ -232,17 +232,14 @@ class NewsController extends Controller
             if ($request->ajax()) {
                 return response()->json($news);
             }
-    
-            $event = EventModel::where('status', 'Uploaded')->orderBy('created_at', 'desc')->get();
-    
-          
+
             $latestEvent = EventModel::where('status', 'Uploaded')
-                        ->where('tanggal', '>=', Carbon::today())
-                        ->orderBy('tanggal', 'asc')
-                        ->take(3)
-                        ->get();
+                    ->where('tanggal', '>=', Carbon::today())
+                    ->orderBy('tanggal', 'asc')
+                    ->take(3)
+                    ->get();
           
-            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent, 'event' => $event]);
+            return view('berita.list-berita', ['title' => 'Daftar Berita', 'news' => $news, 'latestEvent' => $latestEvent]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data berita tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }
@@ -274,9 +271,13 @@ class NewsController extends Controller
             }
     
             // Fetch events
-            $event = EventModel::where('status', 'Uploaded')->orderBy('created_at', 'desc')->get();
+            $latestEvent = EventModel::where('status', 'Uploaded')
+                    ->where('tanggal', '>=', Carbon::today())
+                    ->orderBy('tanggal', 'asc')
+                    ->take(3)
+                    ->get();
     
-            return view('berita.Artikel', ['title' => 'Artikel', 'item' => $item, 'type' => $type, 'event' => $event]);
+            return view('berita.Artikel', ['title' => 'Artikel', 'item' => $item, 'type' => $type, 'latestEvent' => $latestEvent]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan: ' . $e->getMessage())->withErrors([$e->getMessage()]);
         }

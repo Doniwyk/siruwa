@@ -6,6 +6,7 @@ use App\Contracts\AdminPaymentContract;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidatePaymentRequest;
 use App\Models\PaymentModel;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -152,9 +153,10 @@ class AdminPaymentController extends Controller
         ]);
             $validated = $validator->validated();
             $this->paymentService->storeExpense($validated);
-            $typeDocument = $request->jenis_pengeluaran == 'Iuran Sampah' ? 'sampah' : 'kematian';
 
+            $typeDocument = $request->jenis_pengeluaran == 'Iuran Sampah' ? 'sampah' : 'kematian';
             return redirect()->route('admin.data-pembayaran.add', ['typeDocument' => $typeDocument])->with('success','Berhasil menambahkan data pengeluaran');
+
         } catch (\Exception $e) {
                 return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -165,6 +167,15 @@ class AdminPaymentController extends Controller
             return response()->json($payment);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Data tidak ditemukan ' . $e->getMessage())->withErrors([$e->getMessage()]);
+        }
+    }
+
+    public function expenseHistory($idPengeluaran) {
+        try {
+            $expensesHistory = $this->paymentService->getExepnseHistory($idPengeluaran);
+            return response()->json(['success' => 'Data stored successfully', 'data' => $expensesHistory], 200);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'Failed to process data: ' . $e->getMessage()], 500);
         }
     }
 }

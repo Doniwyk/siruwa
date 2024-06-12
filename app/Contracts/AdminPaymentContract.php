@@ -19,5 +19,6 @@ interface AdminPaymentContract
     public function getFinancialData();
 
     public function storeExpense(array $validatedData);
+    public function getExepnseHistory($id);
 
 }
