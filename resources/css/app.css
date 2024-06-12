@@ -230,14 +230,14 @@ input[type=file]::file-selector-button:hover{
     }
 
     .table-parent-spk-statistic {
-        @apply w-full rounded-t-2xl bg-white table-fixed overflow-hidden border-none;
+        @apply w-full rounded-t-2xl bg-white overflow-hidden border-none;
     }
     .table-parent-spk-statistic th,
     .table-parent-spk-statistic td {
-        @apply p-3 pl-6 text-left sm:pl-3;
+        @apply p-3 pl-6 text-left sm:pl-3 overflow-hidden whitespace-nowrap;
     }
     .table-parent-spk-statistic thead th {
-        @apply text-base font-bold bg-secondary text-white;
+        @apply text-base font-bold bg-secondary text-white whitespace-nowrap;
     }
     .table-parent-spk-statistic tbody tr {
         @apply border-b-2;
