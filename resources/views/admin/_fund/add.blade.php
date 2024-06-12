@@ -136,7 +136,7 @@
                                 <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
                                     {{ $isPembayaran ? $dataRiwayatSampah->amount : "-$dataRiwayatSampah->amount" }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $dataRiwayatSampah->created_at }}</td>
-                                <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
+                                <td class="font-semibold {{ $isPembayaran ? '!text-secondary' : '!text-red-600' }}">
                                     {{ $dataRiwayatSampah->type }}</td>
                                 @if ($dataRiwayatSampah->type === 'Pengeluaran')
                                     <td>
@@ -176,7 +176,7 @@
                                 <td class="{{ $isPembayaran ? 'text-main' : 'text-red-600' }}">
                                     {{ $isPembayaran ? $dataRiwayatKematian->amount : "-$dataRiwayatKematian->amount" }}</td>
                                 <td class="sm:text-sm md:text-base">{{ $dataRiwayatKematian->created_at }}</td>
-                                <td class="font-semibold {{ $isPembayaran ? 'text-secondary' : 'text-red-600' }}">
+                                <td class="font-semibold {{ $isPembayaran ? '!text-secondary' : '!text-red-600' }}">
                                     {{ $dataRiwayatKematian->type }}</td>
                                 @if ($dataRiwayatKematian->type === 'Pengeluaran')
                                     <td>
