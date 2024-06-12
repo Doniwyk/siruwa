@@ -60,9 +60,9 @@ Manajemen Berita
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Judul Berita</th>
-                        <th class="sm:hidden md:table-cell sm:text-sm md:text-base">Tanggal Upload</th>
-                        <th class="sm:text-sm md:text-base">Aksi</th>
+                        <th >Judul Berita</th>
+                        <th class="sm:hidden md:table-cell ">Tanggal Upload</th>
+                        <th >Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-base font-medium">
@@ -73,7 +73,7 @@ Manajemen Berita
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td class="sm:text-sm md:text-base relative">
+                                <td class=" relative">
                                     <div class=" flex gap-5 text-main sm:items-center md:items-start relative">
                                         <div class="relative min-w-[8.2rem] h-20">
                                             <div
@@ -92,13 +92,13 @@ Manajemen Berita
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
+                                <td class="sm:hidden md:table-cell ">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->created_at)) }}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base">
+                                <td >
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-berita.edit', ['news' => $n->id_berita]) }}"
                                             class="hover">
@@ -146,9 +146,9 @@ Manajemen Berita
             <table class="table-parent" id="table-parent">
                 <thead>
                     <tr>
-                        <th class="sm:text-sm md:text-base">Judul Acara</th>
+                        <th >Judul Acara</th>
                         <th class="sm:hidden md:table-cell">Detail Acara</th>
-                        <th class="sm:text-sm md:text-base">Aksi</th>
+                        <th >Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-base font-medium">
@@ -159,7 +159,7 @@ Manajemen Berita
                     @else
                         @foreach ($news as $n)
                             <tr>
-                                <td class="sm:text-sm md:text-base relative">
+                                <td class=" relative">
                                     <div class=" flex gap-5 text-main sm:items-center md:items-start relative">
                                         <div class="relative min-w-[8.2rem] h-20">
                                             <div
@@ -178,13 +178,13 @@ Manajemen Berita
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
+                                <td class="sm:hidden md:table-cell ">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">{{ date('F, j Y', strtotime($n->tanggal)) }}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base">
+                                <td >
                                     <div class="action flex gap-6">
                                         <a href="{{ route('admin.manajemen-acara.edit', ['event' => $n->id_agenda]) }}"
                                             class="hover">
@@ -306,7 +306,7 @@ Manajemen Berita
                         $('#table-parent tbody').append(
                             `
                             <tr>
-                                <td class="sm:text-sm md:text-base">
+                                <td >
                                     <div class="flex gap-5 text-main">
                                         <img src="${news.url_gambar}" alt="logo" 
                                             class="w-[8.2rem] h-20 rounded-2xl">
@@ -315,13 +315,13 @@ Manajemen Berita
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
+                                <td class="sm:hidden md:table-cell ">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">${formattedDate}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base">
+                                <td >
                                     <div class="action flex gap-6">
                                         <a href="${editUrl}" 
                                             class="hover">
@@ -423,7 +423,7 @@ Manajemen Berita
                         $('#table-parent tbody').append(
                             `
                             <tr>
-                                <td class="sm:text-sm md:text-base">
+                                <td >
                                     <div class="flex gap-5 text-main">
                                         <img src="${news.url_gambar}" alt="logo" 
                                             class="w-[8.2rem] h-20 rounded-2xl">
@@ -432,13 +432,13 @@ Manajemen Berita
                                         </p>
                                     </div>
                                 </td>
-                                <td class="sm:hidden md:table-cell sm:text-sm md:text-base">
+                                <td class="sm:hidden md:table-cell ">
                                     <div class="details">
                                         <x-icon.uploaded />
                                         <label for="">${formattedDate}</label>
                                     </div>
                                 </td>
-                                <td class="sm:text-sm md:text-base">
+                                <td >
                                     <div class="action flex gap-6">
                                         <a href="${editUrl}" 
                                             class="hover">
