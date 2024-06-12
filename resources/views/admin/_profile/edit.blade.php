@@ -29,7 +29,7 @@ Edit Profil
     {{-- <div id="response-message"></div> --}}
     <div class="h1-semibold">Edit Profile</div>
     <div class="bg-white p-9 rounded-2xl flex mb-6">
-        <form action="/your-endpoint" class="flex sm:flex-col lg:flex-row gap-9 w-full " id="update-personal-data"
+        <form action="" class="flex sm:flex-col lg:flex-row gap-9 w-full " id="update-personal-data"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -154,8 +154,23 @@ Edit Profil
                         const modal = document.querySelector('#success-modal');
                         modal.classList.remove('hidden')
                     },
-                    error: function(response) {
-                        console.log(response);
+                    error: function(xhr) {
+                        console.error('Error:', xhr.responseJSON);
+                        let response = xhr.responseJSON;
+
+                        $('#update-personal-data .error-message').text('');
+
+                        if (response && response.errors) {
+                            let errors = response.errors;
+                            for (let field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    let errorMessage = errors[field][0];
+                                    $('#error-' + field).text(errorMessage);
+                                }
+                            }
+                        } else {
+                            alert('An error occurred while updating the data.');
+                        }
                     }
                 });
             });
@@ -172,8 +187,23 @@ Edit Profil
                         modal.classList.remove('hidden')
 
                     },
-                    error: function(res) {
-                        console.log(res);
+                    error: function(xhr) {
+                        console.error('Error:', xhr.responseJSON);
+                        let response = xhr.responseJSON;
+                        
+                        $('#update-password .error-message').text('');
+                        
+                        if (response && response.errors) {
+                            let errors = response.errors;
+                            for (let field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    let errorMessage = errors[field][0];
+                                    $('#error-' + field).text(errorMessage);
+                                }
+                            }
+                        } else {
+                            alert('An error occurred while updating the password.');
+                        }
                     }
                 });
             });

@@ -15,9 +15,10 @@ $type = $type ?? 'text';
             class="form-control-input {{ $type === 'date' ? 'cursor-pointer' : '' }}" 
             @if ($type === 'date') onclick="this.showPicker()" @endif
         >
-
-        <div id="error-{{$name}}" class="text-red-600 font-medium"></div>
-
+        @if ($type !== 'password')
+            <div id="error-{{$name}}" class="text-red-600 font-medium error-message"></div>
+        @endif
+        
         @if ($type === 'password')
             <img 
                 src="{{ asset('assets/icons/eye.svg') }}" 
@@ -27,5 +28,7 @@ $type = $type ?? 'text';
                 x-bind:src="showPassword ? '{{ asset('assets/icons/eye-slash.svg') }}' : '{{ asset('assets/icons/eye.svg') }}'">
         @endif
     </div>
-    <div class="error-message text-red-500 text-sm mt-1" id="error-{{ $name }}"></div>
+    @if ($type === 'password')
+        <div class="error-message text-red-600 font-medium mt-2" id="error-{{ $name }}"></div>
+    @endif
 </div>

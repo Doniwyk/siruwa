@@ -211,10 +211,10 @@
 @endauth
 
 <!-- Berita -->
-<section id="berita" class=" p-16 sm:px-4 sm:py-8 flex flex-col justify-center">
+<section id="berita" class="h-screen p-16 sm:px-4 sm:py-8 flex flex-col justify-center">
   <div class="flex justify-between items-center w-full mb-6">
     <span class="text-secondary text-5xl sm:text-3xl font-semibold">Berita</span>
-
+    <!-- Lebih Banyak Button -->
     <button class="px-8 py-3 sm:px-4 sm:py-2 bg-secondary rounded-2xl flex-col justify-start items-end gap-2.5 inline-flex" onclick="window.location='{{ route('list-berita.index') }}'">
       <div class="justify-start items-center gap-8 inline-flex">
         <span class="text-white text-base sm:text-sm font-semibold cursor-pointer">Lebih Banyak</span>
@@ -226,28 +226,29 @@
       </div>
     </button>
   </div>
-  <div class="flex gap-6 sm:flex-col">
-    <div class="w-1/2 sm:w-full">
+
+  <div class="flex gap-6 sm:flex-col h-full">
+    <div class="md:w-1/2 sm:w-full sm:h-1/3">
       <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[0]->id_berita])}}">
-        <div class="h-[50rem] sm:h-[25rem] news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}'); background-size: cover; background-position: center;">
-          <div class="news-landing p-4">
+        <div class="h-full news-container-landing" style="background-image: url('{{ $latestNews[0]->url_gambar }}'); background-size: cover; background-position: center;">
+          <div class="news-landing p-4 h-full">
             @if(isset($latestNews[0]))
             <div class="flex flex-row items-center gap-4">
               <x-icon.calendar />
               <span class="text-stone-100 text-lg font-medium sm:text-base">{{ $latestNews[0]->created_at }}</span>
-              </div>
+            </div>
             <span class="text-stone-100 text-2xl font-bold sm:text-xl">{{ $latestNews[0]->judul }}</span>
             @endif
           </div>
         </div>
       </a>
     </div>
-
-    <div class="flex flex-col w-1/2 gap-6 sm:w-full sm:gap-4">
+  
+    <div class="flex flex-col md:w-1/2 gap-6 sm:w-full sm:gap-4 sm:h-2/3">
       @for ($i = 1; $i <= 2; $i++)
       @if(isset($latestNews[$i]))
-      <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[$i]->id_berita])}}" class="h-1/2 sm:h-[12.5rem] news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}'); background-size: cover; background-position: center;">
-        <div class="news-landing p-4">
+      <a href="{{route('list-berita.show', ['type' => 'news', $latestNews[$i]->id_berita])}}" class="h-1/2 sm:h-1/2 news-container-landing" style="background-image: url('{{ $latestNews[$i]->url_gambar }}'); background-size: cover; background-position: center;">
+        <div class="news-landing p-4 h-full">
           <div class="flex flex-row items-center gap-4">
             <x-icon.calendar />
             <span class="text-stone-100 text-lg font-medium sm:text-sm">{{ $latestNews[$i]->created_at }}</span>
