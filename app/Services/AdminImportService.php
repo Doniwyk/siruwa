@@ -24,9 +24,11 @@ class AdminImportService
         // Parse the CSV file
         $csv = array_map('str_getcsv', file($file));
 
+        
         array_walk($csv, function (&$a) use ($csv) {
             $a = array_combine($csv[0], $a);
         });
+
         array_shift($csv); // Remove the first row (headers)
 
         Log::info('CSV file parsed successfully.');
@@ -106,10 +108,9 @@ class AdminImportService
                 foreach ($rowValidator->errors()->getMessages() as $key => $messages) {
                     $data[$key] = implode('', $messages);
                 }
-                // continue;
             }
             array_push($errorCsv, $data);
-            }
+        }
             
             if (count($errors) > 0) {
             $statusCsv = 'error';
