@@ -73,50 +73,72 @@ Iuran RW
                                         @php
                                             $i = 0;
                                         @endphp
-                                        @foreach ($months as $index => $month)
-                                            @php
-                                                $indexBulan = date('m', strtotime($fundData['garbage_fund'][$i]->bulan)) - 1;
-                                                $isMonthValid = date('F', strtotime($fundData['garbage_fund'][$i]->bulan)) == $englishMonths[$indexBulan];   
-                                            @endphp
+                                        @if ($fundData['garbage_fund']->isEmpty())
+                                            <td colspan="12" class="text-center">Tidak ada data</td>
+                                        @else
+                                            @foreach ($months as $index => $month)
+                                                @if (isset($fundData['garbage_fund'][$i]))
+                                                    @php
+                                                        $indexBulan = date('m', strtotime($fundData['garbage_fund'][$i]->bulan)) - 1;
+                                                        $isMonthValid = date('F', strtotime($fundData['garbage_fund'][$i]->bulan)) == $englishMonths[$indexBulan];   
+                                                    @endphp
 
-                                            @if ($englishMonths[$index] == $englishMonths[$indexBulan])
-                                                <td>
-                                                    {{ $fundData['garbage_fund'][$i]->bulan ? $fundData['garbage_fund'][$i]->status : 'Not Found' }}
-                                                </td>
-                                                @php
-                                                    $i++;
-                                                @endphp
-                                            @else
-                                                <td>
-                                                    Not Found
-                                                </td>
-                                            @endif
-                                        @endforeach
+                                                    @if ($englishMonths[$index] == $englishMonths[$indexBulan])
+                                                        <td>
+                                                            {{ $fundData['garbage_fund'][$i]->status }}
+                                                        </td>
+                                                        @php
+                                                            $i++;
+                                                        @endphp
+                                                    @else
+                                                        <td>
+                                                            Tidak ada data
+                                                        </td>
+                                                    @endif
+                                                @else
+                                                    <td>
+                                                        Tidak ada data
+                                                    </td>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                        
                                     </tr>
                                     <tr>
                                         <td class="left-header">Iuran Kematian</td>
                                         @php
                                             $i = 0;
                                         @endphp
-                                        @foreach ($months as $index => $month)
-                                            @php
-                                                $indexBulan = date('m', strtotime($fundData['death_fund'][$i]->bulan)) - 1;
-                                                $isMonthValid = date('F', strtotime($fundData['death_fund'][$i]->bulan)) == $englishMonths[$indexBulan];   
-                                            @endphp
+                                        @if ($fundData['death_fund']->isEmpty())
+                                            <td colspan="12" class="text-center">Tidak ada data</td>
+                                        @else
+                                            @foreach ($months as $index => $month)
+                                                @if (isset($fundData['death_fund'][$i]))
+                                                    @php
+                                                        $indexBulan = date('m', strtotime($fundData['death_fund'][$i]->bulan)) - 1;
+                                                        $isMonthValid = date('F', strtotime($fundData['death_fund'][$i]->bulan)) == $englishMonths[$indexBulan];   
+                                                    @endphp
 
-                                            @if ($englishMonths[$index] == $englishMonths[$indexBulan])
-                                                <td>
-                                                    {{ $fundData['death_fund'][$i]->bulan ? $fundData['death_fund'][$i]->status : 'Not Found' }}
-                                                </td>
-                                                @php
-                                                    $i++;
-                                                @endphp
-                                            @else
-                                                <td>
-                                                    Not Found
-                                                </td>
-                                            @endif
-                                        @endforeach
+                                                    @if ($englishMonths[$index] == $englishMonths[$indexBulan])
+                                                        <td>
+                                                            {{ $fundData['death_fund'][$i]->status }}
+                                                        </td>
+                                                        @php
+                                                            $i++;
+                                                        @endphp
+                                                    @else
+                                                        <td>
+                                                            Tidak ada data
+                                                        </td>
+                                                    @endif
+                                                @else
+                                                    <td>
+                                                        Tidak ada data
+                                                    </td>
+                                                @endif
+                                            @endforeach
+                                        @endif
+
                                     </tr>
                                 </tbody>
                             </table>
