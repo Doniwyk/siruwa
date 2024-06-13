@@ -40,6 +40,7 @@ class DashboardController extends Controller
     public function fetchEvents()
     {
         $events = EventModel::select('id_agenda', 'judul as title', 'tanggal as start')
+            ->where('status', 'Uploaded')
             ->get()
             ->map(function($event) {
                 $event->start = \Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i:s');
