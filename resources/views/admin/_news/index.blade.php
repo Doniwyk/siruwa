@@ -75,7 +75,7 @@ Manajemen Berita
                             <tr>
                                 <td class=" relative">
                                     <div class=" flex gap-5 text-main sm:items-center md:items-start relative">
-                                        <div class="relative min-w-[8.2rem] h-20">
+                                        <div class="relative w-[8.2rem] h-20">
                                             <div
                                                 class="animate-pulse flex items-center justify-center w-full h-full bg-gray-300 dark:bg-gray-700 rounded-2xl absolute">
                                                 <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
@@ -161,7 +161,7 @@ Manajemen Berita
                             <tr>
                                 <td class=" relative">
                                     <div class=" flex gap-5 text-main sm:items-center md:items-start relative">
-                                        <div class="relative min-w-[8.2rem] h-20">
+                                        <div class="relative w-[8.2rem] h-20">
                                             <div
                                                 class="animate-pulse flex items-center justify-center w-full h-full bg-gray-300 dark:bg-gray-700 rounded-2xl absolute">
                                                 <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
