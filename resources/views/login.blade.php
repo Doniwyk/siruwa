@@ -40,7 +40,7 @@
                 class="button-hover w-full md:w-3/4 bg-secondary rounded-2xl text-white px-6 py-3 text-base font-semibold">
                 <x-shared.loader />
                 <span >Masuk</span></button>
-            <a href="#"><span class="text-slate-400 text-base font-medium">Lupa kata sandi?</span></a>
+            
         </div>
     </form>
 
